@@ -3,27 +3,31 @@
   <ownedCommentsInternal>
     <comment Id="b006194e-a8c6-4813-a3e2-47ea2f9bfbba">
       <elementDefinition Id="e91bb46f-f01a-48fe-ba1d-b5b21875dd70" />
-      <body>user is prompted with options such as:
+      <body>the interactive setup module
+
+user is prompted with options such as:
 
 connection type
 logging on/off
-filter</body>
+filter
+
+user can start streaming and perhaps change settings on the fly (future)</body>
     </comment>
     <comment Id="c5ce868f-922e-4601-8447-09edfd9b081d">
       <elementDefinition Id="42ada2b3-065f-46e7-bbc9-1d3ba1a53eef" />
       <body>logging simply echos all messages to console.
 
-also prints any errors.</body>
+also prints any errors.
+
+it connects to events so the program actually does not need the console and log in order to work</body>
     </comment>
     <comment Id="0ce62223-d22f-4b7a-b6ce-b04791c70d2a">
       <elementDefinition Id="8a42e4c4-1eca-40ba-8dbd-f13528f89ecd" />
       <body>stream runs while program collects data
 
-any changes to filters or other stream settings require a reconnect</body>
-    </comment>
-    <comment Id="5d6660a8-fbf9-48a5-a630-c6b0d8498ac7">
-      <elementDefinition Id="01e2dd40-20ea-4452-9a9f-c4537062273c" />
-      <body>event triggering is handled by Tweetinvi</body>
+any changes to filters or other stream settings require a reconnect
+
+stream takes settings from setup program but has default settings so it can run on its own</body>
     </comment>
     <comment Id="85ee85f4-e888-4883-9afd-2b53d4f1ed63">
       <elementDefinition Id="089d5d52-d059-4d57-a027-62ed24ceb121" />
@@ -35,21 +39,12 @@ If queue becomes too large, dump tweets to file and log error, but keep program 
 
 Send old tweets after error has been noted, using different process</body>
     </comment>
+    <comment Id="4ae6603c-5ed0-41f1-9124-81fd248c51ec">
+      <elementDefinition Id="f3df3098-93ae-4067-bdf0-972c080209d7" />
+      <body>program is split into "modules" that should work separately. they are surrounded with circles.
+</body>
+    </comment>
   </ownedCommentsInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="71460c73-c806-4fa6-8854-4b6ee9ba7a5b">
-      <profileInstance Id="55731584-1559-4375-bf13-5f0c43747fb1" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="b1561051-db99-4724-a58d-028cf2e9bd24">
-      <profileInstance Id="fc647485-c9b3-4b1e-830e-f379eb92d1d0" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <activityRootModelHasActivity>
       <activity Id="9bcc1cec-2457-4305-8fa2-6e37771b1ce5" name="TweetListenerProcess" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
@@ -67,13 +62,13 @@ Send old tweets after error has been noted, using different process</body>
           <opaqueAction Id="e3804b33-5978-4d90-9304-3030daf12989" name="start program" isLeaf="false">
             <elementDefinition Id="9f5dc53a-4f39-4e55-b7df-382df8764aea" />
             <flowNodeTargets>
-              <controlFlow Id="09471468-cc47-4ed6-95f0-7d3f50470cd0" isLeaf="false">
+              <controlFlow Id="09471468-cc47-4ed6-95f0-7d3f50470cd0" guard="logging settings" isLeaf="false">
                 <decisionNodeMoniker Id="e65c3161-37d9-4460-99a2-b4fe1eafc678" LastKnownName="Decision1" />
                 <elementDefinition Id="fb2eb732-112e-41bf-9503-c1a4abc70efa" />
               </controlFlow>
             </flowNodeTargets>
             <objectFlowTargets>
-              <objectFlow Id="78991880-1006-4a73-bf03-5204e137a97e" guard="start stream" isLeaf="false" isMulticast="false" isMultireceive="false">
+              <objectFlow Id="78991880-1006-4a73-bf03-5204e137a97e" guard="connection settings" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="6b124031-1db3-42a3-abd3-f7a479136dae" LastKnownName="Stream of tweets" />
                 <elementDefinition Id="87e14d58-c29b-4f8f-b5a3-26a3a9c9bbc5" />
               </objectFlow>
@@ -109,6 +104,10 @@ Send old tweets after error has been noted, using different process</body>
                 <opaqueActionMoniker Id="a41d7978-b0d1-4e77-9881-bb3a2dabb9d2" LastKnownName="setup loop" />
                 <elementDefinition Id="1edf770c-c630-4414-812e-44dcda25e680" />
               </objectFlow>
+              <objectFlow Id="c7c3b549-c478-4cde-9aa4-d0c0ec580793" guard="settings" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="e3804b33-5978-4d90-9304-3030daf12989" LastKnownName="start program" />
+                <elementDefinition Id="3ffa6df2-953a-478d-9fa8-4cbe77c86abd" />
+              </objectFlow>
             </objectFlowTargets>
             <upperBound>
               <literalInteger Id="2578980f-51a2-4a42-8157-f02e74467e3c" name="2147483647" value="2147483647">
@@ -134,10 +133,6 @@ Send old tweets after error has been noted, using different process</body>
           <objectNode Id="1a75561e-513b-46a3-86ed-88c9ce788361" name="events" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="982117bd-1deb-472e-8e04-888c9596df8e" />
             <objectFlowTargets>
-              <objectFlow Id="9add61c3-3b55-493b-8963-09a78bb4eff3" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="99430fe2-2126-409a-9210-5d579665f00a" LastKnownName="JSON object received" />
-                <elementDefinition Id="35949212-657a-4de3-a506-24714f14c1cb" />
-              </objectFlow>
               <objectFlow Id="78be42d3-672f-4458-8fb5-778992348512" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="af3b551e-af89-4b33-852f-e10a23e14371" LastKnownName="tweet received" />
                 <elementDefinition Id="de89b32e-6e01-4835-a97d-83b7e4c5427b" />
@@ -147,7 +142,7 @@ Send old tweets after error has been noted, using different process</body>
                 <elementDefinition Id="8fd53827-cd73-4346-80e2-5d63b69047dd" />
               </objectFlow>
               <objectFlow Id="82ab0160-86a4-4261-9189-cb832d7baa64" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="f447b6e1-a95a-46a4-8392-9c6124e246c8" LastKnownName="any event" />
+                <objectNodeMoniker Id="f447b6e1-a95a-46a4-8392-9c6124e246c8" LastKnownName="any event / receive JSON" />
                 <elementDefinition Id="5881620a-11cb-4b9d-bd2e-138587eedb2c" />
               </objectFlow>
             </objectFlowTargets>
@@ -184,26 +179,6 @@ Send old tweets after error has been noted, using different process</body>
               </objectFlow>
             </objectFlowTargets>
           </opaqueAction>
-          <opaqueAction Id="a93bc5db-d616-4e7b-9a5d-13fffea6dd96" name="user interactive" isLeaf="false">
-            <elementDefinition Id="b0cc739c-4985-427b-a9fb-7609fdfc7a33" />
-          </opaqueAction>
-          <opaqueAction Id="f0d09e67-2c0b-4b46-b978-b25abc624bec" name="not user interactive" isLeaf="false">
-            <elementDefinition Id="ea541407-0cee-4dbf-bd93-134efe580d04" />
-          </opaqueAction>
-          <objectNode Id="99430fe2-2126-409a-9210-5d579665f00a" name="JSON object received" isLeaf="false" ordering="Unordered" isControlType="false">
-            <elementDefinition Id="e4320683-ab5b-4b9e-b0b0-03b1b2b2ef3e" />
-            <objectFlowTargets>
-              <objectFlow Id="2a592363-81f0-46b4-b489-6d529eae0020" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <opaqueActionMoniker Id="c52a841f-0f9f-41e4-b005-babb0072e20c" LastKnownName="log" />
-                <elementDefinition Id="ccc28f74-a654-4457-9356-7690b2a57409" />
-              </objectFlow>
-            </objectFlowTargets>
-            <upperBound>
-              <literalInteger Id="e501e22b-abf5-4edb-8b66-7d30fe7adcb9" name="2147483647" value="2147483647">
-                <elementDefinition Id="d1fe48eb-29a8-44fc-a601-e1cb27b31b8c" />
-              </literalInteger>
-            </upperBound>
-          </objectNode>
           <objectNode Id="af3b551e-af89-4b33-852f-e10a23e14371" name="tweet received" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="1830a8d3-a5bc-4c84-9f09-130bb84ce941" />
             <objectFlowTargets>
@@ -221,9 +196,9 @@ Send old tweets after error has been noted, using different process</body>
           <objectNode Id="2fd6826a-d8ee-42d6-a133-43b3248ef106" name="connect/disconnect" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="22cf4329-e8d9-4db3-8334-c5f669998a6d" />
             <objectFlowTargets>
-              <objectFlow Id="66f1b614-f1a9-4b28-8af2-6a40e312c059" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <opaqueActionMoniker Id="c52a841f-0f9f-41e4-b005-babb0072e20c" LastKnownName="log" />
-                <elementDefinition Id="4103154e-a331-4c42-9579-6e0403cea30e" />
+              <objectFlow Id="21519c2e-0b67-4628-97f0-6f56241bb77a" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="688a4562-557a-4135-bab1-743ffe290ab9" LastKnownName="disconnect handling" />
+                <elementDefinition Id="d496da08-70ff-4225-825a-a0dc4f0daf56" />
               </objectFlow>
             </objectFlowTargets>
             <upperBound>
@@ -232,23 +207,14 @@ Send old tweets after error has been noted, using different process</body>
               </literalInteger>
             </upperBound>
           </objectNode>
-          <objectNode Id="f447b6e1-a95a-46a4-8392-9c6124e246c8" name="any event" isLeaf="false" ordering="Unordered" isControlType="false">
+          <objectNode Id="f447b6e1-a95a-46a4-8392-9c6124e246c8" name="any event / receive JSON" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="6c53b423-b72a-4bb2-a32f-4aa391bc2240" />
-            <objectFlowTargets>
-              <objectFlow Id="444b9383-a5eb-48df-b4cb-2c204f79b849" guard="count" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <opaqueActionMoniker Id="c52a841f-0f9f-41e4-b005-babb0072e20c" LastKnownName="log" />
-                <elementDefinition Id="00d901fb-ec1f-41c1-b5f9-086383c0f059" />
-              </objectFlow>
-            </objectFlowTargets>
             <upperBound>
               <literalInteger Id="3c872584-2f86-4450-ad41-a62998523717" name="2147483647" value="2147483647">
                 <elementDefinition Id="580c1490-b00c-4161-a292-e6e563c23bdf" />
               </literalInteger>
             </upperBound>
           </objectNode>
-          <opaqueAction Id="c52a841f-0f9f-41e4-b005-babb0072e20c" name="log" isLeaf="false">
-            <elementDefinition Id="e1f5a41c-a985-4860-8b7e-3f3f3af8fb3a" />
-          </opaqueAction>
           <opaqueAction Id="1d579b9e-2759-4396-8c39-41bcfd12dabe" name="connect, encode, send" isLeaf="false">
             <elementDefinition Id="1ae5dc15-baf7-44c9-94f1-846ceb1be482" />
             <flowNodeTargets>
@@ -294,14 +260,79 @@ Send old tweets after error has been noted, using different process</body>
               </objectFlow>
             </objectFlowTargets>
           </opaqueAction>
-          <opaqueAction Id="6ac16a20-e1cf-491e-aaa4-309f46bfad86" name="events" isLeaf="false">
-            <elementDefinition Id="e4981b05-48ef-4043-8079-62c0e4ba5cef" />
-          </opaqueAction>
+          <objectNode Id="03c0d557-6b50-4f37-801f-6143c0e668ee" name="setup" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="92655a8a-09b8-49c8-8157-a467d4c38c41" />
+            <objectFlowTargets>
+              <objectFlow Id="836d8638-7236-423b-8605-633941a772b0" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="232975ed-8023-49a0-b67c-3e76ff6f2a79" LastKnownName="stream" />
+                <elementDefinition Id="55a57f66-fa0c-4274-bbaf-2a31d936eb7e" />
+              </objectFlow>
+              <objectFlow Id="89493bb5-fe47-496b-acad-176c387436a9" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="6ed85f6f-7016-4853-a307-bde9326dccab" LastKnownName="log" />
+                <elementDefinition Id="604aae1a-3c4a-4829-848b-254027bf25da" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="93d9e402-b24d-465e-ba8e-56105625a1a9" name="2147483647" value="2147483647">
+                <elementDefinition Id="961f5df5-e78a-4650-bcf4-94dc5b78cbab" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="6ed85f6f-7016-4853-a307-bde9326dccab" name="log" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="bbc0a92b-e4c5-4d50-8e32-8043dc0a13e9" />
+            <objectFlowTargets>
+              <objectFlow Id="367467e0-9454-4fa8-a820-20ab973aaf93" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="232975ed-8023-49a0-b67c-3e76ff6f2a79" LastKnownName="stream" />
+                <elementDefinition Id="608be1bb-ad1f-4e2c-ba0f-e555db63d2ba" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="d9b7b4e1-7347-4c5f-aac3-b79f80c9ccad" name="2147483647" value="2147483647">
+                <elementDefinition Id="e941f9dc-e07b-4bca-819b-e26cb1e4906f" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="232975ed-8023-49a0-b67c-3e76ff6f2a79" name="stream" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="937ecc6d-d228-4469-b986-4f2e2aa1d3a7" />
+            <objectFlowTargets>
+              <objectFlow Id="bfc51903-73ad-4472-aa33-cbebce97a288" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database" />
+                <elementDefinition Id="c740d9bd-8459-40b3-b381-19ea92765603" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="68c34129-edb9-45d8-b1ef-6d3942609210" name="2147483647" value="2147483647">
+                <elementDefinition Id="850e46c2-81db-46f6-8525-653eecd00ebf" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="4f02d569-ab94-431a-95d2-ea291c796afd" name="database" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="5413b306-673e-49a4-a962-552d58e86d43" />
+            <upperBound>
+              <literalInteger Id="665a09e1-9173-4759-a930-a3f737c1aecb" name="2147483647" value="2147483647">
+                <elementDefinition Id="0eb62d3e-85c8-4a1a-b3b9-25721d6ff330" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
         </nodes>
       </activity>
     </activityRootModelHasActivity>
   </packagedElements>
   <package Id="e0f12dff-8317-4cab-a230-d3dd076b625b" name="ConsoleTwitterModeling">
     <elementDefinition Id="2c04c089-2885-4b71-b9eb-91f69edc7b2e" />
+    <profileInstances>
+      <packageHasProfileInstances Id="71460c73-c806-4fa6-8854-4b6ee9ba7a5b">
+        <profileInstance Id="55731584-1559-4375-bf13-5f0c43747fb1" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="b1561051-db99-4724-a58d-028cf2e9bd24">
+        <profileInstance Id="fc647485-c9b3-4b1e-830e-f379eb92d1d0" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </activityRootModel>

@@ -6,27 +6,31 @@
   <ownedCommentsInternal>
     <comment
       Id="e91bb46f-f01a-48fe-ba1d-b5b21875dd70">
-      <body>user is prompted with options such as:
+      <body>the interactive setup module
+
+user is prompted with options such as:
 
 connection type
 logging on/off
-filter</body>
+filter
+
+user can start streaming and perhaps change settings on the fly (future)</body>
     </comment>
     <comment
       Id="42ada2b3-065f-46e7-bbc9-1d3ba1a53eef">
       <body>logging simply echos all messages to console.
 
-also prints any errors.</body>
+also prints any errors.
+
+it connects to events so the program actually does not need the console and log in order to work</body>
     </comment>
     <comment
       Id="8a42e4c4-1eca-40ba-8dbd-f13528f89ecd">
       <body>stream runs while program collects data
 
-any changes to filters or other stream settings require a reconnect</body>
-    </comment>
-    <comment
-      Id="01e2dd40-20ea-4452-9a9f-c4537062273c">
-      <body>event triggering is handled by Tweetinvi</body>
+any changes to filters or other stream settings require a reconnect
+
+stream takes settings from setup program but has default settings so it can run on its own</body>
     </comment>
     <comment
       Id="089d5d52-d059-4d57-a027-62ed24ceb121">
@@ -37,6 +41,11 @@ If fail, attempt should repeat until tweets have been successfully sent to DB.
 If queue becomes too large, dump tweets to file and log error, but keep program running if possible and send newer tweets instead.
 
 Send old tweets after error has been noted, using different process</body>
+    </comment>
+    <comment
+      Id="f3df3098-93ae-4067-bdf0-972c080209d7">
+      <body>program is split into "modules" that should work separately. they are surrounded with circles.
+</body>
     </comment>
   </ownedCommentsInternal>
   <profileInstances>
@@ -87,6 +96,7 @@ Send old tweets after error has been noted, using different process</body>
             <flowNodeTargets>
               <controlFlow
                 Id="fb2eb732-112e-41bf-9503-c1a4abc70efa"
+                guard="logging settings"
                 isLeaf="false">
                 <decisionNodeMoniker
                   Id="911205d1-d64a-4335-9cfd-c78408fdcd5d"
@@ -97,7 +107,7 @@ Send old tweets after error has been noted, using different process</body>
             <objectFlowTargets>
               <objectFlow
                 Id="87e14d58-c29b-4f8f-b5a3-26a3a9c9bbc5"
-                guard="start stream"
+                guard="connection settings"
                 isLeaf="false"
                 isMulticast="false"
                 isMultireceive="false">
@@ -169,6 +179,17 @@ Send old tweets after error has been noted, using different process</body>
                   LastKnownName="setup loop"
                   LastKnownLocation="ConsoleTwitterModeling.uml" />
               </objectFlow>
+              <objectFlow
+                Id="3ffa6df2-953a-478d-9fa8-4cbe77c86abd"
+                guard="settings"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="9f5dc53a-4f39-4e55-b7df-382df8764aea"
+                  LastKnownName="start program"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
             </objectFlowTargets>
             <upperBound>
               <literalInteger
@@ -214,16 +235,6 @@ Send old tweets after error has been noted, using different process</body>
             isControlType="false">
             <objectFlowTargets>
               <objectFlow
-                Id="35949212-657a-4de3-a506-24714f14c1cb"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <objectNodeMoniker
-                  Id="e4320683-ab5b-4b9e-b0b0-03b1b2b2ef3e"
-                  LastKnownName="JSON object received"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
-              <objectFlow
                 Id="de89b32e-6e01-4835-a97d-83b7e4c5427b"
                 isLeaf="false"
                 isMulticast="false"
@@ -250,7 +261,7 @@ Send old tweets after error has been noted, using different process</body>
                 isMultireceive="false">
                 <objectNodeMoniker
                   Id="6c53b423-b72a-4bb2-a32f-4aa391bc2240"
-                  LastKnownName="any event"
+                  LastKnownName="any event / receive JSON"
                   LastKnownLocation="ConsoleTwitterModeling.uml" />
               </objectFlow>
             </objectFlowTargets>
@@ -316,39 +327,6 @@ Send old tweets after error has been noted, using different process</body>
               </objectFlow>
             </objectFlowTargets>
           </opaqueAction>
-          <opaqueAction
-            Id="b0cc739c-4985-427b-a9fb-7609fdfc7a33"
-            name="user interactive"
-            isLeaf="false" />
-          <opaqueAction
-            Id="ea541407-0cee-4dbf-bd93-134efe580d04"
-            name="not user interactive"
-            isLeaf="false" />
-          <objectNode
-            Id="e4320683-ab5b-4b9e-b0b0-03b1b2b2ef3e"
-            name="JSON object received"
-            isLeaf="false"
-            ordering="Unordered"
-            isControlType="false">
-            <objectFlowTargets>
-              <objectFlow
-                Id="ccc28f74-a654-4457-9356-7690b2a57409"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <opaqueActionMoniker
-                  Id="e1f5a41c-a985-4860-8b7e-3f3f3af8fb3a"
-                  LastKnownName="log"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
-            </objectFlowTargets>
-            <upperBound>
-              <literalInteger
-                Id="d1fe48eb-29a8-44fc-a601-e1cb27b31b8c"
-                name="2147483647"
-                value="2147483647" />
-            </upperBound>
-          </objectNode>
           <objectNode
             Id="1830a8d3-a5bc-4c84-9f09-130bb84ce941"
             name="tweet received"
@@ -383,13 +361,13 @@ Send old tweets after error has been noted, using different process</body>
             isControlType="false">
             <objectFlowTargets>
               <objectFlow
-                Id="4103154e-a331-4c42-9579-6e0403cea30e"
+                Id="d496da08-70ff-4225-825a-a0dc4f0daf56"
                 isLeaf="false"
                 isMulticast="false"
                 isMultireceive="false">
                 <opaqueActionMoniker
-                  Id="e1f5a41c-a985-4860-8b7e-3f3f3af8fb3a"
-                  LastKnownName="log"
+                  Id="c2042c0a-8432-4b57-abe4-9dfafa6f765c"
+                  LastKnownName="disconnect handling"
                   LastKnownLocation="ConsoleTwitterModeling.uml" />
               </objectFlow>
             </objectFlowTargets>
@@ -402,23 +380,10 @@ Send old tweets after error has been noted, using different process</body>
           </objectNode>
           <objectNode
             Id="6c53b423-b72a-4bb2-a32f-4aa391bc2240"
-            name="any event"
+            name="any event / receive JSON"
             isLeaf="false"
             ordering="Unordered"
             isControlType="false">
-            <objectFlowTargets>
-              <objectFlow
-                Id="00d901fb-ec1f-41c1-b5f9-086383c0f059"
-                guard="count"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <opaqueActionMoniker
-                  Id="e1f5a41c-a985-4860-8b7e-3f3f3af8fb3a"
-                  LastKnownName="log"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
-            </objectFlowTargets>
             <upperBound>
               <literalInteger
                 Id="580c1490-b00c-4161-a292-e6e563c23bdf"
@@ -426,10 +391,6 @@ Send old tweets after error has been noted, using different process</body>
                 value="2147483647" />
             </upperBound>
           </objectNode>
-          <opaqueAction
-            Id="e1f5a41c-a985-4860-8b7e-3f3f3af8fb3a"
-            name="log"
-            isLeaf="false" />
           <opaqueAction
             Id="1ae5dc15-baf7-44c9-94f1-846ceb1be482"
             name="connect, encode, send"
@@ -514,10 +475,104 @@ Send old tweets after error has been noted, using different process</body>
               </objectFlow>
             </objectFlowTargets>
           </opaqueAction>
-          <opaqueAction
-            Id="e4981b05-48ef-4043-8079-62c0e4ba5cef"
-            name="events"
-            isLeaf="false" />
+          <objectNode
+            Id="92655a8a-09b8-49c8-8157-a467d4c38c41"
+            name="setup"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="55a57f66-fa0c-4274-bbaf-2a31d936eb7e"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="937ecc6d-d228-4469-b986-4f2e2aa1d3a7"
+                  LastKnownName="stream"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="604aae1a-3c4a-4829-848b-254027bf25da"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="bbc0a92b-e4c5-4d50-8e32-8043dc0a13e9"
+                  LastKnownName="log"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="961f5df5-e78a-4650-bcf4-94dc5b78cbab"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="bbc0a92b-e4c5-4d50-8e32-8043dc0a13e9"
+            name="log"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="608be1bb-ad1f-4e2c-ba0f-e555db63d2ba"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="937ecc6d-d228-4469-b986-4f2e2aa1d3a7"
+                  LastKnownName="stream"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="e941f9dc-e07b-4bca-819b-e26cb1e4906f"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="937ecc6d-d228-4469-b986-4f2e2aa1d3a7"
+            name="stream"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="c740d9bd-8459-40b3-b381-19ea92765603"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="5413b306-673e-49a4-a962-552d58e86d43"
+                  LastKnownName="database"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="850e46c2-81db-46f6-8525-653eecd00ebf"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="5413b306-673e-49a4-a962-552d58e86d43"
+            name="database"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="0eb62d3e-85c8-4a1a-b3b9-25721d6ff330"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
         </nodes>
       </activity>
     </packageHasNamedElement>
