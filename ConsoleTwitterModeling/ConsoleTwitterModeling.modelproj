@@ -22,6 +22,43 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
   <ItemGroup>
+    <Content Include="ConsoleTwitterClasses.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ConsoleTwitterClasses.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ConsoleTwitterClasses.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="ModelDefinition\Package1_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package2_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package3_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package4_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package5_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package6_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package7_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package8_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package9_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package_1449.uml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="TweetListenerProcess.activitydiagram">
       <SubType>Content</SubType>
     </Content>

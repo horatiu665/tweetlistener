@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="27e19389-b61f-4c9a-bc2b-695fd68368b0" name="TweetListenerProcess" linkedPackageId="e0f12dff-8317-4cab-a230-d3dd076b625b" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="27e19389-b61f-4c9a-bc2b-695fd68368b0" name="TweetListenerProcess" linkedPackageId="e0f12dff-8317-4cab-a230-d3dd076b625b" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
   <ownedCommentsInternal>
     <comment Id="b006194e-a8c6-4813-a3e2-47ea2f9bfbba">
       <elementDefinition Id="e91bb46f-f01a-48fe-ba1d-b5b21875dd70" />
@@ -45,6 +45,92 @@ Send old tweets after error has been noted, using different process</body>
 </body>
     </comment>
   </ownedCommentsInternal>
+  <appliedStereotypesInternal>
+    <stereotypeInstance Id="d3be71c5-b800-49c0-900b-aa46fe29336f" name="namespace" profile="CSharpProfile">
+      <elementDefinition Id="3a00ccf8-5085-4d5a-be21-66d7b8a4c055" />
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="ddacd36a-fdee-4a52-ac50-798b1e1ef7a1">
+          <propertyInstance Id="d9c0eb44-ebff-48d2-936c-e22fbe2c60cd" name="BaseName">
+            <elementDefinition Id="bedf05ce-4dda-4895-9449-38c6bbbd6d14" />
+          </propertyInstance>
+          <elementDefinition Id="36184915-f420-4fc9-8f62-fdeeb1b417f3" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="13977d3b-76da-4f3a-97af-7674b649a2e6">
+          <propertyInstance Id="9b58244c-a23c-47ea-83c9-ae96222d494e" name="ClrAttributes">
+            <elementDefinition Id="f8ab90a5-4f1c-4434-acd4-18bc5a0cdff8" />
+          </propertyInstance>
+          <elementDefinition Id="189a885c-34e5-474d-9514-7c4bf7149ff8" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="f5b30646-913f-44b8-8a18-330f1aed959a">
+          <propertyInstance Id="0a9c0184-3195-421d-b818-544838eeb860" name="Usings">
+            <elementDefinition Id="98c51937-d5e3-49ca-8900-1da87536e564" />
+          </propertyInstance>
+          <elementDefinition Id="f4c4a6d6-b982-45cd-8553-74e0367c0ced" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+    <stereotypeInstance Id="8d74055d-71da-482b-9909-6fe816b1ca5e" name="TextTemplateBindings" profile="TextTemplateBindings">
+      <elementDefinition Id="d9fc0764-e092-41da-8ada-a9be4fb92374" />
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="efc1ae99-334e-493e-a03e-8103c11bac13">
+          <propertyInstance Id="da426bd6-d8aa-45f2-b118-52bc00c04c7b" name="Alias" value="ClassTemplate|EnumTemplate|InterfaceTemplate|StructTemplate">
+            <elementDefinition Id="d869b79d-cd02-462d-b956-abb57f19cc52" />
+          </propertyInstance>
+          <elementDefinition Id="b5c4baf8-903d-4b76-a9fd-d8a27df3cdfe" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="0877a1d7-1f8f-47e1-8a18-ae14cf976abd">
+          <propertyInstance Id="2f201e83-46e5-49ad-8f32-3311c56acd8c" name="TemplateFilePath" value="ClassTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4|EnumTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4|InterfaceTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\InterfaceTemplate.t4|StructTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4">
+            <elementDefinition Id="6364509a-e0de-4e0f-a7f0-17fcdb189539" />
+          </propertyInstance>
+          <elementDefinition Id="72b7a3dc-fd9e-4864-81c2-6db9d4ddd230" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="09355280-5f9c-4770-bd43-47feb0d956b4">
+          <propertyInstance Id="3d59c9eb-fb28-429d-8afa-d2fbec2d5a3e" name="ProjectPath" value="ClassTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|EnumTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|InterfaceTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|StructTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj">
+            <elementDefinition Id="6b0fd327-fda3-4877-b604-5eb501be9ee1" />
+          </propertyInstance>
+          <elementDefinition Id="73421594-f896-4c4c-a264-ceac07136232" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="49b4fe4c-d218-43ff-99ea-a06aa6efd944">
+          <propertyInstance Id="01f92579-b9c0-427d-8d81-d3b5e64bddce" name="TargetDirectory" value="ClassTemplate=GeneratedCode\{PackageStructure}|EnumTemplate=GeneratedCode\{PackageStructure}|InterfaceTemplate=GeneratedCode\{PackageStructure}|StructTemplate=GeneratedCode\{PackageStructure}">
+            <elementDefinition Id="648c172a-35fa-47a1-9f1e-158f6dc3bd61" />
+          </propertyInstance>
+          <elementDefinition Id="70b3b515-3181-4e28-9d09-ca64c6d148ee" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="7efa14d2-9b39-4f01-bce5-f491bfb501c4">
+          <propertyInstance Id="09eb86a7-91e4-4fad-83ff-43b50f70fe86" name="TargetName" value="ClassTemplate={Name}|EnumTemplate={Name}|InterfaceTemplate={Name}|StructTemplate={Name}">
+            <elementDefinition Id="4bc294ec-91d4-43ea-ae2c-38198f1fbdfb" />
+          </propertyInstance>
+          <elementDefinition Id="c98e4106-b054-40cd-b219-55fd6a5c0686" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="1468622f-1d06-4e89-8f42-f2978726a7c6">
+          <propertyInstance Id="1d6a1862-899a-49bf-9b07-df033c0d0491" name="Overwrite" value="ClassTemplate=True|EnumTemplate=True|InterfaceTemplate=True|StructTemplate=True">
+            <elementDefinition Id="7f8b599a-03ac-477c-a8ed-0a443aa45fff" />
+          </propertyInstance>
+          <elementDefinition Id="9a2a6b8a-60cb-49c2-a22c-52e448e23e22" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="5c16f58c-d8ba-49b3-b923-5b15b79d1521">
+          <propertyInstance Id="cde0c56b-ce9e-4879-b686-4698907b0a5c" name="Parameters">
+            <elementDefinition Id="140f7c96-7edb-4a51-bf7f-18aa14a59228" />
+          </propertyInstance>
+          <elementDefinition Id="b7b1a2c2-c5dc-4524-9910-90d43c4e918c" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+  </appliedStereotypesInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="d08cb9c9-3bac-46a7-9aa8-a8dcfc5067fc">
+      <profileInstance Id="4c3bde05-6330-4ff7-a826-e790062faf86" name="CSharpProfile">
+        <elementDefinition Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda" />
+      </profileInstance>
+      <elementDefinition Id="c3ca8482-5d20-451b-a466-425934240d2c" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="812a3a1c-3f7d-450b-99da-9802de19598c">
+      <profileInstance Id="a02026b3-c2d0-4c96-b3d5-2e076faaaf0d" name="TextTemplateBindings">
+        <elementDefinition Id="7fea49d5-0403-49c4-86f8-1a40c5c69597" />
+      </profileInstance>
+      <elementDefinition Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85" />
+    </packageHasProfileInstances>
+  </profileInstances>
   <packagedElements>
     <activityRootModelHasActivity>
       <activity Id="9bcc1cec-2457-4305-8fa2-6e37771b1ce5" name="TweetListenerProcess" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
@@ -263,11 +349,11 @@ Send old tweets after error has been noted, using different process</body>
           <objectNode Id="03c0d557-6b50-4f37-801f-6143c0e668ee" name="setup" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="92655a8a-09b8-49c8-8157-a467d4c38c41" />
             <objectFlowTargets>
-              <objectFlow Id="836d8638-7236-423b-8605-633941a772b0" isLeaf="false" isMulticast="false" isMultireceive="false">
+              <objectFlow Id="836d8638-7236-423b-8605-633941a772b0" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="232975ed-8023-49a0-b67c-3e76ff6f2a79" LastKnownName="stream" />
                 <elementDefinition Id="55a57f66-fa0c-4274-bbaf-2a31d936eb7e" />
               </objectFlow>
-              <objectFlow Id="89493bb5-fe47-496b-acad-176c387436a9" isLeaf="false" isMulticast="false" isMultireceive="false">
+              <objectFlow Id="89493bb5-fe47-496b-acad-176c387436a9" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="6ed85f6f-7016-4853-a307-bde9326dccab" LastKnownName="log" />
                 <elementDefinition Id="604aae1a-3c4a-4829-848b-254027bf25da" />
               </objectFlow>
@@ -281,7 +367,7 @@ Send old tweets after error has been noted, using different process</body>
           <objectNode Id="6ed85f6f-7016-4853-a307-bde9326dccab" name="log" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="bbc0a92b-e4c5-4d50-8e32-8043dc0a13e9" />
             <objectFlowTargets>
-              <objectFlow Id="367467e0-9454-4fa8-a820-20ab973aaf93" isLeaf="false" isMulticast="false" isMultireceive="false">
+              <objectFlow Id="367467e0-9454-4fa8-a820-20ab973aaf93" guard="listen" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="232975ed-8023-49a0-b67c-3e76ff6f2a79" LastKnownName="stream" />
                 <elementDefinition Id="608be1bb-ad1f-4e2c-ba0f-e555db63d2ba" />
               </objectFlow>
@@ -295,7 +381,7 @@ Send old tweets after error has been noted, using different process</body>
           <objectNode Id="232975ed-8023-49a0-b67c-3e76ff6f2a79" name="stream" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="937ecc6d-d228-4469-b986-4f2e2aa1d3a7" />
             <objectFlowTargets>
-              <objectFlow Id="bfc51903-73ad-4472-aa33-cbebce97a288" isLeaf="false" isMulticast="false" isMultireceive="false">
+              <objectFlow Id="bfc51903-73ad-4472-aa33-cbebce97a288" guard="tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database" />
                 <elementDefinition Id="c740d9bd-8459-40b3-b381-19ea92765603" />
               </objectFlow>

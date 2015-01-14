@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="2c04c089-2885-4b71-b9eb-91f69edc7b2e"
   name="ConsoleTwitterModeling" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -47,7 +47,93 @@ Send old tweets after error has been noted, using different process</body>
       <body>program is split into "modules" that should work separately. they are surrounded with circles.
 </body>
     </comment>
+    <comment
+      Id="cfa05b5f-d170-4648-8ed7-28155237c8f2">
+      <body>the main entry point of the application</body>
+    </comment>
   </ownedCommentsInternal>
+  <appliedStereotypesInternal>
+    <stereotypeInstance
+      Id="3a00ccf8-5085-4d5a-be21-66d7b8a4c055"
+      name="namespace"
+      profile="CSharpProfile">
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="36184915-f420-4fc9-8f62-fdeeb1b417f3">
+          <propertyInstance
+            Id="bedf05ce-4dda-4895-9449-38c6bbbd6d14"
+            name="BaseName" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="189a885c-34e5-474d-9514-7c4bf7149ff8">
+          <propertyInstance
+            Id="f8ab90a5-4f1c-4434-acd4-18bc5a0cdff8"
+            name="ClrAttributes" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="f4c4a6d6-b982-45cd-8553-74e0367c0ced">
+          <propertyInstance
+            Id="98c51937-d5e3-49ca-8900-1da87536e564"
+            name="Usings" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+    <stereotypeInstance
+      Id="d9fc0764-e092-41da-8ada-a9be4fb92374"
+      name="TextTemplateBindings"
+      profile="TextTemplateBindings">
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="b5c4baf8-903d-4b76-a9fd-d8a27df3cdfe">
+          <propertyInstance
+            Id="d869b79d-cd02-462d-b956-abb57f19cc52"
+            name="Alias"
+            value="ClassTemplate|EnumTemplate|InterfaceTemplate|StructTemplate" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="72b7a3dc-fd9e-4864-81c2-6db9d4ddd230">
+          <propertyInstance
+            Id="6364509a-e0de-4e0f-a7f0-17fcdb189539"
+            name="TemplateFilePath"
+            value="ClassTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4|EnumTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4|InterfaceTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\InterfaceTemplate.t4|StructTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="73421594-f896-4c4c-a264-ceac07136232">
+          <propertyInstance
+            Id="6b0fd327-fda3-4877-b604-5eb501be9ee1"
+            name="ProjectPath"
+            value="ClassTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|EnumTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|InterfaceTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|StructTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="70b3b515-3181-4e28-9d09-ca64c6d148ee">
+          <propertyInstance
+            Id="648c172a-35fa-47a1-9f1e-158f6dc3bd61"
+            name="TargetDirectory"
+            value="ClassTemplate=GeneratedCode\{PackageStructure}|EnumTemplate=GeneratedCode\{PackageStructure}|InterfaceTemplate=GeneratedCode\{PackageStructure}|StructTemplate=GeneratedCode\{PackageStructure}" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="c98e4106-b054-40cd-b219-55fd6a5c0686">
+          <propertyInstance
+            Id="4bc294ec-91d4-43ea-ae2c-38198f1fbdfb"
+            name="TargetName"
+            value="ClassTemplate={Name}|EnumTemplate={Name}|InterfaceTemplate={Name}|StructTemplate={Name}" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="9a2a6b8a-60cb-49c2-a22c-52e448e23e22">
+          <propertyInstance
+            Id="7f8b599a-03ac-477c-a8ed-0a443aa45fff"
+            name="Overwrite"
+            value="ClassTemplate=True|EnumTemplate=True|InterfaceTemplate=True|StructTemplate=True" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="b7b1a2c2-c5dc-4524-9910-90d43c4e918c">
+          <propertyInstance
+            Id="140f7c96-7edb-4a51-bf7f-18aa14a59228"
+            name="Parameters" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+  </appliedStereotypesInternal>
   <profileInstances>
     <packageHasProfileInstances
       Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
@@ -60,6 +146,18 @@ Send old tweets after error has been noted, using different process</body>
       <profileInstance
         Id="532ea607-fb19-44b8-8502-3351b05452be"
         name="StandardProfileL3" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="c3ca8482-5d20-451b-a466-425934240d2c">
+      <profileInstance
+        Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda"
+        name="CSharpProfile" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85">
+      <profileInstance
+        Id="7fea49d5-0403-49c4-86f8-1a40c5c69597"
+        name="TextTemplateBindings" />
     </packageHasProfileInstances>
   </profileInstances>
   <packagedElements>
@@ -484,6 +582,7 @@ Send old tweets after error has been noted, using different process</body>
             <objectFlowTargets>
               <objectFlow
                 Id="55a57f66-fa0c-4274-bbaf-2a31d936eb7e"
+                guard="start"
                 isLeaf="false"
                 isMulticast="false"
                 isMultireceive="false">
@@ -494,6 +593,7 @@ Send old tweets after error has been noted, using different process</body>
               </objectFlow>
               <objectFlow
                 Id="604aae1a-3c4a-4829-848b-254027bf25da"
+                guard="start"
                 isLeaf="false"
                 isMulticast="false"
                 isMultireceive="false">
@@ -519,6 +619,7 @@ Send old tweets after error has been noted, using different process</body>
             <objectFlowTargets>
               <objectFlow
                 Id="608be1bb-ad1f-4e2c-ba0f-e555db63d2ba"
+                guard="listen"
                 isLeaf="false"
                 isMulticast="false"
                 isMultireceive="false">
@@ -544,6 +645,7 @@ Send old tweets after error has been noted, using different process</body>
             <objectFlowTargets>
               <objectFlow
                 Id="c740d9bd-8459-40b3-b381-19ea92765603"
+                guard="tweets"
                 isLeaf="false"
                 isMulticast="false"
                 isMultireceive="false">
@@ -575,6 +677,76 @@ Send old tweets after error has been noted, using different process</body>
           </objectNode>
         </nodes>
       </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="1c0aacb9-90ef-478d-994e-14f5ed0417a7"
+        LastKnownName="ConsoleTwitter"
+        LastKnownLocation="Package_1449.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="9ff0a46b-52d5-432e-b371-1e84be32bdac"
+        LastKnownName="System"
+        LastKnownLocation="Package1_1449.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="917a241c-3bef-4290-884e-2a1bb49d2711"
+        LastKnownName="Tweetinvi"
+        LastKnownLocation="Package2_1449.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c77bad3d-46ae-4870-9fbb-e6b35e701254"
+        name="ConsoleTwitter::Log"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="56743a81-6387-4aaa-b82e-23bdd726e132"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f0d58fb5-abf9-484e-903f-bd31f099fd54">
+                <propertyInstance
+                  Id="467d3ea9-7329-42fb-9d5a-87d383bec01f"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4f78ee92-b2b8-4070-9da4-a9edc878199b">
+                <propertyInstance
+                  Id="92ad4a5b-048b-40ec-9d9e-4c29eb96a701"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="28997661-9b9a-4a0b-8013-4488bc07d680">
+                <propertyInstance
+                  Id="89a73c21-5221-40af-ac4b-ae94b40521fc"
+                  name="IsStatic"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e990e99b-046e-4ea0-8b1b-b3ef8f816db8">
+                <propertyInstance
+                  Id="58be55c2-87d7-414f-8418-4fb860c0bd44"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5ed891a9-bef2-4e26-80f5-9ca2e6734b32">
+                <propertyInstance
+                  Id="56298e63-876a-4a5b-911a-a56db98d6978"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
