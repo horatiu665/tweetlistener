@@ -9,8 +9,11 @@ namespace ConsoleTwitter
 	/// <summary>
 	/// handles twitter stream connection (and reconnection) and tweet receiving events.
 	/// </summary>
-	class Stream
+	public static class Stream
 	{
+		public static void Start()
+		{
 
+		}
 	}
 }

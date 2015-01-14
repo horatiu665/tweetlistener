@@ -9,8 +9,11 @@ namespace ConsoleTwitter
 	/// <summary>
 	/// connects to the twitter events in the Stream and saves tweets to database in various methods.
 	/// </summary>
-	class Database
+	public static class Database
 	{
+		public static void Start()
+		{
 
+		}
 	}
 }
