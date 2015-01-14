@@ -31,11 +31,6 @@ namespace ConsoleTwitter
 		/// </summary>
 		static bool countersOn = true;
 
-		/// <summary>
-		/// when true, asks user for input to refresh interface. when false, refreshes interface every X seconds.
-		/// </summary>
-		static bool keyboardControl = false;
-
 		// max time to run program before it closes.
 		static float maxSecondsToRunStream = 0;
 
@@ -45,8 +40,6 @@ namespace ConsoleTwitter
 		// connection data saved as strings
 		static string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
 		static string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
-		static string localPhpWordsLink = @"http://localhost/hhh/testing/postData.php";
-		static string onlinePhpWordsLink = @"http://hivemindcloud.hostoi.com/postData.php";
 		static string localPhpTweetsLink = @"http://localhost/hhh/testing/saveTweet.php";
 		static string onlinePhpTweetsLink = @"http://hivemindcloud.hostoi.com/saveTweet.php";
 
@@ -60,6 +53,17 @@ namespace ConsoleTwitter
 		static bool printOutput = true;
 		static StreamWriter logWriter;
 		static string logPath = "log.txt";
+
+		/// <summary>
+		/// the stream used throughout the program
+		/// </summary>
+		static Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream;
+
+		/// <summary>
+		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
+		/// </summary>
+		static int maxTweetDatabaseSendRetries = 100;
+		static float secondsBetweenSendRetries = 1;
 
 		/// <summary>
 		/// init vars in the program
@@ -194,7 +198,7 @@ namespace ConsoleTwitter
 			//stream.TweetReceived += onTweetReceived;
 			//stream.StreamStarted += onStreamStarted;
 
-			var stream = Tweetinvi.Stream.CreateFilteredStream();
+			stream = Tweetinvi.Stream.CreateFilteredStream();
 			stream.StreamStarted += onStreamStarted;
 			stream.StreamStopped += onStreamStopped;
 			stream.MatchingTweetReceived += onMatchedTweetReceived;
@@ -224,24 +228,8 @@ namespace ConsoleTwitter
 			}
 			#endregion
 
-			// start stream = async operation. main method cannot be marked async
-			Task.Factory.StartNew(async () => {
-				//await stream.StartStreamAsync(); // for sample stream
-				await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
-			});
+			StreamStartInsist(stream);
 
-			// bullshit interface 1: working....... while stream is starting
-			var ticksToWait = DateTime.Now;
-			while (!streamStarted) {
-				// this happens every second
-				if (ticksToWait.AddSeconds(1).Ticks <= DateTime.Now.Ticks) {
-					ticksToWait = DateTime.Now;
-					
-					if (showOutput) {
-						Console.Write(". ");
-					}
-				}
-			}
 			Output();
 
 			// HERE: stream has started and can begin accepting tweets
@@ -251,7 +239,6 @@ namespace ConsoleTwitter
 			if (maxSecondsToRunStream > 0) {
 				ticksToEnd = DateTime.Now.AddSeconds(maxSecondsToRunStream).Ticks;
 			}
-			ticksToWait = DateTime.Now;
 
 			// run until press escape or ticksToEnd arrives
 			while (ticksToEnd > DateTime.Now.Ticks) {
@@ -267,6 +254,7 @@ namespace ConsoleTwitter
 			}
 
 			// good idea to stop stream so we don't get BANNED
+			streamStarted = false;
 			stream.StopStream();
 
 			Output(" exiting.");
@@ -280,26 +268,12 @@ namespace ConsoleTwitter
 			Console.ReadKey();
 		}
 
-		private static void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
-		{
-			if (e.DisconnectMessage != null) {
-				Output("Stream disconnected. Message code: " + e.DisconnectMessage.Code);
-				if (e.DisconnectMessage.Reason != null) {
-					Output("Reason: " + e.DisconnectMessage.Reason);
-				}
-			}
-			if (e.Exception != null) {
-				Output("Exception: " + e.Exception.ToString());
-			}
-		}
-
 		static void CountEvent(int i)
 		{
 			counters[i]++;
 			Output(CountersString());
 			
 		}
-
 
 		static void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
 		{
@@ -347,33 +321,67 @@ namespace ConsoleTwitter
 		}
 
 		/// <summary>
-		/// sends tweet to database via chosen method
-		/// </summary>
-		/// <param name="tweet"></param>
-		static void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet)
-		{
-			if (saveToDatabaseOrPHP) {
-				SaveToDatabase(tweet);
-
-			} else {
-				try {
-					SaveToPhp(tweet.Text);
-					SaveToPhpFullTweet(tweet);
-				}
-				catch (Exception e) {
-					Output(e.ToString());
-				}
-
-			}
-		}
-
-		/// <summary>
 		/// happens when stream starts
 		/// </summary>
 		static void onStreamStarted(object sender, EventArgs e)
 		{
 			Output("Stream successfully started");
 			streamStarted = true;
+		}
+
+		/// <summary>
+		/// called when StreamStopped Tweetinvi event triggers.
+		/// </summary>
+		private static void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
+		{
+			Output("Stream disconnected.");
+			if (e.DisconnectMessage != null) {
+				Output("Message code: " + e.DisconnectMessage.Code);
+				if (e.DisconnectMessage.Reason != null) {
+					Output("Reason: " + e.DisconnectMessage.Reason);
+				}
+			}
+			if (e.Exception != null) {
+				Output("Exception: " + e.Exception.ToString());
+			}
+			// reconnect here, if stream is currently started. when program stops intentionally, streamStarted is set to false.
+			if (streamStarted) {
+				streamStarted = false;
+				StreamStartInsist(stream);
+
+			}
+		}
+
+		/// <summary>
+		/// loops until it starts the stream.
+		/// </summary>
+		/// <param name="stream">filtered stream to start</param>
+		static void StreamStartInsist(Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream)
+		{
+			// used for not starting 1000 threads while waiting for stream to start async
+			bool awaitingThread = false;
+			while (!streamStarted) {
+				try {
+					// async way of doing it:
+					// start stream = async operation. main method cannot be marked async
+					// main method cannot be running while stream is running. that's why we make a thread. only when stream is closed this await will continue.
+					if (!awaitingThread) {
+						awaitingThread = true;
+						Task.Factory.StartNew(async () => {
+							//await stream.StartStreamAsync(); // for sample stream
+							await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
+						});
+					}
+
+					// regular way, not async
+					//stream.StartStreamMatchingAnyCondition();
+				}
+				catch (Exception e) {
+					Output("Exception, could not start stream (retrying): " + e.ToString());
+					awaitingThread = false;
+
+				}
+			}
 		}
 
 		/// <summary>
@@ -404,47 +412,34 @@ namespace ConsoleTwitter
 		}
 
 		/// <summary>
-		/// creates webrequest, encodes message, sends message via POST request to PHP page, closes connection.
+		/// sends tweet to database via chosen method
 		/// </summary>
-		/// <param name="message"></param>
-		static void SaveToPhp(string message)
+		/// <param name="tweet"></param>
+		static void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
 		{
-			// Create a request using a URL that can receive a post (link.php)
-			WebRequest request = WebRequest.Create(connectOnline ? onlinePhpWordsLink : localPhpWordsLink);
-			// Set the Method property of the request to POST.
-			request.Method = "POST";
-			// Create POST data and convert it to a byte array.
-			string postData = "words=" + message;
-			byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-			// Set the ContentType property of the WebRequest.
-			request.ContentType = "application/x-www-form-urlencoded";
-			// Set the ContentLength property of the WebRequest.
-			request.ContentLength = byteArray.Length;
-			// Get the request stream.
-			System.IO.Stream dataStream = request.GetRequestStream();
-			// Write the data to the request stream.
-			dataStream.Write(byteArray, 0, byteArray.Length);
-			// Close the Stream object.
-			dataStream.Close();
+			if (saveToDatabaseOrPHP) {
+				SaveToDatabase(tweet);
 
-			// optional response
-			// Get the response.
-			WebResponse response = request.GetResponse();
-			// Display the status.
-			Output(((HttpWebResponse)response).StatusDescription);
-			// Get the stream containing content returned by the server.
-			dataStream = response.GetResponseStream();
-			// Open the stream using a StreamReader for easy access.
-			StreamReader reader = new StreamReader(dataStream);
-			// Read the content.
-			string responseFromServer = reader.ReadToEnd();
-			// Display the content.
-			Output(responseFromServer);
-			// Clean up the streams.
-			reader.Close();
-			dataStream.Close();
-			response.Close();
-			
+			} else {
+				try {
+					SaveToPhpFullTweet(tweet);
+				}
+				catch (Exception e) {
+					Output(e.ToString());
+					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
+					if (retries < maxTweetDatabaseSendRetries) {
+						Task.Factory.StartNew(() => {
+							// wait a little and then try again
+							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;
+							while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
+							SendTweetToDatabase(tweet, retries + 1);
+
+						});
+					} else {
+						Output("Failed to send after " + retries + " tries");
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -457,8 +452,10 @@ namespace ConsoleTwitter
 			WebRequest request = WebRequest.Create(connectOnline ? onlinePhpTweetsLink : localPhpTweetsLink);
 			// Set the Method property of the request to POST.
 			request.Method = "POST";
-			// Create POST data and convert it to a byte array.
-			string postData = "tweet=" + tweet.Text;
+			// Create POST data and convert it to a byte array. 
+			// also encode tweet to avoid problems with "&"
+			string postData = "tweet=" + WebUtility.UrlEncode(tweet.Text);
+			
 			byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 			// Set the ContentType property of the WebRequest.
 			request.ContentType = "application/x-www-form-urlencoded";
