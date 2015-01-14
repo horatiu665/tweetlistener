@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES/MICROSOFT VISUAL STUDIO 11.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/ReverseEngineeringLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2015-01-14T14:49:22" Importance="High" Text="Reverse Engineering Started." />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: '70dbd342-58f2-4ac1-9efa-f8a54fb119af' -  (ClassifierTemplateParameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Boolean' -  (PrimitiveType)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Medium" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program' -  (Class)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::connectOnline' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::counters' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::countersOn' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::CountersString' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::CountEvent' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::CountEvent::i' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::curTweet' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::Init' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::keyboardControl' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::localConnectionString' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::localPhpTweetsLink' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::localPhpWordsLink' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::logPath' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::logWriter' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::Main' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::Main::args' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::maxSecondsToRunStream' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onGenericMessage' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onGenericMessage::e' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onGenericMessage::sender' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onJsonObjectReceived' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onJsonObjectReceived::e' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onJsonObjectReceived::sender' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onlineConnectionString' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onlinePhpTweetsLink' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onlinePhpWordsLink' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onMatchedTweetReceived' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onMatchedTweetReceived::e' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onMatchedTweetReceived::sender' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onStreamStarted' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onStreamStarted::e' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onStreamStarted::sender' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onStreamStopped' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onStreamStopped::e' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onStreamStopped::sender' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onTweetReceived' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onTweetReceived::e' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::onTweetReceived::sender' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::Output' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::Output::message' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::printOutput' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::Program' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SaveToDatabase' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SaveToDatabase::tweet' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::saveToDatabaseOrPHP' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SaveToPhp' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SaveToPhp::message' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SaveToPhpFullTweet' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SaveToPhpFullTweet::tweet' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SendTweetToDatabase' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::SendTweetToDatabase::tweet' -  (Parameter)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::showOutput' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::streamStarted' -  (Property)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::ConsoleTwitter::Program::TwitterCredentialsInit' -  (Operation)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::Collections' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::Collections::Generic' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::Collections::Generic::List' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::Collections::Generic::List&lt;Int32‎&gt;' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::EventArgs' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::IO' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::IO::StreamWriter' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::Object' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::System::Single' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Events' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments::JsonObjectEventArgs' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments::MatchedTweetReceivedEventArgs' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments::StreamExceptionEventArgs' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments::TweetReceivedEventArgs' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Interfaces' -  (Package)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'ConsoleTwitterModeling::Tweetinvi::Core::Interfaces::ITweet' -  (Interface)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Integer' -  (PrimitiveType)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'String' -  (PrimitiveType)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments::StreamExceptionEventArgs to ConsoleTwitterModeling::System::EventArgs (Generalization)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: ConsoleTwitterModeling::Tweetinvi::Core::Events::EventArguments::JsonObjectEventArgs to ConsoleTwitterModeling::System::EventArgs (Generalization)" />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="High" Text="(1) type(s) fully reverse engineered." />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="High" Text="(11) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
+  <Message Timestamp="2015-01-14T14:49:25" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
+</Log>

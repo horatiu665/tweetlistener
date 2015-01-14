@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="0e1f6200-ca46-4712-98bf-114a6d280e04"
+  name="EventArguments"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="609d10a6-dc0d-4d44-8741-86ef57252c46"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DTweetinvi.Core.Events.EventArguments"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="e366cc30-f7ce-4fe6-beac-3ac754eba111"
+        name="StreamExceptionEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="b927fb7a-1a43-4684-8255-0cebfa15fb8a"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FD:%2FHHH%2FTwitterProject%2FTweetListener%2Ftweetlistener%2FConsoleTwitter%2FTweetinvi.Core.dll Namespace%3DTweetinvi.Core.Events.EventArguments Type%3DStreamExceptionEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="078be414-98e8-43bc-85a0-93a9d5cc89b6"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4df43890-5d65-4417-b17f-c8a098e148a1">
+                <propertyInstance
+                  Id="2178fdda-7cc8-4fb4-b25f-7a054ba582b2"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="be4e08b2-21d5-4491-b53b-ea3811b47228">
+                <propertyInstance
+                  Id="814c4d3c-d5df-4e9f-bc47-18843fc2ddcf"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b4410ca8-1c59-45f0-8b95-29f99b323121">
+                <propertyInstance
+                  Id="370feb5c-6e32-4707-b62d-b0a4c9921688"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="83a83b68-e6a5-4429-a333-19eb94042ee5">
+                <propertyInstance
+                  Id="566fe16c-6b76-4c16-9aeb-d3319f7e6c6f"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3abb2662-e42f-46fd-8a23-bc2d959dd46f">
+                <propertyInstance
+                  Id="38360938-8755-44a3-82a3-97284940e8ea"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="3da35379-4578-4520-b5d2-6f96933dd868"
+            isSubstitutable="false">
+            <classMoniker
+              Id="320bc292-5a52-4fc4-81d7-6b790517c28f"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package1_1449.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3bba3b65-2e13-4816-a22f-7c98e2bf98c0"
+        name="JsonObjectEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="eded2115-4823-4a16-bbf5-6669dc50dc93"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FD:%2FHHH%2FTwitterProject%2FTweetListener%2Ftweetlistener%2FConsoleTwitter%2FTweetinvi.Core.dll Namespace%3DTweetinvi.Core.Events.EventArguments Type%3DJsonObjectEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="751c9ebe-9c95-4771-9b82-753dd2a4db2e"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e628ae84-ee26-42b8-9a90-09d66e9655b9">
+                <propertyInstance
+                  Id="396b4bf1-6be2-4e62-a0c8-8c431c6a5ddd"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7eec6e41-0116-4181-9bfa-819fe8478718">
+                <propertyInstance
+                  Id="f170225c-88eb-4715-8130-d8c505bb52d8"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ae724365-6acd-4373-9e07-bfa0d1511d5d">
+                <propertyInstance
+                  Id="2d3be66e-1e2f-455e-8ea5-13a23a7b1602"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9b06d382-9373-4f9d-832f-d1400eb0341e">
+                <propertyInstance
+                  Id="7b2d1b7b-be0f-4e76-af36-7944c7ccc450"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dc3f912b-957d-4195-804e-e967b444bcba">
+                <propertyInstance
+                  Id="c50b6913-a405-4a7e-901c-0ff35d5995d1"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="08f1b056-7956-4d4e-a127-05ed4605c0ab"
+            isSubstitutable="false">
+            <classMoniker
+              Id="320bc292-5a52-4fc4-81d7-6b790517c28f"
+              LastKnownName="EventArgs"
+              LastKnownLocation="Package1_1449.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c3db8993-634f-4312-8433-a555de955a8d"
+        name="MatchedTweetReceivedEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="195a20a7-9f1b-4c65-8744-caf0f7dcff22"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FD:%2FHHH%2FTwitterProject%2FTweetListener%2Ftweetlistener%2FConsoleTwitter%2FTweetinvi.Core.dll Namespace%3DTweetinvi.Core.Events.EventArguments Type%3DMatchedTweetReceivedEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="c23ada72-c987-4870-8548-ba437bc6a70d"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4f4a2c1b-4242-4876-bae4-64d7095b8c95">
+                <propertyInstance
+                  Id="b8ba7855-af1a-4622-8935-e05170df69c5"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bd43f4b2-f052-49e8-8ca1-a833983882a2">
+                <propertyInstance
+                  Id="f9a72fde-c40f-401e-89cb-ba8b14d45ac2"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="32c9c4d2-87fd-4984-9b39-f09a6f840245">
+                <propertyInstance
+                  Id="3e3ce0cc-24f2-4be9-88cd-9aef49139182"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c1f435c0-beb8-4c3d-8db3-8e5fe108e0ad">
+                <propertyInstance
+                  Id="74a80314-9143-4598-b2c3-5f7262d76129"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="192affea-2bf1-47da-adb5-6fec98974c96">
+                <propertyInstance
+                  Id="9b86b077-e264-4e68-847f-4c192649fda5"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f64c2068-c878-40f6-83ef-f1503a6b6d5f"
+        name="TweetReceivedEventArgs"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="b7725d20-16ee-4d25-9183-ec9dcb17b4c1"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FD:%2FHHH%2FTwitterProject%2FTweetListener%2Ftweetlistener%2FConsoleTwitter%2FTweetinvi.Core.dll Namespace%3DTweetinvi.Core.Events.EventArguments Type%3DTweetReceivedEventArgs"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="fb486bb8-d53d-46a1-aa6b-265b6b503802"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e5795575-3733-4024-97c5-040d1cdd5f66">
+                <propertyInstance
+                  Id="6a8cf0d9-713a-4360-a385-363f665208e0"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="586f68f6-302b-4b39-8da5-54ac65c692bf">
+                <propertyInstance
+                  Id="2427d5dc-b566-4f2c-a687-72dfabbeaefc"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1e7f0e20-f0d3-477a-8c6a-9cc98f183d70">
+                <propertyInstance
+                  Id="ef7800aa-e0e6-4c64-93f8-18e3a6fd4992"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="61b300d7-d3c0-4ae9-8dc3-bee915cc91a3">
+                <propertyInstance
+                  Id="ec3d9660-f65c-4665-875f-9f66ce1743e6"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f615c408-4527-4aa0-83c5-d346a1d06436">
+                <propertyInstance
+                  Id="ac9df405-6038-4dde-9dad-effb4973dd69"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

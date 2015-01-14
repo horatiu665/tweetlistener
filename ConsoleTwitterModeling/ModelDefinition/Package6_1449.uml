@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="d99a0631-dafe-47e9-9e79-6b0517619794"
+  name="Interfaces"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="8086c86a-4da2-4081-bed5-30306b2dc460"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DTweetinvi.Core.Interfaces"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="246b5db5-942c-4b68-b252-ad6ca814ac8e"
+        name="ITweet"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="9ed0f9d9-f0f3-493b-9b7a-dc52e3173f0b"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3Dfile:%2F%2F%2FD:%2FHHH%2FTwitterProject%2FTweetListener%2Ftweetlistener%2FConsoleTwitter%2FTweetinvi.Core.dll Namespace%3DTweetinvi.Core.Interfaces Type%3DITweet"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="c376a58d-5832-474e-82d1-6c92f9492fe0"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="aae0ec7a-a3ff-4f71-b581-8d7ed217329a">
+                <propertyInstance
+                  Id="f819baa2-051f-4254-ad01-636e72820e55"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="249e7382-bf73-49cd-ac8c-5cdfeed2fb83">
+                <propertyInstance
+                  Id="f56c1f0b-3862-44dc-bcd4-622d6e31b9e2"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ffd12b87-ff53-4c5d-abd7-75e8fee3ebf6">
+                <propertyInstance
+                  Id="3c736728-74cb-4f7b-b225-bda11e97f247"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="22507b5a-d09d-4605-a9fe-0eb3c00301eb">
+                <propertyInstance
+                  Id="f4b67483-80b0-4a1c-80d7-d7dc9fd2b370"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
