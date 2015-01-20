@@ -12,12 +12,9 @@ namespace ConsoleTwitter
 	/// </summary>
 	public static class Setup
 	{
-		public static bool connectOnline = true;
+		public static bool connectOnline = false;
 		public static bool saveToDatabaseOrPHP = false;
 
-		// show output in console.
-		public static bool showOutput = true;
-		
 		// print output to log file.
 		public static bool logOutput = true;
 		public static string logPath = "log.txt";
@@ -25,8 +22,6 @@ namespace ConsoleTwitter
 		// connection data saved as strings
 		public static string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
 		public static string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
-		public static string localPhpWordsLink = @"http://localhost/hhh/testing/postData.php";
-		public static string onlinePhpWordsLink = @"http://hivemindcloud.hostoi.com/postData.php";
 		public static string localPhpTweetsLink = @"http://localhost/hhh/testing/saveTweet.php";
 		public static string onlinePhpTweetsLink = @"http://hivemindcloud.hostoi.com/saveTweet.php";
 
@@ -45,79 +40,112 @@ namespace ConsoleTwitter
 		{
 			string command = "";
 			while (command != "run") {
-				
-				Console.WriteLine("-c: Connection will be made to "
-					+ (connectOnline ? "online. BEWARE: cannot send data directly with free plan!!!" : "localhost") 
-					+ " . Toggle using -c");
-				Console.WriteLine("-s: Data will be saved "
-					+ (saveToDatabaseOrPHP ? "directly to database" : "through PHP post request")
-					+ ". Toggle using -s");
-				Console.WriteLine("-o: Console output is "
-					+ showOutput
-					+ ". Toggle using -o");
-				Console.WriteLine("-l [<path>]: Logging to log file \"" + logPath + "\" is "
-					+ (logOutput ? "on" : "off")
-					+ ". Toggle using -l. Optional, use -l <path> to set new filename.");
-				Console.WriteLine("-t <seconds>: Stream will run "
-					+ (maxSecondsToRunStream == 0 ? "indefinitely"
-						: "for maximum " + maxSecondsToRunStream + " seconds")
-					+ ". Edit by using -t <seconds>, where <seconds> is a float. Use -t 0 for running indefinitely.");
-				Console.WriteLine("-f <filter>: Set filter keywords for stream. Current filter: "
-					+ filter + ". See Twitter API for details on how to use filter.");
-				Console.WriteLine("run: Use command \"run\" to end setup and start program");
-				command = Console.ReadLine();
-
-				if (command == "-c") {
-					connectOnline = !connectOnline;
-					
-				} else if (command == "-s") {
-					saveToDatabaseOrPHP = !saveToDatabaseOrPHP;
-					
-				} else if (command == "-o") {
-					showOutput = !showOutput;
-					
-				} else if (command == "-l") {
-					logOutput = !logOutput;
-					if (command.Length > 2) {
-						string tempPath = command.Substring(3);
-						try {
-							string fullPath = Path.GetFullPath(tempPath);
-							// if no error, path is valid
-							if (tempPath.EndsWith(".txt")) {
-								logPath = tempPath;
-							} else {
-								logPath = tempPath + ".txt";
-							}
-						}
-						catch {
-							Console.WriteLine("Path invalid. Try not to use fancy characters. Just letters and numbers");
-						}
-					}
-					
-				} else if (command.Substring(0, 2) == "-t") {
-					float.TryParse(command.Substring(3), out maxSecondsToRunStream);
-					if (maxSecondsToRunStream < 0) maxSecondsToRunStream = 0;
-					
-				} else if (command.Substring(0, 2) == "-f") {
-					filter = command.Substring(3);
-					
+				if (command != "help") {
+					// connection online/local
+					Console.WriteLine("c: \t" + "Connection made to "
+						+ (connectOnline ? "online" : "localhost")
+						);
+					// save thru PHP/direct
+					Console.WriteLine("s: \t" + "Data saved "
+						+ (saveToDatabaseOrPHP ? "directly to database" : "through PHP post request")
+						);
+					// log on/off and path
+					Console.WriteLine("l [<path>]: \t" + "Logging to log file \"" + logPath + "\" is "
+						+ (logOutput ? "on" : "off")
+						);
+					// time to run stream, 0=infinite
+					Console.WriteLine("t <seconds>: \t" + "Stream will run "
+						+ (maxSecondsToRunStream == 0 ? "indefinitely"
+							: "for max " + maxSecondsToRunStream + " seconds")
+							);
+					// filter keywords
+					Console.WriteLine("f <filter>: \t" + "Current filter: " + filter
+						);
+					Console.WriteLine("help: \t Use help for instructions");
+					// "run" to start
+					Console.WriteLine("run: \t Use run to start");
 				}
+
+				Console.Write("> ");
+				command = Console.ReadLine();
+				Console.WriteLine();
+
+				if (command.Length > 0) {
+					if (command == "c") {
+						connectOnline = !connectOnline;
+
+					} else if (command == "s") {
+						saveToDatabaseOrPHP = !saveToDatabaseOrPHP;
+
+					} else if (command.Substring(0, 1) == "l") {
+						logOutput = !logOutput;
+						if (command.Length > 1) {
+							string tempPath = command.Substring(2);
+							logPath = Log.ValidatePath(tempPath);
+						}
+
+					} else if (command.Substring(0, 1) == "t") {
+						float.TryParse(command.Substring(2), out maxSecondsToRunStream);
+						if (maxSecondsToRunStream < 0) maxSecondsToRunStream = 0;
+
+					} else if (command.Substring(0, 1) == "f") {
+						filter = command.Substring(2);
+
+					} else if (command == "run") {
+						Console.WriteLine("Running...");
+
+					} else if (command == "help") {
+						// write instructions for all commands
+						// connection online/local
+						Console.WriteLine("-c: \n\t" + "Connection made to "
+						+ (connectOnline ? "online" : "localhost")
+						+ "\n\t" + "Change connection type: localhost/online");
+						// save thru PHP/direct
+						Console.WriteLine("-s: \n\t" + "Data saved "
+						+ (saveToDatabaseOrPHP ? "directly to database" : "through PHP post request")
+						+ "\n\t" + "Change type of data saving: directly to database/through PHP POST request");
+						// log on/off and path
+						Console.WriteLine("-l [<path>]: \n\t" + "Logging to log file \"" + logPath + "\" is "
+							+ (logOutput ? "on" : "off")
+							+ "\n\t" + "Use -l <path> to set new filename.");
+						// time to run stream, 0=infinite
+						Console.WriteLine("-t <seconds>: \n\t" + "Stream will run "
+							+ (maxSecondsToRunStream == 0 ? "indefinitely"
+								: "for max " + maxSecondsToRunStream + " seconds")
+							+ ". \n\t" + "Use -t <seconds>, where <seconds> is a float. \n\t" + "Use -t 0 for running indefinitely.");
+						// filter keywords
+						Console.WriteLine("-f <filter>: \n\t" + "Set filter keywords for stream. Current filter:\n\t"
+							+ filter + "\n\t" + "See Twitter API for details on how to use filter.");
+						// "help" to see info
+						Console.WriteLine("help: \n\t" + "See this info");
+						// "run" to start
+						Console.WriteLine("run: \n\t" + "Use command \"run\" to end setup and start program");
+
+					} else {
+						Console.WriteLine("Command not recognized");
+					}
+				}
+
+				Console.WriteLine();
+
 			}
 
 			// after while loop finished, all settings are ready and other modules should start.
 
 
 			// start stream
-			Stream.Start();
+			Stream.Start(filter);
 
 			// if logging, start log
 			if (logOutput) {
-				Log.Start();
+				Log.Start(logPath);
 			}
 
 			// start database
-			Database.Start();
+			DatabaseSaver.Start();
 
+			// start viewer
+			Viewer.Start(maxSecondsToRunStream);
 
 		}
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="27e19389-b61f-4c9a-bc2b-695fd68368b0" name="TweetListenerProcess" linkedPackageId="e0f12dff-8317-4cab-a230-d3dd076b625b" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="27e19389-b61f-4c9a-bc2b-695fd68368b0" name="TweetListenerProcess1" linkedPackageId="e0f12dff-8317-4cab-a230-d3dd076b625b" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
   <ownedCommentsInternal>
     <comment Id="b006194e-a8c6-4813-a3e2-47ea2f9bfbba">
       <elementDefinition Id="e91bb46f-f01a-48fe-ba1d-b5b21875dd70" />
@@ -43,6 +43,14 @@ Send old tweets after error has been noted, using different process</body>
       <elementDefinition Id="f3df3098-93ae-4067-bdf0-972c080209d7" />
       <body>program is split into "modules" that should work separately. they are surrounded with circles.
 </body>
+    </comment>
+    <comment Id="00e83c93-55da-4e95-8b1f-0f7b8e0f4043">
+      <elementDefinition Id="ac45c923-11ad-4151-9f91-a950e1ab5511" />
+      <body>This diagram shows the process of gathering live tweets using the Streaming API and logging the results. This is the first iteration of the software, designed to be modular and somewhat "upgradeable".
+
+The system cannot be upgraded properly to perform query expansion, because the streaming API has issues with reconnections and tweets can be easily lost. A REST addition to this might create overcomplications, therefore the architecture might need to be rethought. The REST addition can be made to work as a complement of Stream, and as a viewer tool to query some manual custom queries.
+
+Distinctions must be made between various database querying and saving. There should be some possibilities for interaction with the system apart from initial setup. including undo options. therefore queries should be identifiable and made clever.</body>
     </comment>
   </ownedCommentsInternal>
   <appliedStereotypesInternal>
@@ -117,23 +125,9 @@ Send old tweets after error has been noted, using different process</body>
       </propertyInstances>
     </stereotypeInstance>
   </appliedStereotypesInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="d08cb9c9-3bac-46a7-9aa8-a8dcfc5067fc">
-      <profileInstance Id="4c3bde05-6330-4ff7-a826-e790062faf86" name="CSharpProfile">
-        <elementDefinition Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda" />
-      </profileInstance>
-      <elementDefinition Id="c3ca8482-5d20-451b-a466-425934240d2c" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="812a3a1c-3f7d-450b-99da-9802de19598c">
-      <profileInstance Id="a02026b3-c2d0-4c96-b3d5-2e076faaaf0d" name="TextTemplateBindings">
-        <elementDefinition Id="7fea49d5-0403-49c4-86f8-1a40c5c69597" />
-      </profileInstance>
-      <elementDefinition Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <activityRootModelHasActivity>
-      <activity Id="9bcc1cec-2457-4305-8fa2-6e37771b1ce5" name="TweetListenerProcess" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+      <activity Id="9bcc1cec-2457-4305-8fa2-6e37771b1ce5" name="TweetListenerProcess1" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
         <elementDefinition Id="fb55fb8d-ba43-4045-a2db-6fc8a51f3bfb" />
         <nodes>
           <initialNode Id="5e7d038b-01c3-449c-b4ff-8cf66d274be8" name="Initial1" isLeaf="false">
@@ -173,7 +167,7 @@ Send old tweets after error has been noted, using different process</body>
             <elementDefinition Id="cc6fe075-582d-460a-b8d8-612f61c185ee" />
             <objectFlowTargets>
               <objectFlow Id="64e8a334-7cf9-4ee6-b22b-6b4d9724ace0" guard="listens and logs events" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="1a75561e-513b-46a3-86ed-88c9ce788361" LastKnownName="events" />
+                <objectNodeMoniker Id="f447b6e1-a95a-46a4-8392-9c6124e246c8" LastKnownName="any event / receive JSON" />
                 <elementDefinition Id="4d80e092-8a08-437a-8484-017962962d26" />
               </objectFlow>
             </objectFlowTargets>
@@ -258,6 +252,12 @@ Send old tweets after error has been noted, using different process</body>
           </objectNode>
           <opaqueAction Id="688a4562-557a-4135-bab1-743ffe290ab9" name="disconnect handling" isLeaf="false">
             <elementDefinition Id="c2042c0a-8432-4b57-abe4-9dfafa6f765c" />
+            <flowNodeTargets>
+              <controlFlow Id="4d9a1708-e91d-44f4-8133-f247fe8aaae5" guard="lost tweets recovery" isLeaf="false">
+                <opaqueActionMoniker Id="40f0aeb1-9709-4e7c-b6ea-ed17996a1a7e" LastKnownName="REST system" />
+                <elementDefinition Id="fb976fe6-fa6d-42aa-9b76-008629c68fa0" />
+              </controlFlow>
+            </flowNodeTargets>
             <objectFlowTargets>
               <objectFlow Id="31ae4263-c406-4123-9752-da81006bd325" guard="reconnect" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="6b124031-1db3-42a3-abd3-f7a479136dae" LastKnownName="Stream of tweets" />
@@ -336,6 +336,12 @@ Send old tweets after error has been noted, using different process</body>
                 <elementDefinition Id="9b9ef68a-f5a0-44dc-aa11-b553464e99b1" />
               </controlFlow>
             </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="220241e2-a17a-497b-bbe6-44c629918cd7" guard="no error" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="dbef1b0d-6245-4c51-9998-4128f0934f39" LastKnownName="database" />
+                <elementDefinition Id="3eae3993-dcfe-40a4-a72d-05d942f0a0eb" />
+              </objectFlow>
+            </objectFlowTargets>
           </decisionNode>
           <opaqueAction Id="d527fe35-0216-43dc-babd-e1b645f64aad" name="remove from queue" isLeaf="false">
             <elementDefinition Id="7013703b-1099-4550-a849-7f326a4eff60" />
@@ -356,6 +362,10 @@ Send old tweets after error has been noted, using different process</body>
               <objectFlow Id="89493bb5-fe47-496b-acad-176c387436a9" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="6ed85f6f-7016-4853-a307-bde9326dccab" LastKnownName="log" />
                 <elementDefinition Id="604aae1a-3c4a-4829-848b-254027bf25da" />
+              </objectFlow>
+              <objectFlow Id="b34548e1-0179-415f-86dc-5a1bd3b14976" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="30f800ac-ce2f-435e-a16e-fd499eaa67c4" LastKnownName="viewer" />
+                <elementDefinition Id="aaf43bf9-76b9-4761-9a4c-ddb94b8f2043" />
               </objectFlow>
             </objectFlowTargets>
             <upperBound>
@@ -382,8 +392,12 @@ Send old tweets after error has been noted, using different process</body>
             <elementDefinition Id="937ecc6d-d228-4469-b986-4f2e2aa1d3a7" />
             <objectFlowTargets>
               <objectFlow Id="bfc51903-73ad-4472-aa33-cbebce97a288" guard="tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database" />
+                <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database saver" />
                 <elementDefinition Id="c740d9bd-8459-40b3-b381-19ea92765603" />
+              </objectFlow>
+              <objectFlow Id="a21578c2-25e8-40fc-a895-96f4c9cf481b" guard="complement" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="c7527eae-f5f3-4580-b319-b7e8b18d4707" LastKnownName="REST" />
+                <elementDefinition Id="13b37a07-4247-48a1-ac3d-d9f602440643" />
               </objectFlow>
             </objectFlowTargets>
             <upperBound>
@@ -392,11 +406,83 @@ Send old tweets after error has been noted, using different process</body>
               </literalInteger>
             </upperBound>
           </objectNode>
-          <objectNode Id="4f02d569-ab94-431a-95d2-ea291c796afd" name="database" isLeaf="false" ordering="Unordered" isControlType="false">
+          <objectNode Id="4f02d569-ab94-431a-95d2-ea291c796afd" name="database saver" isLeaf="false" ordering="Unordered" isControlType="false">
             <elementDefinition Id="5413b306-673e-49a4-a962-552d58e86d43" />
             <upperBound>
               <literalInteger Id="665a09e1-9173-4759-a930-a3f737c1aecb" name="2147483647" value="2147483647">
                 <elementDefinition Id="0eb62d3e-85c8-4a1a-b3b9-25721d6ff330" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="30f800ac-ce2f-435e-a16e-fd499eaa67c4" name="viewer" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="2cdc7d4d-8801-4a01-a31d-61ff58b6a61e" />
+            <objectFlowTargets>
+              <objectFlow Id="d7d7ce89-19f9-4764-923b-c28be6cf8410" guard="read" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database saver" />
+                <elementDefinition Id="a432ff04-2d64-4a4c-92fa-1205143d0ef4" />
+              </objectFlow>
+              <objectFlow Id="bcd55910-7cc3-4e30-b5cc-74d7141fb688" guard="read" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="6ed85f6f-7016-4853-a307-bde9326dccab" LastKnownName="log" />
+                <elementDefinition Id="b6fba085-bf78-4e93-83b8-0c0029fdce5f" />
+              </objectFlow>
+              <objectFlow Id="1541f108-6b61-45bb-8cf0-4cde7f66dd29" guard="trigger queries" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="c7527eae-f5f3-4580-b319-b7e8b18d4707" LastKnownName="REST" />
+                <elementDefinition Id="e58ceafe-39e7-4100-849d-64354bb3a598" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="cd66fe4c-e54e-450c-8723-406343d01eb5" name="2147483647" value="2147483647">
+                <elementDefinition Id="b4ed9b49-8bb4-42be-8e21-38c184590255" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="c7527eae-f5f3-4580-b319-b7e8b18d4707" name="REST" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="0afa67b8-f588-4bad-850f-b18dea9fd070" />
+            <objectFlowTargets>
+              <objectFlow Id="d83c2616-495b-4584-9a0b-cbf7e80daffa" guard="tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database saver" />
+                <elementDefinition Id="a44b0ca8-2d92-4e23-8b78-c5c69b37dcf3" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="f2c2668d-49cd-49e3-b58f-9b1edd1dc5c4" name="2147483647" value="2147483647">
+                <elementDefinition Id="9b1f105e-e3a3-4b00-b862-71702b4c4a24" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="40f0aeb1-9709-4e7c-b6ea-ed17996a1a7e" name="REST system" isLeaf="false">
+            <elementDefinition Id="b184d06a-2e29-4215-bbc5-05c5afa9e7e3" />
+            <objectFlowTargets>
+              <objectFlow Id="9473254d-dcdd-4f93-86b9-59fdb7c31aa1" guard="lost tweets (same filter as Stream)" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="c9e309fd-6ef9-4faf-babc-d0bba4a31785" LastKnownName="queue of unsent tweets" />
+                <elementDefinition Id="e1e0d0c8-12c6-43c1-8a4c-127d1943b426" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction Id="cdaed48b-6df1-491d-b4f1-c66949c17cb8" name="viewer" isLeaf="false">
+            <elementDefinition Id="e14ff5b0-f400-4b3e-9640-4d8abedb3ecb" />
+            <flowNodeTargets>
+              <controlFlow Id="06d5ab8c-ccd2-455a-a8f1-c3fb34f02b2d" guard="request tweets" isLeaf="false">
+                <opaqueActionMoniker Id="40f0aeb1-9709-4e7c-b6ea-ed17996a1a7e" LastKnownName="REST system" />
+                <elementDefinition Id="2088e9e6-a380-4703-b08f-52e584e73baf" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="efbda250-ac63-40db-a02c-5224fc1bd63d" guard="query" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="dbef1b0d-6245-4c51-9998-4128f0934f39" LastKnownName="database" />
+                <elementDefinition Id="15533ccd-00f7-4e31-87ad-0637f65ca801" />
+              </objectFlow>
+              <objectFlow Id="95af52e1-e6a1-410e-961f-84e9ab0c315f" guard="interact, read" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="92cb28c8-50ff-49da-b737-4827019129a5" LastKnownName="Console and Log" />
+                <elementDefinition Id="3e363418-d4fd-450e-89ee-b1e64fb243c0" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="dbef1b0d-6245-4c51-9998-4128f0934f39" name="database" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="b1269f3b-b65c-4850-a7ce-37c80d730a52" />
+            <upperBound>
+              <literalInteger Id="09bb0961-e5e8-4c97-ad7c-ce9b380bde21" name="2147483647" value="2147483647">
+                <elementDefinition Id="844cb3d7-fef4-4b61-b401-3cffdebd3be6" />
               </literalInteger>
             </upperBound>
           </objectNode>
@@ -418,6 +504,18 @@ Send old tweets after error has been noted, using different process</body>
           <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
         </profileInstance>
         <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="d08cb9c9-3bac-46a7-9aa8-a8dcfc5067fc">
+        <profileInstance Id="4c3bde05-6330-4ff7-a826-e790062faf86" name="CSharpProfile">
+          <elementDefinition Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda" />
+        </profileInstance>
+        <elementDefinition Id="c3ca8482-5d20-451b-a466-425934240d2c" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="812a3a1c-3f7d-450b-99da-9802de19598c">
+        <profileInstance Id="a02026b3-c2d0-4c96-b3d5-2e076faaaf0d" name="TextTemplateBindings">
+          <elementDefinition Id="7fea49d5-0403-49c4-86f8-1a40c5c69597" />
+        </profileInstance>
+        <elementDefinition Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85" />
       </packageHasProfileInstances>
     </profileInstances>
   </package>
