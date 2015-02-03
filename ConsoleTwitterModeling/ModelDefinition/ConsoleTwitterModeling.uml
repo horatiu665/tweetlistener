@@ -634,17 +634,6 @@ Distinctions must be made between various database querying and saving. There sh
                   LastKnownName="log"
                   LastKnownLocation="ConsoleTwitterModeling.uml" />
               </objectFlow>
-              <objectFlow
-                Id="aaf43bf9-76b9-4761-9a4c-ddb94b8f2043"
-                guard="start"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <objectNodeMoniker
-                  Id="2cdc7d4d-8801-4a01-a31d-61ff58b6a61e"
-                  LastKnownName="viewer"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
             </objectFlowTargets>
             <upperBound>
               <literalInteger
@@ -725,54 +714,6 @@ Distinctions must be made between various database querying and saving. There sh
             <upperBound>
               <literalInteger
                 Id="0eb62d3e-85c8-4a1a-b3b9-25721d6ff330"
-                name="2147483647"
-                value="2147483647" />
-            </upperBound>
-          </objectNode>
-          <objectNode
-            Id="2cdc7d4d-8801-4a01-a31d-61ff58b6a61e"
-            name="viewer"
-            isLeaf="false"
-            ordering="Unordered"
-            isControlType="false">
-            <objectFlowTargets>
-              <objectFlow
-                Id="a432ff04-2d64-4a4c-92fa-1205143d0ef4"
-                guard="read"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <objectNodeMoniker
-                  Id="5413b306-673e-49a4-a962-552d58e86d43"
-                  LastKnownName="database saver"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
-              <objectFlow
-                Id="b6fba085-bf78-4e93-83b8-0c0029fdce5f"
-                guard="read"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <objectNodeMoniker
-                  Id="bbc0a92b-e4c5-4d50-8e32-8043dc0a13e9"
-                  LastKnownName="log"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
-              <objectFlow
-                Id="e58ceafe-39e7-4100-849d-64354bb3a598"
-                guard="trigger queries"
-                isLeaf="false"
-                isMulticast="false"
-                isMultireceive="false">
-                <objectNodeMoniker
-                  Id="0afa67b8-f588-4bad-850f-b18dea9fd070"
-                  LastKnownName="REST"
-                  LastKnownLocation="ConsoleTwitterModeling.uml" />
-              </objectFlow>
-            </objectFlowTargets>
-            <upperBound>
-              <literalInteger
-                Id="b4ed9b49-8bb4-42be-8e21-38c184590255"
                 name="2147483647"
                 value="2147483647" />
             </upperBound>
@@ -946,6 +887,542 @@ Distinctions must be made between various database querying and saving. There sh
           </stereotypeInstance>
         </appliedStereotypesInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="bb1b3633-d874-4725-b9ae-bdaa268acc90"
+        name="Activity1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <objectNode
+            Id="f00c1c75-2067-43dd-9acc-83e313db4d3a"
+            name="Viewer (interactive)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="717db4b4-672a-44ce-a679-586a88e29db1"
+                guard="start"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="e68628d9-7480-4989-847e-25b1614b24ac"
+                  LastKnownName="Stream"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="16284f4a-325e-41b0-963c-b2f2e5b6b214"
+                guard="query"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="728a8f90-1e0e-4679-a9bc-ef8b658ef248"
+                  LastKnownName="REST"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="59e92177-5ae4-473b-b9f6-08e52dca43fe"
+                guard="start"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="d362e230-e0ec-49f2-9192-b5dc3648cca5"
+                  LastKnownName="Log"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="a86133ab-51ea-49a9-a349-c4e172389c9d"
+                guard="inspect"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="7a6ab4ae-bca6-474e-b505-6c0ff3b29c18"
+                  LastKnownName="TweetSurgeon"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="d3cf45ce-f2df-4fab-9b85-cabed56ff279"
+                guard="query (read)"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="9e0f3386-60f5-4574-838e-ef0fc77e3d5c"
+                  LastKnownName="Database (MySQL + PHP)"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="dd79bc9c-fe5e-4cd7-8790-16a6cba61909"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="e68628d9-7480-4989-847e-25b1614b24ac"
+            name="Stream"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="570a06e0-bf43-4de8-a386-180f00039dab"
+                guard="tweets"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="68829d7b-d42b-459d-907d-bcf9b643849a"
+                  LastKnownName="DatabaseSaver"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="0a49d483-be1f-4ebf-a64d-786f671b763f"
+                guard="fallback"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="728a8f90-1e0e-4679-a9bc-ef8b658ef248"
+                  LastKnownName="REST"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="98d5825f-dc1b-407d-8710-a4d02a131a5e"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="68829d7b-d42b-459d-907d-bcf9b643849a"
+            name="DatabaseSaver"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="9a781d12-4d73-4af3-be0d-8dff6b78130e"
+                guard="fwd: tweets"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="7a6ab4ae-bca6-474e-b505-6c0ff3b29c18"
+                  LastKnownName="TweetSurgeon"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="11686ec2-cfa5-4547-809d-f02d05298665"
+                guard="save tweets"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="9e0f3386-60f5-4574-838e-ef0fc77e3d5c"
+                  LastKnownName="Database (MySQL + PHP)"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="05e97720-df83-4548-9e22-865ea11dc2a0"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="728a8f90-1e0e-4679-a9bc-ef8b658ef248"
+            name="REST"
+            isLeaf="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="1858cc00-11de-47a0-966d-e70418b968bb"
+                guard="tweets"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="68829d7b-d42b-459d-907d-bcf9b643849a"
+                  LastKnownName="DatabaseSaver"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="d362e230-e0ec-49f2-9192-b5dc3648cca5"
+            name="Log"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="349035f5-5160-4060-b044-ad31fda5e421"
+                guard="attach to everything and listen"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="d362e230-e0ec-49f2-9192-b5dc3648cca5"
+                  LastKnownName="Log"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="93ee79c2-8d48-4a38-8c26-6b2d1cde9c52"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="7a6ab4ae-bca6-474e-b505-6c0ff3b29c18"
+            name="TweetSurgeon"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="46fc456a-69c1-407d-91a1-7906af30292e"
+                guard="iterate query"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="728a8f90-1e0e-4679-a9bc-ef8b658ef248"
+                  LastKnownName="REST"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="81dbacc0-dfe8-4ce2-a969-7531ee7dd050"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="9e0f3386-60f5-4574-838e-ef0fc77e3d5c"
+            name="Database (MySQL + PHP)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="a2908acb-60f6-423a-8e98-3f6745e1f39a"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <initialNode
+            Id="67edcf59-03f7-480a-ab23-a31a47c880e0"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="8f7e1151-ad25-402d-93cc-af19e4fe2114"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ebf878db-3fd6-4c2c-9386-8670f5a5f3f9"
+                  LastKnownName="interface"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <objectNode
+            Id="7258c895-f34f-4254-a05a-12397173cf4b"
+            name="connection, etc. settings1"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="32b4f451-d7aa-489d-9f8b-878f407a9dca"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="ebf878db-3fd6-4c2c-9386-8670f5a5f3f9"
+                  LastKnownName="interface"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="b13cac8d-0ed9-4a4c-9334-53f5b0f61fff"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="ebf878db-3fd6-4c2c-9386-8670f5a5f3f9"
+            name="interface"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="6defa22c-eece-4145-a4a9-e6af280cabee"
+                guard="manual queries"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c64c40fb-ce01-4340-8a81-0d39eed421d0"
+                  LastKnownName="EZ REST querying"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="bce17dee-ddd0-4d3d-8c8d-61ffaa533b2c"
+                guard="change"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="7258c895-f34f-4254-a05a-12397173cf4b"
+                  LastKnownName="connection, etc. settings1"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="38c94f25-9e9c-4baa-ba0e-dc2628a32aa9"
+                guard="start"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="69aab856-b4fe-47c6-83a6-4f4f75f3d66b"
+                  LastKnownName="Log"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="e34116e2-590b-458e-85c6-1e83ce0e5ede"
+                guard="start/stop/setup"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="54a36aab-92e7-43e9-aff7-bcb47f99c278"
+                  LastKnownName="Stream of tweets"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="69aab856-b4fe-47c6-83a6-4f4f75f3d66b"
+            name="Log"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="b1f52e61-d0b4-4f03-be52-9f101515910e"
+                guard="attach to everything and listen"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="69aab856-b4fe-47c6-83a6-4f4f75f3d66b"
+                  LastKnownName="Log"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="5bd54f8f-2f16-42f6-a641-4bdb81a1cc2c"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="54a36aab-92e7-43e9-aff7-bcb47f99c278"
+            name="Stream of tweets"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="88652195-a48d-4c7b-a4a3-cba737d59062"
+                guard="trigger events"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="351e9d28-6e0e-48a0-913d-6ffe1f724d99"
+                  LastKnownName="events"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="ef89da78-e4f3-44f6-8193-9bdb81aa5304"
+                guard="disconnect"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="8055e0e3-ad44-4896-a1b7-033fe1c85301"
+                  LastKnownName="disconnect handling"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="de589dff-1344-421f-a45f-1118c87eeef2"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="8055e0e3-ad44-4896-a1b7-033fe1c85301"
+            name="disconnect handling"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="5e49fcac-07df-432c-b8f0-e4b9eb4385a0"
+                guard="fallback"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c64c40fb-ce01-4340-8a81-0d39eed421d0"
+                  LastKnownName="EZ REST querying"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="2ba0d2e1-ea38-4aa4-8064-e0cf12cbffaa"
+                guard="reconnect"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="54a36aab-92e7-43e9-aff7-bcb47f99c278"
+                  LastKnownName="Stream of tweets"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="351e9d28-6e0e-48a0-913d-6ffe1f724d99"
+            name="events"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="f0ada987-2db7-4c15-8fec-4308d001808e"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="13c3c2c6-d8e0-4341-9c9b-06e68d58e5e5"
+                  LastKnownName="tweet received"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="3fce3d5e-5b8d-4367-8460-7460dd983584"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="ab0c4c31-ef5d-4774-88d7-ef79452307ca"
+                  LastKnownName="connect/disconnect"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+              <objectFlow
+                Id="4500bc50-971c-469c-a824-38639b12cee5"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="0c705c29-2d90-4b30-b6d3-e07f9b30211d"
+                  LastKnownName="any event / receive JSON"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="9385e5a4-a4d9-48f1-8682-9b6c817705b2"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="0c705c29-2d90-4b30-b6d3-e07f9b30211d"
+            name="any event / receive JSON"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="1e418bfa-94c4-415b-a56a-1a7124b2e94a"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="ab0c4c31-ef5d-4774-88d7-ef79452307ca"
+            name="connect/disconnect"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="49c48bc5-9a8d-4613-9b0c-12bf8a896236"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <opaqueActionMoniker
+                  Id="8055e0e3-ad44-4896-a1b7-033fe1c85301"
+                  LastKnownName="disconnect handling"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="d1abe64e-bb13-408f-8f7e-9719dc711b25"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="13c3c2c6-d8e0-4341-9c9b-06e68d58e5e5"
+            name="tweet received"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="262b7948-f3ac-4e57-834f-576e0de1a883"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="c64c40fb-ce01-4340-8a81-0d39eed421d0"
+            name="EZ REST querying"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="19cf4d7f-769a-4393-a4ed-12dfa1b7be73"
+                guard="manual query results"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ebf878db-3fd6-4c2c-9386-8670f5a5f3f9"
+                  LastKnownName="interface"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

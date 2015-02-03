@@ -100,10 +100,16 @@ namespace ConsoleTwitter
 			};
 
 			// bind to any exception
-			ExceptionHandler.WebExceptionReceived += (s, a) => {
-				var exception = (Tweetinvi.Core.Exceptions.ITwitterException)a.Value;
-				var statusCode = exception.StatusCode;
-				Output("Web exception received. Status code " + statusCode + "\n" + exception.ToString());
+			//ExceptionHandler.WebExceptionReceived += (s, a) => {
+			//	var exception = (Tweetinvi.Core.Exceptions.ITwitterException)a.Value;
+			//	var statusCode = exception.StatusCode;
+			//	if (exception != null && statusCode != null) {
+			//		Output("Web exception received. Status code " + statusCode + "\n" + exception.ToString());
+			//	}
+			//};
+
+			DatabaseSaver.Message += (s) => {
+				Output(s);
 			};
 			
 		}

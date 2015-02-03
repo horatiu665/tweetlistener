@@ -363,10 +363,6 @@ Distinctions must be made between various database querying and saving. There sh
                 <objectNodeMoniker Id="6ed85f6f-7016-4853-a307-bde9326dccab" LastKnownName="log" />
                 <elementDefinition Id="604aae1a-3c4a-4829-848b-254027bf25da" />
               </objectFlow>
-              <objectFlow Id="b34548e1-0179-415f-86dc-5a1bd3b14976" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="30f800ac-ce2f-435e-a16e-fd499eaa67c4" LastKnownName="viewer" />
-                <elementDefinition Id="aaf43bf9-76b9-4761-9a4c-ddb94b8f2043" />
-              </objectFlow>
             </objectFlowTargets>
             <upperBound>
               <literalInteger Id="93d9e402-b24d-465e-ba8e-56105625a1a9" name="2147483647" value="2147483647">
@@ -411,28 +407,6 @@ Distinctions must be made between various database querying and saving. There sh
             <upperBound>
               <literalInteger Id="665a09e1-9173-4759-a930-a3f737c1aecb" name="2147483647" value="2147483647">
                 <elementDefinition Id="0eb62d3e-85c8-4a1a-b3b9-25721d6ff330" />
-              </literalInteger>
-            </upperBound>
-          </objectNode>
-          <objectNode Id="30f800ac-ce2f-435e-a16e-fd499eaa67c4" name="viewer" isLeaf="false" ordering="Unordered" isControlType="false">
-            <elementDefinition Id="2cdc7d4d-8801-4a01-a31d-61ff58b6a61e" />
-            <objectFlowTargets>
-              <objectFlow Id="d7d7ce89-19f9-4764-923b-c28be6cf8410" guard="read" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="4f02d569-ab94-431a-95d2-ea291c796afd" LastKnownName="database saver" />
-                <elementDefinition Id="a432ff04-2d64-4a4c-92fa-1205143d0ef4" />
-              </objectFlow>
-              <objectFlow Id="bcd55910-7cc3-4e30-b5cc-74d7141fb688" guard="read" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="6ed85f6f-7016-4853-a307-bde9326dccab" LastKnownName="log" />
-                <elementDefinition Id="b6fba085-bf78-4e93-83b8-0c0029fdce5f" />
-              </objectFlow>
-              <objectFlow Id="1541f108-6b61-45bb-8cf0-4cde7f66dd29" guard="trigger queries" isLeaf="false" isMulticast="false" isMultireceive="false">
-                <objectNodeMoniker Id="c7527eae-f5f3-4580-b319-b7e8b18d4707" LastKnownName="REST" />
-                <elementDefinition Id="e58ceafe-39e7-4100-849d-64354bb3a598" />
-              </objectFlow>
-            </objectFlowTargets>
-            <upperBound>
-              <literalInteger Id="cd66fe4c-e54e-450c-8723-406343d01eb5" name="2147483647" value="2147483647">
-                <elementDefinition Id="b4ed9b49-8bb4-42be-8e21-38c184590255" />
               </literalInteger>
             </upperBound>
           </objectNode>

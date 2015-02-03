@@ -16,14 +16,16 @@ namespace ConsoleTwitter
 	public static class DatabaseSaver
 	{
 
-		public static bool connectOnline = true;
-		public static bool saveToDatabaseOrPHP = false;
+		public static bool connectOnline;
+		public static bool saveToDatabaseOrPhp;
 
 		// connection data saved as strings
 		public static string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
 		public static string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
 		public static string localPhpTweetsLink = @"http://localhost/hhh/testing/saveTweet.php";
 		public static string onlinePhpTweetsLink = @"http://hivemindcloud.hostoi.com/saveTweet.php";
+		public static string localPhpJsonLink = @"http://localhost/hhh/testing/php/saveJson.php";
+		public static string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
 
 		/// <summary>
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
@@ -32,16 +34,25 @@ namespace ConsoleTwitter
 		static float secondsBetweenSendRetries = 1;
 
 		// event triggered every time there is some error that must be logged
-		public static event DatabaseErrorHandler Error;
+		public static event DatabaseSaverMessage Message;
 
-		public delegate void DatabaseErrorHandler(string message);
+		public delegate void DatabaseSaverMessage(string message);
 
 		/// <summary>
 		/// starts database module which binds to receive tweet event, and saves data to database.
 		/// </summary>
-		public static void Start()
+		public static void Start(bool connectOnline, bool saveToDatabaseOrPhp)
 		{
+			DatabaseSaver.connectOnline = connectOnline;
+			DatabaseSaver.saveToDatabaseOrPhp = saveToDatabaseOrPhp;
+
 			Stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
+			Stream.stream.JsonObjectReceived += onJsonObjectReceived;
+		}
+
+		private static void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
+		{
+			SendJsonToDatabase(e.Json);
 		}
 
 		/// <summary>
@@ -49,7 +60,63 @@ namespace ConsoleTwitter
 		/// </summary>
 		static void onMatchedTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
 		{
-			SendTweetToDatabase(e.Tweet);
+			//SendTweetToDatabase(e.Tweet);
+
+		}
+
+		static void SendJsonToDatabase(string json)
+		{
+			if (saveToDatabaseOrPhp) {
+				Console.WriteLine("Send to database not supported, only PHP");
+			} else {
+				SaveToPhpFullJson(json);
+
+			}
+		}
+
+		static void SaveToPhpFullJson(string json)
+		{
+			// Create a request using a URL that can receive a post (link.php)
+			WebRequest request = WebRequest.Create(connectOnline ? onlinePhpJsonLink : localPhpJsonLink);
+			// Set the Method property of the request to POST.
+			request.Method = "POST";
+			// Create POST data and convert it to a byte array. 
+			// also encode tweet to avoid problems with "&"
+			string postData = "json=" + WebUtility.UrlEncode(json);
+
+			byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+			// Set the ContentType property of the WebRequest.
+			request.ContentType = "application/x-www-form-urlencoded";
+			// Set the ContentLength property of the WebRequest.
+			request.ContentLength = byteArray.Length;
+			// Get the request stream.
+			System.IO.Stream dataStream = request.GetRequestStream();
+			// Write the data to the request stream.
+			dataStream.Write(byteArray, 0, byteArray.Length);
+			// Close the Stream object.
+			dataStream.Close();
+
+			// optional response
+			// Get the response.
+			WebResponse response = request.GetResponse();
+			// Display the status.
+			if (Message != null) {
+				Message(((HttpWebResponse)response).StatusDescription);
+			}
+			// Get the stream containing content returned by the server.
+			dataStream = response.GetResponseStream();
+			// Open the stream using a StreamReader for easy access.
+			StreamReader reader = new StreamReader(dataStream);
+			// Read the content.
+			string responseFromServer = reader.ReadToEnd();
+			// Display the content.
+			if (Message != null) {
+				Message(responseFromServer);
+			}
+			// Clean up the streams.
+			reader.Close();
+			dataStream.Close();
+			response.Close();
 
 		}
 
@@ -60,7 +127,7 @@ namespace ConsoleTwitter
 		/// <param name="tweet"></param>
 		static void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
 		{
-			if (saveToDatabaseOrPHP) {
+			if (saveToDatabaseOrPhp) {
 				SaveToDatabase(tweet);
 
 			} else {
@@ -68,8 +135,8 @@ namespace ConsoleTwitter
 					SaveToPhpFullTweet(tweet);
 				}
 				catch (Exception e) {
-					if (Error != null) {
-						Error(e.ToString());
+					if (Message != null) {
+						Message(e.ToString());
 					}
 					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
 					if (retries < maxTweetDatabaseSendRetries) {
@@ -81,8 +148,8 @@ namespace ConsoleTwitter
 
 						});
 					} else {
-						if (Error != null) {
-							Error("Failed to send after " + retries + " tries");
+						if (Message != null) {
+							Message("Failed to send after " + retries + " tries");
 						}
 					}
 				}
@@ -119,8 +186,8 @@ namespace ConsoleTwitter
 			// Get the response.
 			WebResponse response = request.GetResponse();
 			// Display the status.
-			if (Error != null) {
-				Error(((HttpWebResponse)response).StatusDescription);
+			if (Message != null) {
+				Message(((HttpWebResponse)response).StatusDescription);
 			}
 			// Get the stream containing content returned by the server.
 			dataStream = response.GetResponseStream();
@@ -129,8 +196,8 @@ namespace ConsoleTwitter
 			// Read the content.
 			string responseFromServer = reader.ReadToEnd();
 			// Display the content.
-			if (Error != null) {
-				Error(responseFromServer);
+			if (Message != null) {
+				Message(responseFromServer);
 			}
 			// Clean up the streams.
 			reader.Close();
@@ -150,8 +217,8 @@ namespace ConsoleTwitter
 			try {
 				MySqlConnection connection = new MySqlConnection(connectionString);
 				connection.Open();
-				if (Error != null) {
-					Error("Connection to " + connectionString + " opened successfully");
+				if (Message != null) {
+					Message("Connection to " + connectionString + " opened successfully");
 				}
 
 				string query = "";
@@ -190,8 +257,8 @@ namespace ConsoleTwitter
 
 				while (reader.Read()) {
 					foreach (var r in reader) {
-						if (Error != null) {
-							Error(r.ToString());
+						if (Message != null) {
+							Message(r.ToString());
 						}
 					}
 				}
@@ -202,12 +269,12 @@ namespace ConsoleTwitter
 			catch (MySqlException e) {
 
 				if (e.Number == 1045) {
-					if (Error != null) {
-						Error("Invalid username or password");
+					if (Message != null) {
+						Message("Invalid username or password");
 					}
 				} else {
-					if (Error != null) {
-						Error(e.ToString());
+					if (Message != null) {
+						Message(e.ToString());
 
 					}
 				}

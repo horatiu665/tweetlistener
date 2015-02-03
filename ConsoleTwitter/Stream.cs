@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tweetinvi;
+using System.Threading;
 
 namespace ConsoleTwitter
 {
@@ -122,6 +123,7 @@ namespace ConsoleTwitter
 			#endregion
 
 			StreamStartInsist(stream);
+			//StreamStartInsistBetter(stream);
 
 			Viewer.AppExit += Stop;
 
@@ -165,7 +167,7 @@ namespace ConsoleTwitter
 			bool awaitingThread = false;
 			while (!streamStarted) {
 				try {
-					bool asyncMethod = false;
+					bool asyncMethod = true;
 
 					// choose async or sync connection. both using threads.
 					if (asyncMethod) {
@@ -176,9 +178,13 @@ namespace ConsoleTwitter
 							awaitingThread = true;
 							Task.Factory.StartNew(async () => {
 								await Task.Delay(reconnectDelayMillis);
-								//await stream.StartStreamAsync(); // for sample stream
-								await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
-
+								try {
+									//await stream.StartStreamAsync(); // for sample stream
+									await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
+								}
+								catch (Exception e) {
+									Console.WriteLine(e.ToString());
+								}
 							});
 						}
 					} else {
@@ -202,6 +208,42 @@ namespace ConsoleTwitter
 					// increase delay between reconnect attempts, because we could get banned
 					reconnectDelayMillis *= 2;
 
+				}
+			}
+		}
+		
+		static string streamStatus = "none";
+
+		private static void StreamStartInsistBetter(Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream)
+		{
+			Console.WriteLine("///////////Starting stream better");
+			// try to start stream until we succeed
+			while (streamStatus != "successfully started") {
+				Console.WriteLine(streamStatus);
+				Thread.Sleep(1000);
+				try {
+					// only try again if we are not currently trying to start a stream.
+					if (streamStatus != "waiting to start") {
+						Console.WriteLine("//////////////waiting to start is now true");
+						streamStatus = "waiting to start";
+						Task.Factory.StartNew(() => {
+							Console.WriteLine("////////////////Start delay");
+							Task.Delay(reconnectDelayMillis);
+							Console.WriteLine("//////////Finish delay. start await for async");
+							//await stream.StartStreamAsync(); // for sample stream
+							stream.StartStreamMatchingAnyCondition(); // for filtered stream
+							streamStatus = "successfully started";
+							Console.WriteLine("/////////////////Successfully started");
+						});
+					}
+				}
+				catch (Exception e) {
+					if (Error != null) {
+						Error("Exception, could not start stream (retrying): " + e.ToString());
+					}
+					streamStatus = "error";
+					Console.WriteLine("/////////////////////Error happened.trying again I guess");
+					reconnectDelayMillis *= 2;
 				}
 			}
 		}
@@ -231,8 +273,9 @@ namespace ConsoleTwitter
 			if (streamStarted) {
 				streamStarted = false;
 				StreamStartInsist(stream);
-
+			//	StreamStartInsistBetter(stream);
 			}
+
 		}
 
 		private static void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)

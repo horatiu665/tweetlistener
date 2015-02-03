@@ -66,6 +66,13 @@
       <SubType>Content</SubType>
       <DependentUpon>TweetListenerProcess1.activitydiagram</DependentUpon>
     </Content>
+    <Content Include="TweetListenerProcess2.activitydiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="TweetListenerProcess2.activitydiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>TweetListenerProcess2.activitydiagram</DependentUpon>
+    </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\ConsoleTwitterModeling.uml">
       <SubType>Content</SubType>

@@ -13,20 +13,17 @@ namespace ConsoleTwitter
 	public static class Setup
 	{
 		public static bool connectOnline = false;
-		public static bool saveToDatabaseOrPHP = false;
+		public static bool saveToDatabaseOrPhp = false;
 
 		// print output to log file.
 		public static bool logOutput = true;
 		public static string logPath = "log.txt";
 
-		// connection data saved as strings
-		public static string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
-		public static string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
-		public static string localPhpTweetsLink = @"http://localhost/hhh/testing/saveTweet.php";
-		public static string onlinePhpTweetsLink = @"http://hivemindcloud.hostoi.com/saveTweet.php";
-
 		// max time to run Stream program before it closes.
 		public static float maxSecondsToRunStream = 0;
+
+		// max tweets to receive before stopping stream.
+		public static int maxTweetsToRunStream = 0;
 
 		/// <summary>
 		/// filter used for twitter stream
@@ -47,16 +44,18 @@ namespace ConsoleTwitter
 						);
 					// save thru PHP/direct
 					Console.WriteLine("s: \t" + "Data saved "
-						+ (saveToDatabaseOrPHP ? "directly to database" : "through PHP post request")
+						+ (saveToDatabaseOrPhp ? "directly to database" : "through PHP post request")
 						);
 					// log on/off and path
-					Console.WriteLine("l [<path>]: \t" + "Logging to log file \"" + logPath + "\" is "
+					Console.WriteLine("l <path>: \t" + "Logging to log file \"" + logPath + "\" is "
 						+ (logOutput ? "on" : "off")
 						);
 					// time to run stream, 0=infinite
-					Console.WriteLine("t <seconds>: \t" + "Stream will run "
-						+ (maxSecondsToRunStream == 0 ? "indefinitely"
-							: "for max " + maxSecondsToRunStream + " seconds")
+					Console.WriteLine("t [s <seconds>] [t <tweets>]: \t" + "Stream will run "
+						+ (maxTweetsToRunStream == 0 ? (
+							(maxSecondsToRunStream == 0 ? "indefinitely"
+								: "for max " + maxSecondsToRunStream + " seconds")
+							) : "until " + maxTweetsToRunStream + " tweets are received")
 							);
 					// filter keywords
 					Console.WriteLine("f <filter>: \t" + "Current filter: " + filter
@@ -75,7 +74,7 @@ namespace ConsoleTwitter
 						connectOnline = !connectOnline;
 
 					} else if (command == "s") {
-						saveToDatabaseOrPHP = !saveToDatabaseOrPHP;
+						saveToDatabaseOrPhp = !saveToDatabaseOrPhp;
 
 					} else if (command.Substring(0, 1) == "l") {
 						logOutput = !logOutput;
@@ -85,8 +84,25 @@ namespace ConsoleTwitter
 						}
 
 					} else if (command.Substring(0, 1) == "t") {
-						float.TryParse(command.Substring(2), out maxSecondsToRunStream);
-						if (maxSecondsToRunStream < 0) maxSecondsToRunStream = 0;
+						if (command.Substring(2, 1) == "s") {
+							float.TryParse(command.Substring(4), out maxSecondsToRunStream);
+							if (maxSecondsToRunStream < 0) {
+								maxSecondsToRunStream = 0;
+							}
+							if (maxSecondsToRunStream > 0) {
+								maxTweetsToRunStream = 0;
+							}
+						} else if (command.Substring(2, 1) == "t") {
+							int.TryParse(command.Substring(4), out maxTweetsToRunStream);
+							if (maxTweetsToRunStream < 0) {
+								maxTweetsToRunStream = 0;
+							}
+							if (maxTweetsToRunStream > 0) {
+								maxSecondsToRunStream = 0;
+							}
+						} else {
+							Console.WriteLine("Argument unrecognized. Use > t s <seconds> for max seconds, or >t <tweets> for max tweets.");
+						}
 
 					} else if (command.Substring(0, 1) == "f") {
 						filter = command.Substring(2);
@@ -97,24 +113,29 @@ namespace ConsoleTwitter
 					} else if (command == "help") {
 						// write instructions for all commands
 						// connection online/local
-						Console.WriteLine("-c: \n\t" + "Connection made to "
+						Console.WriteLine("c: \n\t" + "Connection made to "
 						+ (connectOnline ? "online" : "localhost")
 						+ "\n\t" + "Change connection type: localhost/online");
 						// save thru PHP/direct
-						Console.WriteLine("-s: \n\t" + "Data saved "
-						+ (saveToDatabaseOrPHP ? "directly to database" : "through PHP post request")
+						Console.WriteLine("s: \n\t" + "Data saved "
+						+ (saveToDatabaseOrPhp ? "directly to database" : "through PHP post request")
 						+ "\n\t" + "Change type of data saving: directly to database/through PHP POST request");
 						// log on/off and path
-						Console.WriteLine("-l [<path>]: \n\t" + "Logging to log file \"" + logPath + "\" is "
+						Console.WriteLine("l <path>: \n\t" + "Logging to log file \"" + logPath + "\" is "
 							+ (logOutput ? "on" : "off")
-							+ "\n\t" + "Use -l <path> to set new filename.");
+							+ "\n\t" + "Use > l <path> to set new filename.");
 						// time to run stream, 0=infinite
-						Console.WriteLine("-t <seconds>: \n\t" + "Stream will run "
-							+ (maxSecondsToRunStream == 0 ? "indefinitely"
-								: "for max " + maxSecondsToRunStream + " seconds")
-							+ ". \n\t" + "Use -t <seconds>, where <seconds> is a float. \n\t" + "Use -t 0 for running indefinitely.");
+						Console.WriteLine("t [s <seconds>] [t <tweets>]: \n\t" + "Stream will run "
+							+ (maxTweetsToRunStream == 0 ? (
+								(maxSecondsToRunStream == 0 ? "indefinitely"
+									: "for max " + maxSecondsToRunStream + " seconds")
+								) : "until " + maxTweetsToRunStream + " tweets are received")
+							+ ". \n\t" + "Use > t s <seconds>, where <seconds> is a float."
+							+ ". \n\t" + "Use > t s 0 for running indefinitely."
+							+ ". \n\t" + "Use > t t <tweets> for running until <tweets> tweets are received."
+							);
 						// filter keywords
-						Console.WriteLine("-f <filter>: \n\t" + "Set filter keywords for stream. Current filter:\n\t"
+						Console.WriteLine("f <filter>: \n\t" + "Set filter keywords for stream. Current filter:\n\t"
 							+ filter + "\n\t" + "See Twitter API for details on how to use filter.");
 						// "help" to see info
 						Console.WriteLine("help: \n\t" + "See this info");
@@ -142,10 +163,10 @@ namespace ConsoleTwitter
 			}
 
 			// start database
-			DatabaseSaver.Start();
+			DatabaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
 
 			// start viewer
-			Viewer.Start(maxSecondsToRunStream);
+			Viewer.Start(maxSecondsToRunStream, maxTweetsToRunStream);
 
 		}
 

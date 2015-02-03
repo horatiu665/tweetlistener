@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="0326732d-f540-41ba-9e5d-a15f4c573ba1" name="Activity1" linkedPackageId="b59c8372-d58e-4e45-acdc-742505923bb4" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <appliedStereotypesInternal>
+    <stereotypeInstance Id="e2866cb3-0a1e-4edb-acb2-ce792614737f" name="namespace" profile="CSharpProfile">
+      <elementDefinition Id="3a00ccf8-5085-4d5a-be21-66d7b8a4c055" />
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="09b21356-00dc-48fe-911e-e83f84d08e78">
+          <propertyInstance Id="2ec3265c-7d68-456e-85c5-0962d65177a2" name="BaseName">
+            <elementDefinition Id="bedf05ce-4dda-4895-9449-38c6bbbd6d14" />
+          </propertyInstance>
+          <elementDefinition Id="36184915-f420-4fc9-8f62-fdeeb1b417f3" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="63178160-cc9c-4d7a-b959-1868b02b5678">
+          <propertyInstance Id="64bda389-702c-4e81-a00b-6680ff372526" name="ClrAttributes">
+            <elementDefinition Id="f8ab90a5-4f1c-4434-acd4-18bc5a0cdff8" />
+          </propertyInstance>
+          <elementDefinition Id="189a885c-34e5-474d-9514-7c4bf7149ff8" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="a5c3bd00-0393-4ec0-899f-fa6ccf905bbf">
+          <propertyInstance Id="27c7e1d6-36e8-4e8b-9435-22b114820ef0" name="Usings">
+            <elementDefinition Id="98c51937-d5e3-49ca-8900-1da87536e564" />
+          </propertyInstance>
+          <elementDefinition Id="f4c4a6d6-b982-45cd-8553-74e0367c0ced" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+    <stereotypeInstance Id="3cdc269f-5fab-4af8-a5a2-00666e973fd3" name="TextTemplateBindings" profile="TextTemplateBindings">
+      <elementDefinition Id="d9fc0764-e092-41da-8ada-a9be4fb92374" />
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="15d66bb5-f1e0-4c59-86d4-0b9564bd9233">
+          <propertyInstance Id="47951ba0-06e2-4305-adff-5b2db74b08b5" name="Alias" value="ClassTemplate|EnumTemplate|InterfaceTemplate|StructTemplate">
+            <elementDefinition Id="d869b79d-cd02-462d-b956-abb57f19cc52" />
+          </propertyInstance>
+          <elementDefinition Id="b5c4baf8-903d-4b76-a9fd-d8a27df3cdfe" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="0c407f5a-2c1d-4d50-9626-8a5df6e2695e">
+          <propertyInstance Id="89d75dc4-d08e-41b4-897d-1e3b86f4470b" name="TemplateFilePath" value="ClassTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4|EnumTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4|InterfaceTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\InterfaceTemplate.t4|StructTemplate=C:\PROGRAM FILES\MICROSOFT VISUAL STUDIO 11.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4">
+            <elementDefinition Id="6364509a-e0de-4e0f-a7f0-17fcdb189539" />
+          </propertyInstance>
+          <elementDefinition Id="72b7a3dc-fd9e-4864-81c2-6db9d4ddd230" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="634d12d6-db78-4dab-843c-42d022725002">
+          <propertyInstance Id="9e4dab51-6d2e-41a5-8e6d-1ad57d69bbcf" name="ProjectPath" value="ClassTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|EnumTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|InterfaceTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj|StructTemplate=..\ConsoleTwitterModelingLib\ConsoleTwitterModelingLib.csproj">
+            <elementDefinition Id="6b0fd327-fda3-4877-b604-5eb501be9ee1" />
+          </propertyInstance>
+          <elementDefinition Id="73421594-f896-4c4c-a264-ceac07136232" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="be534ef0-4b10-4be4-8d4e-6088dff8e8f2">
+          <propertyInstance Id="97f54624-158c-4668-9414-2c7cf1716652" name="TargetDirectory" value="ClassTemplate=GeneratedCode\{PackageStructure}|EnumTemplate=GeneratedCode\{PackageStructure}|InterfaceTemplate=GeneratedCode\{PackageStructure}|StructTemplate=GeneratedCode\{PackageStructure}">
+            <elementDefinition Id="648c172a-35fa-47a1-9f1e-158f6dc3bd61" />
+          </propertyInstance>
+          <elementDefinition Id="70b3b515-3181-4e28-9d09-ca64c6d148ee" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="6cf191e0-742b-4890-99a5-517b9ee3bd23">
+          <propertyInstance Id="09084c6c-6933-4966-90d1-8999ff613e68" name="TargetName" value="ClassTemplate={Name}|EnumTemplate={Name}|InterfaceTemplate={Name}|StructTemplate={Name}">
+            <elementDefinition Id="4bc294ec-91d4-43ea-ae2c-38198f1fbdfb" />
+          </propertyInstance>
+          <elementDefinition Id="c98e4106-b054-40cd-b219-55fd6a5c0686" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="68732320-ac30-4336-a5fd-73cab927a2dd">
+          <propertyInstance Id="656b9bf8-b19a-4f49-88f6-e86383314699" name="Overwrite" value="ClassTemplate=True|EnumTemplate=True|InterfaceTemplate=True|StructTemplate=True">
+            <elementDefinition Id="7f8b599a-03ac-477c-a8ed-0a443aa45fff" />
+          </propertyInstance>
+          <elementDefinition Id="9a2a6b8a-60cb-49c2-a22c-52e448e23e22" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances Id="1f620f9d-1b2d-468b-a06f-24ffa5e0df04">
+          <propertyInstance Id="3d9aa5de-f76b-4bd3-9e3b-7cc8f311c853" name="Parameters">
+            <elementDefinition Id="140f7c96-7edb-4a51-bf7f-18aa14a59228" />
+          </propertyInstance>
+          <elementDefinition Id="b7b1a2c2-c5dc-4524-9910-90d43c4e918c" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
+  </appliedStereotypesInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="adc9635a-c03f-4559-8207-0fd91ce6b8bb" name="Activity1" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="bb1b3633-d874-4725-b9ae-bdaa268acc90" />
+        <nodes>
+          <objectNode Id="d99add7d-dc1e-4489-98a7-1aa5bcfd9c14" name="Viewer (interactive)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="f00c1c75-2067-43dd-9acc-83e313db4d3a" />
+            <objectFlowTargets>
+              <objectFlow Id="e4919a2d-e0a9-4c6e-a35b-b8d8ff8ad930" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="04db7a50-8652-4b55-b528-0a74df098355" LastKnownName="Stream" />
+                <elementDefinition Id="717db4b4-672a-44ce-a679-586a88e29db1" />
+              </objectFlow>
+              <objectFlow Id="09b8eef3-6e23-4184-85b7-4c2bb2a49a9e" guard="query" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="e6cad55e-5e52-4b60-b086-f29a42154a43" LastKnownName="REST" />
+                <elementDefinition Id="16284f4a-325e-41b0-963c-b2f2e5b6b214" />
+              </objectFlow>
+              <objectFlow Id="c183c2bf-a2d9-4a15-91c3-a9178bb00e5a" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="ac6849fc-c56f-49f1-96f9-78dbc973aa88" LastKnownName="Log" />
+                <elementDefinition Id="59e92177-5ae4-473b-b9f6-08e52dca43fe" />
+              </objectFlow>
+              <objectFlow Id="20ce2b5f-5e83-4d81-b8dd-879f5939becc" guard="inspect" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="875d23e6-9d16-40d0-abd2-27278079d79a" LastKnownName="TweetSurgeon" />
+                <elementDefinition Id="a86133ab-51ea-49a9-a349-c4e172389c9d" />
+              </objectFlow>
+              <objectFlow Id="d9b90064-ab00-438f-91e0-95b3a37399a2" guard="query (read)" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="4610ec28-9772-4ee2-a6df-4dba53060420" LastKnownName="Database (MySQL + PHP)" />
+                <elementDefinition Id="d3cf45ce-f2df-4fab-9b85-cabed56ff279" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="3cc4e3d5-e99d-4883-bb07-ce6bb457eab3" name="2147483647" value="2147483647">
+                <elementDefinition Id="dd79bc9c-fe5e-4cd7-8790-16a6cba61909" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="04db7a50-8652-4b55-b528-0a74df098355" name="Stream" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="e68628d9-7480-4989-847e-25b1614b24ac" />
+            <objectFlowTargets>
+              <objectFlow Id="57d89fa6-0bdd-447f-8da0-c639c56e0e32" guard="tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="8a1404fa-094e-4a19-abac-881ad6487476" LastKnownName="DatabaseSaver" />
+                <elementDefinition Id="570a06e0-bf43-4de8-a386-180f00039dab" />
+              </objectFlow>
+              <objectFlow Id="509bed60-7085-4ef6-bd83-af166224b73a" guard="fallback" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="e6cad55e-5e52-4b60-b086-f29a42154a43" LastKnownName="REST" />
+                <elementDefinition Id="0a49d483-be1f-4ebf-a64d-786f671b763f" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="014317fb-bf7d-420c-ae69-8cdcc6bf847a" name="2147483647" value="2147483647">
+                <elementDefinition Id="98d5825f-dc1b-407d-8710-a4d02a131a5e" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="8a1404fa-094e-4a19-abac-881ad6487476" name="DatabaseSaver" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="68829d7b-d42b-459d-907d-bcf9b643849a" />
+            <objectFlowTargets>
+              <objectFlow Id="bc835b87-5e53-4948-be27-7e94eeaa0cf7" guard="fwd: tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="875d23e6-9d16-40d0-abd2-27278079d79a" LastKnownName="TweetSurgeon" />
+                <elementDefinition Id="9a781d12-4d73-4af3-be0d-8dff6b78130e" />
+              </objectFlow>
+              <objectFlow Id="ff278a0b-2d67-4817-90a0-39bbb94a6545" guard="save tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="4610ec28-9772-4ee2-a6df-4dba53060420" LastKnownName="Database (MySQL + PHP)" />
+                <elementDefinition Id="11686ec2-cfa5-4547-809d-f02d05298665" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="8a4095c2-470f-4b92-aa0e-fb53085e6823" name="2147483647" value="2147483647">
+                <elementDefinition Id="05e97720-df83-4548-9e22-865ea11dc2a0" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="e6cad55e-5e52-4b60-b086-f29a42154a43" name="REST" isLeaf="false">
+            <elementDefinition Id="728a8f90-1e0e-4679-a9bc-ef8b658ef248" />
+            <objectFlowTargets>
+              <objectFlow Id="1bea496f-67a5-4e96-85cf-e45c365e539c" guard="tweets" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="8a1404fa-094e-4a19-abac-881ad6487476" LastKnownName="DatabaseSaver" />
+                <elementDefinition Id="1858cc00-11de-47a0-966d-e70418b968bb" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="ac6849fc-c56f-49f1-96f9-78dbc973aa88" name="Log" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="d362e230-e0ec-49f2-9192-b5dc3648cca5" />
+            <objectFlowTargets>
+              <objectFlow Id="461b0dae-c275-46b2-ada3-ab424ac5f372" guard="attach to everything and listen" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="ac6849fc-c56f-49f1-96f9-78dbc973aa88" LastKnownName="Log" />
+                <elementDefinition Id="349035f5-5160-4060-b044-ad31fda5e421" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="852da332-19a8-4805-8e77-b482b6c1d912" name="2147483647" value="2147483647">
+                <elementDefinition Id="93ee79c2-8d48-4a38-8c26-6b2d1cde9c52" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="875d23e6-9d16-40d0-abd2-27278079d79a" name="TweetSurgeon" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="7a6ab4ae-bca6-474e-b505-6c0ff3b29c18" />
+            <objectFlowTargets>
+              <objectFlow Id="7b55a795-a4ff-4a12-b2be-052f056f83be" guard="iterate query" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="e6cad55e-5e52-4b60-b086-f29a42154a43" LastKnownName="REST" />
+                <elementDefinition Id="46fc456a-69c1-407d-91a1-7906af30292e" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="0e022bf4-78cd-468e-b7be-a0167cd08b12" name="2147483647" value="2147483647">
+                <elementDefinition Id="81dbacc0-dfe8-4ce2-a969-7531ee7dd050" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="4610ec28-9772-4ee2-a6df-4dba53060420" name="Database (MySQL + PHP)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="9e0f3386-60f5-4574-838e-ef0fc77e3d5c" />
+            <upperBound>
+              <literalInteger Id="59373e3d-70b6-4788-a639-bfda428c4661" name="2147483647" value="2147483647">
+                <elementDefinition Id="a2908acb-60f6-423a-8e98-3f6745e1f39a" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <initialNode Id="a614735a-deb4-4a18-bbc0-821390a645c6" name="Initial1" isLeaf="false">
+            <elementDefinition Id="67edcf59-03f7-480a-ab23-a31a47c880e0" />
+            <flowNodeTargets>
+              <controlFlow Id="c305b4b7-6d8f-413b-8d2c-92084d77978d" isLeaf="false">
+                <opaqueActionMoniker Id="af2957d2-3cac-4ce0-b0e0-abb72cad681e" LastKnownName="interface" />
+                <elementDefinition Id="8f7e1151-ad25-402d-93cc-af19e4fe2114" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <objectNode Id="0f4f9996-c255-4ee5-b3a8-f20e9816e0bc" name="connection, etc. settings1" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="7258c895-f34f-4254-a05a-12397173cf4b" />
+            <objectFlowTargets>
+              <objectFlow Id="78e66af8-89bb-41a4-b6a2-bfc293aad891" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="af2957d2-3cac-4ce0-b0e0-abb72cad681e" LastKnownName="interface" />
+                <elementDefinition Id="32b4f451-d7aa-489d-9f8b-878f407a9dca" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="95614db7-a22e-491d-b4fb-20f4fd250aae" name="2147483647" value="2147483647">
+                <elementDefinition Id="b13cac8d-0ed9-4a4c-9334-53f5b0f61fff" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="af2957d2-3cac-4ce0-b0e0-abb72cad681e" name="interface" isLeaf="false">
+            <elementDefinition Id="ebf878db-3fd6-4c2c-9386-8670f5a5f3f9" />
+            <flowNodeTargets>
+              <controlFlow Id="6f0a41e4-3e94-458f-9cdd-86514555e02c" guard="manual queries" isLeaf="false">
+                <opaqueActionMoniker Id="f4e12e4d-c8ad-4658-b6cb-4ecd6505339f" LastKnownName="EZ REST querying" />
+                <elementDefinition Id="6defa22c-eece-4145-a4a9-e6af280cabee" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="93ed88d7-c350-40fa-b243-63d701d68a1d" guard="change" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="0f4f9996-c255-4ee5-b3a8-f20e9816e0bc" LastKnownName="connection, etc. settings1" />
+                <elementDefinition Id="bce17dee-ddd0-4d3d-8c8d-61ffaa533b2c" />
+              </objectFlow>
+              <objectFlow Id="5c6b2cae-c7c9-4746-a2d0-a673981a9aad" guard="start" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="607c30cd-6c74-45ce-ab97-dcfb8cef76e5" LastKnownName="Log" />
+                <elementDefinition Id="38c94f25-9e9c-4baa-ba0e-dc2628a32aa9" />
+              </objectFlow>
+              <objectFlow Id="42c46898-3d55-4152-b27a-50f8406367b6" guard="start/stop/setup" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="eb0598fb-923a-401d-b376-8c666ceee52d" LastKnownName="Stream of tweets" />
+                <elementDefinition Id="e34116e2-590b-458e-85c6-1e83ce0e5ede" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="607c30cd-6c74-45ce-ab97-dcfb8cef76e5" name="Log" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="69aab856-b4fe-47c6-83a6-4f4f75f3d66b" />
+            <objectFlowTargets>
+              <objectFlow Id="9b16f522-4424-4442-b411-8279e7d23cb9" guard="attach to everything and listen" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="607c30cd-6c74-45ce-ab97-dcfb8cef76e5" LastKnownName="Log" />
+                <elementDefinition Id="b1f52e61-d0b4-4f03-be52-9f101515910e" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="11e8610f-3521-4e4f-b1b4-38542c5bd55d" name="2147483647" value="2147483647">
+                <elementDefinition Id="5bd54f8f-2f16-42f6-a641-4bdb81a1cc2c" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="eb0598fb-923a-401d-b376-8c666ceee52d" name="Stream of tweets" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="54a36aab-92e7-43e9-aff7-bcb47f99c278" />
+            <objectFlowTargets>
+              <objectFlow Id="318f94b0-a21a-4107-ad0e-9d28ca1c2a2f" guard="trigger events" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="9b48e249-2825-4ac2-8bec-d3eea8f3356c" LastKnownName="events" />
+                <elementDefinition Id="88652195-a48d-4c7b-a4a3-cba737d59062" />
+              </objectFlow>
+              <objectFlow Id="ffadaaf2-54fb-4e30-8172-8ce0ff207ca7" guard="disconnect" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="d74514d3-d3a3-42d2-9599-00f0ab3ef119" LastKnownName="disconnect handling" />
+                <elementDefinition Id="ef89da78-e4f3-44f6-8193-9bdb81aa5304" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="3278e840-e104-4c14-890a-5f2b41f8692a" name="2147483647" value="2147483647">
+                <elementDefinition Id="de589dff-1344-421f-a45f-1118c87eeef2" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="d74514d3-d3a3-42d2-9599-00f0ab3ef119" name="disconnect handling" isLeaf="false">
+            <elementDefinition Id="8055e0e3-ad44-4896-a1b7-033fe1c85301" />
+            <flowNodeTargets>
+              <controlFlow Id="9d643825-4662-401f-a712-82add49040b9" guard="fallback" isLeaf="false">
+                <opaqueActionMoniker Id="f4e12e4d-c8ad-4658-b6cb-4ecd6505339f" LastKnownName="EZ REST querying" />
+                <elementDefinition Id="5e49fcac-07df-432c-b8f0-e4b9eb4385a0" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="ab128041-b88d-4a40-9853-d62ea6e383ba" guard="reconnect" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="eb0598fb-923a-401d-b376-8c666ceee52d" LastKnownName="Stream of tweets" />
+                <elementDefinition Id="2ba0d2e1-ea38-4aa4-8064-e0cf12cbffaa" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="9b48e249-2825-4ac2-8bec-d3eea8f3356c" name="events" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="351e9d28-6e0e-48a0-913d-6ffe1f724d99" />
+            <objectFlowTargets>
+              <objectFlow Id="bbd44447-679b-42e8-8699-3b32f69f2a79" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="69f62e60-9fc0-4393-84a0-8d62e52e0480" LastKnownName="tweet received" />
+                <elementDefinition Id="f0ada987-2db7-4c15-8fec-4308d001808e" />
+              </objectFlow>
+              <objectFlow Id="8e272a4d-09a1-4086-a769-3c94e4756a28" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="ce1476c7-43bb-4694-a778-2440cd1a2f79" LastKnownName="connect/disconnect" />
+                <elementDefinition Id="3fce3d5e-5b8d-4367-8460-7460dd983584" />
+              </objectFlow>
+              <objectFlow Id="4ff5ccf6-2ceb-4c3a-a5f7-b91eb94d6fc9" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="8fc47882-b7d4-41f0-b319-cb10837b68cd" LastKnownName="any event / receive JSON" />
+                <elementDefinition Id="4500bc50-971c-469c-a824-38639b12cee5" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="dfd7599e-4c93-4d6e-8d76-8eb4c00b906d" name="2147483647" value="2147483647">
+                <elementDefinition Id="9385e5a4-a4d9-48f1-8682-9b6c817705b2" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="8fc47882-b7d4-41f0-b319-cb10837b68cd" name="any event / receive JSON" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="0c705c29-2d90-4b30-b6d3-e07f9b30211d" />
+            <upperBound>
+              <literalInteger Id="5f25e5ae-4e5a-414c-ac65-8205b45b5c63" name="2147483647" value="2147483647">
+                <elementDefinition Id="1e418bfa-94c4-415b-a56a-1a7124b2e94a" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="ce1476c7-43bb-4694-a778-2440cd1a2f79" name="connect/disconnect" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="ab0c4c31-ef5d-4774-88d7-ef79452307ca" />
+            <objectFlowTargets>
+              <objectFlow Id="25cd6908-a185-4163-9921-6210727c59f6" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <opaqueActionMoniker Id="d74514d3-d3a3-42d2-9599-00f0ab3ef119" LastKnownName="disconnect handling" />
+                <elementDefinition Id="49c48bc5-9a8d-4613-9b0c-12bf8a896236" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="c3382ba3-f1aa-4f08-8a77-273eba7a4fc0" name="2147483647" value="2147483647">
+                <elementDefinition Id="d1abe64e-bb13-408f-8f7e-9719dc711b25" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="69f62e60-9fc0-4393-84a0-8d62e52e0480" name="tweet received" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="13c3c2c6-d8e0-4341-9c9b-06e68d58e5e5" />
+            <upperBound>
+              <literalInteger Id="b9a6dbde-3113-47dc-b154-5a9105fcf659" name="2147483647" value="2147483647">
+                <elementDefinition Id="262b7948-f3ac-4e57-834f-576e0de1a883" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="f4e12e4d-c8ad-4658-b6cb-4ecd6505339f" name="EZ REST querying" isLeaf="false">
+            <elementDefinition Id="c64c40fb-ce01-4340-8a81-0d39eed421d0" />
+            <flowNodeTargets>
+              <controlFlow Id="b5f7c42d-762c-4ad8-9069-3411abb5bca5" guard="manual query results" isLeaf="false">
+                <opaqueActionMoniker Id="af2957d2-3cac-4ce0-b0e0-abb72cad681e" LastKnownName="interface" />
+                <elementDefinition Id="19cf4d7f-769a-4393-a4ed-12dfa1b7be73" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="b59c8372-d58e-4e45-acdc-742505923bb4" name="ConsoleTwitterModeling">
+    <elementDefinition Id="2c04c089-2885-4b71-b9eb-91f69edc7b2e" />
+    <profileInstances>
+      <packageHasProfileInstances Id="89b13e0d-96dd-4314-acc9-efd716ffa8ff">
+        <profileInstance Id="1d1a6edd-b60e-40dc-a507-37f447c7ec94" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="cd3430f3-b0ef-44ca-a04e-a0869a4b9360">
+        <profileInstance Id="7eb558cb-135f-4584-807d-22a3c5328be2" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="dc47105b-19b6-49b1-beb8-03a2e8cc9cdb">
+        <profileInstance Id="351bbfc6-f630-440d-a487-a9d2952c47d5" name="CSharpProfile">
+          <elementDefinition Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda" />
+        </profileInstance>
+        <elementDefinition Id="c3ca8482-5d20-451b-a466-425934240d2c" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="70accd45-a8c1-4605-b0bf-ed82f635e465">
+        <profileInstance Id="295ff49e-c869-4a5a-9942-f1064e779ef4" name="TextTemplateBindings">
+          <elementDefinition Id="7fea49d5-0403-49c4-86f8-1a40c5c69597" />
+        </profileInstance>
+        <elementDefinition Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>
