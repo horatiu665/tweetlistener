@@ -14,6 +14,7 @@ namespace ConsoleTwitter
 	{
 		public static bool connectOnline = false;
 		public static bool saveToDatabaseOrPhp = false;
+		public static bool startDatabase = true;
 
 		// print output to log file.
 		public static bool logOutput = true;
@@ -59,6 +60,9 @@ namespace ConsoleTwitter
 							);
 					// filter keywords
 					Console.WriteLine("f <filter>: \t" + "Current filter: " + filter
+						);
+
+					Console.WriteLine("d: \t" + "Save to database toggle: " + startDatabase
 						);
 					Console.WriteLine("help: \t Use help for instructions");
 					// "run" to start
@@ -106,6 +110,9 @@ namespace ConsoleTwitter
 
 					} else if (command.Substring(0, 1) == "f") {
 						filter = command.Substring(2);
+
+					} else if (command.Substring(0, 1) == "d") {
+						startDatabase = !startDatabase;
 
 					} else if (command == "run") {
 						Console.WriteLine("Running...");
@@ -162,8 +169,10 @@ namespace ConsoleTwitter
 				Log.Start(logPath);
 			}
 
-			// start database
-			DatabaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
+			if (startDatabase) {
+				// start database
+				DatabaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
+			}
 
 			// start viewer
 			Viewer.Start(maxSecondsToRunStream, maxTweetsToRunStream);

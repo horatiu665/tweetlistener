@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Tweetinvi;
+using Newtonsoft.Json.Linq;
 
 namespace ConsoleTwitter
 {
@@ -15,9 +16,13 @@ namespace ConsoleTwitter
 	{
 		static StreamWriter logWriter;
 		public static string logPath = "log.txt";
-
 		public static double restartLogIntervalMillis = 30000;
 		static System.Timers.Timer logRestartTimer;
+		
+		static StreamWriter smallLogWriter;
+		public static string smallLogPath = "smalllog.txt";
+		public static double restartSmallLogIntervalMillis = 30037;
+		static System.Timers.Timer smallLogRestartTimer;
 
 		/// <summary>
 		/// returns a valid version of the path given
@@ -39,7 +44,7 @@ namespace ConsoleTwitter
 				Console.WriteLine("Path invalid. Using \"log.txt\" \nTry not to use fancy characters. Just letters and numbers");
 				return "log.txt";
 			}
-			
+
 		}
 
 		/// <summary>
@@ -51,9 +56,15 @@ namespace ConsoleTwitter
 
 			// open log writer
 			logWriter = new StreamWriter(logPath, true);
-			Output("New log started at " + DateTime.Now);
+			Output("New log started");
 			Output("Stream running filter:");
 			Output(Stream.filter);
+
+			// small log init
+			smallLogWriter = new StreamWriter(smallLogPath, true);
+			SmallOutput("New log started");
+			SmallOutput("Stream running filter:");
+			SmallOutput(Stream.filter);
 
 			// once in a while stop and start log, so we do not lose all the data in the log.
 			logRestartTimer = new System.Timers.Timer(restartLogIntervalMillis);
@@ -67,35 +78,64 @@ namespace ConsoleTwitter
 				}
 			};
 
+			// same thing for small log
+			smallLogRestartTimer = new System.Timers.Timer(restartSmallLogIntervalMillis);
+			smallLogRestartTimer.Start();
+			smallLogRestartTimer.Elapsed += (s, a) => {
+				if (smallLogWriter != null) {
+					smallLogWriter.Close();
+					smallLogWriter = new StreamWriter(smallLogPath, true);
+				} else {
+					smallLogRestartTimer.Stop();
+				}
+			};
+
 			// bind to events from Stream
 			#region counters
-			Stream.stream.DisconnectMessageReceived		+= (s, a) => { Output(Stream.CountersString() + " - DisconnectMessageReceived		"); };
-			Stream.stream.JsonObjectReceived			+= (s, a) => { Output(Stream.CountersString() + " - JsonObjectReceived				"); };
-			Stream.stream.LimitReached					+= (s, a) => { Output(Stream.CountersString() + " - LimitReached					"); };
-			Stream.stream.StreamPaused					+= (s, a) => { Output(Stream.CountersString() + " - StreamPaused					"); };
-			Stream.stream.StreamResumed					+= (s, a) => { Output(Stream.CountersString() + " - StreamResumed					"); };
-			Stream.stream.StreamStarted					+= (s, a) => { Output(Stream.CountersString() + " - StreamStarted					"); };
-			Stream.stream.StreamStopped					+= (s, a) => { Output(Stream.CountersString() + " - StreamStopped					"); };
-			Stream.stream.TweetDeleted					+= (s, a) => { Output(Stream.CountersString() + " - TweetDeleted					"); };
-			Stream.stream.TweetLocationInfoRemoved 		+= (s, a) => { Output(Stream.CountersString() + " - TweetLocationInfoRemoved 		"); };
-//			Stream.stream.TweetReceived					+= (s, a) => { Output(Stream.CountersString() + " - TweetReceived					"); }; // for sample stream
-			Stream.stream.MatchingTweetReceived			+= (s, a) => { Output(Stream.CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
-			Stream.stream.TweetWitheld					+= (s, a) => { Output(Stream.CountersString() + " - TweetWitheld					"); };
-			Stream.stream.UnmanagedEventReceived		+= (s, a) => { Output(Stream.CountersString() + " - UnmanagedEventReceived			"); };
-			Stream.stream.UserWitheld					+= (s, a) => { Output(Stream.CountersString() + " - UserWitheld						"); };
-			Stream.stream.WarningFallingBehindDetected	+= (s, a) => { Output(Stream.CountersString() + " - WarningFallingBehindDetected	"); };
+			Stream.stream.DisconnectMessageReceived 
+				+= (s, a) => { Output(Stream.CountersString() + " - DisconnectMessageReceived		"); };
+			Stream.stream.JsonObjectReceived 
+				+= (s, a) => { Output(Stream.CountersString() + " - JsonObjectReceived				"); };
+			Stream.stream.LimitReached 
+				+= (s, a) => { Output(Stream.CountersString() + " - LimitReached					"); };
+			Stream.stream.StreamPaused 
+				+= (s, a) => { Output(Stream.CountersString() + " - StreamPaused					"); };
+			Stream.stream.StreamResumed 
+				+= (s, a) => { Output(Stream.CountersString() + " - StreamResumed					"); };
+			Stream.stream.StreamStarted 
+				+= (s, a) => { Output(Stream.CountersString() + " - StreamStarted					"); };
+			Stream.stream.StreamStopped 
+				+= (s, a) => { Output(Stream.CountersString() + " - StreamStopped					"); };
+			Stream.stream.TweetDeleted 
+				+= (s, a) => { Output(Stream.CountersString() + " - TweetDeleted					"); };
+			Stream.stream.TweetLocationInfoRemoved 
+				+= (s, a) => { Output(Stream.CountersString() + " - TweetLocationInfoRemoved 		"); };
+			// Stream.stream.TweetReceived	
+			//	+= (s, a) => { Output(Stream.CountersString() + " - TweetReceived					"); }; // for sample stream
+			Stream.stream.MatchingTweetReceived 
+				+= (s, a) => { Output(Stream.CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
+			Stream.stream.TweetWitheld 
+				+= (s, a) => { Output(Stream.CountersString() + " - TweetWitheld					"); };
+			Stream.stream.UnmanagedEventReceived 
+				+= (s, a) => { Output(Stream.CountersString() + " - UnmanagedEventReceived			"); };
+			Stream.stream.UserWitheld 
+				+= (s, a) => { Output(Stream.CountersString() + " - UserWitheld						"); };
+			Stream.stream.WarningFallingBehindDetected 
+				+= (s, a) => { Output(Stream.CountersString() + " - WarningFallingBehindDetected	"); };
 
 			#endregion
 
 			// bind to stream errors and specific events
-			Stream.Error += (s) => { Output(s); };
+			Stream.Error += (s) => { Output(s); SmallOutput(s); };
 			Stream.stream.JsonObjectReceived += onJsonObjectReceived;
 			Stream.stream.StreamStarted += onStreamStarted;
 			Stream.stream.StreamStopped += onStreamStopped;
+			Stream.stream.LimitReached += onLimitReached;
 
 			// bind to appexit
-			Viewer.AppExit += () => { 
-				Output("Log stopping..."); 
+			Viewer.AppExit += () => {
+				Output("Log stopping...");
+				SmallOutput("Log stopping...");
 				Stop();
 			};
 
@@ -110,8 +150,14 @@ namespace ConsoleTwitter
 
 			DatabaseSaver.Message += (s) => {
 				Output(s);
+				SmallOutput(s);
 			};
-			
+
+		}
+
+		private static void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
+		{
+			SmallOutput("Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
 		}
 
 		public static void Stop()
@@ -120,39 +166,56 @@ namespace ConsoleTwitter
 			logWriter.Close();
 			logWriter = null;
 
+			smallLogRestartTimer.Stop();
+			smallLogWriter.Close();
+			smallLogWriter = null;
+
 			// unbind events? test if problem maybe....
 		}
 
+		/// <summary>
+		/// use in EvaluateJsonChildren() to print out the fields which might give useful information in the log
+		/// </summary>
+		static string[] interestingFields = {
+			"limit", "disconnect", "warning", "delete",
+
+			"text"
+		};
+
+		static void EvaluateJsonChildren(JToken j)
+		{
+			string s = "Fields in json object: \n";
+			foreach (var j2 in j) {
+				var p = j2 as JProperty;
+				if (p != null) {
+					s += p.Name;
+					if (interestingFields.Contains(p.Name)) {
+						s += ":" + p.Value;
+					}
+					s += ", ";
+				}
+			}
+			Output(s);
+
+			/*
+			 * jsonRoot: {
+			 *		"key1": {
+			 *			"key11" : "value11",
+			 *			"key12" : {
+			 *				"key121" : "value121";
+			 *			},
+			 *			"key13" : "value13"
+			 *		},
+			 *		"key2" : "value2"
+			 * }
+			*/
+		}
 
 		static void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
 		{
-			// if e.Json is one of known types of messages, it will contain some specific keywords
+			JObject json = JObject.Parse(e.Json);
 
-			// limit = tweets were missed. the number in the Json object 
-			// will be the number of tweets missed in total since the beginning of the connection.
-			if (e.Json.Contains("\"limit\":")) {
-				Output(
-					e.Json.Substring(
-						e.Json.IndexOf("track") + 7,
-						e.Json.IndexOf("}") - e.Json.IndexOf("track") + 7)
-					+ " tweets undelivered since connection started.");
-
-			} else if (e.Json.Contains("\"delete\":")) {
-				// tweet deleted
-				Output("Tweet was deleted");
-
-			} else if (e.Json.Contains("\"disconnect\":")) {
-				Output("Stream disconnected!");
-				Output(e.Json);
-
-			} else if (e.Json.Contains("\"warning\":")) {
-				Output("Twitter says warning!~!!");
-				Output(e.Json);
-
-			} else {
-				// if unknown type of message, it must either be a tweet or a new type of message
-			}
-
+			EvaluateJsonChildren(json);
 		}
 
 		/// <summary>
@@ -161,6 +224,7 @@ namespace ConsoleTwitter
 		static void onStreamStarted(object sender, EventArgs e)
 		{
 			Output("Stream successfully started");
+			SmallOutput("Stream successfully started");
 		}
 
 		/// <summary>
@@ -178,13 +242,25 @@ namespace ConsoleTwitter
 			if (e.Exception != null) {
 				Output("Exception: " + e.Exception.ToString());
 			}
-			
+
+			// clone for small output
+			SmallOutput("Stream disconnected.");
+			if (e.DisconnectMessage != null) {
+				SmallOutput("Message code: " + e.DisconnectMessage.Code);
+				if (e.DisconnectMessage.Reason != null) {
+					SmallOutput("Reason: " + e.DisconnectMessage.Reason);
+				}
+			}
+			if (e.Exception != null) {
+				SmallOutput("Exception: " + e.Exception.ToString());
+			}
+
 		}
 
 
-		
+
 		// output funcs
-		
+
 		public static void Output()
 		{
 			Output("");
@@ -192,29 +268,51 @@ namespace ConsoleTwitter
 
 		public static void Output(string message)
 		{
-			message = DateTime.Now + ": " + message;
+			try {
+				message = DateTime.Now + ": " + message;
 
-			// showOutput message should be written even if showOutput is false.
-			if (message.Contains("showOutput")) {
+				// showOutput message should be written even if showOutput is false.
+				if (message.Contains("showOutput")) {
+					Console.WriteLine(message);
+					if (logWriter != null) {
+						logWriter.WriteLine(message);
+					}
+				}
+
+				// spam from server. heh
+				if (message.Contains("<!-- Hosting24")) {
+					message = message.Substring(0, message.IndexOf("<!-- Hosting24"));
+				}
+
+				// always console and log. if you don't want this, don't run the Log module
 				Console.WriteLine(message);
+
 				if (logWriter != null) {
 					logWriter.WriteLine(message);
 				}
 			}
-
-			// spam from server. heh
-			if (message.Contains("<!-- Hosting24")) {
-				message = message.Substring(0, message.IndexOf("<!-- Hosting24"));
-			}
-
-			// always console and log. if you don't want this, don't run the Log module
-			Console.WriteLine(message);
-			
-			if (logWriter != null) {
-				logWriter.WriteLine(message);
+			catch (Exception e) {
+				Console.WriteLine(e.ToString());
 			}
 		}
 
+		public static void SmallOutput(string message)
+		{
+			try {
+				message = DateTime.Now + ": " + message;
 
+				// spam from server. heh
+				if (message.Contains("<!-- Hosting24")) {
+					message = message.Substring(0, message.IndexOf("<!-- Hosting24"));
+				}
+
+				if (smallLogWriter != null) {
+					smallLogWriter.WriteLine(message);
+				}
+			}
+			catch (Exception e) {
+				Console.WriteLine(e.ToString());
+			}
+		}
 	}
 }

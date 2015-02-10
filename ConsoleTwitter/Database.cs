@@ -83,6 +83,7 @@ namespace ConsoleTwitter
 			// Create POST data and convert it to a byte array. 
 			// also encode tweet to avoid problems with "&"
 			string postData = "json=" + WebUtility.UrlEncode(json);
+			//Console.WriteLine(postData);
 
 			byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 			// Set the ContentType property of the WebRequest.
@@ -112,6 +113,7 @@ namespace ConsoleTwitter
 			// Display the content.
 			if (Message != null) {
 				Message(responseFromServer);
+				
 			}
 			// Clean up the streams.
 			reader.Close();
