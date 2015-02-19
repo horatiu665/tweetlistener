@@ -148,9 +148,9 @@ namespace ConsoleTwitter
 			//	}
 			//};
 
+			// database messages only for big log
 			DatabaseSaver.Message += (s) => {
 				Output(s);
-				SmallOutput(s);
 			};
 
 		}

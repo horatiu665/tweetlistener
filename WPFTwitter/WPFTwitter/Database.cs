@@ -8,13 +8,19 @@ using System.Net;
 
 using MySql.Data.MySqlClient;
 
-namespace ConsoleTwitter
+namespace WPFTwitter
 {
 	/// <summary>
 	/// connects to the twitter events in the Stream and saves tweets to database in various methods.
 	/// </summary>
 	public static class DatabaseSaver
 	{
+		private static bool _started = false;
+
+		public static bool Started
+		{
+			get { return DatabaseSaver._started; }
+		}
 
 		public static bool connectOnline;
 		public static bool saveToDatabaseOrPhp;
@@ -43,11 +49,16 @@ namespace ConsoleTwitter
 		/// </summary>
 		public static void Start(bool connectOnline, bool saveToDatabaseOrPhp)
 		{
-			DatabaseSaver.connectOnline = connectOnline;
-			DatabaseSaver.saveToDatabaseOrPhp = saveToDatabaseOrPhp;
+			if (!_started) {
+				DatabaseSaver.connectOnline = connectOnline;
+				DatabaseSaver.saveToDatabaseOrPhp = saveToDatabaseOrPhp;
 
-			Stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
-			Stream.stream.JsonObjectReceived += onJsonObjectReceived;
+				Stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
+				Stream.stream.JsonObjectReceived += onJsonObjectReceived;
+
+				_started = true;
+
+			}
 		}
 
 		private static void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)

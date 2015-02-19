@@ -1,0 +1,82 @@
+﻿<Window x:Name="window" x:Class="WPFTwitter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        Title="MainWindow" Height="333" Width="666" MinWidth="666" MinHeight="333">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Options">
+                <MenuItem Header="Open Console" Click="menu_Options_OpenConsole_Click"/>
+            </MenuItem>
+            <MenuItem Header="?">
+                <MenuItem Header="About" Click="menu_Help_About_Click"/>
+                <MenuItem Header="Help" Click="menu_Help_Help_Click"/>
+
+            </MenuItem>
+        </Menu>
+        <TabControl Margin="0">
+            <TabItem Header="Stream">
+                <Grid>
+                    <Grid Margin="0,10,10,10" HorizontalAlignment="Right" Width="254">
+                        <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" Margin="0,10,10,0" VerticalContentAlignment="Center"
+                          Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120">
+                            <ComboBoxItem Content="Localhost"/>
+
+                        </ComboBox>
+                        <Label Content="Connection" Margin="19,10,0,0" HorizontalContentAlignment="Right" 
+                       VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+                        <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" Margin="0,39,10,0" VerticalContentAlignment="Center"
+                	Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120">
+                            <ComboBoxItem Content="PHP POST"/>
+
+                        </ComboBox>
+                        <Label Content="Data destination" Margin="19,39,0,0" HorizontalContentAlignment="Right" 
+                	VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+
+                        <CheckBox x:Name="checkBox_Log" Content="Log" Margin="10,71,175,0" VerticalAlignment="Top" IsChecked="True"/>
+                        <Label Content="Path" Margin="84,66,135,0" HorizontalContentAlignment="Right" 
+                	VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top"/>
+                        <TextBox x:Name="logPathTextBox" Height="23" Margin="124,68,10,0" TextWrapping="Wrap" Text="log.txt" VerticalAlignment="Top"/>
+                        <Button x:Name="startStreamButton" Content="Start stream" Margin="10,160,135,0" VerticalAlignment="Top" Height="35" Click="startStreamButton_Click"/>
+                        <CheckBox x:Name="checkBox_database" Content="Save to database" Margin="10,134,10,0" VerticalAlignment="Top" IsChecked="True"/>
+                        <Button x:Name="stopStreamButton" Content="Stop stream" Margin="124,160,10,0" VerticalAlignment="Top" Height="35" Click="stopStreamButton_Click"/>
+                        <CheckBox x:Name="checkBox_logCounters" Content="Output event counters" Margin="10,92,10,0" VerticalAlignment="Top"/>
+                        <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" Margin="10,113,10,0" VerticalAlignment="Top"/>
+
+                    </Grid>
+                    <Grid Margin="10,10,264,10">
+                        <TextBox x:Name="filterTextBox" Height="23" Margin="61,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <Label Content="Filter" Margin="10,8,0,0" HorizontalContentAlignment="Left" 
+                	VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="51"/>
+
+                        <ListView x:Name="logView" Margin="0,38,0,0" ItemsSource="{Binding Path=., Mode=OneWay}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time}" />
+                                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                    </Grid>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="REST test">
+                <Grid>
+                    <StackPanel>
+                        <Button x:Name="initCredentialsButton" Content="Initialize Credentials" Click="initCredentialsButton_Click"/>
+
+                        <Button x:Name="getRateLimitButton" Content="Get Rate Limit" Click="getRateLimitButton_Click"/>
+                        <TextBox x:Name="rest_rateLimitTextBox" TextWrapping="Wrap" Text="Rate limit ???"/>
+
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+    </DockPanel>
+
+</Window>
