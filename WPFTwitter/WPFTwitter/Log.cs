@@ -306,6 +306,9 @@ namespace WPFTwitter
 				}
 			}
 			catch (Exception e) {
+				if (LogOutput != null) {
+					LogOutput(e.ToString());
+				}
 				if (ConsoleHelper.ConsolePresent) {
 					Console.WriteLine(e.ToString());
 				}
@@ -332,6 +335,9 @@ namespace WPFTwitter
 				}
 			}
 			catch (Exception e) {
+				if (LogOutput != null) {
+					LogOutput(e.ToString());
+				} 
 				if (ConsoleHelper.ConsolePresent) {
 					Console.WriteLine(e.ToString());
 				}

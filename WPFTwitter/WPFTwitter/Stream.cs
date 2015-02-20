@@ -23,18 +23,52 @@ namespace WPFTwitter
 		/// </summary>
 		public static Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream;
 
-		// true when stream started.
-		static bool streamStarted = false;
+		static Action streamThread;
+
+		/// <summary>
+		/// true when exception occurred in stream thread. used by main thread to attempt reconnect if it happens.
+		/// </summary>
+		static bool streamThreadException = false;
+
+		// event triggered every time there is some error that must be logged
+		public static event StreamErrorHandler Error;
+
+		public delegate void StreamErrorHandler(string message);
+
+		/// <summary>
+		/// set twitter credentials for the app
+		/// </summary>
+		public static void TwitterCredentialsInit()
+		{
+
+			// "Access_Token", "Access_Token_Secret", "Consumer_Key", "Consumer_Secret"
+			TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
+				// "Access_Token"
+				"2504893657-txY29l8THkV9NhiR0ErmfXVHoSdp9RuvrhAN2DN",
+				// "Access_Token_Secret"
+				"TZ82eeDtaW5cLJybm4nfsmRXITz8qeCU0Y9LhHN6J5bWn",
+				// "Consumer_Key"
+				"hpOr7rLKQU98zTzfu2G9Qavbd",
+				// "Consumer_Secret"
+				"uz5PC6S6M5rTpvyviZ3pBf2UCp6Ih4ALj1EN4D6T2svCD7d15y"
+				);
+
+		}
+
+		/// <summary>
+		/// made true after running Init = only run some code once.
+		/// </summary>
+		private static bool _initialized = false;
+
+		// true when stream is running.
+		static bool streamRunning = false;
 
 		/// <summary>
 		/// increases every reconnect, and resets to 100 when connection is successful
 		/// </summary>
 		static int reconnectDelayMillis = 100;
 
-		// event triggered every time there is some error that must be logged
-		public static event StreamErrorHandler Error;
-
-		public delegate void StreamErrorHandler(string message);
+		#region counters bullshit
 
 		/// <summary>
 		/// when true, counts events and displays them. when false, does not do those things.
@@ -60,38 +94,59 @@ namespace WPFTwitter
 		}
 
 		/// <summary>
-		/// set twitter credentials for the app
+		/// counts event number i. to find which event that is, consult the list in the Start() function.
 		/// </summary>
-		public static void TwitterCredentialsInit()
+		/// <param name="i"></param>
+		private static void CountEvent(int i)
 		{
-
-			// "Access_Token", "Access_Token_Secret", "Consumer_Key", "Consumer_Secret"
-			TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
-				// "Access_Token"
-				"2504893657-txY29l8THkV9NhiR0ErmfXVHoSdp9RuvrhAN2DN",
-				// "Access_Token_Secret"
-				"TZ82eeDtaW5cLJybm4nfsmRXITz8qeCU0Y9LhHN6J5bWn",
-				// "Consumer_Key"
-				"hpOr7rLKQU98zTzfu2G9Qavbd",
-				// "Consumer_Secret"
-				"uz5PC6S6M5rTpvyviZ3pBf2UCp6Ih4ALj1EN4D6T2svCD7d15y"
-				);
+			counters[i]++;
 
 		}
 
-		private static bool _initialized = false;
-
-		public static void Init(string filter)
+		/// <summary>
+		/// returns string of event count, useful for logging and debugging
+		/// </summary>
+		public static string CountersString()
 		{
+			if (!countersOn) {
+				return "Counters: off";
+			}
+
+			string o = "Counters: ";
+			for (int i = 0; i < counters.Count; i++) {
+				o += (counters[i] + " ");
+			}
+
+			return o;
+		}
+
+		#endregion
+
+		/// <summary>
+		/// start stream. if not initialized, initializes = credentials, events.
+		/// </summary>
+		/// <param name="filter"></param>
+		public static void Start(string filter)
+		{
+			if (streamRunning) {
+				return;
+			}
+
 			if (!_initialized) {
 				Stream.filter = filter;
 
 				InitCounters();
 				TwitterCredentialsInit();
 
-				// create stream
+				if (Error != null) {
+					Error("credentials ready");
+				}
 
-				//stream = Stream.CreateSampleStream();
+				// init stream thread
+				streamThread = new Action(StartStreamTask);
+
+				// create stream
+				//stream = Stream.CreateSampleStream(); // sample stream = no filter.
 				stream = Tweetinvi.Stream.CreateFilteredStream();
 
 				// setup events
@@ -125,180 +180,105 @@ namespace WPFTwitter
 				}
 				#endregion
 
-				//StreamStartInsist(stream);
+				if (Error != null) {
+					Error("setup stream. preparing to start.");
+				}
+
 				StreamStartInsistBetter(stream);
 
 				_initialized = true;
-			} else {
-				Start(filter);
-			}
-		}
 
-		/// <summary>
-		/// restarts stream after it being initialized.
-		/// </summary>
-		/// <param name="filter"></param>
-		public static void Start(string filter)
-		{
-			if (!_initialized) {
-				Init(filter);
 			} else {
 
 				stream.ClearTracks();
 				stream.AddTrack(filter);
-				//StreamStartInsist(stream);
 				StreamStartInsistBetter(stream);
 			}
 		}
 
 		/// <summary>
-		/// counts event number i. to find which event that is, consult the list in the Start() function.
+		/// Starts stream and makes sure it works.
 		/// </summary>
-		/// <param name="i"></param>
-		private static void CountEvent(int i)
+		/// <param name="stream"></param>
+		private static void StreamStartInsistBetter(Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream)
 		{
-			counters[i]++;
+			Task.Factory.StartNew(streamThread);
+			//Console.WriteLine("Finished starting new Task at " + DateTime.Now.ToString());
 
 		}
 
-		/// <summary>
-		/// returns string of event count, useful for logging and debugging
-		/// </summary>
-		public static string CountersString()
-		{
-			if (!countersOn) {
-				return "Counters: off";
-			}
-
-			string o = "Counters: ";
-			for (int i = 0; i < counters.Count; i++) {
-				o += (counters[i] + " ");
-			}
-
-			return o;
-		}
+		static bool intentionalStop = false;
 
 		/// <summary>
-		/// loops until it starts the stream.
-		/// </summary>
-		/// <param name="stream">filtered stream to start</param>
-		private static void StreamStartInsist(Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream)
-		{
-			// used for not starting 1000 threads while waiting for stream to start async
-			bool awaitingThread = false;
-			while (!streamStarted) {
-				try {
-					bool asyncMethod = true;
-
-					// choose async or sync connection. both using threads.
-					if (asyncMethod) {
-						// async way
-						// start stream = async operation. main method cannot be marked async
-						// main thread cannot be running while stream is running. that's why we make a new thread. this await will continue only when stream is closed.
-						if (!awaitingThread || streamThreadException) {
-							awaitingThread = true;
-							streamThreadException = false;
-
-							// interesting tip: exceptions thrown in the new thread cause the thread to end but the main thread still runs.
-							// Therefore, previously, when the stream would disconnect and perhaps there was an error in Tweetinvi, the thread would close
-							// but the program would never know the thread closed and it would continue to run indefinitely,
-							// waiting for "awaitingThread" to become false, or for "streamStarted" to become true
-							// solution: check for exceptions within new thread, and solve them inside,
-							// then communicate somehow with the main thread, and update status when the inner thread throws an exception.
-							Task.Factory.StartNew(() => { StartStreamTask(); });
-
-						}
-					} else {
-						#region not async
-						// regular way, not async, but still threaded
-						if (!awaitingThread) {
-							awaitingThread = true;
-							Task.Factory.StartNew(() => {
-								Task.Delay(reconnectDelayMillis);
-								//await stream.StartStreamAsync(); // for sample stream
-								stream.StartStreamMatchingAnyCondition(); // for filtered stream
-
-							});
-						}
-						#endregion
-					}
-				}
-				catch (Exception e) {
-					if (Error != null) {
-						Error("Exception, could not start stream (retrying): " + e.ToString());
-					}
-					awaitingThread = false;
-					// increase delay between reconnect attempts, because we could get banned
-					reconnectDelayMillis *= 2;
-
-				}
-			}
-		}
-
-		/// <summary>
-		/// true when exception occurred in stream thread. used by main thread to attempt reconnect if it happens.
-		/// </summary>
-		static bool streamThreadException = false;
-
-		/// <summary>
-		/// only called from StreamStartInit().
+		/// only called from StreamStartInsist().
 		/// This function should run in its own thread
 		/// </summary>
 		private static async void StartStreamTask()
 		{
-			// stream thread exception is only true after there is an exception in this thread
-			streamThreadException = false;
+			// restart while stream throws exceptions. (not when it is closed nicely)
+			while (true) {
 
-			// first wait to not get banned
-			await Task.Delay(reconnectDelayMillis);
-			
-			// catch exceptions within this thread, and communicate them to the main thread.
-			try {
-				await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
-			}
-			catch (Exception e) {
+				// log the start of the stream.
 				if (Error != null) {
-					Error("Exception at StartStreamTask() thread: " + e.ToString());
+					Error("Stream attempting to start at time " + DateTime.Now.ToString());
 				}
-				// notify main thread that there was an exception here.
-				streamThreadException = true;
-				// wait more next time, to not get banned.
-				reconnectDelayMillis *= 2;
-			}
-		}
 
-		static string streamStatus = "none";
+				// stream thread exception is only true after there is an exception in this thread
+				streamThreadException = false;
 
-		private static void StreamStartInsistBetter(Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream)
-		{
-			// initial state: not waiting for thread.
-			bool awaitingThread = false;
-			// while stream not started, try to start it.
-			while (!streamStarted) {
-				// if not waiting for thread, or if there was an exception
-				if (!awaitingThread || streamThreadException) {
-					// we are waiting for stream to start.
-					awaitingThread = true;
-					// try to start thread (try catch inside new thread; communication with this thread through variable streamThreadException).
-					Task.Factory.StartNew(() => { StartStreamTask(); });
+				if (intentionalStop) {
+					intentionalStop = false;
+					break;
+					
+				}
+
+				// first wait to not get banned
+				await Task.Delay(reconnectDelayMillis);
+
+				// catch exceptions within this thread. if they happen, we must retry connecting.
+				try {
+					await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
 
 				}
+				catch (Exception e) {
+					if (Error != null) {
+						Error("Exception at StartStreamTask() thread: " + e.ToString());
+					}
+					// notify main thread that there was an exception here.
+					streamThreadException = true;
+					// wait more next time, to not get banned.
+					reconnectDelayMillis *= 2;
+
+				}
+
+
 			}
 		}
 
 		public static void Stop()
 		{
-			streamStarted = false;
-			stream.StopStream();
+			if (streamRunning) {
+				stream.StopStream();
+				intentionalStop = true;
+			}
 		}
 
+		#region events
 
 		/// <summary>
 		/// happens when stream starts. not sure if successfully or also unsuccessfully
 		/// </summary>
 		private static void onStreamStarted(object sender, EventArgs e)
 		{
-			streamStarted = true;
+			// log start and print event args
+			if (Error != null) {
+				Error("OnStreamStarted event is called");
+				if (e != null) {
+					Error(e.ToString());
+				}
+			}
+
+			streamRunning = true;
 
 		}
 
@@ -307,12 +287,7 @@ namespace WPFTwitter
 		/// </summary>
 		private static void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
 		{
-			// reconnect here, if stream is currently started. when program stops intentionally, streamStarted is set to false.
-			if (streamStarted) {
-				streamStarted = false;
-				//StreamStartInsist(stream);
-				StreamStartInsistBetter(stream);
-			}
+			streamRunning = false;
 
 		}
 
@@ -326,5 +301,6 @@ namespace WPFTwitter
 
 		}
 
+		#endregion
 	}
 }

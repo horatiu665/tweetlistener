@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\App.xaml
-3-1404905350
+814167842
 
-17270413125
-36922209148
-HelpHelper\HelpHelper.xaml;Windows\About.xaml;Windows\MainWindow.xaml;
+22-1703097893
+411070243845
+Controls\LogControls.xaml;Controls\LogSettings.xaml;HelpHelper\HelpHelper.xaml;Controls\StreamControls.xaml;Windows\About.xaml;Windows\DesignWindow.xaml;Windows\MainWindow.xaml;Windows\MainWindowOld.xaml;
 
-False
+True
 

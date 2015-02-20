@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="WPFTwitter.LogControls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             mc:Ignorable="d" Height="205" Width="223">
+    <Grid>
+        <ad:DockingManager x:Name="dMan">
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Horizontal">
+                    
+                    <!-- copy from here to have a separate panel, including a title! -->
+                    <ad:LayoutAnchorablePane>
+                        <ad:LayoutAnchorable Title="Log">
+                            
+                            <!-- this is the content you are looking for -->
+                            <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Time">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Time}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Message" Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Message}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <!-- this was the content you were looking for -->
+
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
+                    <!-- copy to here to have a separate panel, including a title! -->
+
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+    </Grid>
+</UserControl>

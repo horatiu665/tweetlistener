@@ -164,7 +164,7 @@ namespace WPFTwitter
 
 
 			// start stream
-			Stream.Init(Stream.filter);
+			Stream.Start(Stream.filter);
 
 			// if logging, start log
 			if (logOutput) {
@@ -176,17 +176,17 @@ namespace WPFTwitter
 				DatabaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
 			}
 
-			Task.Factory.StartNew(() => {
-				while (true) {
-					if (Console.KeyAvailable) {
-						var r = Console.ReadKey();
-						if (r.Key == ConsoleKey.Escape) {
-							ConsoleHelper.Destroy();
-							return;
-						}
-					}
-				}
-			});
+			//Task.Factory.StartNew(() => {
+			//	while (true) {
+			//		if (Console.KeyAvailable) {
+			//			var r = Console.ReadKey();
+			//			if (r.Key == ConsoleKey.Escape) {
+			//				ConsoleHelper.Destroy();
+			//				return;
+			//			}
+			//		}
+			//	}
+			//});
 		}
 
 

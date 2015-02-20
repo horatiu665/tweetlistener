@@ -17,11 +17,6 @@ namespace WPFTwitter
 	{
 		private static bool _started = false;
 
-		public static bool Started
-		{
-			get { return DatabaseSaver._started; }
-		}
-
 		public static bool connectOnline;
 		public static bool saveToDatabaseOrPhp;
 

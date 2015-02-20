@@ -1,82 +1,126 @@
-﻿<Window x:Name="window" x:Class="WPFTwitter.MainWindow"
+﻿<!--
+    Design pipeline
+        
+    In the main window, all controls are placed in their final positions.
+        
+    When creating new controls, they are split into panels, and created individually in a simple window.
+    This window is saved and the control can be copied from there into the final window for use.
+
+-->
+
+<Window x:Class="WPFTwitter.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        
-        Title="MainWindow" Height="333" Width="666" MinWidth="666" MinHeight="333">
+        xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:Controls="clr-namespace:WPFTwitter"
+        Title="Tweet Listener" Height="300" Width="799">
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
             <MenuItem Header="Options">
                 <MenuItem Header="Open Console" Click="menu_Options_OpenConsole_Click"/>
             </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Stream toolbox"/>
+            </MenuItem>
             <MenuItem Header="?">
-                <MenuItem Header="About" Click="menu_Help_About_Click"/>
-                <MenuItem Header="Help" Click="menu_Help_Help_Click"/>
+                <MenuItem Header="About"/>
+                <MenuItem Header="Help"/>
 
             </MenuItem>
         </Menu>
-        <TabControl Margin="0">
-            <TabItem Header="Stream">
-                <Grid>
-                    <Grid Margin="0,10,10,10" HorizontalAlignment="Right" Width="254">
-                        <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" Margin="0,10,10,0" VerticalContentAlignment="Center"
-                          Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120">
-                            <ComboBoxItem Content="Localhost"/>
 
-                        </ComboBox>
-                        <Label Content="Connection" Margin="19,10,0,0" HorizontalContentAlignment="Right" 
-                       VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
-                        <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" Margin="0,39,10,0" VerticalContentAlignment="Center"
-                	Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120">
-                            <ComboBoxItem Content="PHP POST"/>
+        <ad:DockingManager x:Name="dMan" Loaded="dMan_Loaded" Unloaded="dMan_Unloaded">
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Horizontal">
 
-                        </ComboBox>
-                        <Label Content="Data destination" Margin="19,39,0,0" HorizontalContentAlignment="Right" 
-                	VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+                    <!-- PANELS GO HERE -->
 
-                        <CheckBox x:Name="checkBox_Log" Content="Log" Margin="10,71,175,0" VerticalAlignment="Top" IsChecked="True"/>
-                        <Label Content="Path" Margin="84,66,135,0" HorizontalContentAlignment="Right" 
-                	VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top"/>
-                        <TextBox x:Name="logPathTextBox" Height="23" Margin="124,68,10,0" TextWrapping="Wrap" Text="log.txt" VerticalAlignment="Top"/>
-                        <Button x:Name="startStreamButton" Content="Start stream" Margin="10,160,135,0" VerticalAlignment="Top" Height="35" Click="startStreamButton_Click"/>
-                        <CheckBox x:Name="checkBox_database" Content="Save to database" Margin="10,134,10,0" VerticalAlignment="Top" IsChecked="True"/>
-                        <Button x:Name="stopStreamButton" Content="Stop stream" Margin="124,160,10,0" VerticalAlignment="Top" Height="35" Click="stopStreamButton_Click"/>
-                        <CheckBox x:Name="checkBox_logCounters" Content="Output event counters" Margin="10,92,10,0" VerticalAlignment="Top"/>
-                        <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" Margin="10,113,10,0" VerticalAlignment="Top"/>
+                    <!-- LOG PANEL -->
 
-                    </Grid>
-                    <Grid Margin="10,10,264,10">
-                        <TextBox x:Name="filterTextBox" Height="23" Margin="61,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <Label Content="Filter" Margin="10,8,0,0" HorizontalContentAlignment="Left" 
-                	VerticalContentAlignment="Center" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="51"/>
+                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
+                        <ad:LayoutAnchorable Title="Log">
+                            <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Time">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Time}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Message" Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Message}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
-                        <ListView x:Name="logView" Margin="0,38,0,0" ItemsSource="{Binding Path=., Mode=OneWay}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Time}" />
-                                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
+                    <!-- END LOG PANEL -->
 
-                    </Grid>
-                </Grid>
+                    <!-- STREAMING PANEL -->
 
-            </TabItem>
-            <TabItem Header="REST test">
-                <Grid>
-                    <StackPanel>
-                        <Button x:Name="initCredentialsButton" Content="Initialize Credentials" Click="initCredentialsButton_Click"/>
+                    <ad:LayoutAnchorablePane DockHeight="*">
+                        <ad:LayoutAnchorable Title="Streaming toolbox">
+                            <StackPanel>
+                                <DockPanel Margin="10,0">
+                                    <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                    <TextBox Name="filterTextbox" VerticalAlignment="Center"/>
+                                </DockPanel>
+                                <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
+                                <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
+                                <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
+                            </StackPanel>
 
-                        <Button x:Name="getRateLimitButton" Content="Get Rate Limit" Click="getRateLimitButton_Click"/>
-                        <TextBox x:Name="rest_rateLimitTextBox" TextWrapping="Wrap" Text="Rate limit ???"/>
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
 
-                    </StackPanel>
+                    <!-- END STREAMING PANEL -->
 
-                </Grid>
-            </TabItem>
-        </TabControl>
+                    <!-- LOG SETTINGS PANEL -->
 
+                    <ad:LayoutAnchorablePane DockHeight="*">
+                        <ad:LayoutAnchorable Title="Log Settings">
+                            <StackPanel Margin="10,0">
+                                <DockPanel>
+                                    <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
+                                    <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                        <ComboBoxItem Content="Localhost"/>
+                                    </ComboBox>
+                                </DockPanel>
+                                
+                                <DockPanel>
+                                    <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
+                                    <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                        <ComboBoxItem Content="PHP POST"/>
+                                    </ComboBox>
+                                </DockPanel>
+
+                                <DockPanel>
+                                    <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                    <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
+                                </DockPanel>
+                                
+                                <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
+                                <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Top" IsChecked="True"/>
+                                <CheckBox x:Name="checkBox_logCounters" Content="Output event counters"  VerticalAlignment="Top"/>
+                                <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
+                                
+                            </StackPanel>
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
+
+                    <!-- END LOG SETTINGS PANEL -->
+
+                    <!-- END PANELS -->
+
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
 
     </DockPanel>
-
 </Window>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using System.Collections.ObjectModel;
-
-namespace WPFTwitter
-{	
+namespace WPFTwitter.Windows
+{
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for Main2.xaml
 	/// </summary>
 	public partial class MainWindow : Window
 	{
@@ -32,7 +30,8 @@ namespace WPFTwitter
 		public string LogMessageListMaxLength
 		{
 			get { return _logMessageListMaxLength.ToString(); }
-			set { 
+			set
+			{
 				int pValue = _logMessageListMaxLength;
 				if (int.TryParse(value, out pValue)) {
 					_logMessageListMaxLength = pValue;
@@ -56,12 +55,13 @@ namespace WPFTwitter
 
 		public MainWindow()
 		{
-			
 			InitializeComponent();
 
+			// initialize bindings
 			logView.DataContext = LogMessageList;
-			filterTextBox.TextChanged += (s, a) => { StreamFilterBinding = filterTextBox.Text; };
+			filterTextbox.TextChanged += (s, a) => { StreamFilterBinding = filterTextbox.Text; };
 			Log.LogOutput += Log_LogOutput;
+
 		}
 
 		/// <summary>
@@ -75,7 +75,7 @@ namespace WPFTwitter
 				while (_logMessageList.Count > _logMessageListMaxLength) {
 					_logMessageList.RemoveAt(0);
 				}
-				logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count-1));
+				logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count - 1));
 			}));
 		}
 
@@ -88,18 +88,17 @@ namespace WPFTwitter
 		{
 			var a = new About();
 		}
-		
+
 		private void menu_Help_Help_Click(object sender, RoutedEventArgs e)
 		{
 			var a = new HelpHelper();
 		}
 
-
 		private void startStreamButton_Click(object sender, RoutedEventArgs e)
 		{
-			
+
 			Stream.Start(Stream.filter);
-			
+
 			// if log
 			if (checkBox_Log.IsChecked.Value) {
 				Log.Start(logPathTextBox.Text, checkBox_logCounters.IsChecked.Value, checkBox_databaseMessages.IsChecked.Value);
@@ -114,21 +113,27 @@ namespace WPFTwitter
 			}
 		}
 
+		private void restartStreamButton_Click(object sender, RoutedEventArgs e)
+		{
+			stopStreamButton_Click(sender, e);
+			startStreamButton_Click(sender, e);
+		}
+
+
 		private void stopStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 			Stream.Stop();
 		}
 
-		private void getRateLimitButton_Click(object sender, RoutedEventArgs e)
+		private void dMan_Unloaded(object sender, RoutedEventArgs e)
 		{
-			rest_rateLimitTextBox.Text = Rest.GetRateLimitsString();
+			// save layout to file
 		}
 
-		private void initCredentialsButton_Click(object sender, RoutedEventArgs e)
+		private void dMan_Loaded(object sender, RoutedEventArgs e)
 		{
-			Stream.TwitterCredentialsInit();
+			// load layout from file
 		}
-
 	}
 
 	public class LogMessage
