@@ -13,8 +13,20 @@ namespace WPFTwitter
 		public static string GetRateLimitsString()
 		{
 			var r = GetRateLimits_Tweets();
-			return "yes";
+			
+			string s = "nig";
+			return s;
 			//Tweetinvi.Streams.Helpers.StreamResultGenerator
+		}
+
+		private static string GetRateLimitString(Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit rateLimit)
+		{
+			string s = "";
+			s += "\n" + rateLimit.ToString();
+			s += "\n" + rateLimit.Limit;
+			s += "\n" + rateLimit.Remaining;
+			s += "\n" + rateLimit.ResetDateTime;
+			return s;
 		}
 
 		public static Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits GetRateLimits_Tweets()

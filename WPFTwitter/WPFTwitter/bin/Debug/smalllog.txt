@@ -466,3 +466,15 @@ Parameter name: source
 20-02-2015 16:02:59: Stream successfully started
 20-02-2015 16:03:02: Stream disconnected.
 20-02-2015 16:03:02: Stream attempting to start at time 20-02-2015 16:03:02
+20-02-2015 16:27:09: New log started
+20-02-2015 16:27:09: Stream running filter:
+20-02-2015 16:27:09: google
+20-02-2015 16:27:10: OnStreamStarted event is called
+20-02-2015 16:27:10: System.EventArgs
+20-02-2015 16:27:10: Stream successfully started
+20-02-2015 16:33:25: Stream disconnected.
+20-02-2015 16:33:25: Stream attempting to start at time 20-02-2015 16:33:25
+20-02-2015 16:33:25: Stream attempting to start at time 20-02-2015 16:33:25
+20-02-2015 16:33:25: OnStreamStarted event is called
+20-02-2015 16:33:25: System.EventArgs
+20-02-2015 16:33:25: Stream successfully started

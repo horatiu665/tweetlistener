@@ -26,7 +26,7 @@ namespace WPFTwitter.Windows
 			get { return _logMessageList; }
 		}
 
-		private int _logMessageListMaxLength = 100;
+		private int _logMessageListMaxLength = 10000;
 		public string LogMessageListMaxLength
 		{
 			get { return _logMessageListMaxLength.ToString(); }
