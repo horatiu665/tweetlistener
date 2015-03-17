@@ -164,13 +164,17 @@ namespace WPFTwitter.Windows
 
 		private void restQueryButton_Click(object sender, RoutedEventArgs e)
 		{
+
+			// display stuff in restInfoTextBlock.Text = "<here>"
+			_restMessageList.Add(new LogMessage("trying to get rest query"));
+
 			App.Current.Dispatcher.Invoke((Action)(() => {
-				
+
 				string filter = restFilterTextBox.Text;
 
-				bool simpleQuery = false;
+				bool simpleQuery = ((CheckBox)rest_filter_simpleQuery).IsChecked.Value;
 				if (simpleQuery) {
-					
+
 					// display stuff in restInfoTextBlock.Text = "<here>"
 					_restMessageList.Add(new LogMessage("Getting Rest query with filter \"" + filter + "\""));
 
@@ -190,10 +194,27 @@ namespace WPFTwitter.Windows
 				} else {
 					var recent = rest_filter_recent.IsChecked.Value;
 					var searchParameters = Tweetinvi.Search.GenerateTweetSearchParameter(filter);
-					
+					searchParameters.SearchType = recent ? Tweetinvi.Core.Enum.SearchResultType.Recent : Tweetinvi.Core.Enum.SearchResultType.Popular;
+
+					// display stuff in restInfoTextBlock.Text = "<here>"
+					_restMessageList.Add(new LogMessage("Getting Rest query with advanced search parameters"));
+
+					var res = Rest.SearchTweets(searchParameters);
+
+					if (res == null) {
+						_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials"));
+						return;
+
+					}
+
+					foreach (var r in res) {
+						_restMessageList.Add(new LogMessage(r.Text));
+
+					}
 
 				}
 			}));
+
 		}
 
 		private void restRateLimitButton_Click(object sender, RoutedEventArgs e)
@@ -281,7 +302,7 @@ namespace WPFTwitter.Windows
 			};
 			// add rest data to database.
 			Rest.AddLastTweetsToDatabase();
-			
+
 		}
 
 		private void databasePhpPath_TextChanged(object sender, TextChangedEventArgs e)

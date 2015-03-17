@@ -145,6 +145,7 @@
     <Compile Include="Controls\StreamControls.xaml.cs">
       <DependentUpon>StreamControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RestGathering.cs" />
     <Compile Include="Windows\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>

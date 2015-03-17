@@ -151,7 +151,9 @@
                                     <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
                                         <StackPanel Background="#FFE5E5E5">
                                             <!-- date filter, tweet id filter, etc... -->
+                                            <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
                                             <CheckBox x:Name="rest_filter_recent" Content="Recent" />
+                                            
                                             
                                         </StackPanel>
                                     </Expander>

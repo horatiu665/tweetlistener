@@ -14,7 +14,6 @@ namespace WPFTwitter
 {
 	public static class Rest
 	{
-
 		private static List<ITweet> lastTweets = new List<ITweet>();
 
 		/// <summary>
@@ -57,6 +56,12 @@ namespace WPFTwitter
 				return tweets;
 			}
 			return null;
+		}
+
+		public static ITweetSearchParameters GenerateSearchParameters(string filter)
+		{
+			return Search.GenerateTweetSearchParameter(filter);
+
 		}
 		#endregion
 
