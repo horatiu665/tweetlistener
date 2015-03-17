@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="WPFTwitter.RestToolbox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             mc:Ignorable="d" Height="324" Width="221">
+    <Grid>
+        <ad:DockingManager x:Name="dMan">
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Horizontal">
+
+                    <!-- copy from here to have a separate panel, including a title! -->
+
+                    <!-- REST CONTROLS PANEL -->
+
+                    <ad:LayoutAnchorablePane DockHeight="*">
+                        <ad:LayoutAnchorable Title="Rest Controls" >
+
+                            <!-- this is the content you are looking for -->
+                            <StackPanel>
+                                <DockPanel Margin="10,0">
+                                    <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
+                                </DockPanel>
+                                <Expander Header="Controls" IsExpanded="False">
+                                    <StackPanel Background="#FFE5E5E5">
+                                        <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
+                                        <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
+                                        <Button x:Name="restAddToDatabase" Content="Add Data To Database" Margin="10, 0" Click="restAddToDatabase_Click"/>
+
+                                    </StackPanel>
+                                </Expander>
+                                <Expander Header="Advanced filters" IsExpanded="False">
+                                    <StackPanel Background="#FFE5E5E5">
+                                        <!-- date filter, tweet id filter, etc... -->
+                                        <Label>nothing for now</Label>
+                                    </StackPanel>
+                                </Expander>
+                                <TextBlock x:Name="restInfoTextBlock" TextWrapping="Wrap" Margin="10, 0" Text=""/>
+                            </StackPanel>
+                            <!-- this was the content you were looking for -->
+
+
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
+
+                    <!-- END REST CONTROLS PANEL -->
+
+                    <!-- copy to here to have a separate panel, including a title! -->
+
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+    </Grid>
+</UserControl>

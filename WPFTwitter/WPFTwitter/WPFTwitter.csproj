@@ -53,11 +53,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\..\..\..\TweetinviSVN\Development - 0.9.5.x\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\..\..\TweetinviSVN\Development - 0.9.5.x\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Printing" />
@@ -96,6 +98,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Credentials.xaml.cs">
+      <DependentUpon>Credentials.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RestToolbox.xaml.cs">
+      <DependentUpon>RestToolbox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LogControls.xaml.cs">
       <DependentUpon>LogControls.xaml</DependentUpon>
     </Compile>
@@ -116,6 +124,14 @@
     <Compile Include="Rest.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Stream.cs" />
+    <Page Include="Controls\Credentials.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\RestToolbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\LogControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

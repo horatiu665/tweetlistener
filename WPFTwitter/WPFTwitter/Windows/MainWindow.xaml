@@ -13,20 +13,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:Controls="clr-namespace:WPFTwitter"
-        Title="Tweet Listener" Height="300" Width="799">
+        Title="Tweet Listener" Height="422" Width="641" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
             <MenuItem Header="Options">
                 <MenuItem Header="Open Console" Click="menu_Options_OpenConsole_Click"/>
             </MenuItem>
             <MenuItem Header="View">
-                <MenuItem Header="Stream toolbox"/>
+                <MenuItem Header="Log" Click="menu_View_Log_Click"/>
+                <MenuItem Header="Log Settings" Click="menu_View_LogSettings_Click"/>
+                <MenuItem Header="Streaming Toolbox" Click="menu_View_StreamingToolbox_Click"/>
+                <MenuItem Header="Rest" Click="menu_View_Rest_Click"/>
             </MenuItem>
             <MenuItem Header="?">
                 <MenuItem Header="About"/>
                 <MenuItem Header="Help"/>
 
             </MenuItem>
+            <MenuItem Header="Log in" Click="LogIn_Click"/>
+
         </Menu>
 
         <ad:DockingManager x:Name="dMan" Loaded="dMan_Loaded" Unloaded="dMan_Unloaded">
@@ -37,21 +42,21 @@
 
                     <!-- LOG PANEL -->
 
-                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
-                        <ad:LayoutAnchorable Title="Log">
+                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*" x:Name="panelLogAnchorablePane">
+                        <ad:LayoutAnchorable Title="Log" x:Name="panelLogAnchorable" CanClose="False" CanHide="False">
                             <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Time">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label Content="{Binding Time}" />
+                                                <TextBlock Text="{Binding Time}"  TextWrapping="Wrap" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTemplateColumn Header="Message" Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Label Content="{Binding Message}" />
+                                                <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -62,60 +67,151 @@
                     </ad:LayoutAnchorablePane>
                     <!-- END LOG PANEL -->
 
-                    <!-- STREAMING PANEL -->
+                    <ad:LayoutPanel Orientation="Vertical" DockWidth="*">
 
-                    <ad:LayoutAnchorablePane DockHeight="*">
-                        <ad:LayoutAnchorable Title="Streaming toolbox">
-                            <StackPanel>
-                                <DockPanel Margin="10,0">
-                                    <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                    <TextBox Name="filterTextbox" VerticalAlignment="Center"/>
-                                </DockPanel>
-                                <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
-                                <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
-                                <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
-                            </StackPanel>
+                        <!-- LOG SETTINGS PANEL -->
 
-                        </ad:LayoutAnchorable>
-                    </ad:LayoutAnchorablePane>
+                        <ad:LayoutAnchorablePane DockHeight="*">
+                            <ad:LayoutAnchorable Title="Log Settings" CanClose="False" CanHide="False">
+                                <StackPanel Margin="10,0">
+                                    <DockPanel>
+                                        <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
+                                        <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                            <ComboBoxItem Content="Localhost"/>
+                                        </ComboBox>
+                                    </DockPanel>
 
-                    <!-- END STREAMING PANEL -->
+                                    <DockPanel>
+                                        <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
+                                        <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                            <ComboBoxItem Content="PHP POST"/>
+                                        </ComboBox>
+                                    </DockPanel>
 
-                    <!-- LOG SETTINGS PANEL -->
+                                    <DockPanel>
+                                        <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
+                                    </DockPanel>
 
-                    <ad:LayoutAnchorablePane DockHeight="*">
-                        <ad:LayoutAnchorable Title="Log Settings">
-                            <StackPanel Margin="10,0">
+                                    <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
+                                    <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Top" IsChecked="True"/>
+                                    <CheckBox x:Name="checkBox_logCounters" Content="Output event counters"  VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
+
+                                </StackPanel>
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+
+                        <!-- END LOG SETTINGS PANEL -->
+
+
+                        <!-- STREAMING PANEL -->
+
+                        <ad:LayoutAnchorablePane DockHeight="*">
+                            <ad:LayoutAnchorable Title="Streaming Toolbox" CanClose="False" CanHide="False">
+                                <StackPanel>
+                                    <DockPanel Margin="10,0">
+                                        <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox Name="filterTextbox" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
+                                    <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
+                                    <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
+                                </StackPanel>
+
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+
+                        <!-- END STREAMING PANEL -->
+
+                        <!-- REST CONTROLS PANEL -->
+
+                        <ad:LayoutAnchorablePane DockHeight="7*">
+                            <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
+
+                                <!-- this is the content you are looking for -->
                                 <DockPanel>
-                                    <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
-                                    <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" VerticalAlignment="Center">
-                                        <ComboBoxItem Content="Localhost"/>
-                                    </ComboBox>
-                                </DockPanel>
-                                
-                                <DockPanel>
-                                    <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
-                                    <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" VerticalAlignment="Center">
-                                        <ComboBoxItem Content="PHP POST"/>
-                                    </ComboBox>
-                                </DockPanel>
+                                    <DockPanel Margin="10,0" DockPanel.Dock="Top">
+                                        <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
+                                        <StackPanel Background="#FFE5E5E5">
+                                            <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
+                                            <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
+                                            <Button x:Name="restAddToDatabase" Content="Add Data To Database" Margin="10, 0" Click="restAddToDatabase_Click"/>
 
-                                <DockPanel>
-                                    <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                    <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
+                                        <StackPanel Background="#FFE5E5E5">
+                                            <!-- date filter, tweet id filter, etc... -->
+                                            <CheckBox x:Name="rest_filter_recent" Content="Recent" />
+                                            
+                                        </StackPanel>
+                                    </Expander>
+                                    <DataGrid x:Name="restView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Header="Time">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Time}" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Message" Width="*">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
                                 </DockPanel>
-                                
-                                <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
-                                <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Top" IsChecked="True"/>
-                                <CheckBox x:Name="checkBox_logCounters" Content="Output event counters"  VerticalAlignment="Top"/>
-                                <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
-                                
-                            </StackPanel>
-                        </ad:LayoutAnchorable>
-                    </ad:LayoutAnchorablePane>
+                                <!-- this was the content you were looking for -->
 
-                    <!-- END LOG SETTINGS PANEL -->
 
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+
+                        <!-- END REST CONTROLS PANEL -->
+
+                        <!-- CREDENTIALS PANEL -->
+
+                        <ad:LayoutAnchorablePane DockHeight="*">
+                            <ad:LayoutAnchorable Title="Credentials" CanClose="False" CanHide="False">
+
+                                <!-- this is the content you are looking for -->
+                                <StackPanel>
+                                    <DockPanel Margin="10,0">
+                                        <Label Width="{Binding ActualWidth, ElementName=longestString}" Content="Access Token" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="Access_Token" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <DockPanel Margin="10,0">
+                                        <Label x:Name="longestString" Content="Access Token Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="Access_Token_Secret" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <DockPanel Margin="10,0">
+                                        <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Key" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="Consumer_Key" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <DockPanel Margin="10,0">
+                                        <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="Consumer_Secret" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <Button x:Name="setCredentialsButton" Content="Set" Margin="10, 0" Click="setCredentialsButton_Click"/>
+
+                                </StackPanel>
+                                <!-- this was the content you were looking for -->
+
+
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+
+                        <!-- END CREDENTIALS PANEL -->
+
+                    </ad:LayoutPanel>
                     <!-- END PANELS -->
 
                 </ad:LayoutPanel>

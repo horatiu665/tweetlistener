@@ -128,7 +128,7 @@ namespace WPFTwitter
 
 		private void getRateLimitButton_Click(object sender, RoutedEventArgs e)
 		{
-			rest_rateLimitTextBox.Text = Rest.GetRateLimitsString();
+			//rest_rateLimitTextBox.Text = Rest.GetRateLimitsString();
 		}
 
 		private void initCredentialsButton_Click(object sender, RoutedEventArgs e)

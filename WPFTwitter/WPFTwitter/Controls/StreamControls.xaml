@@ -11,23 +11,26 @@
                 <ad:LayoutPanel Orientation="Horizontal">
                     
                     <!-- copy from here to have a separate panel, including a title! -->
-                    <ad:LayoutAnchorablePane>
-                        <ad:LayoutAnchorable Title="Streaming toolbox">
-                            
-                            <!-- this is the content you are looking for -->
+
+                    <!-- STREAMING PANEL -->
+
+                    <ad:LayoutAnchorablePane DockHeight="*">
+                        <ad:LayoutAnchorable Title="Streaming Toolbox">
                             <StackPanel>
                                 <DockPanel Margin="10,0">
                                     <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                    <TextBox VerticalAlignment="Center"/>
+                                    <TextBox Name="filterTextbox" VerticalAlignment="Center"/>
                                 </DockPanel>
-                                <Button Content="Start Stream"/>
-                                <Button Content="Restart Stream"/>
-                                <Button Content="Stop Stream"/>
+                                <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
+                                <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
+                                <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
                             </StackPanel>
-                            <!-- this was the content you were looking for -->
 
                         </ad:LayoutAnchorable>
                     </ad:LayoutAnchorablePane>
+
+                    <!-- END STREAMING PANEL -->
+
                     <!-- copy to here to have a separate panel, including a title! -->
 
                 </ad:LayoutPanel>

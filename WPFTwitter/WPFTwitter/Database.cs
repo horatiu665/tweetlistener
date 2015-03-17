@@ -70,7 +70,7 @@ namespace WPFTwitter
 
 		}
 
-		static void SendJsonToDatabase(string json)
+		public static void SendJsonToDatabase(string json)
 		{
 			if (saveToDatabaseOrPhp) {
 				if (Message != null) {
@@ -82,6 +82,10 @@ namespace WPFTwitter
 			}
 		}
 
+		/// <summary>
+		/// sends tweet json string to database.
+		/// </summary>
+		/// <param name="json"></param>
 		static void SaveToPhpFullJson(string json)
 		{
 			// Create a request using a URL that can receive a post (link.php)
@@ -121,7 +125,7 @@ namespace WPFTwitter
 			// Display the content.
 			if (Message != null) {
 				Message(responseFromServer);
-				
+
 			}
 			// Clean up the streams.
 			reader.Close();
@@ -135,14 +139,78 @@ namespace WPFTwitter
 		/// sends tweet to database via chosen method
 		/// </summary>
 		/// <param name="tweet"></param>
-		static void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
+		public static void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
 		{
 			if (saveToDatabaseOrPhp) {
 				SaveToDatabase(tweet);
 
 			} else {
 				try {
-					SaveToPhpFullTweet(tweet);
+					// encode tweet to json and use SaveToPhpFullJson(string json).
+					Newtonsoft.Json.Linq.JObject json = new Newtonsoft.Json.Linq.JObject();
+
+					// add necessary fields to json (synchronize with php script).
+					// json.created_at
+					json.Add("created_at", tweet.CreatedAt.ToString());
+					// json.id_str
+					json.Add("id_str", tweet.IdStr);
+					// json.in_reply_to_status_id_str
+					json.Add("in_reply_to_status_id_str", tweet.InReplyToStatusIdStr);
+					// json.in_reply_to_user_id_str
+					json.Add("in_reply_to_user_id_str", tweet.InReplyToUserIdStr);
+					// json.lang
+					// convert tweet.Language to two-letter code like twitter does
+					string twoLetterLanguage = Tweetinvi.Core.Extensions.LanguageExtension.GetDescriptionAttribute(tweet.Language);
+					json.Add("lang", twoLetterLanguage);
+					// json.retweet_count
+					json.Add("retweet_count", tweet.RetweetCount.ToString());
+					// json.text
+					json.Add("text", tweet.Text);
+					// json.user
+					var jsonUser = new Newtonsoft.Json.Linq.JObject();
+					// json.user.screen_name
+					jsonUser.Add("screen_name", tweet.Creator.ScreenName);
+					// json.user.id_str
+					jsonUser.Add("id_str", tweet.Creator.IdStr);
+					json.Add("user", jsonUser);
+
+					#region copied 27-02-2015 from php for reference
+
+					//$json = json_decode($_POST['json']);
+
+					//// UTC time when this Tweet was created.
+					////$json->created_at
+					////$created_at = $json->created_at;
+					////$mysqldate = date('y-m-d H:i:s', strtotime($created_at));
+					//$mysqldate = date('Y-m-d H:i:s', time());
+					////$json->id_str
+					//$id_str = $json->id_str;
+					//// If the represented Tweet is a reply, this field will contain the integer representation of the original Tweet’s ID.
+					////$json->in_reply_to_status_id_str
+					//$in_reply_to_status_id_str = $json->in_reply_to_status_id_str;
+					////$json->in_reply_to_user_id_str
+					//$in_reply_to_user_id_str = $json->in_reply_to_user_id_str;
+					////$json->lang
+					//$lang = $json->lang;
+					////$json->retweet_count
+					//$retweet_count = $json->retweet_count;
+					//// tweet text
+					////$json->text
+					//$text = mysqli_real_escape_string($mysqli, $json->text);
+
+					//// object containing info about user
+					////$json->user
+					//// The screen name, handle, or alias that this user identifies themselves with. screen_names are unique but subject to change. Use id_str as a user identifier whenever possible. Typically a maximum of 15 characters long, but some historical accounts may exist with longer names.
+					////	$json->user->screen_name
+
+					//$user_name = mysqli_real_escape_string($mysqli, $json->user->screen_name);
+
+					////	$json->user->id_str
+					//$user_id_str = $json->user->id_str;
+					#endregion
+
+					SaveToPhpFullJson(json.ToString());
+
 				}
 				catch (Exception e) {
 					if (Message != null) {

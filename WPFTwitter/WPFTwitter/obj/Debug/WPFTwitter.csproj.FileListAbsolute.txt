@@ -12,8 +12,6 @@ D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debu
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\MySql.Data.dll
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Newtonsoft.Json.dll
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\PCLWebUtility.dll
-D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\System.Net.Http.Extensions.dll
-D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\System.Net.Http.Primitives.dll
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Tweetinvi.Controllers.dll
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Tweetinvi.Core.dll
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Tweetinvi.Credentials.dll
@@ -41,7 +39,6 @@ D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debu
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.xml
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Autofac.xml
-D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter.csproj.App.config
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\About.baml
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\MainWindow.baml
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\About.g.cs
@@ -80,3 +77,10 @@ D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debu
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\DesignWindow.g.cs
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\LogSettings.baml
 D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\LogSettings.g.cs
+D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\RestToolbox.baml
+D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\RestToolbox.g.cs
+D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\Credentials.baml
+D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\Credentials.g.cs
+D:\HHH\TwitterProject\TweetListener\tweetlistener2\WPFTwitter\bin\Debug\WPFTwitter.exe.config
+D:\HHH\TwitterProject\TweetListener\tweetlistener2\WPFTwitter\obj\Debug\WPFTwitter.exe
+D:\HHH\TwitterProject\TweetListener\tweetlistener2\WPFTwitter\obj\Debug\WPFTwitter.pdb
