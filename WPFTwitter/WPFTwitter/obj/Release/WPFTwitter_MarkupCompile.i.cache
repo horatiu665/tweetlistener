@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\
 WPFTwitter
 none
 false
 TRACE
-D:\HHH\TwitterProject\TweetListener\tweetlistener\WPFTwitter\WPFTwitter\App.xaml
-3-1404905350
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\App.xaml
+10723079304
 
-171160895640
-36922209148
-HelpHelper\HelpHelper.xaml;Windows\About.xaml;Windows\MainWindow.xaml;
+241470612009
+41-1950382690
+Controls\Credentials.xaml;Controls\RestToolbox.xaml;Controls\LogControls.xaml;Controls\LogSettings.xaml;HelpHelper\HelpHelper.xaml;Controls\StreamControls.xaml;Windows\About.xaml;Windows\DesignWindow.xaml;Windows\MainWindow.xaml;Windows\MainWindowOld.xaml;
 
 False
 

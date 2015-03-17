@@ -23,9 +23,7 @@ namespace WPFTwitter
 		// connection data saved as strings
 		public static string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
 		public static string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
-		public static string localPhpTweetsLink = @"http://localhost/hhh/testing/saveTweet.php";
-		public static string onlinePhpTweetsLink = @"http://hivemindcloud.hostoi.com/saveTweet.php";
-		public static string localPhpJsonLink = @"http://localhost/hhh/testing/php/saveJson.php";
+		public static string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
 		public static string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
 
 		/// <summary>
@@ -233,56 +231,7 @@ namespace WPFTwitter
 				}
 			}
 		}
-
-		/// <summary>
-		/// saves tweet data to another table called "tweets"
-		/// </summary>
-		/// <param name="tweet"></param>
-		static void SaveToPhpFullTweet(Tweetinvi.Core.Interfaces.ITweet tweet)
-		{
-			// Create a request using a URL that can receive a post (link.php)
-			WebRequest request = WebRequest.Create(connectOnline ? onlinePhpTweetsLink : localPhpTweetsLink);
-			// Set the Method property of the request to POST.
-			request.Method = "POST";
-			// Create POST data and convert it to a byte array. 
-			// also encode tweet to avoid problems with "&"
-			string postData = "tweet=" + WebUtility.UrlEncode(tweet.Text);
-
-			byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-			// Set the ContentType property of the WebRequest.
-			request.ContentType = "application/x-www-form-urlencoded";
-			// Set the ContentLength property of the WebRequest.
-			request.ContentLength = byteArray.Length;
-			// Get the request stream.
-			System.IO.Stream dataStream = request.GetRequestStream();
-			// Write the data to the request stream.
-			dataStream.Write(byteArray, 0, byteArray.Length);
-			// Close the Stream object.
-			dataStream.Close();
-
-			// optional response
-			// Get the response.
-			WebResponse response = request.GetResponse();
-			// Display the status.
-			if (Message != null) {
-				Message(((HttpWebResponse)response).StatusDescription);
-			}
-			// Get the stream containing content returned by the server.
-			dataStream = response.GetResponseStream();
-			// Open the stream using a StreamReader for easy access.
-			StreamReader reader = new StreamReader(dataStream);
-			// Read the content.
-			string responseFromServer = reader.ReadToEnd();
-			// Display the content.
-			if (Message != null) {
-				Message(responseFromServer);
-			}
-			// Clean up the streams.
-			reader.Close();
-			dataStream.Close();
-			response.Close();
-
-		}
+		
 
 		/// <summary>
 		/// saves directly to database.

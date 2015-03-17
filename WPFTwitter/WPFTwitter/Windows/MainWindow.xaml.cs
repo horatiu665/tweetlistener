@@ -283,6 +283,12 @@ namespace WPFTwitter.Windows
 			Rest.AddLastTweetsToDatabase();
 			
 		}
+
+		private void databasePhpPath_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			DatabaseSaver.localPhpJsonLink = ((TextBox)sender).Text;
+			_logMessageList.Add(new LogMessage("php path changed to " + DatabaseSaver.localPhpJsonLink));
+		}
 	}
 
 	public class LogMessage

@@ -87,7 +87,12 @@
                                             <ComboBoxItem Content="PHP POST"/>
                                         </ComboBox>
                                     </DockPanel>
-
+                                    
+                                    <DockPanel>
+                                        <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                        <TextBox Name="databasePhpPath" VerticalAlignment="Center" Text="http://localhost/tweetlistener/php/saveJson.php" TextChanged="databasePhpPath_TextChanged"  />
+                                    </DockPanel>
+                                    
                                     <DockPanel>
                                         <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                         <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
