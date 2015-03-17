@@ -126,7 +126,7 @@
 
                         <!-- REST CONTROLS PANEL -->
 
-                        <ad:LayoutAnchorablePane DockHeight="7*">
+                        <ad:LayoutAnchorablePane DockHeight="3*">
                             <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
 
                                 <!-- this is the content you are looking for -->
