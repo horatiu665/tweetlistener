@@ -127,6 +127,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\RestExpansionViewer.xaml.cs">
+      <DependentUpon>RestExpansionViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Credentials.xaml.cs">
       <DependentUpon>Credentials.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
     <Compile Include="Rest.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Stream.cs" />
+    <Page Include="Controls\RestExpansionViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Credentials.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -14,16 +14,16 @@
 
                     <!-- REST CONTROLS PANEL -->
 
-                    <ad:LayoutAnchorablePane DockHeight="*">
-                        <ad:LayoutAnchorable Title="Rest Controls" >
+                    <ad:LayoutAnchorablePane DockHeight="3*">
+                        <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
 
                             <!-- this is the content you are looking for -->
-                            <StackPanel>
-                                <DockPanel Margin="10,0">
+                            <DockPanel>
+                                <DockPanel Margin="10,0" DockPanel.Dock="Top">
                                     <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                     <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
                                 </DockPanel>
-                                <Expander Header="Controls" IsExpanded="False">
+                                <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
                                     <StackPanel Background="#FFE5E5E5">
                                         <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
                                         <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
@@ -31,14 +31,34 @@
 
                                     </StackPanel>
                                 </Expander>
-                                <Expander Header="Advanced filters" IsExpanded="False">
+                                <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
                                     <StackPanel Background="#FFE5E5E5">
                                         <!-- date filter, tweet id filter, etc... -->
-                                        <Label>nothing for now</Label>
+                                        <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
+                                        <CheckBox x:Name="rest_filter_recent" Content="Recent" />
+
+
                                     </StackPanel>
                                 </Expander>
-                                <TextBlock x:Name="restInfoTextBlock" TextWrapping="Wrap" Margin="10, 0" Text=""/>
-                            </StackPanel>
+                                <DataGrid x:Name="restView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Time">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Time}" TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Message" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
                             <!-- this was the content you were looking for -->
 
 

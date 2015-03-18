@@ -87,12 +87,12 @@
                                             <ComboBoxItem Content="PHP POST"/>
                                         </ComboBox>
                                     </DockPanel>
-                                    
+
                                     <DockPanel>
                                         <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                         <TextBox Name="databasePhpPath" VerticalAlignment="Center" Text="http://localhost/tweetlistener/php/saveJson.php" TextChanged="databasePhpPath_TextChanged"  />
                                     </DockPanel>
-                                    
+
                                     <DockPanel>
                                         <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                         <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
@@ -129,60 +129,118 @@
 
                         <!-- END STREAMING PANEL -->
 
-                        <!-- REST CONTROLS PANEL -->
+                        <ad:LayoutPanel Orientation="Horizontal">
+                            
+                            <!-- REST CONTROLS PANEL -->
 
-                        <ad:LayoutAnchorablePane DockHeight="3*">
-                            <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
+                            <ad:LayoutAnchorablePane DockHeight="3*">
+                                <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
 
-                                <!-- this is the content you are looking for -->
-                                <DockPanel>
-                                    <DockPanel Margin="10,0" DockPanel.Dock="Top">
-                                        <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
+                                    <!-- this is the content you are looking for -->
+                                    <DockPanel>
+                                        <DockPanel Margin="10,0" DockPanel.Dock="Top">
+                                            <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
+                                            <StackPanel Background="#FFE5E5E5">
+                                                <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
+                                                <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
+                                                <Button x:Name="restAddToDatabase" Content="Add Data To Database" Margin="10, 0" Click="restAddToDatabase_Click"/>
+
+                                            </StackPanel>
+                                        </Expander>
+                                        <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
+                                            <StackPanel Background="#FFE5E5E5">
+                                                <!-- date filter, tweet id filter, etc... -->
+                                                <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
+                                                <CheckBox x:Name="rest_filter_recent" Content="Recent" />
+
+
+                                            </StackPanel>
+                                        </Expander>
+                                        <DataGrid x:Name="restView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn Header="Time">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Time}" TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTemplateColumn Header="Message" Width="*">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </DockPanel>
-                                    <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
-                                        <StackPanel Background="#FFE5E5E5">
-                                            <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
-                                            <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
-                                            <Button x:Name="restAddToDatabase" Content="Add Data To Database" Margin="10, 0" Click="restAddToDatabase_Click"/>
-
-                                        </StackPanel>
-                                    </Expander>
-                                    <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
-                                        <StackPanel Background="#FFE5E5E5">
-                                            <!-- date filter, tweet id filter, etc... -->
-                                            <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
-                                            <CheckBox x:Name="rest_filter_recent" Content="Recent" />
-                                            
-                                            
-                                        </StackPanel>
-                                    </Expander>
-                                    <DataGrid x:Name="restView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
-                                        <DataGrid.Columns>
-                                            <DataGridTemplateColumn Header="Time">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Time}" TextWrapping="Wrap" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                            <DataGridTemplateColumn Header="Message" Width="*">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </DockPanel>
-                                <!-- this was the content you were looking for -->
+                                    <!-- this was the content you were looking for -->
 
 
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
 
-                        <!-- END REST CONTROLS PANEL -->
+                            <!-- END REST CONTROLS PANEL -->
+
+                            <!-- REST EXPANSION PANEL -->
+
+                            <ad:LayoutAnchorablePane DockHeight="*">
+                                <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
+
+                                    <!-- this is the content you are looking for -->
+                                    <DockPanel>
+                                        <DockPanel Margin="10,0" DockPanel.Dock="Top">
+                                            <Label Content="Status: " HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <Label x:Name="restExpansionStatusLabel" Content="null" HorizontalContentAlignment="Left" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
+                                            <StackPanel Background="#FFE5E5E5">
+                                                <Button x:Name="restExpansionButton" Content="Start Expansion" Click="restExpansionButton_Click" Margin="10, 0"/>
+
+                                                <DockPanel Margin="10,0">
+                                                    <Label Content="Filters" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                                    <TextBox Name="restExpansionFilters" Text="#gamerproblems" VerticalAlignment="Center"/>
+                                                </DockPanel>
+                                                <DockPanel Margin="10,0">
+                                                    <Label Content="Max Expansions" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                                    <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="2"  VerticalAlignment="Center"/>
+                                                </DockPanel>
+                                            </StackPanel>
+                                        </Expander>
+                                        <Expander Header="Active Keywords" IsExpanded="False" DockPanel.Dock="Top">
+                                            <DataGrid x:Name="restExpansionView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                                                <DataGrid.Columns>
+                                                    <DataGridTemplateColumn Header="Keyword">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding Keyword}" TextWrapping="Wrap" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Expansion" Width="*">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding Expansion}" TextWrapping="Wrap" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Expander>
+
+                                    </DockPanel>
+                                    <!-- this was the content you were looking for -->
+
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
+
+                            <!-- END REST EXPANSION PANEL -->
+
+                        </ad:LayoutPanel>
 
                         <!-- CREDENTIALS PANEL -->
 

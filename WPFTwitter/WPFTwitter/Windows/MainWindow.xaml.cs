@@ -126,6 +126,8 @@ namespace WPFTwitter.Windows
 
 			Stream.Start(Stream.filter);
 
+			loggedIn = true;
+
 			// if log
 			if (checkBox_Log.IsChecked.Value) {
 				Log.Start(logPathTextBox.Text, checkBox_logCounters.IsChecked.Value, checkBox_databaseMessages.IsChecked.Value);
@@ -168,7 +170,7 @@ namespace WPFTwitter.Windows
 			// display stuff in restInfoTextBlock.Text = "<here>"
 			_restMessageList.Add(new LogMessage("trying to get rest query"));
 
-			App.Current.Dispatcher.Invoke((Action)(() => {
+			App.Current.Dispatcher.InvokeAsync((Action)(() => {
 
 				string filter = restFilterTextBox.Text;
 
@@ -215,6 +217,57 @@ namespace WPFTwitter.Windows
 				}
 			}));
 
+		}
+
+		RestGatherer restGatherer;
+
+		private void restExpansionButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (!loggedIn) return;
+
+			if (restGatherer == null) {
+				((Button)sender).Content = "Stop Expansion";
+				restGatherer = new RestGatherer();
+
+				restExpansionStatusLabel.Content = "Expanding";
+				restExpansionView.DataContext = restGatherer.KeywordList;
+
+				restGatherer.TweetFound += (s, t) => {
+					_restMessageList.Add(
+						new LogMessage("E " + t.firstExpansion + "; Tweet: " + t.tweet.Text));
+				};
+				restGatherer.ExpansionFinished += (s, edata) => {
+					_restMessageList.Add(
+						new LogMessage("E " + edata.expansion + "; Tweets " + edata.TweetCount));
+
+				};
+				restGatherer.CycleFinished += (s, untilDate) => {
+					_restMessageList.Add(
+						new LogMessage("Cycle until " + untilDate + " finished"));
+
+				};
+				int maxExp;
+				if (!int.TryParse(restExpansionsMaxExpansionsTextbox.Text, out maxExp)) {
+					maxExp = 3;
+				} 
+				var filters = restExpansionFilters.Text.Split(',');
+				
+				App.Current.Dispatcher.Invoke(() => {
+					restGatherer.Algorithm(maxExp, filters);
+				});
+
+			} else {
+				restGatherer.Stop();
+				restGatherer.Stopped += (s, a) => {
+					_restMessageList.Add(
+						new LogMessage("RestGatherer successfully stopped"));
+					restExpansionStatusLabel.Content = "Stopped";
+					restGatherer = null;
+					((Button)sender).Content = "Start Expansion";
+				
+				};
+
+			}
 		}
 
 		private void restRateLimitButton_Click(object sender, RoutedEventArgs e)
@@ -271,11 +324,14 @@ namespace WPFTwitter.Windows
 			//}
 		}
 
+		public bool loggedIn = false;
+
 		private void LogIn_Click(object sender, RoutedEventArgs e)
 		{
 			if ((string)(((MenuItem)sender).Header) == "Log in") {
 				Stream.TwitterCredentialsInit();
 				((MenuItem)sender).Header = "Logged in";
+				loggedIn = true;
 			}
 		}
 

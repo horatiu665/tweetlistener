@@ -48,6 +48,33 @@ namespace WPFTwitter
 		public static List<ITweet> SearchTweets(ITweetSearchParameters searchParameters)
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
+				// if any param is not properly defined, define it here to default
+				if (searchParameters.GeoCode == null) {
+					searchParameters.SetGeoCode(Geo.GenerateCoordinates(0, 0), 100000, DistanceMeasure.Miles);
+				}
+				if (searchParameters.Lang == null) {
+					searchParameters.Lang = Language.English;
+				}
+				if (searchParameters.Locale == null) {
+					searchParameters.Locale = "";
+				}
+				if (searchParameters.SearchType == null) {
+					searchParameters.SearchType = SearchResultType.Recent;
+				}
+				if (searchParameters.MaximumNumberOfResults == null) 
+					searchParameters.MaximumNumberOfResults = 100;
+				if (searchParameters.Since == null)
+					searchParameters.Since = DateTime.Now.AddDays(-1);
+				if (searchParameters.Until == null)
+					searchParameters.Until = DateTime.Now;
+				if (searchParameters.SinceId == null) {
+					searchParameters.SinceId = -1;
+				}
+				if (searchParameters.MaxId == null) {
+					searchParameters.MaxId = long.MaxValue;
+				}
+
+				
 				var tweets = Search_SearchTweets(searchParameters);
 				lastTweets.Clear();
 				foreach (var t in tweets) {

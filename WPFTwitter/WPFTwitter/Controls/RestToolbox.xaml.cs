@@ -26,5 +26,10 @@ namespace WPFTwitter
 		{
 
 		}
+
+		private void restExpansionButton_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+		}
 	}
 }
