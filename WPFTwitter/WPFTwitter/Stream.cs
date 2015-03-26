@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tweetinvi;
 using System.Threading;
+using System.IO;
 
 namespace WPFTwitter
 {
@@ -40,6 +41,29 @@ namespace WPFTwitter
 		/// </summary>
 		public static void TwitterCredentialsInit()
 		{
+			// if .ini file found, take creds from there. else hardcode them.
+			if (File.Exists("config.ini")) {
+				var jsonRead = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText("config.ini"));
+				string[] appCreds = new string[4] {
+					jsonRead.Property("Access_Token").ToString(),
+					jsonRead.Property("Access_Token_Secret").ToString(),
+					jsonRead.Property("Consumer_Key").ToString(),
+					jsonRead.Property("Consumer_Secret").ToString()
+				};
+				if (appCreds[0] != null && appCreds[1] != null && appCreds[2] != null && appCreds[3] != null) {
+					TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
+						// "Access_Token"
+						appCreds[0],
+						// "Access_Token_Secret"
+						appCreds[1],
+						// "Consumer_Key"
+						appCreds[2],
+						// "Consumer_Secret"
+						appCreds[3]
+					);
+					return;
+				}
+			}
 
 			// "Access_Token", "Access_Token_Secret", "Consumer_Key", "Consumer_Secret"
 			TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
@@ -52,6 +76,7 @@ namespace WPFTwitter
 				// "Consumer_Secret"
 				"uz5PC6S6M5rTpvyviZ3pBf2UCp6Ih4ALj1EN4D6T2svCD7d15y"
 				);
+
 
 		}
 
@@ -229,7 +254,7 @@ namespace WPFTwitter
 				if (intentionalStop) {
 					intentionalStop = false;
 					break;
-					
+
 				}
 
 				// first wait to not get banned
