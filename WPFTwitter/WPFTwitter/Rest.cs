@@ -102,7 +102,7 @@ namespace WPFTwitter
 						Log.Output("Could it be this one? " + searchParameters.TweetSearchFilter);// All
 						Log.Output("Could it be this one? " + searchParameters.Until);// 01-Jan-01 00:00:00		
 
-					}  
+					}
 					#endregion
 				}
 
@@ -117,12 +117,18 @@ namespace WPFTwitter
 				catch (NullReferenceException nullref) {
 					Log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
 					Log.Output("Here is the error: " + nullref.ToString());
+					// attempting to get error from twitter message
+					var ex = Tweetinvi.ExceptionHandler.GetLastException();
+					Log.Output("Latest exception from Tweetinvi! Status code: " + ex.StatusCode
+						+ "\nException description: " + ex.TwitterDescription);
 					return null;
 				}
 			}
 			return null;
 		}
 
+		// list of query operators from twitter dev site:
+		// https://dev.twitter.com/rest/public/search
 		public static ITweetSearchParameters GenerateSearchParameters(string filter)
 		{
 			return Search.GenerateTweetSearchParameter(filter);

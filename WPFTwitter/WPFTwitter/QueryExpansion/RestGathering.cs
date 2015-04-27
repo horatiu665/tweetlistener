@@ -54,7 +54,8 @@ namespace WPFTwitter
 			{
 				return keywordList;
 			}
-			// should not set {} an observable collection because it breaks the binding. instead should only mess around with private value. unoptimally: clear list and add each element.
+			// should not set {} an observable collection because it breaks the binding.
+			// instead should only mess around with private value. unoptimally: clear list and add each element.
 		}
 
 		private List<TweetData> tweetsProcessed;
@@ -154,7 +155,7 @@ namespace WPFTwitter
 			// start algorithm.
 			Task.Factory.StartNew(() => {
 				while (!stop)
-					GatheringCycle(startDate, endDate);
+					GatheringCycle2(startDate, endDate);
 				Stopped(this, null);
 			});
 		}
@@ -177,7 +178,70 @@ namespace WPFTwitter
 				// same goes for H2, H3, ... until all expansions are done or until no more tweets can be found.
 				// what happens from H0 to H1 is the query expansion algorithm.
 
+				// steps:
+				//		get all tweets in a cycle (between 2 dates with other restrictions)
+				//			= this function
+				//		get all tweets in each expansion (using H[0..n] as queries)
+				//			= the next loop
+				//		get all tweets in a query (split into multiple shorter queries because too many keywords)
+				//			= the foreach queries loop
+				// function to wait for RestLimits at any step of the way
+				//			= inside the smallest loop (which will happen regardless of amount of expansions or query splits
 
+				// for each _expansion
+				for (var i = 0; i < maxExpansionCount; i++) {
+
+					currentExpansion = new ExpansionData(i);
+					// only perform search if keywords were found
+					if (AnyKeywordsInCurrentExpansion()) {
+						// split query into multiple shorter ones, within Twitter limits.
+						var queries = SplitIntoSmallQueries(keywordList);
+						foreach (var q in queries) {
+							var sp = ResetSearchParameters(q);
+							if (Message != null) Message(sp.SearchQuery);
+
+							// main results loop, waiting for rest limits, etc.
+							var results = new List<ITweet>();
+
+							// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
+							do {
+								if (rateLimitCounter > 0 && !stop) {
+
+									results = Rest.SearchTweets(sp);
+									if (results == null) {
+										break;
+									}
+									if (results.Count == 0) {
+										break;
+									}
+
+									rateLimitCounter--;
+
+									// save minId to use for next batch of tweets
+									var minId = results[0].IdStr;
+									foreach (var r in results) {
+										// find minId among results.
+										if (stringIntSmallerThan(r.IdStr, minId)) {
+											minId = r.IdStr;
+										}
+
+										TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+
+									}
+
+									// subtract 1 so that we cannot get the same tweets again
+									sp.MaxId = long.Parse(minId) - 1;
+
+								} else if (rateLimitCounter <= 0) {
+									// check rate limits in case we are wrong and they are not actually zero
+									rateLimitCounter = Rest.GetRateLimits_Search().Remaining;
+								}
+							} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
+
+						}
+
+					}
+				}
 
 			}
 			catch (Exception e) {
@@ -190,6 +254,34 @@ namespace WPFTwitter
 			//			RestartGatheringCycle(untilDate, DateTime.Now);
 			CycleFinished(this, sinceDate, untilDate);
 
+		}
+
+		public int maxTweetsPerQuery = 10;
+
+		List<KeywordListClass> SplitIntoSmallQueries(KeywordListClass fullList)
+		{
+			var klc = new List<KeywordListClass>();
+
+			// twitter documentation shows the amount of tweets allowed (recommended) in each query
+			// https://dev.twitter.com/rest/public/search
+			// they say limit the search and operators to 10 per search.
+			// there can be an error "{error: search too complex}" - that's probably what was happening.
+			int smallCount = 0;
+			for (int i = 0; i < fullList.Count; i++) {
+				if (smallCount >= maxTweetsPerQuery) {
+					smallCount = 0;
+				}
+
+				if (smallCount == 0) {
+					klc.Add(new KeywordListClass());
+				}
+
+				klc.Last().Add(fullList[i]);
+
+				smallCount++;
+			}
+
+			return klc;
 		}
 
 		/// <summary>
@@ -270,6 +362,12 @@ namespace WPFTwitter
 		// expands keywords, saves tweets. runs in BG, processes tweets when it has enough resources.
 		private void ProcessTweet(TweetData t)
 		{
+			// only process tweet if it has not been found before.
+			if (tweetsProcessed.Any(pt => pt.tweet.Id == t.tweet.Id)) {
+				tweetsProcessed.First(pt => pt.tweet.Id == t.tweet.Id).howManyTimesFound++;
+				return;
+			}
+
 			// how to figure out which expansion the hashtags in this tweet are?
 			// find the earliest expansion hashtag inside, and add 1
 			var tags = t.GetHashtags();
@@ -290,7 +388,6 @@ namespace WPFTwitter
 
 				return;
 			}
-
 
 			//// find the earliest expansion among the prev ones
 			var earliestExp = 0;
@@ -353,6 +450,9 @@ namespace WPFTwitter
 					addedK = k.Insert(0, "#");
 				}
 
+				// make hashtags lowercase.
+				addedK = addedK.ToLower();
+
 				App.Current.Dispatcher.Invoke((Action)(() => {
 					if (!keywordList.Any(kkk => kkk.Keyword == addedK)) {
 						keywordList.Add(new KeywordData(addedK, expansion));
@@ -385,6 +485,47 @@ namespace WPFTwitter
 		private bool AnyKeywordsInCurrentExpansion()
 		{
 			return keywordList.Any(k => k.Expansion == currentExpansion.expansion);
+		}
+
+		/// <summary>
+		/// sets search parameters based on a local list of keywords
+		/// list of query operators from twitter dev site:
+		/// https://dev.twitter.com/rest/public/search
+		/// also, list of requirements and limitations of search API can be found:
+		/// https://dev.twitter.com/rest/public/search
+		/// </summary>
+		private ITweetSearchParameters ResetSearchParameters(KeywordListClass keywordList)
+		{
+			string keywordsQuery = "";
+			// get all tweets using _keyword list
+			bool atLeastOne = false;
+			foreach (var k in keywordList) {
+				if (k.Expansion == currentExpansion.expansion) {
+					if (atLeastOne)
+						keywordsQuery += " OR ";
+					keywordsQuery += k.Keyword;
+					atLeastOne = true;
+				}
+			}
+
+			// set the latest keywords as search query
+			var sp = Rest.GenerateSearchParameters(keywordsQuery);
+
+			sp.SearchType = SearchResultType.Recent;
+			sp.TweetSearchFilter = TweetSearchFilter.All;
+
+			sp.Since = sinceDate;
+
+			sp.Until = untilDate;
+
+			sp.MaximumNumberOfResults = 100;
+
+			sp.SinceId = long.MinValue;
+
+			sp.MaxId = long.MaxValue;
+
+			return sp;
+
 		}
 
 		/// <summary>
@@ -453,6 +594,9 @@ namespace WPFTwitter
 
 			// which _expansion cycle first found this tweet?
 			public int firstExpansion;
+
+			// how many times was this tweet found after being found once and processed?
+			public int howManyTimesFound = 1;
 
 			public TweetData(ITweet tweet, int gatheringCycle, int firstExpansion)
 			{
