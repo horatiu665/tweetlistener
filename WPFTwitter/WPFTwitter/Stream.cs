@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tweetinvi;
 using System.Threading;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace WPFTwitter
 {
@@ -36,47 +37,76 @@ namespace WPFTwitter
 
 		public delegate void StreamErrorHandler(string message);
 
+		private static List<string> credentials = new List<string>() { "", "", "", "" };
+
+		public static event Action<List<string>> CredentialsChange;
+
 		/// <summary>
 		/// set twitter credentials for the app
 		/// </summary>
-		public static void TwitterCredentialsInit()
+		public static void TwitterCredentialsInit(List<string> creds = null)
 		{
-			// if .ini file found, take creds from there. else hardcode them.
-			if (File.Exists("config.ini")) {
-				var jsonRead = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText("config.ini"));
-				string[] appCreds = new string[4] {
-					jsonRead.Property("Access_Token").ToString(),
-					jsonRead.Property("Access_Token_Secret").ToString(),
-					jsonRead.Property("Consumer_Key").ToString(),
-					jsonRead.Property("Consumer_Secret").ToString()
-				};
-				if (appCreds[0] != null && appCreds[1] != null && appCreds[2] != null && appCreds[3] != null) {
-					TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
-						// "Access_Token"
-						appCreds[0],
-						// "Access_Token_Secret"
-						appCreds[1],
-						// "Consumer_Key"
-						appCreds[2],
-						// "Consumer_Secret"
-						appCreds[3]
-					);
-					return;
+			// if creds == null, init was called for reset (from file or hardcoded).
+			if (creds == null) {
+
+				// if .ini file found, take creds from there. else hardcode them.
+				bool credsFoundInFile = false;
+				if (File.Exists("config.ini")) {
+					var jsonRead = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText("config.ini"));
+					credentials = new List<string>() {
+						jsonRead["Access_Token"].ToString(),
+						jsonRead["Access_Token_Secret"].ToString(),
+						jsonRead["Consumer_Key"].ToString(),
+						jsonRead["Consumer_Secret"].ToString()
+					};
+					if (credentials[0] != null && credentials[1] != null && credentials[2] != null && credentials[3] != null) {
+						credsFoundInFile = true;
+					}
+				}
+
+				if (!credsFoundInFile) {
+					// HARD CODE the creds
+					credentials = new List<string>() {
+						"2504893657-b30BlFnSdCKo42LFIyWKbywseTq2PyG0StdpKp6",
+						"JDCAI46G4qDWHPYLjfhuM9iDll53wgRwXZKhcMkw84dwi",
+						"s3QKQous2rgkpglkSTRHQz9dw",
+						"t9cZGT3Rcheh8742LVZHaIc5uvLsSXSGvqUb3NIGr9WMt097IH"
+					};
+
+					var jsonWrite = new Newtonsoft.Json.Linq.JObject();
+					jsonWrite.Add("Access_Token",
+						new Newtonsoft.Json.Linq.JValue(credentials[0]));
+					jsonWrite.Add("Access_Token_Secret",
+						new Newtonsoft.Json.Linq.JValue(credentials[1]));
+					jsonWrite.Add("Consumer_Key",
+						new Newtonsoft.Json.Linq.JValue(credentials[2]));
+					jsonWrite.Add("Consumer_Secret",
+						new Newtonsoft.Json.Linq.JValue(credentials[3]));
+					StreamWriter sw = new StreamWriter("config.ini");
+					sw.Write(jsonWrite.ToString());
+					sw.Close();
+				}
+
+				if (CredentialsChange != null) {
+					CredentialsChange(credentials);
+				}
+			} else {
+				// set credentials to creds
+				if (creds[0] != null && creds[1] != null && creds[2] != null && creds[3] != null) {
+					credentials = new List<string>(creds);
 				}
 			}
 
-			// "Access_Token", "Access_Token_Secret", "Consumer_Key", "Consumer_Secret"
 			TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
 				// "Access_Token"
-				"2504893657-txY29l8THkV9NhiR0ErmfXVHoSdp9RuvrhAN2DN",
+				credentials[0],
 				// "Access_Token_Secret"
-				"TZ82eeDtaW5cLJybm4nfsmRXITz8qeCU0Y9LhHN6J5bWn",
+				credentials[1],
 				// "Consumer_Key"
-				"hpOr7rLKQU98zTzfu2G9Qavbd",
+				credentials[2],
 				// "Consumer_Secret"
-				"uz5PC6S6M5rTpvyviZ3pBf2UCp6Ih4ALj1EN4D6T2svCD7d15y"
-				);
-
+				credentials[3]
+			);
 
 		}
 

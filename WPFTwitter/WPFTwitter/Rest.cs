@@ -24,7 +24,7 @@ namespace WPFTwitter
 			foreach (var t in lastTweets) {
 				// use DatabaseSaver to save each tweet just like we do with the streaming
 				DatabaseSaver.SendTweetToDatabase(t);
-				
+
 			}
 		}
 
@@ -48,39 +48,77 @@ namespace WPFTwitter
 		public static List<ITweet> SearchTweets(ITweetSearchParameters searchParameters)
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
-				// if any param is not properly defined, define it here to default
-				if (searchParameters.GeoCode == null) {
-					searchParameters.SetGeoCode(Geo.GenerateCoordinates(0, 0), 100000, DistanceMeasure.Miles);
-				}
-				if (searchParameters.Lang == null) {
-					searchParameters.Lang = Language.English;
-				}
-				if (searchParameters.Locale == null) {
-					searchParameters.Locale = "";
-				}
-				if (searchParameters.SearchType == null) {
-					searchParameters.SearchType = SearchResultType.Recent;
-				}
-				if (searchParameters.MaximumNumberOfResults == null) 
+				if (false) {
+					#region shit
+					// if any param is not properly defined, define it here to default
+					if (searchParameters == null) {
+						searchParameters = Search.GenerateTweetSearchParameter("");
+					}
+
+					if (false) {
+						if (searchParameters.Until.Year < 2014) {
+							searchParameters.Until = DateTime.Now;
+						}
+					}
+
 					searchParameters.MaximumNumberOfResults = 100;
-				if (searchParameters.Since == null)
-					searchParameters.Since = DateTime.Now.AddDays(-1);
-				if (searchParameters.Until == null)
-					searchParameters.Until = DateTime.Now;
-				if (searchParameters.SinceId == null) {
-					searchParameters.SinceId = -1;
-				}
-				if (searchParameters.MaxId == null) {
-					searchParameters.MaxId = long.MaxValue;
+
+					if (searchParameters.MaxId == -1) {
+						searchParameters.MaxId = long.MaxValue;
+					}
+
+
+					try {
+						// print search parameters here with all they contain...?
+						string s = "";
+						s = ""												// default values:
+						+ "\n" + searchParameters.GeoCode					// ???
+						+ "\n" + searchParameters.GeoCode.Coordinates.Latitude					// ???
+						+ "\n" + searchParameters.GeoCode.Coordinates.Longitude					// ???
+						+ "\n" + searchParameters.GeoCode.DistanceMeasure					// ???
+						+ "\n" + searchParameters.GeoCode.Radius					// ???
+						+ "\n" + searchParameters.Lang						// Undefined
+						+ "\n" + searchParameters.Locale					//  
+						+ "\n" + searchParameters.MaxId						// -1
+						+ "\n" + searchParameters.MaximumNumberOfResults	// 100
+						+ "\n" + searchParameters.SearchQuery				// callofduty hehehhe
+						+ "\n" + searchParameters.SearchType				// Popular
+						+ "\n" + searchParameters.Since						// 01-Jan-01 00:00:00
+						+ "\n" + searchParameters.SinceId					// -1
+						+ "\n" + searchParameters.TweetSearchFilter			// All
+						+ "\n" + searchParameters.Until;					// 01-Jan-01 00:00:00		
+						//Log.Output("Search parameters:" + s);
+					}
+					catch (NullReferenceException nref) {
+						Log.Output("One of the search parameters was null. we will find out which one here:");
+						Log.Output("Could it be this one? " + searchParameters.Lang);// Undefined
+						Log.Output("Could it be this one? " + searchParameters.Locale);//  
+						Log.Output("Could it be this one? " + searchParameters.MaxId);// -1
+						Log.Output("Could it be this one? " + searchParameters.MaximumNumberOfResults);// 100
+						Log.Output("Could it be this one? " + searchParameters.SearchQuery);// callofduty hehehhe
+						Log.Output("Could it be this one? " + searchParameters.SearchType);// Popular
+						Log.Output("Could it be this one? " + searchParameters.Since);// 01-Jan-01 00:00:00
+						Log.Output("Could it be this one? " + searchParameters.SinceId);// -1
+						Log.Output("Could it be this one? " + searchParameters.TweetSearchFilter);// All
+						Log.Output("Could it be this one? " + searchParameters.Until);// 01-Jan-01 00:00:00		
+
+					}  
+					#endregion
 				}
 
-				
-				var tweets = Search_SearchTweets(searchParameters);
-				lastTweets.Clear();
-				foreach (var t in tweets) {
-					lastTweets.Add(t);
+				try {
+					var tweets = Search_SearchTweets(searchParameters);
+					lastTweets.Clear();
+					foreach (var t in tweets) {
+						lastTweets.Add(t);
+					}
+					return tweets;
 				}
-				return tweets;
+				catch (NullReferenceException nullref) {
+					Log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
+					Log.Output("Here is the error: " + nullref.ToString());
+					return null;
+				}
 			}
 			return null;
 		}
@@ -102,7 +140,7 @@ namespace WPFTwitter
 		{
 			// perform if application is authenticated
 			if (Tweetinvi.TwitterCredentials.ApplicationCredentials != null) {
-				Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits rateLimits = 
+				Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits rateLimits =
 				RateLimit.GetCredentialsRateLimits(Tweetinvi.TwitterCredentials.ApplicationCredentials);
 
 				return rateLimits;
@@ -119,7 +157,10 @@ namespace WPFTwitter
 		public static Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit GetRateLimits_Search()
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
-				return GetRateLimits_All().ApplicationRateLimitStatusLimit;
+				var grla = GetRateLimits_All();
+				if (grla != null) {
+					return grla.ApplicationRateLimitStatusLimit;
+				}
 			}
 			return null;
 		}
@@ -160,8 +201,19 @@ namespace WPFTwitter
 			//searchParameter.SinceId = 399616835892781056;
 			//searchParameter.MaxId = 405001488843284480;
 
-			List<ITweet> tweets = Search.SearchTweets(searchParameters).ToList();
-			return tweets;
+			if (searchParameters == null) {
+				Log.Output("Search parameters were null at Rest.cs line 168");
+				return null;
+			}
+
+			var st = Search.SearchTweets(searchParameters);
+			//var st = Search_FilteredSearch(searchParameters.SearchQuery);
+			if (st != null) {
+				List<ITweet> tweets = st.ToList();
+				return tweets;
+			} else {
+				return null;
+			}
 		}
 
 		// complicated shit
@@ -173,13 +225,14 @@ namespace WPFTwitter
 		/// <summary>
 		/// example of search with only a few parameters
 		/// </summary>
-		private static void Search_FilteredSearch()
+		private static IEnumerable<ITweet> Search_FilteredSearch(string filter)
 		{
-			var searchParameter = Search.GenerateTweetSearchParameter("#tweetinvi");
+			var searchParameter = Search.GenerateTweetSearchParameter(filter);
 			searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
 			var tweets = Search.SearchTweets(searchParameter);
-			tweets.ForEach(t => Console.WriteLine(t.Text));
+			//tweets.ForEach(t => Console.WriteLine(t.Text));
+			return tweets;
 		}
 
 		/// <summary>

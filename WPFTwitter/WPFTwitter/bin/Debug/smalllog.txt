@@ -12,3 +12,11 @@
 17-Mar-15 12:01:35: Stream successfully started
 17-Mar-15 12:01:36: Stream disconnected.
 17-Mar-15 12:01:36: Stream attempting to start at time 17-Mar-15 12:01:36
+30-Mar-15 09:27:13: New log started
+30-Mar-15 09:27:13: Stream running filter:
+30-Mar-15 09:27:13: the
+30-Mar-15 09:27:13: OnStreamStarted event is called
+30-Mar-15 09:27:14: System.EventArgs
+30-Mar-15 09:27:14: Stream successfully started
+30-Mar-15 09:27:18: Stream disconnected.
+30-Mar-15 09:27:19: Stream attempting to start at time 30-Mar-15 09:27:19

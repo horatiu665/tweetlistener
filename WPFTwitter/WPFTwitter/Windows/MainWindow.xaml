@@ -13,7 +13,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:Controls="clr-namespace:WPFTwitter"
-        Title="Tweet Listener" Height="422" Width="641" KeyDown="Window_KeyDown">
+        Title="Tweet Listener" Height="745" Width="928" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
             <MenuItem Header="Options">
@@ -42,8 +42,8 @@
 
                     <!-- LOG PANEL -->
 
-                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*" x:Name="panelLogAnchorablePane">
-                        <ad:LayoutAnchorable Title="Log" x:Name="panelLogAnchorable" CanClose="False" CanHide="False">
+                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
+                        <ad:LayoutAnchorable x:Name="logLayout" Title="Log" CanClose="False" CanHide="False">
                             <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Time">
@@ -56,7 +56,9 @@
                                     <DataGridTemplateColumn Header="Message" Width="*">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
+                                                <ScrollViewer MaxHeight="300" >
+                                                    <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
+                                                </ScrollViewer>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
@@ -67,12 +69,12 @@
                     </ad:LayoutAnchorablePane>
                     <!-- END LOG PANEL -->
 
-                    <ad:LayoutPanel Orientation="Vertical" DockWidth="*">
+                    <ad:LayoutPanel Orientation="Vertical" DockWidth="2*">
 
                         <!-- LOG SETTINGS PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="*">
-                            <ad:LayoutAnchorable Title="Log Settings" CanClose="False" CanHide="False">
+                            <ad:LayoutAnchorable x:Name="logSettingsLayout"  Title="Log Settings" CanClose="False" CanHide="False">
                                 <StackPanel Margin="10,0">
                                     <DockPanel>
                                         <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
@@ -113,7 +115,7 @@
                         <!-- STREAMING PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="*">
-                            <ad:LayoutAnchorable Title="Streaming Toolbox" CanClose="False" CanHide="False">
+                            <ad:LayoutAnchorable x:Name="streamingToolboxLayout" Title="Streaming Toolbox" CanClose="False" CanHide="False">
                                 <StackPanel>
                                     <DockPanel Margin="10,0">
                                         <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
@@ -130,7 +132,7 @@
                         <!-- END STREAMING PANEL -->
 
                         <ad:LayoutPanel Orientation="Horizontal">
-                            
+
                             <!-- REST CONTROLS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="3*">
@@ -171,7 +173,9 @@
                                                 <DataGridTemplateColumn Header="Message" Width="*">
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                                                            <ScrollViewer MaxHeight="300" >
+                                                                <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                                                            </ScrollViewer>
                                                         </DataTemplate>
                                                     </DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
@@ -212,12 +216,48 @@
                                             </StackPanel>
                                         </Expander>
                                         <Expander Header="Active Keywords" IsExpanded="False" DockPanel.Dock="Top">
-                                            <DataGrid x:Name="restExpansionView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
+                                            <ListView x:Name="restExpansionListView" ItemsSource="{Binding Path=., Mode=OneWay}" >
+                                                <ListView.Resources>
+                                                    <Style TargetType="GridViewColumnHeader">
+                                                        <EventSetter Event="MouseUp" Handler="restExpansionListView_Headers_MouseUp">
+                                                            
+                                                        </EventSetter>
+                                                    </Style>
+                                                </ListView.Resources>
+                                                <ListView.View>
+                                                    <GridView x:Name="restExpansionListViewGrid">
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Keyword}">
+                                                            <GridViewColumnHeader Content="Keyword">
+                                                                
+                                                            </GridViewColumnHeader>
+                                                        </GridViewColumn>
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Count}">
+                                                            <GridViewColumnHeader Content="Count">
+
+                                                            </GridViewColumnHeader>
+                                                        </GridViewColumn>
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Expansion}">
+                                                            <GridViewColumnHeader Content="Expansion">
+
+                                                            </GridViewColumnHeader>
+                                                        </GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                            <!--<DataGrid x:Name="restExpansionView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top"
+                                            MouseDown="restExpansionView_MouseDown" MouseUp="restExpansionView_MouseUp">
                                                 <DataGrid.Columns>
-                                                    <DataGridTemplateColumn Header="Keyword">
+                                                    <DataGridTemplateColumn Header="Keyword" Width="2*">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <TextBlock Text="{Binding Keyword}" TextWrapping="Wrap" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Count" Width="*">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding Count}" TextWrapping="Wrap" />
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
@@ -228,8 +268,9 @@
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
+
                                                 </DataGrid.Columns>
-                                            </DataGrid>
+                                            </DataGrid>-->
                                         </Expander>
 
                                     </DockPanel>
@@ -245,10 +286,10 @@
                         <!-- CREDENTIALS PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="*">
-                            <ad:LayoutAnchorable Title="Credentials" CanClose="False" CanHide="False">
+                            <ad:LayoutAnchorable x:Name="credentialsPanelLayout"  Title="Credentials" CanClose="False" CanHide="False">
 
                                 <!-- this is the content you are looking for -->
-                                <StackPanel>
+                                <StackPanel x:Name="credentialsPanel">
                                     <DockPanel Margin="10,0">
                                         <Label Width="{Binding ActualWidth, ElementName=longestString}" Content="Access Token" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                         <TextBox x:Name="Access_Token" VerticalAlignment="Center"/>

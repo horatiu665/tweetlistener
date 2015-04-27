@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -33,11 +35,14 @@ namespace WPFTwitter.Windows
 		/// <param name="item"></param>
 		new public void Add(LogMessage item)
 		{
-			base.Add(item);
-			// make sure list is not longer than max length
-			while (this.Count > maxLength) {
-				this.RemoveAt(0);
-			}
+			App.Current.Dispatcher.Invoke((Action)(() => {
+
+				base.Add(item);
+				// make sure list is not longer than max length
+				while (this.Count > maxLength) {
+					this.RemoveAt(0);
+				}
+			}));
 		}
 	}
 
@@ -52,7 +57,7 @@ namespace WPFTwitter.Windows
 			get { return _logMessageList; }
 		}
 
-		private LogMessageListCollection _restMessageList = new LogMessageListCollection(1000);
+		private LogMessageListCollection _restMessageList = new LogMessageListCollection(2000);
 		public LogMessageListCollection RestMessageList
 		{
 			get { return _restMessageList; }
@@ -86,10 +91,16 @@ namespace WPFTwitter.Windows
 			// rest log binding
 			restView.DataContext = RestMessageList;
 
+			// when credentials change
+			Stream.CredentialsChange += (creds) => {
+				Access_Token.Text = creds[0];
+				Access_Token_Secret.Text = creds[1];
+				Consumer_Key.Text = creds[2];
+				Consumer_Secret.Text = creds[3];
+
+			};
 
 		}
-
-
 
 		/// <summary>
 		/// called every time the log outputs something. adds that something to logmessagelist. if list too long, keeps latest entries.
@@ -162,6 +173,10 @@ namespace WPFTwitter.Windows
 		private void dMan_Loaded(object sender, RoutedEventArgs e)
 		{
 			// load avalon layout from file
+
+			credentialsPanelLayout.ToggleAutoHide();
+			streamingToolboxLayout.ToggleAutoHide();
+			logSettingsLayout.ToggleAutoHide();
 		}
 
 		private void restQueryButton_Click(object sender, RoutedEventArgs e)
@@ -189,9 +204,13 @@ namespace WPFTwitter.Windows
 
 					}
 
-					foreach (var r in res) {
-						_restMessageList.Add(new LogMessage(r.Text));
+					if (res.Count == 0) {
+						_restMessageList.Add(new LogMessage("No tweets returned"));
+					} else {
+						foreach (var r in res) {
+							_restMessageList.Add(new LogMessage(r.Text));
 
+						}
 					}
 				} else {
 					var recent = rest_filter_recent.IsChecked.Value;
@@ -209,9 +228,13 @@ namespace WPFTwitter.Windows
 
 					}
 
-					foreach (var r in res) {
-						_restMessageList.Add(new LogMessage(r.Text));
+					if (res.Count == 0) {
+						_restMessageList.Add(new LogMessage("No tweets returned"));
+					} else {
+						foreach (var r in res) {
+							_restMessageList.Add(new LogMessage(r.Text));
 
+						}
 					}
 
 				}
@@ -220,54 +243,94 @@ namespace WPFTwitter.Windows
 		}
 
 		RestGatherer restGatherer;
+		private bool queryExpanding = false;
 
 		private void restExpansionButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!loggedIn) return;
 
-			if (restGatherer == null) {
-				((Button)sender).Content = "Stop Expansion";
+			var button = ((Button)sender);
+
+			if (!queryExpanding) {
+				queryExpanding = true;
+
+				button.Content = "Stop Expansion";
+				button.IsEnabled = false;
+
+				int expansionCount;
+				if (!int.TryParse(restExpansionsMaxExpansionsTextbox.Text, out expansionCount)) {
+					expansionCount = 3;
+				}
+
 				restGatherer = new RestGatherer();
 
 				restExpansionStatusLabel.Content = "Expanding";
-				restExpansionView.DataContext = restGatherer.KeywordList;
+				//restExpansionView.DataContext = restGatherer.KeywordList;
+				restExpansionListView.DataContext = restGatherer.KeywordList;
 
 				restGatherer.TweetFound += (s, t) => {
 					_restMessageList.Add(
 						new LogMessage("E " + t.firstExpansion + "; Tweet: " + t.tweet.Text));
+					App.Current.Dispatcher.Invoke(() => {
+						SetRestExpansionViewKeywordListColumnHeaders(restGatherer, expansionCount);
+						//restExpansionView.UpdateLayout();
+						restExpansionListView.UpdateLayout();
+					});
 				};
 				restGatherer.ExpansionFinished += (s, edata) => {
 					_restMessageList.Add(
 						new LogMessage("E " + edata.expansion + "; Tweets " + edata.TweetCount));
 
 				};
-				restGatherer.CycleFinished += (s, untilDate) => {
+				restGatherer.CycleFinished += (s, sinceDate, untilDate) => {
 					_restMessageList.Add(
-						new LogMessage("Cycle until " + untilDate + " finished"));
+						new LogMessage("Cycle from " + sinceDate + " until " + untilDate + " finished"));
 
 				};
-				int maxExp;
-				if (!int.TryParse(restExpansionsMaxExpansionsTextbox.Text, out maxExp)) {
-					maxExp = 3;
-				} 
+				restGatherer.Message += (m) => {
+					_restMessageList.Add(
+						new LogMessage("Message: " + m));
+
+				};
 				var filters = restExpansionFilters.Text.Split(',');
-				
+
 				App.Current.Dispatcher.Invoke(() => {
-					restGatherer.Algorithm(maxExp, filters);
+					restGatherer.Algorithm(expansionCount, DateTime.Now.AddDays(-7), DateTime.Now, filters);
 				});
 
+				button.IsEnabled = true;
+
 			} else {
+				queryExpanding = false;
+				button.IsEnabled = false;
 				restGatherer.Stop();
 				restGatherer.Stopped += (s, a) => {
-					_restMessageList.Add(
-						new LogMessage("RestGatherer successfully stopped"));
-					restExpansionStatusLabel.Content = "Stopped";
-					restGatherer = null;
-					((Button)sender).Content = "Start Expansion";
-				
+					App.Current.Dispatcher.Invoke((Action)(() => {
+						_restMessageList.Add(
+							new LogMessage("RestGatherer successfully stopped"));
+						restExpansionStatusLabel.Content = "Stopped";
+						button.Content = "Start Expansion";
+						button.IsEnabled = true;
+
+					}));
 				};
 
 			}
+		}
+
+		private void SetRestExpansionViewKeywordListColumnHeaders(RestGatherer restGatherer, int expansionCount)
+		{
+			// set column headers text to give info about stuff
+			//var cols = restExpansionView.Columns;
+			var cols = restExpansionListViewGrid.Columns;
+			cols[0].Header = "Keywords (" + restGatherer.KeywordList.Count + ")";
+			cols[1].Header = "Count";
+			cols[2].Header = "Expansion ";
+			for (int i = 0; i <= expansionCount; i++) {
+				cols[2].Header += restGatherer.KeywordList.Where(kd => kd.Expansion == i).Count().ToString() + " ";
+			}
+			// set up events for column headers for restExpansionView if they are not set up yet
+
 		}
 
 		private void restRateLimitButton_Click(object sender, RoutedEventArgs e)
@@ -337,7 +400,7 @@ namespace WPFTwitter.Windows
 
 		private void setCredentialsButton_Click(object sender, RoutedEventArgs e)
 		{
-			Tweetinvi.TwitterCredentials.ApplicationCredentials = Tweetinvi.TwitterCredentials.CreateCredentials(
+			Stream.TwitterCredentialsInit(new List<string>() {
 				// "Access_Token"
 				Access_Token.Text,
 				// "Access_Token_Secret"
@@ -346,7 +409,7 @@ namespace WPFTwitter.Windows
 				Consumer_Key.Text,
 				// "Consumer_Secret"
 				Consumer_Secret.Text
-				);
+			});
 
 		}
 
@@ -366,6 +429,40 @@ namespace WPFTwitter.Windows
 			DatabaseSaver.localPhpJsonLink = ((TextBox)sender).Text;
 			_logMessageList.Add(new LogMessage("php path changed to " + DatabaseSaver.localPhpJsonLink));
 		}
+
+
+		private void restExpansionListView_Headers_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			// order by keyword
+			if (restGatherer == null) return;
+			if (restGatherer.KeywordList == null) return;
+			if (restGatherer.KeywordList.Count == 0) return;
+			App.Current.Dispatcher.Invoke((Action)(() => {
+				if (((GridViewColumnHeader)sender).Content.ToString().Contains("Keyword")) {
+
+					restGatherer.KeywordList.Set(restGatherer.KeywordList.OrderBy(kd => kd.Keyword).ToList());
+
+				} else if (((GridViewColumnHeader)sender).Content.ToString().Contains("Count")) {
+					// order by count
+					var maxCount = restGatherer.KeywordList.Max(kd => kd.Count);
+					if (restGatherer.KeywordList.FirstOrDefault().Count == maxCount) {
+						restGatherer.KeywordList.Set(restGatherer.KeywordList.OrderBy(kd => kd.Count).ToList());
+					} else {
+						restGatherer.KeywordList.Set(restGatherer.KeywordList.OrderByDescending(kd => kd.Count).ToList());
+					}
+				} else {
+					// order by exp
+					var maxExp = restGatherer.KeywordList.Max(kd => kd.Expansion);
+					if (restGatherer.KeywordList.FirstOrDefault().Expansion == maxExp) {
+						restGatherer.KeywordList.Set(restGatherer.KeywordList.OrderBy(kd => kd.Expansion).ToList());
+					} else {
+						restGatherer.KeywordList.Set(restGatherer.KeywordList.OrderByDescending(kd => kd.Expansion).ToList());
+					}
+				}
+				restExpansionListView.UpdateLayout();
+			}));
+		}
+
 	}
 
 	public class LogMessage

@@ -16,3 +16,27 @@ created_at, id, id_str, text:Référencement Google: Sinspirer des sites les mie
 created_at, id, id_str, text:RT @FB77777: 【マインクラフト WEEK with Google Play】最強の匠は誰か！？https://t.co/e1VcNt6BDU 　@YouTubeさんから　22日と30日にMSSPが生放送！詳しいスケジュール表はこちら！https://t.co/AOR…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
 17-Mar-15 12:01:36: Stream disconnected.
 17-Mar-15 12:01:36: Stream attempting to start at time 17-Mar-15 12:01:36
+30-Mar-15 09:27:13: New log started
+30-Mar-15 09:27:13: Stream running filter:
+30-Mar-15 09:27:13: the
+30-Mar-15 09:27:13: OnStreamStarted event is called
+30-Mar-15 09:27:14: System.EventArgs
+30-Mar-15 09:27:14: Stream successfully started
+30-Mar-15 09:27:14: Fields in json object: 
+created_at, id, id_str, text:RT @Dee_Lashun: It be the late night thoughts that hurt the most, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:15: Fields in json object: 
+created_at, id, id_str, text:The people with the best advise are usually the ones who have been trough the most...., source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:16: Fields in json object: 
+created_at, id, id_str, text:Thinking about sex will temporarily relieve the urge to pee in the case of an emergency, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:16: Fields in json object: 
+created_at, id, id_str, text:Nothing is more awkward than sending a snapchat to the wrong person😅, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:17: Fields in json object: 
+created_at, id, id_str, text:@temiokomi , you seem to have forgotten that those on the fringes don't matter , everyone saw the handling of the Chibok girls, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:17: Fields in json object: 
+created_at, id, id_str, text:RT @SoReIatable: 8 month old baby hearing his mother’s voice for the first time 😭😍 http://t.co/ju1zjNI8RP, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:18: Fields in json object: 
+created_at, id, id_str, text:If my kitchen was down the hall that'd be a bet🙌 but noo it's gotta be down the stairs, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:18: Fields in json object: 
+created_at, id, id_str, text:RT @ifaptalouis: THIS IS THE BEST THING https://t.co/sS70Dwhw5v, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+30-Mar-15 09:27:18: Stream disconnected.
+30-Mar-15 09:27:19: Stream attempting to start at time 30-Mar-15 09:27:19
