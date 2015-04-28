@@ -197,47 +197,57 @@ namespace WPFTwitter
 						// split query into multiple shorter ones, within Twitter limits.
 						var queries = SplitIntoSmallQueries(keywordList);
 						foreach (var q in queries) {
-							var sp = ResetSearchParameters(q);
-							if (Message != null) Message(sp.SearchQuery);
+							var sp = ResetSearchParameters(q, currentExpansion.expansion);
 
-							// main results loop, waiting for rest limits, etc.
-							var results = new List<ITweet>();
+							// only search if there are keywords in the query
+							if (sp.SearchQuery != "" && !stop) {
 
-							// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
-							do {
-								if (rateLimitCounter > 0 && !stop) {
+								if (Message != null) Message(sp.SearchQuery);
 
-									results = Rest.SearchTweets(sp);
-									if (results == null) {
-										break;
-									}
-									if (results.Count == 0) {
-										break;
-									}
+								// main results loop, waiting for rest limits, etc.
+								var results = new List<ITweet>();
 
-									rateLimitCounter--;
+								// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
+								do {
+									if (rateLimitCounter > 0 && !stop) {
 
-									// save minId to use for next batch of tweets
-									var minId = results[0].IdStr;
-									foreach (var r in results) {
-										// find minId among results.
-										if (stringIntSmallerThan(r.IdStr, minId)) {
-											minId = r.IdStr;
+										results = Rest.SearchTweets(sp);
+										if (results == null) {
+											break;
+										}
+										if (results.Count == 0) {
+											break;
 										}
 
-										TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+										rateLimitCounter--;
 
+										// save minId to use for next batch of tweets
+										var minId = results[0].IdStr;
+										foreach (var r in results) {
+											// find minId among results.
+											if (stringIntSmallerThan(r.IdStr, minId)) {
+												minId = r.IdStr;
+											}
+
+											TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+
+										}
+
+										// subtract 1 so that we cannot get the same tweets again
+										sp.MaxId = long.Parse(minId) - 1;
+
+									} else if (rateLimitCounter <= 0) {
+										// check rate limits in case we are wrong and they are not actually zero
+										rateLimitCounter = Rest.GetRateLimits_Search().Remaining;
 									}
 
-									// subtract 1 so that we cannot get the same tweets again
-									sp.MaxId = long.Parse(minId) - 1;
+									// keep doing this while:
+									//		there are still results left
+									//		or we cannot get tweets due to rate limits
+									//		or we cannot get tweets due to errors (in which case we should try again)
 
-								} else if (rateLimitCounter <= 0) {
-									// check rate limits in case we are wrong and they are not actually zero
-									rateLimitCounter = Rest.GetRateLimits_Search().Remaining;
-								}
-							} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
-
+								} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
+							}
 						}
 
 					}
@@ -248,6 +258,8 @@ namespace WPFTwitter
 				Log.Output("Error in RestGathering algorithm");
 				Log.Output(e.ToString());
 			}
+
+
 			// all tweets were gathered in the tweetsToProcess list, which is processed separately by another process
 
 			// the query should be expanded by the other process, and the gathering cycle restarted with settings:
@@ -285,6 +297,7 @@ namespace WPFTwitter
 		}
 
 		/// <summary>
+		/// old version. try GatheringCycle2
 		/// perform one gathering cycle until all tweets and expanded versions were gathered, and call new gathering cycle from untilDate until present.
 		/// </summary>
 		private void GatheringCycle(DateTime sinceDate, DateTime untilDate)
@@ -487,20 +500,26 @@ namespace WPFTwitter
 			return keywordList.Any(k => k.Expansion == currentExpansion.expansion);
 		}
 
+		private ITweetSearchParameters ResetSearchParameters(KeywordListClass keywordList, int onlyFromExpansion = -1)
+		{
+			return ResetSearchParameters(keywordList, onlyFromExpansion, null);
+		}
+
 		/// <summary>
-		/// sets search parameters based on a local list of keywords
+		/// ONLY RETURNS KEYWORDS FROM CURRENT EXPANSION and given list
+		/// sets search parameters based on a local list of keywords.
 		/// list of query operators from twitter dev site:
 		/// https://dev.twitter.com/rest/public/search
 		/// also, list of requirements and limitations of search API can be found:
 		/// https://dev.twitter.com/rest/public/search
 		/// </summary>
-		private ITweetSearchParameters ResetSearchParameters(KeywordListClass keywordList)
+		private ITweetSearchParameters ResetSearchParameters(KeywordListClass keywordList, int onlyFromExpansion, ITweetSearchParameters searchParams)
 		{
 			string keywordsQuery = "";
 			// get all tweets using _keyword list
 			bool atLeastOne = false;
 			foreach (var k in keywordList) {
-				if (k.Expansion == currentExpansion.expansion) {
+				if ((onlyFromExpansion == -1) ^ (k.Expansion == onlyFromExpansion)) {
 					if (atLeastOne)
 						keywordsQuery += " OR ";
 					keywordsQuery += k.Keyword;
@@ -512,7 +531,7 @@ namespace WPFTwitter
 			var sp = Rest.GenerateSearchParameters(keywordsQuery);
 
 			sp.SearchType = SearchResultType.Recent;
-			sp.TweetSearchFilter = TweetSearchFilter.All;
+			sp.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
 			sp.Since = sinceDate;
 
@@ -550,7 +569,7 @@ namespace WPFTwitter
 			var sp = Rest.GenerateSearchParameters(keywordsQuery);
 
 			sp.SearchType = SearchResultType.Recent;
-			sp.TweetSearchFilter = TweetSearchFilter.All;
+			sp.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
 			sp.Since = sinceDate;
 
@@ -639,7 +658,7 @@ namespace WPFTwitter
 				set { _expansion = value; }
 			}
 
-			private int _count = 0;
+			private int _count = 1;
 
 			public int Count
 			{

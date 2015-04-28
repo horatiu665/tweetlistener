@@ -13,7 +13,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:Controls="clr-namespace:WPFTwitter"
-        Title="Tweet Listener" Height="745" Width="928" KeyDown="Window_KeyDown">
+        Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="745" Width="928" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
             <MenuItem Header="Options">
@@ -119,7 +119,7 @@
                                 <StackPanel>
                                     <DockPanel Margin="10,0">
                                         <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox Name="filterTextbox" VerticalAlignment="Center"/>
+                                        <TextBox Name="filterTextbox" VerticalAlignment="Center" Text="{Binding StreamFilterBinding, Mode=TwoWay}"/>
                                     </DockPanel>
                                     <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
                                     <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>

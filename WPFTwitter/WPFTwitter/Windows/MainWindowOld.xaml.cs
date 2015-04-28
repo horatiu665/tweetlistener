@@ -46,11 +46,11 @@ namespace WPFTwitter
 		{
 			get
 			{
-				return Stream.filter;
+				return Stream.Filter;
 			}
 			set
 			{
-				Stream.filter = value;
+				Stream.Filter = value;
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace WPFTwitter
 		private void startStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 			
-			Stream.Start(Stream.filter);
+			Stream.Start(Stream.Filter);
 			
 			// if log
 			if (checkBox_Log.IsChecked.Value) {

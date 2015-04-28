@@ -68,11 +68,11 @@ namespace WPFTwitter.Windows
 		{
 			get
 			{
-				return Stream.filter;
+				return Stream.Filter;
 			}
 			set
 			{
-				Stream.filter = value;
+				Stream.Filter = value;
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace WPFTwitter.Windows
 			Log.LogOutput += Log_LogOutput;
 
 			// filter binding
-			filterTextbox.TextChanged += (s, a) => { StreamFilterBinding = filterTextbox.Text; };
+			//filterTextbox.TextChanged += (s, a) => { StreamFilterBinding = filterTextbox.Text; };
 
 			// rest log binding
 			restView.DataContext = RestMessageList;
@@ -135,7 +135,7 @@ namespace WPFTwitter.Windows
 		private void startStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 
-			Stream.Start(Stream.filter);
+			Stream.Start(Stream.Filter);
 
 			loggedIn = true;
 

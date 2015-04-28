@@ -71,13 +71,13 @@ namespace WPFTwitter
 				logWriter = new StreamWriter(logPath, true);
 				Output("New log started");
 				Output("Stream running filter:");
-				Output(Stream.filter);
+				Output(Stream.Filter);
 
 				// small log init
 				smallLogWriter = new StreamWriter(smallLogPath, true);
 				SmallOutput("New log started");
 				SmallOutput("Stream running filter:");
-				SmallOutput(Stream.filter);
+				SmallOutput(Stream.Filter);
 
 				// once in a while stop and start log, so we do not lose all the data in the log.
 				logRestartTimer = new System.Timers.Timer(restartLogIntervalMillis);

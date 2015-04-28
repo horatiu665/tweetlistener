@@ -57,7 +57,7 @@ namespace WPFTwitter
 							) : "until " + maxTweetsToRunStream + " tweets are received")
 							);
 					// filter keywords
-					Console.WriteLine("f <filter>: \t" + "Current filter: " + Stream.filter
+					Console.WriteLine("f <filter>: \t" + "Current filter: " + Stream.Filter
 						);
 
 					Console.WriteLine("d: \t" + "Save to database toggle: " + startDatabase
@@ -108,7 +108,7 @@ namespace WPFTwitter
 						}
 
 					} else if (command.Substring(0, 1) == "f") {
-						Stream.filter = command.Substring(2);
+						Stream.Filter = command.Substring(2);
 
 					} else if (command.Substring(0, 1) == "d") {
 						startDatabase = !startDatabase;
@@ -142,7 +142,7 @@ namespace WPFTwitter
 							);
 						// filter keywords
 						Console.WriteLine("f <filter>: \n\t" + "Set filter keywords for stream. Current filter:\n\t"
-							+ Stream.filter + "\n\t" + "See Twitter API for details on how to use filter.");
+							+ Stream.Filter + "\n\t" + "See Twitter API for details on how to use filter.");
 						// "help" to see info
 						Console.WriteLine("help: \n\t" + "See this info");
 						// "run" to start
@@ -164,7 +164,7 @@ namespace WPFTwitter
 
 
 			// start stream
-			Stream.Start(Stream.filter);
+			Stream.Start(Stream.Filter);
 
 			// if logging, start log
 			if (logOutput) {

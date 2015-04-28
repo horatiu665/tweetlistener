@@ -18,7 +18,13 @@ namespace WPFTwitter
 		/// <summary>
 		/// the filter used for the stream
 		/// </summary>
-		public static string filter = "";
+		private static string filter = "";
+
+		public static string Filter
+		{
+			get { return Stream.filter; }
+			set { Stream.filter = value; }
+		}
 
 		/// <summary>
 		/// the stream used throughout the program
