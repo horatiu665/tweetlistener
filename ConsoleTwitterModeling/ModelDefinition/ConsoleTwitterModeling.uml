@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
   dslVersion="1.0.0.0"
   Id="2c04c089-2885-4b71-b9eb-91f69edc7b2e"
   name="ConsoleTwitterModeling" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -88,6 +88,16 @@ a measure of the relevance of other words, compared to query q = to each individ
         <activityFinalNodeMoniker
           Id="ae1ae550-305c-476b-a0e8-38fd7452ed04"
           LastKnownName="ActivityFinal1"
+          LastKnownLocation="ConsoleTwitterModeling.uml" />
+      </annotatedElements>
+    </comment>
+    <comment
+      Id="5d6782d2-9e04-43d4-a23c-b8c370e779d3">
+      <body>expansion start (after completing a cycle)</body>
+      <annotatedElements>
+        <initialNodeMoniker
+          Id="22dd851b-79c6-431f-926d-c0fec536c80d"
+          LastKnownName="Initial1"
           LastKnownLocation="ConsoleTwitterModeling.uml" />
       </annotatedElements>
     </comment>
@@ -2012,6 +2022,16 @@ a measure of the relevance of other words, compared to query q = to each individ
             Id="7f62baff-3240-48f1-8452-65bb0d83e880"
             name="prior probabilities"
             isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="2c7a6402-5db0-4931-aaa0-d9c0c58332d3"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="94c5e0a2-6242-41e2-8df5-13b0cc1e3e7c"
+                  LastKnownName="maximum likelihood estimator"
+                  LastKnownLocation="ConsoleTwitterModeling.uml" />
+              </controlFlow>
+            </flowNodeTargets>
             <objectFlowTargets>
               <objectFlow
                 Id="1aea07f2-a507-486a-8f47-dcdff18f7803"

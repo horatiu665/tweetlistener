@@ -40,3 +40,44 @@ created_at, id, id_str, text:If my kitchen was down the hall that'd be a bet🙌
 created_at, id, id_str, text:RT @ifaptalouis: THIS IS THE BEST THING https://t.co/sS70Dwhw5v, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
 30-Mar-15 09:27:18: Stream disconnected.
 30-Mar-15 09:27:19: Stream attempting to start at time 30-Mar-15 09:27:19
+28-Apr-15 09:17:14: New log started
+28-Apr-15 09:17:14: Stream running filter:
+28-Apr-15 09:17:14: stuff
+28-Apr-15 09:17:15: OnStreamStarted event is called
+28-Apr-15 09:17:15: System.EventArgs
+28-Apr-15 09:17:15: Stream successfully started
+28-Apr-15 09:17:19: Fields in json object: 
+created_at, id, id_str, text:😑😑😑😑😓 RT @NoireaGa: LOL 'you guys are so immature, getting killed for no reason by law enforcement &amp; stuff'  https://t.co/itsOJ1gzYV, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:17:22: Fields in json object: 
+created_at, id, id_str, text:@LRcomic my brother used to squish them and then slide his shoe so their glowing light stuff would smear and leave a trail, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:17:23: Stream disconnected.
+28-Apr-15 09:17:25: Stream attempting to start at time 28-Apr-15 09:17:25
+28-Apr-15 09:17:25: Stream task function stopped now
+28-Apr-15 09:24:21: New log started
+28-Apr-15 09:24:21: Stream running filter:
+28-Apr-15 09:24:21: berlin
+28-Apr-15 09:24:21: OnStreamStarted event is called
+28-Apr-15 09:24:21: System.EventArgs
+28-Apr-15 09:24:21: Stream successfully started
+28-Apr-15 09:24:26: Fields in json object: 
+created_at, id, id_str, text:RT @morgenpost: Feuer in Berlin: Ein Toter und neun Verletzte bei Feuer in Schöneberg http://t.co/ZHg5zivBYU, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:24:33: Fields in json object: 
+created_at, id, id_str, text:RT @FCBayern: ♪ ♫ Berlin, Berlin... ♪ ♫ Letzte Etappe auf der #RoadToBerlin ins @DFB_Pokal-Finale. #Packmas, Jungs! #FCBBVB http://t.co/QcE…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:24:41: Fields in json object: 
+created_at, id, id_str, text:RT @DeutscheBank: Low #interestrates pushing #property prices up further. Munich, Frankfurt and Berlin offer most potential. #dbstudy #DrSt…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:24:43: Fields in json object: 
+created_at, id, id_str, text:Two day to go before the @pictoplasma conference, can’t wait! #character #art #illustration #design #conference #Berlin, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:24:47: Fields in json object: 
+created_at, id, id_str, text:RT @revgjg: @ArchdeaconLuke @EdmCME curates at the Berlin Wall earlier today. @jamesctaylor @therunningrev @dioceseoflondon http://t.co/ggs…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:24:51: Stream disconnected.
+28-Apr-15 09:25:40: Stream attempting to start at time 28-Apr-15 09:25:40
+28-Apr-15 09:25:40: OnStreamStarted event is called
+28-Apr-15 09:25:40: System.EventArgs
+28-Apr-15 09:25:40: Stream successfully started
+28-Apr-15 09:25:42: Fields in json object: 
+created_at, id, id_str, text:new Tommy Hilfiger anchor store in Berlin http://t.co/QPEc4ouLOB, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:25:45: Fields in json object: 
+created_at, id, id_str, text:new Tommy Hilfiger anchor store in Berlin http://t.co/7RW20VEpV5, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:25:47: Fields in json object: 
+created_at, id, id_str, text:RT @morgenpost: Berlin wird immer teurer. Manche Kieze haben Hamburg und Frankfurt schon überholt. http://t.co/lwZ7kkxtuR http://t.co/cXCLD…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+28-Apr-15 09:25:47: Stream disconnected.

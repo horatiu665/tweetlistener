@@ -273,11 +273,6 @@ namespace WPFTwitter
 			// restart while stream throws exceptions. (not when it is closed nicely)
 			while (true) {
 
-				// log the start of the stream.
-				if (Error != null) {
-					Error("Stream attempting to start at time " + DateTime.Now.ToString());
-				}
-
 				// stream thread exception is only true after there is an exception in this thread
 				streamThreadException = false;
 
@@ -285,6 +280,11 @@ namespace WPFTwitter
 					intentionalStop = false;
 					break;
 
+				}
+
+				// log the start of the stream.
+				if (Error != null) {
+					Error("Stream attempting to start at time " + DateTime.Now.ToString());
 				}
 
 				// first wait to not get banned
@@ -306,8 +306,10 @@ namespace WPFTwitter
 
 				}
 
-
 			}
+			
+			streamRunning = false;
+
 		}
 
 		public static void Stop()
@@ -342,8 +344,7 @@ namespace WPFTwitter
 		/// </summary>
 		private static void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
 		{
-			streamRunning = false;
-
+			
 		}
 
 		private static void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)

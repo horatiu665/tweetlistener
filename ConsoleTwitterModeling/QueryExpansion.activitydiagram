@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="d8d92d80-2e2a-4e7b-9f83-a99c1f3f0e1f" name="QueryExpansion" linkedPackageId="5e3f9fdb-7b46-4859-9462-b46c12d0659c" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="d8d92d80-2e2a-4e7b-9f83-a99c1f3f0e1f" name="QueryExpansion" linkedPackageId="5e3f9fdb-7b46-4859-9462-b46c12d0659c" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
   <ownedCommentsInternal>
     <comment Id="13db1213-84d4-43aa-ba7a-0ae2b02d4038">
       <elementDefinition Id="24f2860d-50b2-4b1b-b5e8-1aa7d55e9ceb" />
@@ -22,6 +22,13 @@ a measure of the relevance of other words, compared to query q = to each individ
       <body>repeat expansion</body>
       <annotatedElements>
         <activityFinalNodeMoniker Id="2c4236ca-6f91-40d8-a9a1-db607d3fb37e" LastKnownName="ActivityFinal1" />
+      </annotatedElements>
+    </comment>
+    <comment Id="94613815-9991-4604-b772-eb3b40371e4c">
+      <elementDefinition Id="5d6782d2-9e04-43d4-a23c-b8c370e779d3" />
+      <body>expansion start (after completing a cycle)</body>
+      <annotatedElements>
+        <initialNodeMoniker Id="3d0d2dfc-a080-4ea8-8eb8-1b4776d2a86b" LastKnownName="Initial1" />
       </annotatedElements>
     </comment>
   </ownedCommentsInternal>
@@ -97,32 +104,6 @@ a measure of the relevance of other words, compared to query q = to each individ
       </propertyInstances>
     </stereotypeInstance>
   </appliedStereotypesInternal>
-  <profileInstances>
-    <packageHasProfileInstances Id="9c83e2f6-e7e9-451f-9774-8d3671266eaf">
-      <profileInstance Id="c3198ee4-5e86-45ae-a483-96ec55fef869" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="acc62126-24fd-4d1d-aec2-f24e25806480">
-      <profileInstance Id="125c65e1-02c2-4807-a960-3d7f8585b683" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="fd9b6d79-ca0e-4b49-8a9d-3b2edffa464f">
-      <profileInstance Id="663a9ead-2764-4b6b-be95-98a3d8ccc4fc" name="CSharpProfile">
-        <elementDefinition Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda" />
-      </profileInstance>
-      <elementDefinition Id="c3ca8482-5d20-451b-a466-425934240d2c" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="3c6f64d3-002f-46fd-8285-db06830d2f06">
-      <profileInstance Id="f51d3b49-6a83-45be-8a9f-f35c48be3dc2" name="TextTemplateBindings">
-        <elementDefinition Id="7fea49d5-0403-49c4-86f8-1a40c5c69597" />
-      </profileInstance>
-      <elementDefinition Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <activityRootModelHasActivity>
       <activity Id="11d52929-1c16-412b-9526-41007e6d7119" name="QueryExpansion" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
@@ -422,6 +403,12 @@ a measure of the relevance of other words, compared to query q = to each individ
           </objectNode>
           <opaqueAction Id="d3568ca7-b4ae-4252-82ae-cdd2de6ef824" name="prior probabilities" isLeaf="false">
             <elementDefinition Id="7f62baff-3240-48f1-8452-65bb0d83e880" />
+            <flowNodeTargets>
+              <controlFlow Id="cd72dda1-6f6a-4b73-ae24-6dd894a40584" isLeaf="false">
+                <opaqueActionMoniker Id="c4e20a20-b7a7-4717-bdb0-f6479ff0fa0d" LastKnownName="maximum likelihood estimator" />
+                <elementDefinition Id="2c7a6402-5db0-4931-aaa0-d9c0c58332d3" />
+              </controlFlow>
+            </flowNodeTargets>
             <objectFlowTargets>
               <objectFlow Id="effd146d-f292-417e-83b3-7299d9c3d50a" guard="words from corpus" isLeaf="false" isMulticast="false" isMultireceive="false">
                 <objectNodeMoniker Id="4fdbef78-7e2c-458b-86e7-daee5f5fd5b1" LastKnownName="Model[t1]" />
@@ -539,5 +526,31 @@ a measure of the relevance of other words, compared to query q = to each individ
   </packagedElements>
   <package Id="5e3f9fdb-7b46-4859-9462-b46c12d0659c" name="ConsoleTwitterModeling">
     <elementDefinition Id="2c04c089-2885-4b71-b9eb-91f69edc7b2e" />
+    <profileInstances>
+      <packageHasProfileInstances Id="9c83e2f6-e7e9-451f-9774-8d3671266eaf">
+        <profileInstance Id="c3198ee4-5e86-45ae-a483-96ec55fef869" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="acc62126-24fd-4d1d-aec2-f24e25806480">
+        <profileInstance Id="125c65e1-02c2-4807-a960-3d7f8585b683" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="fd9b6d79-ca0e-4b49-8a9d-3b2edffa464f">
+        <profileInstance Id="663a9ead-2764-4b6b-be95-98a3d8ccc4fc" name="CSharpProfile">
+          <elementDefinition Id="f6aadedb-6fa9-48c1-bfe2-2313961d0cda" />
+        </profileInstance>
+        <elementDefinition Id="c3ca8482-5d20-451b-a466-425934240d2c" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="3c6f64d3-002f-46fd-8285-db06830d2f06">
+        <profileInstance Id="f51d3b49-6a83-45be-8a9f-f35c48be3dc2" name="TextTemplateBindings">
+          <elementDefinition Id="7fea49d5-0403-49c4-86f8-1a40c5c69597" />
+        </profileInstance>
+        <elementDefinition Id="5ef21b94-d1ef-4702-80b3-1ba52919ce85" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </activityRootModel>
