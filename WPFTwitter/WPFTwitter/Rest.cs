@@ -12,18 +12,29 @@ using Tweetinvi.Core.Interfaces.Models.Parameters;
 
 namespace WPFTwitter
 {
-	public static class Rest
+	public class Rest
 	{
-		private static List<ITweet> lastTweets = new List<ITweet>();
+		private DatabaseSaver databaseSaver;
+		private Credentials credentials;
+		Log log;
+
+		private List<ITweet> lastTweets = new List<ITweet>();
+
+		public Rest(Credentials creds, DatabaseSaver dbs, Log log)
+		{
+			credentials = creds;
+			databaseSaver = dbs;
+			this.log = log;
+		}
 
 		/// <summary>
 		/// adds previously returned tweets to database, complementing the Stream log with extra results.
 		/// </summary>
-		public static void AddLastTweetsToDatabase()
+		public void AddLastTweetsToDatabase()
 		{
 			foreach (var t in lastTweets) {
 				// use DatabaseSaver to save each tweet just like we do with the streaming
-				DatabaseSaver.SendTweetToDatabase(t);
+				databaseSaver.SendTweetToDatabase(t);
 
 			}
 		}
@@ -31,7 +42,7 @@ namespace WPFTwitter
 		#region viewmodel/controller sort-of
 
 		#region search
-		public static List<ITweet> SearchTweets(string filter)
+		public List<ITweet> SearchTweets(string filter)
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
 				var tweets = Search_SimpleTweetSearch(filter);
@@ -45,14 +56,14 @@ namespace WPFTwitter
 			}
 		}
 
-		public static List<ITweet> SearchTweets(ITweetSearchParameters searchParameters)
+		public List<ITweet> SearchTweets(ITweetSearchParameters searchParameters)
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
 				if (false) {
 					#region shit
 					// if any param is not properly defined, define it here to default
 					if (searchParameters == null) {
-						searchParameters = Search.GenerateTweetSearchParameter("");
+						searchParameters = Search.CreateTweetSearchParameter("");
 					}
 
 					if (false) {
@@ -85,22 +96,22 @@ namespace WPFTwitter
 						+ "\n" + searchParameters.SearchType				// Popular
 						+ "\n" + searchParameters.Since						// 01-Jan-01 00:00:00
 						+ "\n" + searchParameters.SinceId					// -1
-						+ "\n" + searchParameters.TweetSearchFilter			// All
+							//+ "\n" + searchParameters.TweetSearchFilter			// All
 						+ "\n" + searchParameters.Until;					// 01-Jan-01 00:00:00		
 						//Log.Output("Search parameters:" + s);
 					}
 					catch (NullReferenceException nref) {
-						Log.Output("One of the search parameters was null. we will find out which one here:");
-						Log.Output("Could it be this one? " + searchParameters.Lang);// Undefined
-						Log.Output("Could it be this one? " + searchParameters.Locale);//  
-						Log.Output("Could it be this one? " + searchParameters.MaxId);// -1
-						Log.Output("Could it be this one? " + searchParameters.MaximumNumberOfResults);// 100
-						Log.Output("Could it be this one? " + searchParameters.SearchQuery);// callofduty hehehhe
-						Log.Output("Could it be this one? " + searchParameters.SearchType);// Popular
-						Log.Output("Could it be this one? " + searchParameters.Since);// 01-Jan-01 00:00:00
-						Log.Output("Could it be this one? " + searchParameters.SinceId);// -1
-						Log.Output("Could it be this one? " + searchParameters.TweetSearchFilter);// All
-						Log.Output("Could it be this one? " + searchParameters.Until);// 01-Jan-01 00:00:00		
+						log.Output("One of the search parameters was null. we will find out which one here:");
+						log.Output("Could it be this one? " + searchParameters.Lang);// Undefined
+						log.Output("Could it be this one? " + searchParameters.Locale);//  
+						log.Output("Could it be this one? " + searchParameters.MaxId);// -1
+						log.Output("Could it be this one? " + searchParameters.MaximumNumberOfResults);// 100
+						log.Output("Could it be this one? " + searchParameters.SearchQuery);// callofduty hehehhe
+						log.Output("Could it be this one? " + searchParameters.SearchType);// Popular
+						log.Output("Could it be this one? " + searchParameters.Since);// 01-Jan-01 00:00:00
+						log.Output("Could it be this one? " + searchParameters.SinceId);// -1
+						//log.Output("Could it be this one? " + searchParameters.TweetSearchFilter);// All
+						log.Output("Could it be this one? " + searchParameters.Until);// 01-Jan-01 00:00:00		
 
 					}
 					#endregion
@@ -115,11 +126,11 @@ namespace WPFTwitter
 					return tweets;
 				}
 				catch (NullReferenceException nullref) {
-					Log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
-					Log.Output("Here is the error: " + nullref.ToString());
+					log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
+					log.Output("Here is the error: " + nullref.ToString());
 					// attempting to get error from twitter message
 					var ex = Tweetinvi.ExceptionHandler.GetLastException();
-					Log.Output("Latest exception from Tweetinvi! Status code: " + ex.StatusCode
+					log.Output("Latest exception from Tweetinvi! Status code: " + ex.StatusCode
 						+ "\nException description: " + ex.TwitterDescription);
 					return null;
 				}
@@ -129,9 +140,9 @@ namespace WPFTwitter
 
 		// list of query operators from twitter dev site:
 		// https://dev.twitter.com/rest/public/search
-		public static ITweetSearchParameters GenerateSearchParameters(string filter)
+		public ITweetSearchParameters GenerateSearchParameters(string filter)
 		{
-			return Search.GenerateTweetSearchParameter(filter);
+			return Search.CreateTweetSearchParameter(filter);
 
 		}
 		#endregion
@@ -142,7 +153,7 @@ namespace WPFTwitter
 		/// returns complete rate limits for application, or null when credentials are not set.
 		/// </summary>
 		/// <returns></returns>
-		public static Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits GetRateLimits_All()
+		public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits GetRateLimits_All()
 		{
 			// perform if application is authenticated
 			if (Tweetinvi.TwitterCredentials.ApplicationCredentials != null) {
@@ -160,7 +171,7 @@ namespace WPFTwitter
 		/// gets rate limit of search API.
 		/// </summary>
 		/// <returns></returns>
-		public static Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit GetRateLimits_Search()
+		public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit GetRateLimits_Search()
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
 				var grla = GetRateLimits_All();
@@ -184,7 +195,7 @@ namespace WPFTwitter
 		/// </summary>
 		/// <param name="filter">filter to use in the search</param>
 		/// <returns>list of tweets</returns>
-		private static List<ITweet> Search_SimpleTweetSearch(string filter)
+		private List<ITweet> Search_SimpleTweetSearch(string filter)
 		{
 			// IF YOU DO NOT RECEIVE ANY TWEET, CHANGE THE PARAMETERS!
 			List<ITweet> tweets = Search.SearchTweets(filter).ToList();
@@ -195,7 +206,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// Searches and returns a list of tweets searched for using all the parameters available
 		/// </summary>
-		private static List<ITweet> Search_SearchTweets(ITweetSearchParameters searchParameters)
+		private List<ITweet> Search_SearchTweets(ITweetSearchParameters searchParameters)
 		{
 
 			//searchParameter.SetGeoCode(Geo.GenerateCoordinates(-122.398720, 37.781157), 1, DistanceMeasure.Miles);
@@ -208,7 +219,7 @@ namespace WPFTwitter
 			//searchParameter.MaxId = 405001488843284480;
 
 			if (searchParameters == null) {
-				Log.Output("Search parameters were null at Rest.cs line 168");
+				log.Output("Search parameters were null at Rest.cs line 211");
 				return null;
 			}
 
@@ -223,7 +234,7 @@ namespace WPFTwitter
 		}
 
 		// complicated shit
-		private static void Search_SearchWithMetadata()
+		private void Search_SearchWithMetadata()
 		{
 			Search.SearchTweetsWithMetadata("hello");
 		}
@@ -231,10 +242,10 @@ namespace WPFTwitter
 		/// <summary>
 		/// example of search with only a few parameters
 		/// </summary>
-		private static IEnumerable<ITweet> Search_FilteredSearch(string filter)
+		private IEnumerable<ITweet> Search_FilteredSearch(string filter)
 		{
-			var searchParameter = Search.GenerateTweetSearchParameter(filter);
-			searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
+			var searchParameter = Search.CreateTweetSearchParameter(filter);
+			//searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
 			var tweets = Search.SearchTweets(searchParameter);
 			//tweets.ForEach(t => Console.WriteLine(t.Text));
@@ -244,9 +255,9 @@ namespace WPFTwitter
 		/// <summary>
 		/// example of search where Tweetinvi handles multiple requests and returns X > 100 results
 		/// </summary>
-		private static void Search_SearchAndGetMoreThan100Results()
+		private void Search_SearchAndGetMoreThan100Results()
 		{
-			var searchParameter = Search.GenerateTweetSearchParameter("us");
+			var searchParameter = Search.CreateTweetSearchParameter("us");
 			searchParameter.MaximumNumberOfResults = 200;
 
 			var tweets = Search.SearchTweets(searchParameter);

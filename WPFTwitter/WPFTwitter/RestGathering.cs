@@ -10,6 +10,7 @@ using Tweetinvi.Core.Interfaces;
 using Tweetinvi.Core.Enum;
 using Tweetinvi.Core.Extensions;
 using Tweetinvi.Core.Interfaces.Models.Parameters;
+using System.ComponentModel;
 
 namespace WPFTwitter
 {
@@ -19,6 +20,9 @@ namespace WPFTwitter
 	/// </summary>
 	public class RestGatherer
 	{
+		Rest rest;
+		Log log;
+
 		private bool stop = false;
 		public void Stop()
 		{
@@ -42,6 +46,8 @@ namespace WPFTwitter
 					this.Add(l);
 				}
 			}
+
+
 		}
 
 		/// <summary>
@@ -102,8 +108,10 @@ namespace WPFTwitter
 		public event Action<string> Message;
 		public event EventHandler Stopped;
 
-		public RestGatherer()
+		public RestGatherer(Rest rest, Log log)
 		{
+			this.rest = rest;
+			this.log = log;
 			Reset();
 
 		}
@@ -118,7 +126,7 @@ namespace WPFTwitter
 			currentExpansion = new ExpansionData(0);
 			gatheringCycle = 0;
 			// ratelimit counter depends on twitter, so reset will be basically polling twitter for the data.
-			var rl = Rest.GetRateLimits_Search();
+			var rl = rest.GetRateLimits_Search();
 			if (rl != null) {
 				rateLimitCounter = rl.Remaining;
 				rateLimitReset = rl.ResetDateTime;
@@ -161,7 +169,7 @@ namespace WPFTwitter
 		}
 
 		/// <summary>
-		/// attempt at a better version, allowing for external class to handle the expansion
+		/// attempt at a better version
 		/// </summary>
 		/// <param name="sinceDate"></param>
 		/// <param name="untilDate"></param>
@@ -211,7 +219,7 @@ namespace WPFTwitter
 								do {
 									if (rateLimitCounter > 0 && !stop) {
 
-										results = Rest.SearchTweets(sp);
+										results = rest.SearchTweets(sp);
 										if (results == null) {
 											break;
 										}
@@ -238,7 +246,8 @@ namespace WPFTwitter
 
 									} else if (rateLimitCounter <= 0) {
 										// check rate limits in case we are wrong and they are not actually zero
-										rateLimitCounter = Rest.GetRateLimits_Search().Remaining;
+										var rateLimitsObj = rest.GetRateLimits_Search();
+										rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
 									}
 
 									// keep doing this while:
@@ -255,8 +264,8 @@ namespace WPFTwitter
 
 			}
 			catch (Exception e) {
-				Log.Output("Error in RestGathering algorithm");
-				Log.Output(e.ToString());
+				log.Output("Error in RestGathering algorithm");
+				log.Output(e.ToString());
 			}
 
 
@@ -323,7 +332,7 @@ namespace WPFTwitter
 						do {
 							if (rateLimitCounter > 0 && !stop) {
 
-								results = Rest.SearchTweets(sp);
+								results = rest.SearchTweets(sp);
 								if (results == null) {
 									break;
 								}
@@ -351,7 +360,7 @@ namespace WPFTwitter
 
 							} else if (rateLimitCounter <= 0) {
 								// check rate limits in case we are wrong and they are not actually zero
-								rateLimitCounter = Rest.GetRateLimits_Search().Remaining;
+								rateLimitCounter = rest.GetRateLimits_Search().Remaining;
 							}
 						} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
 
@@ -362,8 +371,8 @@ namespace WPFTwitter
 				}
 			}
 			catch (Exception e) {
-				Log.Output("Error in RestGathering algorithm");
-				Log.Output(e.ToString());
+				log.Output("Error in RestGathering algorithm");
+				log.Output(e.ToString());
 			}
 			// all tweets were gathered in the tweetsToProcess list, which is processed separately by another process
 
@@ -470,7 +479,21 @@ namespace WPFTwitter
 					if (!keywordList.Any(kkk => kkk.Keyword == addedK)) {
 						keywordList.Add(new KeywordData(addedK, expansion));
 					} else {
-						keywordList.First(kkk => kkk.Keyword == addedK).Count++;
+						int i = 0;
+						for (i = 0; i < keywordList.Count; i++) {
+							if (keywordList[i].Keyword == addedK) break;
+						}
+						// property changed! even if we did not add to the list.
+						// add and remove shit to update list.
+						var newKey = new KeywordData(keywordList[i].Keyword, keywordList[i].Expansion);
+						newKey.Count = keywordList[i].Count + 1;
+						keywordList.RemoveAt(i);
+						keywordList.Insert(i, newKey);
+
+
+						// old method, does not update list:
+						//keywordList.First(kkk => kkk.Keyword == addedK).Count++;
+
 					}
 				}));
 			}
@@ -528,10 +551,10 @@ namespace WPFTwitter
 			}
 
 			// set the latest keywords as search query
-			var sp = Rest.GenerateSearchParameters(keywordsQuery);
+			var sp = rest.GenerateSearchParameters(keywordsQuery);
 
 			sp.SearchType = SearchResultType.Recent;
-			sp.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
+			//sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
 
 			sp.Since = sinceDate;
 
@@ -566,10 +589,10 @@ namespace WPFTwitter
 			}
 
 			// set the latest keywords as search query
-			var sp = Rest.GenerateSearchParameters(keywordsQuery);
+			var sp = rest.GenerateSearchParameters(keywordsQuery);
 
 			sp.SearchType = SearchResultType.Recent;
-			sp.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
+			//sp.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
 			sp.Since = sinceDate;
 

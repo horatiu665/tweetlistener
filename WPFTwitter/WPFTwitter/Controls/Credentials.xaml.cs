@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WPFTwitter
+namespace WPFTwitter.Controls
 {
 	/// <summary>
 	/// Interaction logic for RestToolbox.xaml

@@ -17,40 +17,21 @@ using System.Windows.Shapes;
 
 namespace WPFTwitter.Windows
 {
-	public class LogMessageListCollection : ObservableCollection<LogMessage>
-	{
-		public LogMessageListCollection(int maxLength = 1000)
-		{
-			this.maxLength = maxLength;
-		}
-
-		/// <summary>
-		/// list does not exceed this length. when it does, first elements are removed until length reached.
-		/// </summary>
-		public int maxLength = 1000;
-
-		/// <summary>
-		/// adds elements at end while keeping length limit by removing the ones at the start of the list
-		/// </summary>
-		/// <param name="item"></param>
-		new public void Add(LogMessage item)
-		{
-			App.Current.Dispatcher.Invoke((Action)(() => {
-
-				base.Add(item);
-				// make sure list is not longer than max length
-				while (this.Count > maxLength) {
-					this.RemoveAt(0);
-				}
-			}));
-		}
-	}
-
+	
 	/// <summary>
 	/// Interaction logic for Main2.xaml
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		// viewmodel replacement
+		Stream stream;
+		Rest rest;
+		Credentials credentials;
+		DatabaseSaver databaseSaver;
+		RestGatherer restGatherer;
+		Log log;
+		
+
 		private LogMessageListCollection _logMessageList = new LogMessageListCollection(10000);
 		public LogMessageListCollection LogMessageList
 		{
@@ -68,11 +49,11 @@ namespace WPFTwitter.Windows
 		{
 			get
 			{
-				return Stream.Filter;
+				return stream.Filter;
 			}
 			set
 			{
-				Stream.Filter = value;
+				stream.Filter = value;
 			}
 		}
 
@@ -80,10 +61,17 @@ namespace WPFTwitter.Windows
 		{
 			InitializeComponent();
 
+			credentials = new Credentials();
+			databaseSaver = new DatabaseSaver();
+			log = new Log();
+			stream = new Stream(credentials, databaseSaver);
+			rest = new Rest(credentials, databaseSaver, log);
+			restGatherer = new RestGatherer(rest, log);
+
 			//////// initialize bindings
 			// log binding
 			logView.DataContext = LogMessageList;
-			Log.LogOutput += Log_LogOutput;
+			log.LogOutput += Log_LogOutput;
 
 			// filter binding
 			//filterTextbox.TextChanged += (s, a) => { StreamFilterBinding = filterTextbox.Text; };
@@ -92,7 +80,7 @@ namespace WPFTwitter.Windows
 			restView.DataContext = RestMessageList;
 
 			// when credentials change
-			Stream.CredentialsChange += (creds) => {
+			credentials.CredentialsChange += (creds) => {
 				Access_Token.Text = creds[0];
 				Access_Token_Secret.Text = creds[1];
 				Consumer_Key.Text = creds[2];
@@ -117,11 +105,6 @@ namespace WPFTwitter.Windows
 			}));
 		}
 
-		private void menu_Options_OpenConsole_Click(object sender, RoutedEventArgs e)
-		{
-			Setup.StartConsole();
-		}
-
 		private void menu_Help_About_Click(object sender, RoutedEventArgs e)
 		{
 			var a = new About();
@@ -135,20 +118,20 @@ namespace WPFTwitter.Windows
 		private void startStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 
-			Stream.Start(Stream.Filter);
+			stream.Start(stream.Filter);
 
 			loggedIn = true;
 
 			// if log
 			if (checkBox_Log.IsChecked.Value) {
-				Log.Start(logPathTextBox.Text, checkBox_logCounters.IsChecked.Value, checkBox_databaseMessages.IsChecked.Value);
+				log.Start(logPathTextBox.Text, checkBox_logCounters.IsChecked.Value, checkBox_databaseMessages.IsChecked.Value);
 			}
 
 			// if database
 			if (checkBox_database.IsChecked.Value) {
 				bool connectOnline = databaseConnectionComboBox.SelectedIndex == 0 ? false : true;
 				bool saveToDatabaseOrPhp = databaseDestinationComboBox.SelectedIndex == 0 ? false : true;
-				DatabaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
+				databaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
 
 			}
 		}
@@ -162,7 +145,7 @@ namespace WPFTwitter.Windows
 
 		private void stopStreamButton_Click(object sender, RoutedEventArgs e)
 		{
-			Stream.Stop();
+			stream.Stop();
 		}
 
 		private void dMan_Unloaded(object sender, RoutedEventArgs e)
@@ -196,7 +179,7 @@ namespace WPFTwitter.Windows
 					_restMessageList.Add(new LogMessage("Getting Rest query with filter \"" + filter + "\""));
 
 					// perform Rest query using Rest class
-					var res = Rest.SearchTweets(filter);
+					var res = rest.SearchTweets(filter);
 
 					if (res == null) {
 						_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials"));
@@ -214,13 +197,13 @@ namespace WPFTwitter.Windows
 					}
 				} else {
 					var recent = rest_filter_recent.IsChecked.Value;
-					var searchParameters = Tweetinvi.Search.GenerateTweetSearchParameter(filter);
+					var searchParameters = Tweetinvi.Search.CreateTweetSearchParameter(filter);
 					searchParameters.SearchType = recent ? Tweetinvi.Core.Enum.SearchResultType.Recent : Tweetinvi.Core.Enum.SearchResultType.Popular;
 
 					// display stuff in restInfoTextBlock.Text = "<here>"
 					_restMessageList.Add(new LogMessage("Getting Rest query with advanced search parameters"));
 
-					var res = Rest.SearchTweets(searchParameters);
+					var res = rest.SearchTweets(searchParameters);
 
 					if (res == null) {
 						_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials"));
@@ -242,7 +225,6 @@ namespace WPFTwitter.Windows
 
 		}
 
-		RestGatherer restGatherer;
 		private bool queryExpanding = false;
 
 		private void restExpansionButton_Click(object sender, RoutedEventArgs e)
@@ -262,7 +244,7 @@ namespace WPFTwitter.Windows
 					expansionCount = 3;
 				}
 
-				restGatherer = new RestGatherer();
+				restGatherer = new RestGatherer(rest, log);
 
 				restExpansionStatusLabel.Content = "Expanding";
 				//restExpansionView.DataContext = restGatherer.KeywordList;
@@ -273,10 +255,11 @@ namespace WPFTwitter.Windows
 						new LogMessage("E " + t.firstExpansion + "; Tweet: " + t.tweet.Text));
 					App.Current.Dispatcher.Invoke(() => {
 						SetRestExpansionViewKeywordListColumnHeaders(restGatherer, expansionCount);
-						//restExpansionView.UpdateLayout();
 						restExpansionListView.UpdateLayout();
 					});
 				};
+
+
 				restGatherer.ExpansionFinished += (s, edata) => {
 					_restMessageList.Add(
 						new LogMessage("E " + edata.expansion + "; Tweets " + edata.TweetCount));
@@ -340,10 +323,10 @@ namespace WPFTwitter.Windows
 				_restMessageList.Add(new LogMessage("Getting Rate Limit"));
 
 				// gets rate limit using Rest class.
-				var rl = Rest.GetRateLimits_Search();
+				var rl = rest.GetRateLimits_Search();
 
 				if (rl == null) {
-					_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials"));
+					_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials (GetRateLimits_Search() was null)"));
 					return;
 
 				}
@@ -392,7 +375,7 @@ namespace WPFTwitter.Windows
 		private void LogIn_Click(object sender, RoutedEventArgs e)
 		{
 			if ((string)(((MenuItem)sender).Header) == "Log in") {
-				Stream.TwitterCredentialsInit();
+				credentials.TwitterCredentialsInit();
 				((MenuItem)sender).Header = "Logged in";
 				loggedIn = true;
 			}
@@ -400,7 +383,7 @@ namespace WPFTwitter.Windows
 
 		private void setCredentialsButton_Click(object sender, RoutedEventArgs e)
 		{
-			Stream.TwitterCredentialsInit(new List<string>() {
+			credentials.TwitterCredentialsInit(new List<string>() {
 				// "Access_Token"
 				Access_Token.Text,
 				// "Access_Token_Secret"
@@ -415,19 +398,21 @@ namespace WPFTwitter.Windows
 
 		private void restAddToDatabase_Click(object sender, RoutedEventArgs e)
 		{
-			DatabaseSaver.Message += (s) => {
+			databaseSaver.Message += (s) => {
 				_restMessageList.Add(new LogMessage(s));
 
 			};
 			// add rest data to database.
-			Rest.AddLastTweetsToDatabase();
+			rest.AddLastTweetsToDatabase();
 
 		}
 
 		private void databasePhpPath_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			DatabaseSaver.localPhpJsonLink = ((TextBox)sender).Text;
-			_logMessageList.Add(new LogMessage("php path changed to " + DatabaseSaver.localPhpJsonLink));
+			if (databaseSaver != null) {
+				databaseSaver.localPhpJsonLink = ((TextBox)sender).Text;
+				_logMessageList.Add(new LogMessage("php path changed to " + databaseSaver.localPhpJsonLink));
+			}
 		}
 
 
@@ -463,6 +448,35 @@ namespace WPFTwitter.Windows
 			}));
 		}
 
+	}
+
+	public class LogMessageListCollection : ObservableCollection<LogMessage>
+	{
+		public LogMessageListCollection(int maxLength = 1000)
+		{
+			this.maxLength = maxLength;
+		}
+
+		/// <summary>
+		/// list does not exceed this length. when it does, first elements are removed until length reached.
+		/// </summary>
+		public int maxLength = 1000;
+
+		/// <summary>
+		/// adds elements at end while keeping length limit by removing the ones at the start of the list
+		/// </summary>
+		/// <param name="item"></param>
+		new public void Add(LogMessage item)
+		{
+			App.Current.Dispatcher.Invoke((Action)(() => {
+
+				base.Add(item);
+				// make sure list is not longer than max length
+				while (this.Count > maxLength) {
+					this.RemoveAt(0);
+				}
+			}));
+		}
 	}
 
 	public class LogMessage

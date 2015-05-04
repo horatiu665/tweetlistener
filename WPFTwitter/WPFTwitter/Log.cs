@@ -12,27 +12,30 @@ namespace WPFTwitter
 	/// <summary>
 	/// handles listening to events and printing out logs to the console and to log files.
 	/// </summary>
-	public static class Log
+	public class Log
 	{
-		private static bool _started = false;
+		Stream stream;
+		DatabaseSaver databaseSaver;
 
-		public static bool Started
+		private bool _started = false;
+
+		public bool Started
 		{
-			get { return Log._started; }
+			get { return _started; }
 		}
 
-		static StreamWriter logWriter;
-		public static string logPath = "log.txt";
-		public static double restartLogIntervalMillis = 30000;
-		static System.Timers.Timer logRestartTimer;
+		StreamWriter logWriter;
+		public string logPath = "log.txt";
+		public double restartLogIntervalMillis = 30000;
+		System.Timers.Timer logRestartTimer;
 
-		static StreamWriter smallLogWriter;
-		public static string smallLogPath = "smalllog.txt";
-		public static double restartSmallLogIntervalMillis = 30037;
-		static System.Timers.Timer smallLogRestartTimer;
+		StreamWriter smallLogWriter;
+		public string smallLogPath = "smalllog.txt";
+		public double restartSmallLogIntervalMillis = 30037;
+		System.Timers.Timer smallLogRestartTimer;
 
 		public delegate void LogOutputEventHandler(string message);
-		public static event LogOutputEventHandler LogOutput, SmallLogOutput;
+		public event LogOutputEventHandler LogOutput, SmallLogOutput;
 
 
 		/// <summary>
@@ -40,7 +43,7 @@ namespace WPFTwitter
 		/// </summary>
 		/// <param name="path">path to validate</param>
 		/// <returns>valid path that can be used</returns>
-		public static string ValidatePath(string path)
+		public string ValidatePath(string path)
 		{
 			try {
 				string fullPath = Path.GetFullPath(path);
@@ -61,7 +64,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// Log module starts here
 		/// </summary>
-		public static void Start(string path, bool outputCounters = true, bool databaseMessages = true)
+		public void Start(string path, bool outputCounters = true, bool databaseMessages = true)
 		{
 			if (!_started) {
 
@@ -71,13 +74,13 @@ namespace WPFTwitter
 				logWriter = new StreamWriter(logPath, true);
 				Output("New log started");
 				Output("Stream running filter:");
-				Output(Stream.Filter);
+				Output(stream.Filter);
 
 				// small log init
 				smallLogWriter = new StreamWriter(smallLogPath, true);
 				SmallOutput("New log started");
 				SmallOutput("Stream running filter:");
-				SmallOutput(Stream.Filter);
+				SmallOutput(stream.Filter);
 
 				// once in a while stop and start log, so we do not lose all the data in the log.
 				logRestartTimer = new System.Timers.Timer(restartLogIntervalMillis);
@@ -106,46 +109,46 @@ namespace WPFTwitter
 				if (outputCounters) {
 					// bind to events from Stream
 					#region counters
-					Stream.stream.DisconnectMessageReceived
-						+= (s, a) => { Output(Stream.CountersString() + " - DisconnectMessageReceived		"); };
-					Stream.stream.JsonObjectReceived
-						+= (s, a) => { Output(Stream.CountersString() + " - JsonObjectReceived				"); };
-					Stream.stream.LimitReached
-						+= (s, a) => { Output(Stream.CountersString() + " - LimitReached					"); };
-					Stream.stream.StreamPaused
-						+= (s, a) => { Output(Stream.CountersString() + " - StreamPaused					"); };
-					Stream.stream.StreamResumed
-						+= (s, a) => { Output(Stream.CountersString() + " - StreamResumed					"); };
-					Stream.stream.StreamStarted
-						+= (s, a) => { Output(Stream.CountersString() + " - StreamStarted					"); };
-					Stream.stream.StreamStopped
-						+= (s, a) => { Output(Stream.CountersString() + " - StreamStopped					"); };
-					Stream.stream.TweetDeleted
-						+= (s, a) => { Output(Stream.CountersString() + " - TweetDeleted					"); };
-					Stream.stream.TweetLocationInfoRemoved
-						+= (s, a) => { Output(Stream.CountersString() + " - TweetLocationInfoRemoved 		"); };
-					// Stream.stream.TweetReceived	
-					//	+= (s, a) => { Output(Stream.CountersString() + " - TweetReceived					"); }; // for sample stream
-					Stream.stream.MatchingTweetReceived
-						+= (s, a) => { Output(Stream.CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
-					Stream.stream.TweetWitheld
-						+= (s, a) => { Output(Stream.CountersString() + " - TweetWitheld					"); };
-					Stream.stream.UnmanagedEventReceived
-						+= (s, a) => { Output(Stream.CountersString() + " - UnmanagedEventReceived			"); };
-					Stream.stream.UserWitheld
-						+= (s, a) => { Output(Stream.CountersString() + " - UserWitheld						"); };
-					Stream.stream.WarningFallingBehindDetected
-						+= (s, a) => { Output(Stream.CountersString() + " - WarningFallingBehindDetected	"); };
+					stream.stream.DisconnectMessageReceived
+						+= (s, a) => { Output(stream.CountersString() + " - DisconnectMessageReceived		"); };
+					stream.stream.JsonObjectReceived
+						+= (s, a) => { Output(stream.CountersString() + " - JsonObjectReceived				"); };
+					stream.stream.LimitReached
+						+= (s, a) => { Output(stream.CountersString() + " - LimitReached					"); };
+					stream.stream.StreamPaused
+						+= (s, a) => { Output(stream.CountersString() + " - StreamPaused					"); };
+					stream.stream.StreamResumed
+						+= (s, a) => { Output(stream.CountersString() + " - StreamResumed					"); };
+					stream.stream.StreamStarted
+						+= (s, a) => { Output(stream.CountersString() + " - StreamStarted					"); };
+					stream.stream.StreamStopped
+						+= (s, a) => { Output(stream.CountersString() + " - StreamStopped					"); };
+					stream.stream.TweetDeleted
+						+= (s, a) => { Output(stream.CountersString() + " - TweetDeleted					"); };
+					stream.stream.TweetLocationInfoRemoved
+						+= (s, a) => { Output(stream.CountersString() + " - TweetLocationInfoRemoved 		"); };
+					// stream.stream.TweetReceived	
+					//	+= (s, a) => { Output(stream.CountersString() + " - TweetReceived					"); }; // for sample stream
+					stream.stream.MatchingTweetReceived
+						+= (s, a) => { Output(stream.CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
+					stream.stream.TweetWitheld
+						+= (s, a) => { Output(stream.CountersString() + " - TweetWitheld					"); };
+					stream.stream.UnmanagedEventReceived
+						+= (s, a) => { Output(stream.CountersString() + " - UnmanagedEventReceived			"); };
+					stream.stream.UserWitheld
+						+= (s, a) => { Output(stream.CountersString() + " - UserWitheld						"); };
+					stream.stream.WarningFallingBehindDetected
+						+= (s, a) => { Output(stream.CountersString() + " - WarningFallingBehindDetected	"); };
 
 					#endregion
 				}
 
 				// bind to stream errors and specific events
-				Stream.Error += (s) => { Output(s); SmallOutput(s); };
-				Stream.stream.JsonObjectReceived += onJsonObjectReceived;
-				Stream.stream.StreamStarted += onStreamStarted;
-				Stream.stream.StreamStopped += onStreamStopped;
-				Stream.stream.LimitReached += onLimitReached;
+				stream.Error += (s) => { Output(s); SmallOutput(s); };
+				stream.stream.JsonObjectReceived += onJsonObjectReceived;
+				stream.stream.StreamStarted += onStreamStarted;
+				stream.stream.StreamStopped += onStreamStopped;
+				stream.stream.LimitReached += onLimitReached;
 
 				// bind to any exception
 				//ExceptionHandler.WebExceptionReceived += (s, a) => {
@@ -158,7 +161,7 @@ namespace WPFTwitter
 
 				// database messages only for big log
 				if (databaseMessages) {
-					DatabaseSaver.Message += (s) => {
+					databaseSaver.Message += (s) => {
 						Output(s);
 					};
 				}
@@ -168,12 +171,12 @@ namespace WPFTwitter
 
 		}
 
-		private static void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
+		private void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
 		{
 			SmallOutput("Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
 		}
 
-		public static void Stop()
+		public void Stop()
 		{
 			// too dangerous to stop log, because events are not cleaned up, and restarting it would mean double the prints.
 
@@ -193,13 +196,13 @@ namespace WPFTwitter
 		/// <summary>
 		/// use in EvaluateJsonChildren() to print out the fields which might give useful information in the log
 		/// </summary>
-		static string[] interestingFields = {
+		string[] interestingFields = {
 			"limit", "disconnect", "warning", "delete",
 
 			"text"
 		};
 
-		static void EvaluateJsonChildren(JToken j)
+		void EvaluateJsonChildren(JToken j)
 		{
 			string s = "Fields in json object: \n";
 			foreach (var j2 in j) {
@@ -228,7 +231,7 @@ namespace WPFTwitter
 			*/
 		}
 
-		static void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
+		void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
 		{
 			JObject json = JObject.Parse(e.Json);
 
@@ -238,7 +241,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// happens when stream starts
 		/// </summary>
-		static void onStreamStarted(object sender, EventArgs e)
+		void onStreamStarted(object sender, EventArgs e)
 		{
 			Output("Stream successfully started");
 			SmallOutput("Stream successfully started");
@@ -247,7 +250,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// called when StreamStopped Tweetinvi event triggers.
 		/// </summary>
-		private static void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
+		private void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
 		{
 			Output("Stream disconnected.");
 			if (e.DisconnectMessage != null) {
@@ -278,12 +281,12 @@ namespace WPFTwitter
 
 		// output funcs
 
-		public static void Output()
+		public void Output()
 		{
 			Output("");
 		}
 
-		public static void Output(string message)
+		public void Output(string message)
 		{
 			try {
 				if (LogOutput != null) {
@@ -315,7 +318,7 @@ namespace WPFTwitter
 			}
 		}
 
-		public static void SmallOutput(string message)
+		public void SmallOutput(string message)
 		{
 			try {
 
@@ -337,7 +340,7 @@ namespace WPFTwitter
 			catch (Exception e) {
 				if (LogOutput != null) {
 					LogOutput(e.ToString());
-				} 
+				}
 				if (ConsoleHelper.ConsolePresent) {
 					Console.WriteLine(e.ToString());
 				}

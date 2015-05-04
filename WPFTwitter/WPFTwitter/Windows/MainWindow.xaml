@@ -16,9 +16,6 @@
         Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="745" Width="928" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
-            <MenuItem Header="Options">
-                <MenuItem Header="Open Console" Click="menu_Options_OpenConsole_Click"/>
-            </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Log" Click="menu_View_Log_Click"/>
                 <MenuItem Header="Log Settings" Click="menu_View_LogSettings_Click"/>
@@ -40,35 +37,67 @@
 
                     <!-- PANELS GO HERE -->
 
-                    <!-- LOG PANEL -->
+                    <ad:LayoutPanel Orientation="Vertical">
 
-                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
-                        <ad:LayoutAnchorable x:Name="logLayout" Title="Log" CanClose="False" CanHide="False">
-                            <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Time">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Time}"  TextWrapping="Wrap" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTemplateColumn Header="Message" Width="*">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ScrollViewer MaxHeight="300" >
-                                                    <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
-                                                </ScrollViewer>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
+                        <!-- LOG PANEL -->
 
-                        </ad:LayoutAnchorable>
-                    </ad:LayoutAnchorablePane>
-                    <!-- END LOG PANEL -->
+                        <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
+                            <ad:LayoutAnchorable x:Name="logLayout" Title="Log" CanClose="False" CanHide="False">
+                                <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Time">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Time}"  TextWrapping="Wrap" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Message" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <ScrollViewer MaxHeight="300" >
+                                                        <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
+                                                    </ScrollViewer>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
 
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+                        <!-- END LOG PANEL -->
+
+                        <!-- TWEET PANEL -->
+
+                        <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
+                            <ad:LayoutAnchorable Title="Tweets">
+                                <DataGrid x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Date">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Date}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Tweet" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Tweet}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+
+                        <!-- END TWEET PANEL -->
+                        
+                    </ad:LayoutPanel>
+                    
                     <ad:LayoutPanel Orientation="Vertical" DockWidth="2*">
 
                         <!-- LOG SETTINGS PANEL -->
@@ -220,7 +249,7 @@
                                                 <ListView.Resources>
                                                     <Style TargetType="GridViewColumnHeader">
                                                         <EventSetter Event="MouseUp" Handler="restExpansionListView_Headers_MouseUp">
-                                                            
+
                                                         </EventSetter>
                                                     </Style>
                                                 </ListView.Resources>
@@ -228,7 +257,7 @@
                                                     <GridView x:Name="restExpansionListViewGrid">
                                                         <GridViewColumn DisplayMemberBinding="{Binding Keyword}">
                                                             <GridViewColumnHeader Content="Keyword">
-                                                                
+
                                                             </GridViewColumnHeader>
                                                         </GridViewColumn>
                                                         <GridViewColumn DisplayMemberBinding="{Binding Count}">

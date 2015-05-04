@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="WPFTwitter.TweetDatabaseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+             mc:Ignorable="d" Height="205" Width="223">
+    <Grid>
+        <ad:DockingManager x:Name="dMan">
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Horizontal">
+                    
+                    <!-- copy from here to have a separate panel, including a title! -->
+                    
+                    <!-- TWEET PANEL -->
+
+                    <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
+                        <ad:LayoutAnchorable Title="Tweets">
+                            <DataGrid x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Date">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Date}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Tweet" Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Content="{Binding Tweet}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                        </ad:LayoutAnchorable>
+                    </ad:LayoutAnchorablePane>
+                    
+                    <!-- END TWEET PANEL -->
+                    
+                    <!-- copy to here to have a separate panel, including a title! -->
+
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+    </Grid>
+</UserControl>

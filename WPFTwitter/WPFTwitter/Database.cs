@@ -13,48 +13,49 @@ namespace WPFTwitter
 	/// <summary>
 	/// connects to the twitter events in the Stream and saves tweets to database in various methods.
 	/// </summary>
-	public static class DatabaseSaver
+	public class DatabaseSaver
 	{
-		private static bool _started = false;
+		private bool _started = false;
 
-		public static bool connectOnline;
-		public static bool saveToDatabaseOrPhp;
+		public bool connectOnline;
+		public bool saveToDatabaseOrPhp;
 
 		// connection data saved as strings
-		public static string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
-		public static string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
-		public static string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
-		public static string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
+		public string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
+		public string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
+		public string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
+		public string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
 
 		/// <summary>
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
 		/// </summary>
-		static int maxTweetDatabaseSendRetries = 100;
-		static float secondsBetweenSendRetries = 1;
+		int maxTweetDatabaseSendRetries = 100;
+		float secondsBetweenSendRetries = 1;
 
 		// event triggered every time there is some error that must be logged
-		public static event DatabaseSaverMessage Message;
+		public event DatabaseSaverMessage Message;
 
 		public delegate void DatabaseSaverMessage(string message);
 
 		/// <summary>
 		/// starts database module which binds to receive tweet event, and saves data to database.
 		/// </summary>
-		public static void Start(bool connectOnline, bool saveToDatabaseOrPhp)
+		public void Start(bool connectOnline, bool saveToDatabaseOrPhp)
 		{
 			if (!_started) {
-				DatabaseSaver.connectOnline = connectOnline;
-				DatabaseSaver.saveToDatabaseOrPhp = saveToDatabaseOrPhp;
+				this.connectOnline = connectOnline;
+				this.saveToDatabaseOrPhp = saveToDatabaseOrPhp;
 
-				Stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
-				Stream.stream.JsonObjectReceived += onJsonObjectReceived;
+				// DO NOT CREATE DEPENDENCY FROM DATABASE TO STREAM. DO IT THE OTHER WAY AROUND
+				//stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
+				//stream.stream.JsonObjectReceived += onJsonObjectReceived;
 
 				_started = true;
 
 			}
 		}
 
-		private static void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
+		private void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
 		{
 			SendJsonToDatabase(e.Json);
 		}
@@ -62,13 +63,13 @@ namespace WPFTwitter
 		/// <summary>
 		/// happens when stream updates with a new tweet. use for filtered stream
 		/// </summary>
-		static void onMatchedTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
+		void onMatchedTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
 		{
 			//SendTweetToDatabase(e.Tweet);
 
 		}
 
-		public static void SendJsonToDatabase(string json)
+		public void SendJsonToDatabase(string json)
 		{
 			if (saveToDatabaseOrPhp) {
 				if (Message != null) {
@@ -84,7 +85,7 @@ namespace WPFTwitter
 		/// sends tweet json string to database.
 		/// </summary>
 		/// <param name="json"></param>
-		static void SaveToPhpFullJson(string json)
+		void SaveToPhpFullJson(string json)
 		{
 			// Create a request using a URL that can receive a post (link.php)
 			WebRequest request = WebRequest.Create(connectOnline ? onlinePhpJsonLink : localPhpJsonLink);
@@ -137,7 +138,7 @@ namespace WPFTwitter
 		/// sends tweet to database via chosen method
 		/// </summary>
 		/// <param name="tweet"></param>
-		public static void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
+		public void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
 		{
 			if (saveToDatabaseOrPhp) {
 				SaveToDatabase(tweet);
@@ -231,13 +232,13 @@ namespace WPFTwitter
 				}
 			}
 		}
-		
+
 
 		/// <summary>
 		/// saves directly to database.
 		/// </summary>
 		/// <param name="message"></param>
-		static void SaveToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet)
+		void SaveToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet)
 		{
 			string connectionString = connectOnline ? onlineConnectionString : localConnectionString;
 

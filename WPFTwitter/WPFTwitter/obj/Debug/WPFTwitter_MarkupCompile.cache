@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\App.xaml
-11-1283254709
+111204529046
 
-22-1216624205
-91-431113277
-Controls\RestExpansionViewer.xaml;Controls\Credentials.xaml;Controls\RestToolbox.xaml;Controls\LogControls.xaml;Controls\LogSettings.xaml;HelpHelper\HelpHelper.xaml;Controls\StreamControls.xaml;Windows\About.xaml;Windows\DesignWindow.xaml;Windows\MainWindow.xaml;Windows\MainWindowOld.xaml;
+24-2043647837
+961846381431
+Controls\TweetDatabaseView.xaml;Controls\RestExpansionViewer.xaml;Controls\Credentials.xaml;Controls\RestToolbox.xaml;Controls\LogControls.xaml;Controls\LogSettings.xaml;HelpHelper\HelpHelper.xaml;Controls\StreamControls.xaml;Windows\About.xaml;Windows\DesignWindow.xaml;Windows\MainWindow.xaml;
 
 False
 

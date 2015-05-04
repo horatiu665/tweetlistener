@@ -204,7 +204,6 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\StreamControls.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\About.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\DesignWindow.baml
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\MainWindowOld.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\Credentials.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\RestToolbox.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\LogControls.g.cs
@@ -214,7 +213,6 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\About.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\DesignWindow.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\MainWindow.g.cs
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\MainWindowOld.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\App.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter_MarkupCompile.cache
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter_MarkupCompile.lref
@@ -224,3 +222,7 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter.csproj.GenerateResource.Cache
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\RestExpansionViewer.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\RestExpansionViewer.g.cs
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\TweetDatabaseView.baml
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\TweetDatabaseView.g.cs
