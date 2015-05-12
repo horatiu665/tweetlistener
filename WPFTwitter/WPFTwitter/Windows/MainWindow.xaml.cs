@@ -81,6 +81,7 @@ namespace WPFTwitter.Windows
 			logView.DataContext = LogMessageList;
 			log.LogOutput += Log_LogOutput;
 			checkBox_logCounters.DataContext = stream;
+			databaseRetries.DataContext = databaseSaver;
 
 			// filter binding
 			//filterTextbox.TextChanged += (s, a) => { StreamFilterBinding = filterTextbox.Text; };

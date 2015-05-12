@@ -44,6 +44,12 @@ namespace WPFTwitter
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
 		/// </summary>
 		int maxTweetDatabaseSendRetries = 100;
+
+		public int MaxTweetDatabaseSendRetries
+		{
+			get { return maxTweetDatabaseSendRetries; }
+			set { maxTweetDatabaseSendRetries = value; }
+		}
 		float secondsBetweenSendRetries = 1;
 
 		// event triggered every time there is some error that must be logged
@@ -106,7 +112,7 @@ namespace WPFTwitter
 						Message(e.ToString());
 					}
 					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
-					if (retries < maxTweetDatabaseSendRetries) {
+					if (retries < MaxTweetDatabaseSendRetries) {
 						Task.Factory.StartNew(() => {
 							// wait a little and then try again
 							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;

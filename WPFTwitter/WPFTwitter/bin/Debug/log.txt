@@ -7544,3 +7544,144 @@ ilk erkek ben olayım.. istiyorum demişti... http://t.co/…, source, truncated
 12-May-15 14:03:11: OK
 12-May-15 14:03:12: 
 12-May-15 14:03:12: Counters: 0 222 6 0 0 3 3 0 0 216 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:20:56: New log started
+12-May-15 15:20:56: OnStreamStarted event is called
+12-May-15 15:20:56: Stream running filter:
+12-May-15 15:20:56: google
+12-May-15 15:20:56: Start of Rest.TweetsGatheringCycle()
+12-May-15 15:20:56: Searching for google,
+12-May-15 15:20:58: End of Rest.TweetsGatheringCycle()
+12-May-15 15:20:58: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+12-May-15 15:20:59: Fields in json object: 
+created_at, id, id_str, text:Last week, I typed into Google the word 'mendicant', which is another way of saying beggar. Most of… https://t.co/MfPU8w7bs0, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:20:59: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:00: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:00: Failed to send after 0 tries
+12-May-15 15:21:00: Counters: 0 1 0 0 0 1 0 0 0 1 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:00: Fields in json object: 
+created_at, id, id_str, text:RT @20kFollower: I will Give you Guaranteed Google rank to your site within 3 weeks for $50 http://t.co/u9i3Wxo2v1 http://t.co/4pxItcHjIz, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:01: Counters: 0 2 0 0 0 1 0 0 0 1 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:01: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:01: Failed to send after 0 tries
+12-May-15 15:21:01: Counters: 0 2 0 0 0 1 0 0 0 2 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:01: Fields in json object: 
+created_at, id, id_str, text:RT @gmanewstvbrk Google's self-driving cars involved in 11 accidents, program director says: Inte... http://t.co/Hs1IGtQagr #Philippines, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:01: Counters: 0 3 0 0 0 1 0 0 0 2 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:02: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:02: Failed to send after 0 tries
+12-May-15 15:21:02: Counters: 0 3 0 0 0 1 0 0 0 3 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:02: Fields in json object: 
+created_at, id, id_str, text:#Fast Money Picks For May 12 http://t.co/S6DviI426U http://t.co/0PLrVSD1It, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:02: Counters: 0 4 0 0 0 1 0 0 0 3 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:02: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:02: Failed to send after 0 tries
+12-May-15 15:21:02: Counters: 0 4 0 0 0 1 0 0 0 4 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:02: Fields in json object: 
+created_at, id, id_str, text:ハワイのウグイス、さえずり「日本より単純」 2015年05月10日 13時44分 - 読売新聞 http://t.co/5F4mRmOgTA #ハワイ #hawaii, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:02: Counters: 0 5 0 0 0 1 0 0 0 4 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:03: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:03: Failed to send after 0 tries
+12-May-15 15:21:03: Counters: 0 5 0 0 0 1 0 0 0 5 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:03: Fields in json object: 
+created_at, id, id_str, text:Ok google., source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:03: Counters: 0 6 0 0 0 1 0 0 0 5 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:04: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:04: Failed to send after 0 tries
+12-May-15 15:21:04: Counters: 0 6 0 0 0 1 0 0 0 6 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:04: Fields in json object: 
+created_at, id, id_str, text:¡Me encanta jugar #Apensar! Disponible en App Store http://t.co/BdAVvAt90f y en Google Play http://t.co/2A0jHV6cz2 http://t.co/moAIiaUyhP, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:04: Counters: 0 7 0 0 0 1 0 0 0 6 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:04: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:04: Failed to send after 0 tries
+12-May-15 15:21:04: Counters: 0 7 0 0 0 1 0 0 0 7 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:04: Fields in json object: 
+created_at, id, id_str, text:150512 今田美奈 Google+ http://t.co/7svYamCUcI, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:04: Counters: 0 8 0 0 0 1 0 0 0 7 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:05: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:05: Failed to send after 0 tries
+12-May-15 15:21:05: Counters: 0 8 0 0 0 1 0 0 0 8 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:05: Fields in json object: 
+created_at, id, id_str, text:Google's self-driving cars involved in 11 accidents, program director says http://t.co/YCzGoy6HTx, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:05: Counters: 0 9 0 0 0 1 0 0 0 8 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:06: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:06: Failed to send after 0 tries
+12-May-15 15:21:06: Counters: 0 9 0 0 0 1 0 0 0 9 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:06: Fields in json object: 
+created_at, id, id_str, text:RT @victoriabeckham: Thank you @Google for an inspiring evening, was an honour to meet Stephen Hawking x vb http://t.co/QYtgD4oMKe, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:06: Counters: 0 10 0 0 0 1 0 0 0 9 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:06: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:06: Failed to send after 0 tries
+12-May-15 15:21:06: Counters: 0 10 0 0 0 1 0 0 0 10 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:06: Fields in json object: 
+created_at, id, id_str, text:Я завершил(а) достижение 'Денежный мешок', этап 3 и получил(а) награду! http://t.co/lTgyBPiNYS, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:06: Counters: 0 11 0 0 0 1 0 0 0 10 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:07: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:07: Failed to send after 0 tries
+12-May-15 15:21:07: Counters: 0 11 0 0 0 1 0 0 0 11 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:07: Fields in json object: 
+created_at, id, id_str, text:RT @SPJKT48: #KCA #VoteJKT48ID charlesmilander: Google Maps for Android lists your events, flights and reservations, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:07: Counters: 0 12 0 0 0 1 0 0 0 11 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:08: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:08: Failed to send after 0 tries
+12-May-15 15:21:08: Counters: 0 12 0 0 0 1 0 0 0 12 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:08: Fields in json object: 
+created_at, id, id_str, text:@ciarabravove cari di google coba *sesat*, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:08: Counters: 0 13 0 0 0 1 0 0 0 12 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:08: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:08: Failed to send after 0 tries
+12-May-15 15:21:08: Counters: 0 13 0 0 0 1 0 0 0 13 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:08: Fields in json object: 
+created_at, id, id_str, text:Mobil Otomatis Google 11 Kali Kecelakaan dalam Uji Coba: Google akan memasarkan kendaraan tersebut secara mass... http://t.co/xKINUthB1u, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:08: Counters: 0 14 0 0 0 1 0 0 0 13 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:09: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpWebRequest.GetResponse()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 230
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 106
+12-May-15 15:21:09: Failed to send after 0 tries
+12-May-15 15:21:09: Counters: 0 14 0 0 0 1 0 0 0 14 0 0 0 0  - MatchingTweetReceived			
+12-May-15 15:21:09: Fields in json object: 
+created_at, id, id_str, text:RT @OnThePulseSpain: Well, it feels like summer at the moment in some parts of Spain and in general the mood… https://t.co/qWgHv0aajI http:…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+12-May-15 15:21:09: Counters: 0 15 0 0 0 1 0 0 0 14 0 0 0 0  - JsonObjectReceived			
+12-May-15 15:21:09: Stream disconnected.
+12-May-15 15:21:09: Counters: 0 15 0 0 0 1 1 0 0 14 0 0 0 0  - StreamStopped					
+12-May-15 15:21:10: System.Net.WebException: The remote server returned an error: (404) Not Found.
+   at System.Net.HttpW

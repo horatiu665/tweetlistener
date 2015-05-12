@@ -142,7 +142,12 @@
                                     </DockPanel>
 
                                     <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
-                                    <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Top" IsChecked="True"/>
+                                    <DockPanel>
+                                        <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="True"/>
+                                        <Label Content="| Retries" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="databaseRetries" VerticalAlignment="Center" MinWidth="30" MaxWidth="100" HorizontalAlignment="Left" Text="{Binding Path=MaxTweetDatabaseSendRetries, Mode=TwoWay}"/>
+                                    </DockPanel>
+
                                     <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
                                     <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
 
