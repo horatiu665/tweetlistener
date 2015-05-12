@@ -40,3 +40,246 @@
 28-Apr-15 09:25:40: System.EventArgs
 28-Apr-15 09:25:40: Stream successfully started
 28-Apr-15 09:25:47: Stream disconnected.
+04-May-15 12:24:24: New log started
+04-May-15 12:24:24: Stream running filter:
+04-May-15 12:24:24: deep
+04-May-15 12:24:24: OnStreamStarted event is called
+04-May-15 12:24:24: System.EventArgs
+04-May-15 12:24:24: Stream successfully started
+04-May-15 12:24:42: Stream disconnected.
+04-May-15 12:26:58: New log started
+04-May-15 12:26:58: Stream running filter:
+04-May-15 12:26:58: google
+04-May-15 12:27:06: OnStreamStarted event is called
+04-May-15 12:27:06: System.EventArgs
+04-May-15 12:27:06: Stream successfully started
+04-May-15 12:27:31: Stream disconnected.
+04-May-15 12:28:10: Stream attempting to start at time 04-May-15 12:28:10
+04-May-15 12:28:10: OnStreamStarted event is called
+04-May-15 12:28:10: System.EventArgs
+04-May-15 12:28:10: Stream successfully started
+04-May-15 12:28:16: Stream disconnected.
+04-May-15 12:50:29: New log started
+04-May-15 12:50:29: Exception at StartStreamTask() thread: System.NullReferenceException: Object reference not set to an instance of an object.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:29: Stream attempting to start at time 04-May-15 12:50:29
+04-May-15 12:50:29: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:29: Stream attempting to start at time 04-May-15 12:50:29
+04-May-15 12:50:30: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:30: Stream attempting to start at time 04-May-15 12:50:30
+04-May-15 12:50:31: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:31: Stream attempting to start at time 04-May-15 12:50:31
+04-May-15 12:50:33: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:33: Stream attempting to start at time 04-May-15 12:50:33
+04-May-15 12:50:36: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:36: Stream attempting to start at time 04-May-15 12:50:36
+04-May-15 12:50:42: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:42: Stream attempting to start at time 04-May-15 12:50:42
+04-May-15 12:50:55: Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Tweetinvi.Streams.FilteredStream.<StartStreamMatchingAnyConditionAsync>d__19.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at WPFTwitter.Stream.<StartStreamTask>d__3a.MoveNext() in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Stream.cs:line 270
+04-May-15 12:50:55: Stream attempting to start at time 04-May-15 12:50:55
+12-May-15 09:52:16: New log started
+12-May-15 09:52:16: Stream running filter:
+12-May-15 09:52:16: google
+12-May-15 09:55:08: New log started
+12-May-15 09:55:10: Stream running filter:
+12-May-15 09:55:10: google
+12-May-15 09:56:40: Stream disconnected.
+12-May-15 09:56:40: Exception: --- Date : 12-May-15 09:56:35
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=google
+Code : -1
+Error documentation description : 
+
+12-May-15 10:17:59: New log started
+12-May-15 10:17:59: Stream running filter:
+12-May-15 10:17:59: google
+12-May-15 10:18:34: Stream disconnected.
+12-May-15 10:22:50: New log started
+12-May-15 10:22:50: Stream running filter:
+12-May-15 10:22:50: google
+12-May-15 10:23:19: Stream disconnected.
+12-May-15 10:31:18: New log started
+12-May-15 10:31:18: Stream running filter:
+12-May-15 10:31:18: iphone, apple
+12-May-15 10:31:47: Stream disconnected.
+12-May-15 10:50:48: New log started
+12-May-15 10:50:48: Stream running filter:
+12-May-15 10:50:48: google
+12-May-15 10:52:03: Stream disconnected.
+12-May-15 10:57:41: New log started
+12-May-15 10:57:41: Stream running filter:
+12-May-15 10:57:41: deep
+12-May-15 10:58:36: Stream disconnected.
+12-May-15 11:04:31: New log started
+12-May-15 11:04:31: Stream running filter:
+12-May-15 11:04:31: photoshop
+12-May-15 11:06:22: Stream disconnected.
+12-May-15 11:06:32: Stream attempting to start at time 12-May-15 11:06:32
+12-May-15 11:06:32: Stream running filter:
+12-May-15 11:06:32: google
+12-May-15 11:08:59: Stream disconnected.
+12-May-15 11:08:59: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+12-May-15 11:08:59: Stream attempting to start at time 12-May-15 11:08:59
+12-May-15 11:08:59: Stream running filter:
+12-May-15 11:08:59: google
+12-May-15 11:09:04: Stream disconnected.
+12-May-15 11:24:40: New log started
+12-May-15 11:24:40: Stream running filter:
+12-May-15 11:24:40: google
+12-May-15 11:27:18: Stream disconnected.
+12-May-15 11:27:18: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+12-May-15 11:27:18: Stream attempting to start at time 12-May-15 11:27:18
+12-May-15 11:27:18: Stream running filter:
+12-May-15 11:27:18: google
+12-May-15 11:27:27: Stream disconnected.
+12-May-15 11:34:18: New log started
+12-May-15 11:34:18: Stream running filter:
+12-May-15 11:34:18: deep
+12-May-15 11:36:45: Stream disconnected.
+12-May-15 12:05:12: Stream attempting to start at time 12-May-15 12:05:12
+12-May-15 12:05:12: Stream running filter:
+12-May-15 12:05:12: bullshit
+12-May-15 12:05:52: Stream disconnected.
+12-May-15 12:05:53: Stream attempting to start at time 12-May-15 12:05:53
+12-May-15 12:05:53: Stream running filter:
+12-May-15 12:05:53: apple
+12-May-15 12:05:54: Stream disconnected.
+12-May-15 12:05:54: Exception: --- Date : 12-May-15 12:05:54
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=apple
+Code : -1
+Error documentation description : 
+
+12-May-15 12:05:54: Stream attempting to start at time 12-May-15 12:05:54
+12-May-15 12:05:54: Stream running filter:
+12-May-15 12:05:54: apple
+12-May-15 12:06:14: Stream disconnected.
+12-May-15 12:06:15: Stream attempting to start at time 12-May-15 12:06:15
+12-May-15 12:06:15: Stream running filter:
+12-May-15 12:06:15: programming
+12-May-15 12:07:11: Stream disconnected.
+12-May-15 12:07:11: Stream attempting to start at time 12-May-15 12:07:11
+12-May-15 12:07:12: Stream running filter:
+12-May-15 12:07:12: swag
+12-May-15 12:09:59: Stream disconnected.
+12-May-15 13:58:56: New log started
+12-May-15 13:58:56: Stream running filter:
+12-May-15 13:58:56: google
+12-May-15 13:59:34: Stream disconnected.
+12-May-15 14:01:37: Stream attempting to start at time 12-May-15 14:01:37
+12-May-15 14:01:37: Stream running filter:
+12-May-15 14:01:37: twitter
+12-May-15 14:02:06: Limit reached. Tweets missed: 203
+12-May-15 14:02:11: Limit reached. Tweets missed: 190
+12-May-15 14:02:12: Limit reached. Tweets missed: 191
+12-May-15 14:02:21: Limit reached. Tweets missed: 261
+12-May-15 14:02:35: Limit reached. Tweets missed: 459
+12-May-15 14:02:39: Stream disconnected.
+12-May-15 14:02:39: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+12-May-15 14:02:39: Stream attempting to start at time 12-May-15 14:02:39
+12-May-15 14:02:39: Stream running filter:
+12-May-15 14:02:39: twitter
+12-May-15 14:02:49: Limit reached. Tweets missed: 31
+12-May-15 14:03:11: Stream disconnected.

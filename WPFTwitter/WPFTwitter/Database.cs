@@ -7,6 +7,8 @@ using System.IO;
 using System.Net;
 
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
+using Tweetinvi.Core.Interfaces;
 
 namespace WPFTwitter
 {
@@ -15,6 +17,16 @@ namespace WPFTwitter
 	/// </summary>
 	public class DatabaseSaver
 	{
+		private Log log;
+
+		public DatabaseSaver(Log l)
+		{
+			log = l;
+
+			// set up events
+			Message += (s) => { log.Output(s); };
+		}
+
 		private bool _started = false;
 
 		public bool connectOnline;
@@ -25,6 +37,8 @@ namespace WPFTwitter
 		public string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
 		public string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
 		public string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
+
+		public string textFileDatabasePath = "rawJsonBackup.txt";
 
 		/// <summary>
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
@@ -50,26 +64,14 @@ namespace WPFTwitter
 				//stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
 				//stream.stream.JsonObjectReceived += onJsonObjectReceived;
 
+
+
 				_started = true;
 
 			}
 		}
 
-		private void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
-		{
-			SendJsonToDatabase(e.Json);
-		}
-
-		/// <summary>
-		/// happens when stream updates with a new tweet. use for filtered stream
-		/// </summary>
-		void onMatchedTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
-		{
-			//SendTweetToDatabase(e.Tweet);
-
-		}
-
-		public void SendJsonToDatabase(string json)
+		public void SaveJson(string json)
 		{
 			if (saveToDatabaseOrPhp) {
 				if (Message != null) {
@@ -77,9 +79,118 @@ namespace WPFTwitter
 				}
 			} else {
 				SaveToPhpFullJson(json);
-
+				SaveToTextFile(json);
 			}
 		}
+
+		/// <summary>
+		/// sends tweet to database via chosen method
+		/// </summary>
+		/// <param name="tweet"></param>
+		public void SaveTweet(ITweet tweet, int retries = 0)
+		{
+			if (saveToDatabaseOrPhp) {
+				SaveToDatabase(tweet);
+
+			} else {
+				try {
+					// encode tweet to json and use SaveToPhpFullJson(string json).
+					JObject json = EncodeTweetToJson(tweet);
+
+					SaveToPhpFullJson(json.ToString());
+					SaveToTextFile(json.ToString());
+
+				}
+				catch (Exception e) {
+					if (Message != null) {
+						Message(e.ToString());
+					}
+					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
+					if (retries < maxTweetDatabaseSendRetries) {
+						Task.Factory.StartNew(() => {
+							// wait a little and then try again
+							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;
+							while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
+							SaveTweet(tweet, retries + 1);
+
+						});
+					} else {
+						if (Message != null) {
+							Message("Failed to send after " + retries + " tries");
+						}
+					}
+				}
+			}
+		}
+
+		JObject EncodeTweetToJson(ITweet tweet)
+		{
+			// encode tweet to json and use SaveToPhpFullJson(string json).
+			JObject json = new JObject();
+
+			// add necessary fields to json (synchronize with php script).
+			// json.created_at
+			json.Add("created_at", tweet.CreatedAt.ToString());
+			// json.id_str
+			json.Add("id_str", tweet.IdStr);
+			// json.in_reply_to_status_id_str
+			json.Add("in_reply_to_status_id_str", tweet.InReplyToStatusIdStr);
+			// json.in_reply_to_user_id_str
+			json.Add("in_reply_to_user_id_str", tweet.InReplyToUserIdStr);
+			// json.lang
+			// convert tweet.Language to two-letter code like twitter does
+			string twoLetterLanguage = Tweetinvi.Core.Extensions.LanguageExtension.GetDescriptionAttribute(tweet.Language);
+			json.Add("lang", twoLetterLanguage);
+			// json.retweet_count
+			json.Add("retweet_count", tweet.RetweetCount.ToString());
+			// json.text
+			json.Add("text", tweet.Text);
+			// json.user
+			var jsonUser = new Newtonsoft.Json.Linq.JObject();
+			// json.user.screen_name
+			jsonUser.Add("screen_name", tweet.Creator.ScreenName);
+			// json.user.id_str
+			jsonUser.Add("id_str", tweet.Creator.IdStr);
+			json.Add("user", jsonUser);
+
+			#region copied 27-02-2015 from php for reference
+
+			//$json = json_decode($_POST['json']);
+
+			//// UTC time when this Tweet was created.
+			////$json->created_at
+			////$created_at = $json->created_at;
+			////$mysqldate = date('y-m-d H:i:s', strtotime($created_at));
+			//$mysqldate = date('Y-m-d H:i:s', time());
+			////$json->id_str
+			//$id_str = $json->id_str;
+			//// If the represented Tweet is a reply, this field will contain the integer representation of the original Tweet’s ID.
+			////$json->in_reply_to_status_id_str
+			//$in_reply_to_status_id_str = $json->in_reply_to_status_id_str;
+			////$json->in_reply_to_user_id_str
+			//$in_reply_to_user_id_str = $json->in_reply_to_user_id_str;
+			////$json->lang
+			//$lang = $json->lang;
+			////$json->retweet_count
+			//$retweet_count = $json->retweet_count;
+			//// tweet text
+			////$json->text
+			//$text = mysqli_real_escape_string($mysqli, $json->text);
+
+			//// object containing info about user
+			////$json->user
+			//// The screen name, handle, or alias that this user identifies themselves with. screen_names are unique but subject to change. Use id_str as a user identifier whenever possible. Typically a maximum of 15 characters long, but some historical accounts may exist with longer names.
+			////	$json->user->screen_name
+
+			//$user_name = mysqli_real_escape_string($mysqli, $json->user->screen_name);
+
+			////	$json->user->id_str
+			//$user_id_str = $json->user->id_str;
+			#endregion
+
+			return json;
+		}
+
 
 		/// <summary>
 		/// sends tweet json string to database.
@@ -135,110 +246,10 @@ namespace WPFTwitter
 
 
 		/// <summary>
-		/// sends tweet to database via chosen method
-		/// </summary>
-		/// <param name="tweet"></param>
-		public void SendTweetToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet, int retries = 0)
-		{
-			if (saveToDatabaseOrPhp) {
-				SaveToDatabase(tweet);
-
-			} else {
-				try {
-					// encode tweet to json and use SaveToPhpFullJson(string json).
-					Newtonsoft.Json.Linq.JObject json = new Newtonsoft.Json.Linq.JObject();
-
-					// add necessary fields to json (synchronize with php script).
-					// json.created_at
-					json.Add("created_at", tweet.CreatedAt.ToString());
-					// json.id_str
-					json.Add("id_str", tweet.IdStr);
-					// json.in_reply_to_status_id_str
-					json.Add("in_reply_to_status_id_str", tweet.InReplyToStatusIdStr);
-					// json.in_reply_to_user_id_str
-					json.Add("in_reply_to_user_id_str", tweet.InReplyToUserIdStr);
-					// json.lang
-					// convert tweet.Language to two-letter code like twitter does
-					string twoLetterLanguage = Tweetinvi.Core.Extensions.LanguageExtension.GetDescriptionAttribute(tweet.Language);
-					json.Add("lang", twoLetterLanguage);
-					// json.retweet_count
-					json.Add("retweet_count", tweet.RetweetCount.ToString());
-					// json.text
-					json.Add("text", tweet.Text);
-					// json.user
-					var jsonUser = new Newtonsoft.Json.Linq.JObject();
-					// json.user.screen_name
-					jsonUser.Add("screen_name", tweet.Creator.ScreenName);
-					// json.user.id_str
-					jsonUser.Add("id_str", tweet.Creator.IdStr);
-					json.Add("user", jsonUser);
-
-					#region copied 27-02-2015 from php for reference
-
-					//$json = json_decode($_POST['json']);
-
-					//// UTC time when this Tweet was created.
-					////$json->created_at
-					////$created_at = $json->created_at;
-					////$mysqldate = date('y-m-d H:i:s', strtotime($created_at));
-					//$mysqldate = date('Y-m-d H:i:s', time());
-					////$json->id_str
-					//$id_str = $json->id_str;
-					//// If the represented Tweet is a reply, this field will contain the integer representation of the original Tweet’s ID.
-					////$json->in_reply_to_status_id_str
-					//$in_reply_to_status_id_str = $json->in_reply_to_status_id_str;
-					////$json->in_reply_to_user_id_str
-					//$in_reply_to_user_id_str = $json->in_reply_to_user_id_str;
-					////$json->lang
-					//$lang = $json->lang;
-					////$json->retweet_count
-					//$retweet_count = $json->retweet_count;
-					//// tweet text
-					////$json->text
-					//$text = mysqli_real_escape_string($mysqli, $json->text);
-
-					//// object containing info about user
-					////$json->user
-					//// The screen name, handle, or alias that this user identifies themselves with. screen_names are unique but subject to change. Use id_str as a user identifier whenever possible. Typically a maximum of 15 characters long, but some historical accounts may exist with longer names.
-					////	$json->user->screen_name
-
-					//$user_name = mysqli_real_escape_string($mysqli, $json->user->screen_name);
-
-					////	$json->user->id_str
-					//$user_id_str = $json->user->id_str;
-					#endregion
-
-					SaveToPhpFullJson(json.ToString());
-
-				}
-				catch (Exception e) {
-					if (Message != null) {
-						Message(e.ToString());
-					}
-					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
-					if (retries < maxTweetDatabaseSendRetries) {
-						Task.Factory.StartNew(() => {
-							// wait a little and then try again
-							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;
-							while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
-							SendTweetToDatabase(tweet, retries + 1);
-
-						});
-					} else {
-						if (Message != null) {
-							Message("Failed to send after " + retries + " tries");
-						}
-					}
-				}
-			}
-		}
-
-
-		/// <summary>
 		/// saves directly to database.
 		/// </summary>
 		/// <param name="message"></param>
-		void SaveToDatabase(Tweetinvi.Core.Interfaces.ITweet tweet)
+		void SaveToDatabase(ITweet tweet)
 		{
 			string connectionString = connectOnline ? onlineConnectionString : localConnectionString;
 
@@ -308,6 +319,67 @@ namespace WPFTwitter
 				}
 
 			}
+		}
+
+
+		void SaveToTextFile(ITweet tweet)
+		{
+			var json = EncodeTweetToJson(tweet);
+			SaveToTextFile(json.ToString());
+		}
+
+
+		// write all relevant fields except tweet first (they cannot contain separation chars)
+		// format tweet:
+		//		replace \n characters with <hhhnewline>
+		//		replace encoded chars &lt; with <, &gt; with >, &amp; with &.
+		//		replace separator characters with <hhhseparator>
+		// write formated tweet at the end of the line
+		// after all tweets were saved, import text file in excel, separate based on separation chars (currently ",")
+		// replace <hhhnewline> with '\n' in the tweet column
+		// replace <hhhseparator> with ',' in the tweet column
+		void SaveToTextFile(string json)
+		{
+			var separationChar = ",";
+
+
+			StreamWriter sw = new StreamWriter(textFileDatabasePath, true, Encoding.UTF8);
+			// save tweet first, and then some other random bullshit
+			var j = JObject.Parse(json);
+
+			
+			var tweet = j["text"];
+			var tweetText = tweet.ToString().Replace("\n", "<hhhnewline>");
+			tweetText = tweetText.Replace(",", "<hhhseparator>");
+			tweetText = tweetText.Replace("&lt;", "<");
+			tweetText = tweetText.Replace("&gt;", ">");
+			tweetText = tweetText.Replace("&amp;", "&");
+
+			// add necessary fields to json (synchronized fields with encodejson function)
+			// json.created_at
+			// json.id_str
+			// json.in_reply_to_status_id_str
+			// json.in_reply_to_user_id_str
+			// json.lang
+			// json.retweet_count
+			// json.text
+			// json.user.screen_name
+			// json.user.id_str
+
+			string final = "";
+			final += j["created_at"] + separationChar;
+			final += j["id_str"] + separationChar;
+			final += j["in_reply_to_status_id_str"] + separationChar;
+			final += j["in_reply_to_user_id_str"] + separationChar;
+			final += j["lang"] + separationChar;
+			final += j["retweet_count"] + separationChar;
+			final += j["user"]["screen_name"] + separationChar;
+			final += j["user"]["id_str"] + separationChar;
+
+			final += tweetText;
+
+			sw.WriteLine(final);
+			sw.Close();
 		}
 
 	}

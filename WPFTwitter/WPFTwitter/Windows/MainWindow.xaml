@@ -12,6 +12,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:extendedWpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:Controls="clr-namespace:WPFTwitter"
         Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="745" Width="928" KeyDown="Window_KeyDown">
     <DockPanel>
@@ -27,7 +28,7 @@
                 <MenuItem Header="Help"/>
 
             </MenuItem>
-            <MenuItem Header="Log in" Click="LogIn_Click"/>
+            <MenuItem x:Name="logInButton" Header="Log in" Click="LogIn_Click"/>
 
         </Menu>
 
@@ -72,32 +73,43 @@
 
                         <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
                             <ad:LayoutAnchorable Title="Tweets">
-                                <DataGrid x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn Header="Date">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Label Content="{Binding Date}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="Tweet" Width="*">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Label Content="{Binding Tweet}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
+                                <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}" >
+                                    <ListView.Resources>
+                                        <Style TargetType="GridViewColumnHeader">
+                                            <EventSetter Event="MouseUp" Handler="tweetView_Headers_MouseUp"/>
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.View>
+                                        <GridView x:Name="tweetViewGrid">
+                                            <GridViewColumn DisplayMemberBinding="{Binding Date}">
+                                                <GridViewColumnHeader Content="Date"/>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Tweet}">
+                                                <GridViewColumnHeader Content="Tweet"/>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Id}">
+                                                <GridViewColumnHeader Content="Id"/>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Lang}">
+                                                <GridViewColumnHeader Content="Lang"/>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding User}">
+                                                <GridViewColumnHeader Content="User"/>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding UserId}">
+                                                <GridViewColumnHeader Content="User Id"/>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
 
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
 
                         <!-- END TWEET PANEL -->
-                        
+
                     </ad:LayoutPanel>
-                    
+
                     <ad:LayoutPanel Orientation="Vertical" DockWidth="2*">
 
                         <!-- LOG SETTINGS PANEL -->
@@ -131,7 +143,7 @@
 
                                     <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
                                     <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Top" IsChecked="True"/>
-                                    <CheckBox x:Name="checkBox_logCounters" Content="Output event counters"  VerticalAlignment="Top"/>
+                                    <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
                                     <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
 
                                 </StackPanel>
@@ -170,12 +182,21 @@
                                     <!-- this is the content you are looking for -->
                                     <DockPanel>
                                         <DockPanel Margin="10,0" DockPanel.Dock="Top">
-                                            <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="{Binding ElementName=restStartDateLabel, Path=ActualWidth}"/>
                                             <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="10,0" DockPanel.Dock="Top">
+                                            <Label x:Name="restStartDateLabel" Content="Start Date" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <extendedWpf:DateTimePicker x:Name="restStartDate"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="10,0" DockPanel.Dock="Top">
+                                            <Label Content="End Date" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="{Binding ElementName=restStartDateLabel, Path=ActualWidth}"/>
+                                            <extendedWpf:DateTimePicker x:Name="restEndDate"/>
                                         </DockPanel>
                                         <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
                                             <StackPanel Background="#FFE5E5E5">
                                                 <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
+                                                <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
                                                 <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
                                                 <Button x:Name="restAddToDatabase" Content="Add Data To Database" Margin="10, 0" Click="restAddToDatabase_Click"/>
 
@@ -222,7 +243,7 @@
                             <!-- REST EXPANSION PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="*">
-                                <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
+                                <ad:LayoutAnchorable Title="Rest Gatherer"  CanClose="False" CanHide="False">
 
                                     <!-- this is the content you are looking for -->
                                     <DockPanel>
@@ -240,7 +261,7 @@
                                                 </DockPanel>
                                                 <DockPanel Margin="10,0">
                                                     <Label Content="Max Expansions" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                    <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="2"  VerticalAlignment="Center"/>
+                                                    <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="{Binding Path=., Mode=TwoWay}"  VerticalAlignment="Center"/>
                                                 </DockPanel>
                                             </StackPanel>
                                         </Expander>
@@ -248,27 +269,23 @@
                                             <ListView x:Name="restExpansionListView" ItemsSource="{Binding Path=., Mode=OneWay}" >
                                                 <ListView.Resources>
                                                     <Style TargetType="GridViewColumnHeader">
-                                                        <EventSetter Event="MouseUp" Handler="restExpansionListView_Headers_MouseUp">
-
+                                                        <EventSetter Event="MouseUp" Handler="restExpansionListView_Headers_MouseUp"/>
+                                                    </Style>
+                                                    <Style TargetType="ListViewItem">
+                                                        <EventSetter Event="MouseUp" Handler="restExpansionListView_Item_MouseUp">
                                                         </EventSetter>
                                                     </Style>
                                                 </ListView.Resources>
                                                 <ListView.View>
                                                     <GridView x:Name="restExpansionListViewGrid">
                                                         <GridViewColumn DisplayMemberBinding="{Binding Keyword}">
-                                                            <GridViewColumnHeader Content="Keyword">
-
-                                                            </GridViewColumnHeader>
+                                                            <GridViewColumnHeader Content="Keyword"/>
                                                         </GridViewColumn>
                                                         <GridViewColumn DisplayMemberBinding="{Binding Count}">
-                                                            <GridViewColumnHeader Content="Count">
-
-                                                            </GridViewColumnHeader>
+                                                            <GridViewColumnHeader Content="Count"/>
                                                         </GridViewColumn>
                                                         <GridViewColumn DisplayMemberBinding="{Binding Expansion}">
-                                                            <GridViewColumnHeader Content="Expansion">
-
-                                                            </GridViewColumnHeader>
+                                                            <GridViewColumnHeader Content="Expansion"/>
                                                         </GridViewColumn>
                                                     </GridView>
                                                 </ListView.View>

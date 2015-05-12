@@ -53,7 +53,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// stores a list of the current keywords being looked for
 		/// </summary>
-		private KeywordListClass keywordList = new KeywordListClass();
+		private KeywordListClass keywordList;
 		public KeywordListClass KeywordList
 		{
 			get
@@ -74,22 +74,18 @@ namespace WPFTwitter
 		// how many times to expand query in each cycle?
 		private int maxExpansionCount = 3;
 
+		public int MaxExpansionCount
+		{
+			get { return maxExpansionCount; }
+			set { maxExpansionCount = value; }
+		}
+
 		/// <summary>
 		/// how many times did the gatherer finish a sequence of _expansion and restarted for a new set of dates?
 		/// </summary>
 		private int gatheringCycle;
 
-		/// <summary>
-		/// datetime when rate limit will reset to max value
-		/// </summary>
-		private DateTime rateLimitReset;
-
-		/// <summary>
-		/// TODO: reset this counter at the right times.
-		/// can query until this is <= 0
-		/// </summary>
-		private int rateLimitCounter;
-
+		
 		/// <summary>
 		/// get tweets since this date up until present day. default = present day.
 		/// </summary>
@@ -114,6 +110,16 @@ namespace WPFTwitter
 			this.log = log;
 			Reset();
 
+			// set up events
+
+			TweetFound += (s, t) => {
+				RememberTweetAndExpandKeywords(t);
+				if (currentExpansion.tweets != null) {
+					currentExpansion.tweets.Add(t);
+				}
+
+			};
+
 		}
 
 		/// <summary>
@@ -122,20 +128,17 @@ namespace WPFTwitter
 		/// <returns>true if successful, false if cannot continue.</returns>
 		public bool Reset()
 		{
-			keywordList = new KeywordListClass();
+			if (KeywordList == null) {
+				keywordList = new KeywordListClass();
+			} else {
+				KeywordList.Clear();
+			}
 			currentExpansion = new ExpansionData(0);
 			gatheringCycle = 0;
-			// ratelimit counter depends on twitter, so reset will be basically polling twitter for the data.
-			var rl = rest.GetRateLimits_Search();
-			if (rl != null) {
-				rateLimitCounter = rl.Remaining;
-				rateLimitReset = rl.ResetDateTime;
-				sinceDate = DateTime.Now;
-				untilDate = DateTime.Now;
-				tweetsProcessed = new List<TweetData>();
-			} else {
-				return false;
-			}
+			sinceDate = DateTime.Now;
+			untilDate = DateTime.Now;
+			tweetsProcessed = new List<TweetData>();
+			stop = false;
 			return true;
 		}
 
@@ -151,14 +154,6 @@ namespace WPFTwitter
 			// init. keywords-filters.
 			AddKeywords(0, filters);
 
-			// set up events
-			TweetFound += (s, t) => {
-				ProcessTweet(t);
-				if (currentExpansion.tweets != null) {
-					currentExpansion.tweets.Add(t);
-				}
-
-			};
 
 			// start algorithm.
 			Task.Factory.StartNew(() => {
@@ -197,7 +192,7 @@ namespace WPFTwitter
 				//			= inside the smallest loop (which will happen regardless of amount of expansions or query splits
 
 				// for each _expansion
-				for (var i = 0; i < maxExpansionCount; i++) {
+				for (var i = 0; i < MaxExpansionCount; i++) {
 
 					currentExpansion = new ExpansionData(i);
 					// only perform search if keywords were found
@@ -217,7 +212,7 @@ namespace WPFTwitter
 
 								// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
 								do {
-									if (rateLimitCounter > 0 && !stop) {
+									if (rest.rateLimitCounter > 0 && !stop) {
 
 										results = rest.SearchTweets(sp);
 										if (results == null) {
@@ -227,13 +222,13 @@ namespace WPFTwitter
 											break;
 										}
 
-										rateLimitCounter--;
+										rest.rateLimitCounter--;
 
 										// save minId to use for next batch of tweets
 										var minId = results[0].IdStr;
 										foreach (var r in results) {
 											// find minId among results.
-											if (stringIntSmallerThan(r.IdStr, minId)) {
+											if (Rest.stringIntSmallerThan(r.IdStr, minId)) {
 												minId = r.IdStr;
 											}
 
@@ -244,10 +239,10 @@ namespace WPFTwitter
 										// subtract 1 so that we cannot get the same tweets again
 										sp.MaxId = long.Parse(minId) - 1;
 
-									} else if (rateLimitCounter <= 0) {
+									} else if (rest.rateLimitCounter <= 0) {
 										// check rate limits in case we are wrong and they are not actually zero
 										var rateLimitsObj = rest.GetRateLimits_Search();
-										rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
+										rest.rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
 									}
 
 									// keep doing this while:
@@ -255,7 +250,7 @@ namespace WPFTwitter
 									//		or we cannot get tweets due to rate limits
 									//		or we cannot get tweets due to errors (in which case we should try again)
 
-								} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
+								} while ((results.Count > 0 || rest.rateLimitCounter <= 0) && !stop);
 							}
 						}
 
@@ -277,8 +272,6 @@ namespace WPFTwitter
 
 		}
 
-		public int maxTweetsPerQuery = 10;
-
 		List<KeywordListClass> SplitIntoSmallQueries(KeywordListClass fullList)
 		{
 			var klc = new List<KeywordListClass>();
@@ -289,7 +282,7 @@ namespace WPFTwitter
 			// there can be an error "{error: search too complex}" - that's probably what was happening.
 			int smallCount = 0;
 			for (int i = 0; i < fullList.Count; i++) {
-				if (smallCount >= maxTweetsPerQuery) {
+				if (smallCount >= rest.maxTweetsPerQuery) {
 					smallCount = 0;
 				}
 
@@ -316,7 +309,7 @@ namespace WPFTwitter
 
 			try {
 				// for each _expansion
-				for (var i = 0; i < maxExpansionCount; i++) {
+				for (var i = 0; i < MaxExpansionCount; i++) {
 					// ########## EXPANSION LOOP ################
 
 					currentExpansion = new ExpansionData(i);
@@ -330,7 +323,7 @@ namespace WPFTwitter
 
 						// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
 						do {
-							if (rateLimitCounter > 0 && !stop) {
+							if (rest.rateLimitCounter > 0 && !stop) {
 
 								results = rest.SearchTweets(sp);
 								if (results == null) {
@@ -341,13 +334,13 @@ namespace WPFTwitter
 								}
 
 
-								rateLimitCounter--;
+								rest.rateLimitCounter--;
 
 								// save minId to use for next batch of tweets
 								var minId = results[0].IdStr;
 								foreach (var r in results) {
 									// find minId among results.
-									if (stringIntSmallerThan(r.IdStr, minId)) {
+									if (Rest.stringIntSmallerThan(r.IdStr, minId)) {
 										minId = r.IdStr;
 									}
 
@@ -358,11 +351,11 @@ namespace WPFTwitter
 								// subtract 1 so that we cannot get the same tweets again
 								sp.MaxId = long.Parse(minId) - 1;
 
-							} else if (rateLimitCounter <= 0) {
+							} else if (rest.rateLimitCounter <= 0) {
 								// check rate limits in case we are wrong and they are not actually zero
-								rateLimitCounter = rest.GetRateLimits_Search().Remaining;
+								rest.rateLimitCounter = rest.GetRateLimits_Search().Remaining;
 							}
-						} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
+						} while ((results.Count > 0 || rest.rateLimitCounter <= 0) && !stop);
 
 					}
 
@@ -382,7 +375,7 @@ namespace WPFTwitter
 		}
 
 		// expands keywords, saves tweets. runs in BG, processes tweets when it has enough resources.
-		private void ProcessTweet(TweetData t)
+		private void RememberTweetAndExpandKeywords(TweetData t)
 		{
 			// only process tweet if it has not been found before.
 			if (tweetsProcessed.Any(pt => pt.tweet.Id == t.tweet.Id)) {
@@ -496,21 +489,6 @@ namespace WPFTwitter
 
 					}
 				}));
-			}
-		}
-
-		/// <summary>
-		/// compares two ints made into strings because they are too long (tweetId-s)
-		/// </summary>
-		/// <returns>true when int1 < int2</returns>
-		private bool stringIntSmallerThan(string int1, string int2)
-		{
-			if (int1.Length > int2.Length) {
-				return false;
-			} else if (int2.Length < int1.Length) {
-				return true;
-			} else {
-				return (string.Compare(int1, int2) == -1);
 			}
 		}
 

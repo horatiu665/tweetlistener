@@ -14,8 +14,11 @@ namespace WPFTwitter
 	/// </summary>
 	public class Log
 	{
-		Stream stream;
-		DatabaseSaver databaseSaver;
+
+		public Log()
+		{
+
+		}
 
 		private bool _started = false;
 
@@ -64,7 +67,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// Log module starts here
 		/// </summary>
-		public void Start(string path, bool outputCounters = true, bool databaseMessages = true)
+		public void Start(string path, bool databaseMessages = true)
 		{
 			if (!_started) {
 
@@ -73,15 +76,11 @@ namespace WPFTwitter
 				// open log writer
 				logWriter = new StreamWriter(logPath, true);
 				Output("New log started");
-				Output("Stream running filter:");
-				Output(stream.Filter);
-
+				
 				// small log init
 				smallLogWriter = new StreamWriter(smallLogPath, true);
 				SmallOutput("New log started");
-				SmallOutput("Stream running filter:");
-				SmallOutput(stream.Filter);
-
+				
 				// once in a while stop and start log, so we do not lose all the data in the log.
 				logRestartTimer = new System.Timers.Timer(restartLogIntervalMillis);
 				logRestartTimer.Start();
@@ -106,50 +105,6 @@ namespace WPFTwitter
 					}
 				};
 
-				if (outputCounters) {
-					// bind to events from Stream
-					#region counters
-					stream.stream.DisconnectMessageReceived
-						+= (s, a) => { Output(stream.CountersString() + " - DisconnectMessageReceived		"); };
-					stream.stream.JsonObjectReceived
-						+= (s, a) => { Output(stream.CountersString() + " - JsonObjectReceived				"); };
-					stream.stream.LimitReached
-						+= (s, a) => { Output(stream.CountersString() + " - LimitReached					"); };
-					stream.stream.StreamPaused
-						+= (s, a) => { Output(stream.CountersString() + " - StreamPaused					"); };
-					stream.stream.StreamResumed
-						+= (s, a) => { Output(stream.CountersString() + " - StreamResumed					"); };
-					stream.stream.StreamStarted
-						+= (s, a) => { Output(stream.CountersString() + " - StreamStarted					"); };
-					stream.stream.StreamStopped
-						+= (s, a) => { Output(stream.CountersString() + " - StreamStopped					"); };
-					stream.stream.TweetDeleted
-						+= (s, a) => { Output(stream.CountersString() + " - TweetDeleted					"); };
-					stream.stream.TweetLocationInfoRemoved
-						+= (s, a) => { Output(stream.CountersString() + " - TweetLocationInfoRemoved 		"); };
-					// stream.stream.TweetReceived	
-					//	+= (s, a) => { Output(stream.CountersString() + " - TweetReceived					"); }; // for sample stream
-					stream.stream.MatchingTweetReceived
-						+= (s, a) => { Output(stream.CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
-					stream.stream.TweetWitheld
-						+= (s, a) => { Output(stream.CountersString() + " - TweetWitheld					"); };
-					stream.stream.UnmanagedEventReceived
-						+= (s, a) => { Output(stream.CountersString() + " - UnmanagedEventReceived			"); };
-					stream.stream.UserWitheld
-						+= (s, a) => { Output(stream.CountersString() + " - UserWitheld						"); };
-					stream.stream.WarningFallingBehindDetected
-						+= (s, a) => { Output(stream.CountersString() + " - WarningFallingBehindDetected	"); };
-
-					#endregion
-				}
-
-				// bind to stream errors and specific events
-				stream.Error += (s) => { Output(s); SmallOutput(s); };
-				stream.stream.JsonObjectReceived += onJsonObjectReceived;
-				stream.stream.StreamStarted += onStreamStarted;
-				stream.stream.StreamStopped += onStreamStopped;
-				stream.stream.LimitReached += onLimitReached;
-
 				// bind to any exception
 				//ExceptionHandler.WebExceptionReceived += (s, a) => {
 				//	var exception = (Tweetinvi.Core.Exceptions.ITwitterException)a.Value;
@@ -159,21 +114,9 @@ namespace WPFTwitter
 				//	}
 				//};
 
-				// database messages only for big log
-				if (databaseMessages) {
-					databaseSaver.Message += (s) => {
-						Output(s);
-					};
-				}
-
 				_started = true;
 			}
 
-		}
-
-		private void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
-		{
-			SmallOutput("Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
 		}
 
 		public void Stop()
@@ -193,89 +136,6 @@ namespace WPFTwitter
 			//_started = false;
 		}
 
-		/// <summary>
-		/// use in EvaluateJsonChildren() to print out the fields which might give useful information in the log
-		/// </summary>
-		string[] interestingFields = {
-			"limit", "disconnect", "warning", "delete",
-
-			"text"
-		};
-
-		void EvaluateJsonChildren(JToken j)
-		{
-			string s = "Fields in json object: \n";
-			foreach (var j2 in j) {
-				var p = j2 as JProperty;
-				if (p != null) {
-					s += p.Name;
-					if (interestingFields.Contains(p.Name)) {
-						s += ":" + p.Value;
-					}
-					s += ", ";
-				}
-			}
-			Output(s);
-
-			/*
-			 * jsonRoot: {
-			 *		"key1": {
-			 *			"key11" : "value11",
-			 *			"key12" : {
-			 *				"key121" : "value121";
-			 *			},
-			 *			"key13" : "value13"
-			 *		},
-			 *		"key2" : "value2"
-			 * }
-			*/
-		}
-
-		void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
-		{
-			JObject json = JObject.Parse(e.Json);
-
-			EvaluateJsonChildren(json);
-		}
-
-		/// <summary>
-		/// happens when stream starts
-		/// </summary>
-		void onStreamStarted(object sender, EventArgs e)
-		{
-			Output("Stream successfully started");
-			SmallOutput("Stream successfully started");
-		}
-
-		/// <summary>
-		/// called when StreamStopped Tweetinvi event triggers.
-		/// </summary>
-		private void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
-		{
-			Output("Stream disconnected.");
-			if (e.DisconnectMessage != null) {
-				Output("Message code: " + e.DisconnectMessage.Code);
-				if (e.DisconnectMessage.Reason != null) {
-					Output("Reason: " + e.DisconnectMessage.Reason);
-				}
-			}
-			if (e.Exception != null) {
-				Output("Exception: " + e.Exception.ToString());
-			}
-
-			// clone for small output
-			SmallOutput("Stream disconnected.");
-			if (e.DisconnectMessage != null) {
-				SmallOutput("Message code: " + e.DisconnectMessage.Code);
-				if (e.DisconnectMessage.Reason != null) {
-					SmallOutput("Reason: " + e.DisconnectMessage.Reason);
-				}
-			}
-			if (e.Exception != null) {
-				SmallOutput("Exception: " + e.Exception.ToString());
-			}
-
-		}
 
 
 

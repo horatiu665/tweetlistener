@@ -175,12 +175,7 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Newtonsoft.Json.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\System.Net.Http.Primitives.xml
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.pdb
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.xml
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.pdb
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Expression.pdb
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.pdb
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.pdb
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Autofac.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
@@ -226,3 +221,9 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\TweetDatabaseView.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Controls\TweetDatabaseView.g.cs
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.Toolkit.dll

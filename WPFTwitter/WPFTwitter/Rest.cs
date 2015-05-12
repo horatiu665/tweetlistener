@@ -14,17 +14,36 @@ namespace WPFTwitter
 {
 	public class Rest
 	{
-		private DatabaseSaver databaseSaver;
-		private Credentials credentials;
+		DatabaseSaver databaseSaver;
+		Credentials credentials;
 		Log log;
+		TweetDatabase tweetDatabase;
+
+		public event Action<ITweet> TweetFound;
 
 		private List<ITweet> lastTweets = new List<ITweet>();
 
-		public Rest(Credentials creds, DatabaseSaver dbs, Log log)
+		/// <summary>
+		/// TODO: reset this counter at the right times.
+		/// can query until this is <= 0
+		/// </summary>
+		public int rateLimitCounter = 0;
+
+		/// <summary>
+		/// datetime when rate limit will reset to max value
+		/// </summary>
+		public DateTime rateLimitReset;
+
+		public int maxTweetsPerQuery = 10;
+
+		public Rest(Credentials creds, DatabaseSaver dbs, Log log, TweetDatabase tdb)
 		{
 			credentials = creds;
 			databaseSaver = dbs;
 			this.log = log;
+			tweetDatabase = tdb;
+
+			TweetFound += OnTweetFound;
 		}
 
 		/// <summary>
@@ -34,9 +53,148 @@ namespace WPFTwitter
 		{
 			foreach (var t in lastTweets) {
 				// use DatabaseSaver to save each tweet just like we do with the streaming
-				databaseSaver.SendTweetToDatabase(t);
+				databaseSaver.SaveTweet(t);
 
 			}
+		}
+
+		public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
+		{
+			// TODO: implement stopping, so if stream is stopped intentionally, this also stops.
+			var stop = false;
+
+			log.Output("Start of Rest.TweetsGatheringCycle()");
+
+			try {
+				// split query into multiple shorter ones, within Twitter limits.
+				var queries = SplitIntoSmallQueries(keywordList);
+				foreach (var q in queries) {
+					var queryString = "";
+					foreach (var s in q) {
+						queryString += s + ",";
+					}
+
+					var sp = GenerateSearchParameters(queryString);
+					sp.SearchType = SearchResultType.Recent;
+					//sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
+					sp.Since = sinceDate;
+					sp.Until = untilDate;
+					sp.MaximumNumberOfResults = 100;
+					sp.SinceId = long.MinValue;
+					sp.MaxId = long.MaxValue;
+
+					// only search if there are keywords in the query
+					if (sp.SearchQuery != "" && !stop) {
+
+						log.Output("Searching for " + sp.SearchQuery);
+
+						// main results loop, waiting for rest limits, etc.
+						var results = new List<ITweet>();
+
+						// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
+						do {
+							if (rateLimitCounter > 0 && !stop) {
+
+								results = SearchTweets(sp);
+								if (results == null) {
+									break;
+								}
+								if (results.Count == 0) {
+									break;
+								}
+
+								rateLimitCounter--;
+
+								// save minId to use for next batch of tweets
+								var minId = results[0].IdStr;
+								foreach (var r in results) {
+									// find minId among results.
+									if (stringIntSmallerThan(r.IdStr, minId)) {
+										minId = r.IdStr;
+									}
+
+									// tweet found event call (ancient remains from RestGatherer)
+									//TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+									if (TweetFound != null) {
+										TweetFound(r);
+									}
+								}
+
+								// subtract 1 so that we cannot get the same tweets again
+								sp.MaxId = long.Parse(minId) - 1;
+
+							} else if (rateLimitCounter <= 0) {
+								// check rate limits in case we are wrong and they are not actually zero
+								var rateLimitsObj = GetRateLimits_Search();
+								// wait with checking until rateLimitsResetDate happens
+								// TODO
+
+								rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
+							}
+
+							// keep doing this while:
+							//		there are still results left
+							//		or we cannot get tweets due to rate limits
+							//		or we cannot get tweets due to errors (in which case we should try again)
+
+						} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
+					}
+
+				}
+			}
+			catch (Exception e) {
+				log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
+				log.Output(e.ToString());
+			}
+			log.Output("End of Rest.TweetsGatheringCycle()");
+
+		}
+
+		void OnTweetFound(ITweet tweet)
+		{
+			log.Output("Rest gather cycle found the tweet with id " + tweet.IdStr + ": " + tweet.Text);
+			databaseSaver.SaveTweet(tweet);
+		}
+
+		/// <summary>
+		/// compares two ints made into strings because they are too long (tweetId-s)
+		/// </summary>
+		/// <returns>true when int1 < int2</returns>
+		public static bool stringIntSmallerThan(string int1, string int2)
+		{
+			if (int1.Length > int2.Length) {
+				return false;
+			} else if (int2.Length < int1.Length) {
+				return true;
+			} else {
+				return (string.Compare(int1, int2) == -1);
+			}
+		}
+
+		List<List<string>> SplitIntoSmallQueries(List<string> fullList)
+		{
+			var klc = new List<List<string>>();
+
+			// twitter documentation shows the amount of tweets allowed (recommended) in each query
+			// https://dev.twitter.com/rest/public/search
+			// they say limit the search and operators to 10 per search.
+			// there can be an error "{error: search too complex}" - that's probably what was happening.
+			int smallCount = 0;
+			for (int i = 0; i < fullList.Count; i++) {
+				if (smallCount >= maxTweetsPerQuery) {
+					smallCount = 0;
+				}
+
+				if (smallCount == 0) {
+					klc.Add(new List<string>());
+				}
+
+				klc.Last().Add(fullList[i]);
+
+				smallCount++;
+			}
+
+			return klc;
 		}
 
 		#region viewmodel/controller sort-of
