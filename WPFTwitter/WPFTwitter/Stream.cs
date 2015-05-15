@@ -20,16 +20,17 @@ namespace WPFTwitter
 		private DatabaseSaver databaseSaver;
 		private Log log;
 		private Rest rest;
+		private KeywordDatabase keywordDatabase;
 
-		/// <summary>
-		/// the filter used for the stream
-		/// </summary>
-		private string filter = "";
-		public string Filter
-		{
-			get { return filter; }
-			set { filter = value; }
-		}
+		///// <summary>
+		///// the filter used for the stream
+		///// </summary>
+		//private string filter = "";
+		//public string Filter
+		//{
+		//	get { return filter; }
+		//	set { filter = value; }
+		//}
 
 		/// <summary>
 		/// the stream used throughout the program
@@ -75,10 +76,12 @@ namespace WPFTwitter
 
 		public bool CountersOn
 		{
-			get { 
-				return countersOn; 
+			get
+			{
+				return countersOn;
 			}
-			set { 
+			set
+			{
 				countersOn = value;
 				log.Output("Counters " + (value ? "on" : "off"));
 			}
@@ -192,18 +195,17 @@ namespace WPFTwitter
 
 		#endregion
 
-		public Stream(Credentials creds, DatabaseSaver dbs, Log log, Rest rest)
+		public Stream(DatabaseSaver dbs, Log log, Rest rest, KeywordDatabase keywordDatabase)
 		{
-			this.credentials = creds;
 			this.databaseSaver = dbs;
 			this.log = log;
 			this.rest = rest;
+			this.keywordDatabase = keywordDatabase;
 
 			// initialize stuff
 
 			InitCounters();
-			credentials.TwitterCredentialsInit();
-
+			
 			// init stream thread
 			streamThread = new Action(StartStreamTask);
 
@@ -232,10 +234,9 @@ namespace WPFTwitter
 		}
 
 		/// <summary>
-		/// start stream. if not initialized, initializes = credentials, events.
+		/// start stream
 		/// </summary>
-		/// <param name="filter"></param>
-		public void Start(string filter)
+		public void Start()
 		{
 			if (streamRunning) {
 				return;
@@ -243,12 +244,21 @@ namespace WPFTwitter
 
 			lastStreamStopTime = DateTime.Now;
 
-			this.filter = filter;
-
 			stream.ClearTracks();
-			stream.AddTrack(filter);
+
+			AddTracksFromKeywordDatabase();
+
 			StreamStartInsistBetter(stream);
 
+		}
+
+		void AddTracksFromKeywordDatabase()
+		{
+			foreach (var keyword in keywordDatabase.KeywordList) {
+				if (keyword.UseKeyword) {
+					stream.AddTrack(keyword.Keyword);
+				}
+			}
 		}
 
 		/// <summary>
@@ -325,16 +335,16 @@ namespace WPFTwitter
 		{
 			// log start and print event args
 			log.Output("OnStreamStarted event is called");
-			
-			log.Output("Stream running filter:");
-			log.Output(filter);
-			log.SmallOutput("Stream running filter:");
-			log.SmallOutput(filter);
+
+			//log.Output("Stream running filter:");
+			//log.Output(filter);
+			//log.SmallOutput("Stream running filter:");
+			//log.SmallOutput(filter);
 
 			streamRunning = true;
 
 			// use Rest for gathering tweets since last time the stream stopped.
-			rest.TweetsGatheringCycle(lastStreamStopTime, DateTime.Now, filter.Split(",".ToCharArray()).ToList());
+			rest.TweetsGatheringCycle(lastStreamStopTime, DateTime.Now, keywordDatabase.GetUsableKeywords());
 
 		}
 
@@ -385,7 +395,7 @@ namespace WPFTwitter
 			get { return logEveryJson; }
 			set { logEveryJson = value; }
 		}
-		
+
 
 		private void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
 		{

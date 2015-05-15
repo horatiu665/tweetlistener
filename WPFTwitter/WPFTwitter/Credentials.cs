@@ -11,6 +11,11 @@ namespace WPFTwitter
 	public class Credentials
 	{
 
+		public Credentials()
+		{
+			TwitterCredentialsInit();
+		}
+
 		private List<string> credentials = new List<string>() { "", "", "", "" };
 
 		public event Action<List<string>> CredentialsChange;

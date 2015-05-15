@@ -6,10 +6,10 @@
         xmlns:Controls="clr-namespace:WPFTwitter"
         Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="745" Width="928" KeyDown="Window_KeyDown">
     <DockPanel>
-        <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
-            <MenuItem x:Name="logInButton" Header="Log in" Click="LogIn_Click"/>
-
-        </Menu>
+        <!-- This could be a menu bar -->
+        <!--<Menu DockPanel.Dock="Top" VerticalAlignment="Top">
+            
+        </Menu>-->
 
         <ad:DockingManager x:Name="dMan" Loaded="dMan_Loaded" Unloaded="dMan_Unloaded">
             <ad:LayoutRoot>
@@ -28,25 +28,25 @@
                                         <Button Content="Clear Log" Width="100" Click="logClearButtonClick"/>
                                     </DockPanel>
                                     <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn Header="Time">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Time}"  TextWrapping="Wrap" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="Message" Width="*">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <ScrollViewer MaxHeight="300" >
-                                                        <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
-                                                    </ScrollViewer>
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Header="Time">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Time}"  TextWrapping="Wrap" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Header="Message" Width="*">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <ScrollViewer MaxHeight="300" >
+                                                            <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
+                                                        </ScrollViewer>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
                                 </DockPanel>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
@@ -146,7 +146,7 @@
                                             <TextBox x:Name="databaseRetries" VerticalAlignment="Center" MinWidth="30" MaxWidth="100" HorizontalAlignment="Left" Text="{Binding Path=MaxTweetDatabaseSendRetries, Mode=TwoWay}"/>
                                         </DockPanel>
                                         <CheckBox x:Name="checkBox_saveToTextFile" Content="Save to text file" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToTextFileProperty, Mode=TwoWay}"/>
-                                        
+
                                         <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
                                         <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
                                         <CheckBox x:Name="checkBox_streamJsonSpammer" IsChecked="{Binding Path=LogEveryJson, Mode=TwoWay}" Content="Log every JSON message from Twitter" VerticalAlignment="Top"/>
@@ -164,23 +164,19 @@
                             <ad:LayoutAnchorablePane DockHeight="*">
                                 <ad:LayoutAnchorable x:Name="streamingToolboxLayout" Title="Streaming Toolbox" CanClose="False" CanHide="False">
                                     <StackPanel>
-                                        <DockPanel Margin="10,0">
-                                            <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                            <TextBox Name="filterTextbox" VerticalAlignment="Center" Text="{Binding Filter, Mode=TwoWay}"/>
-                                        </DockPanel>
                                         <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
                                         <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
                                         <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
-                                        <Separator/>
-                                        <Button Content="Expand Stream Query" Click="expandStreamButton_Click"/>
+
                                     </StackPanel>
 
                                 </ad:LayoutAnchorable>
                             </ad:LayoutAnchorablePane>
 
+                            <!-- END STREAMING PANEL -->
+
 
                         </ad:LayoutPanel>
-                        <!-- END STREAMING PANEL -->
 
                         <ad:LayoutPanel Orientation="Horizontal">
 
@@ -208,7 +204,7 @@
                                                 <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
                                                 <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
                                                 <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
-                                                
+
                                             </StackPanel>
                                         </Expander>
                                         <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
@@ -260,73 +256,18 @@
                                             <Label Content="Status: " HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                             <Label x:Name="restExpansionStatusLabel" Content="null" HorizontalContentAlignment="Left" VerticalAlignment="Center"/>
                                         </DockPanel>
-                                        <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
-                                            <StackPanel Background="#FFE5E5E5">
-                                                <Button x:Name="restExpansionButton" Content="Start Expansion" Click="restExpansionButton_Click" Margin="10, 0"/>
+                                        <StackPanel Background="#FFE5E5E5">
+                                            <Button x:Name="restExpansionButton" Content="Start Expansion" Click="restExpansionButton_Click" Margin="10, 0"/>
 
-                                                <DockPanel Margin="10,0">
-                                                    <Label Content="Filters" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                    <TextBox Name="restExpansionFilters" Text="#gamerproblems" VerticalAlignment="Center"/>
-                                                </DockPanel>
-                                                <DockPanel Margin="10,0">
-                                                    <Label Content="Max Expansions" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                    <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="{Binding Path=., Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                                </DockPanel>
-                                            </StackPanel>
-                                        </Expander>
-                                        <Expander Header="Active Keywords" IsExpanded="False" DockPanel.Dock="Top">
-                                            <ListView x:Name="restExpansionListView" ItemsSource="{Binding Path=., Mode=OneWay}" >
-                                                <ListView.Resources>
-                                                    <Style TargetType="GridViewColumnHeader">
-                                                        <EventSetter Event="MouseUp" Handler="restExpansionListView_Headers_MouseUp"/>
-                                                    </Style>
-                                                    <Style TargetType="ListViewItem">
-                                                        <EventSetter Event="MouseUp" Handler="restExpansionListView_Item_MouseUp">
-                                                        </EventSetter>
-                                                    </Style>
-                                                </ListView.Resources>
-                                                <ListView.View>
-                                                    <GridView x:Name="restExpansionListViewGrid">
-                                                        <GridViewColumn DisplayMemberBinding="{Binding Keyword}">
-                                                            <GridViewColumnHeader Content="Keyword"/>
-                                                        </GridViewColumn>
-                                                        <GridViewColumn DisplayMemberBinding="{Binding Count}">
-                                                            <GridViewColumnHeader Content="Count"/>
-                                                        </GridViewColumn>
-                                                        <GridViewColumn DisplayMemberBinding="{Binding Expansion}">
-                                                            <GridViewColumnHeader Content="Expansion"/>
-                                                        </GridViewColumn>
-                                                    </GridView>
-                                                </ListView.View>
-                                            </ListView>
-                                            <!--<DataGrid x:Name="restExpansionView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top"
-                                            MouseDown="restExpansionView_MouseDown" MouseUp="restExpansionView_MouseUp">
-                                                <DataGrid.Columns>
-                                                    <DataGridTemplateColumn Header="Keyword" Width="2*">
-                                                        <DataGridTemplateColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock Text="{Binding Keyword}" TextWrapping="Wrap" />
-                                                            </DataTemplate>
-                                                        </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
-                                                    <DataGridTemplateColumn Header="Count" Width="*">
-                                                        <DataGridTemplateColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock Text="{Binding Count}" TextWrapping="Wrap" />
-                                                            </DataTemplate>
-                                                        </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
-                                                    <DataGridTemplateColumn Header="Expansion" Width="*">
-                                                        <DataGridTemplateColumn.CellTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock Text="{Binding Expansion}" TextWrapping="Wrap" />
-                                                            </DataTemplate>
-                                                        </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
-
-                                                </DataGrid.Columns>
-                                            </DataGrid>-->
-                                        </Expander>
+                                            <DockPanel Margin="10,0">
+                                                <Label Content="Filters" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                                <TextBox Name="restExpansionFilters" Text="#gamerproblems" VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                            <DockPanel Margin="10,0">
+                                                <Label Content="Max Expansions" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                                <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="{Binding Path=., Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </StackPanel>
 
                                     </DockPanel>
                                     <!-- this was the content you were looking for -->
@@ -338,39 +279,107 @@
 
                         </ad:LayoutPanel>
 
-                        <!-- CREDENTIALS PANEL -->
+                        <ad:LayoutPanel Orientation="Horizontal">
 
-                        <ad:LayoutAnchorablePane DockHeight="*">
-                            <ad:LayoutAnchorable x:Name="credentialsPanelLayout"  Title="Credentials" CanClose="False" CanHide="False">
+                            <!-- KEYWORDS PANEL -->
 
-                                <!-- this is the content you are looking for -->
-                                <StackPanel x:Name="credentialsPanel">
-                                    <DockPanel Margin="10,0">
-                                        <Label Width="{Binding ActualWidth, ElementName=longestString}" Content="Access Token" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="Access_Token" VerticalAlignment="Center"/>
+                            <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
+                                <ad:LayoutAnchorable Title="Keywords, Hashtags">
+                                    <DockPanel>
+                                        <DockPanel DockPanel.Dock="Top">
+                                            <Button x:Name="keywordsUseAllButton" Padding="10 0" Content="Use all" Click="keywordsView_UseAll"/>
+                                            <Button x:Name="keywordsUseNoneButton" Padding="10 0" Content="Use none" Click="keywordsView_UseNone"/>
+                                            <Button x:Name="keywordsResetSelectionButton" Padding="10 0" Content="Reset Selection" Click="keywordsView_ResetSelection"/>
+                                            <Button Content="Delete All" Padding="10 0" Click="keywordsView_DeleteAll"/>
+                                        </DockPanel>
+                                        <DockPanel DockPanel.Dock="Top">
+                                            <Button Content="Add" Padding="10 0" Margin="10 0" DockPanel.Dock="Right" Height="{Binding ElementName=keywordsResetSelectionButton, Path=ActualHeight}" Click="keywordAddButtonClick"/>
+                                            <DockPanel>
+                                                <Label Content="Add Keyword" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                                <TextBox Name="keywordAddTextbox" VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </DockPanel>
+                                        <ListView x:Name="keywordListView">
+                                            <ListView.Resources>
+                                                <Style TargetType="GridViewColumnHeader">
+                                                    <EventSetter Event="MouseUp" Handler="keywordListView_Headers_MouseUp"/>
+                                                </Style>
+                                                <Style TargetType="ListViewItem">
+                                                    <EventSetter Event="MouseUp" Handler="keywordListView_Item_MouseUp">
+                                                    </EventSetter>
+                                                </Style>
+                                            </ListView.Resources>
+                                            <ListView.View>
+                                                <GridView x:Name="restExpansionListViewGrid">
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Keyword}">
+                                                        <GridViewColumnHeader Content="Keyword"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Count}">
+                                                        <GridViewColumnHeader Content="Count"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Expansion}">
+                                                        <GridViewColumnHeader Content="Expansion"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="Use">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox IsChecked="{Binding UseKeyword}"/>
+                                                                
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn><GridViewColumn Header="Controls">
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <Button Content="Delete" Click="keywordView_Item_DeleteButton"/>
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
                                     </DockPanel>
-                                    <DockPanel Margin="10,0">
-                                        <Label x:Name="longestString" Content="Access Token Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="Access_Token_Secret" VerticalAlignment="Center"/>
-                                    </DockPanel>
-                                    <DockPanel Margin="10,0">
-                                        <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Key" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="Consumer_Key" VerticalAlignment="Center"/>
-                                    </DockPanel>
-                                    <DockPanel Margin="10,0">
-                                        <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="Consumer_Secret" VerticalAlignment="Center"/>
-                                    </DockPanel>
-                                    <Button x:Name="setCredentialsButton" Content="Set" Margin="10, 0" Click="setCredentialsButton_Click"/>
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
 
-                                </StackPanel>
-                                <!-- this was the content you were looking for -->
+                            <!-- END KEYWORDS PANEL -->
+
+                            <!-- CREDENTIALS PANEL -->
+
+                            <ad:LayoutAnchorablePane DockHeight="*">
+                                <ad:LayoutAnchorable x:Name="credentialsPanelLayout"  Title="Credentials" CanClose="False" CanHide="False">
+
+                                    <!-- this is the content you are looking for -->
+                                    <StackPanel x:Name="credentialsPanel">
+                                        <DockPanel Margin="10,0">
+                                            <Label Width="{Binding ActualWidth, ElementName=longestString}" Content="Access Token" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="Access_Token" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="10,0">
+                                            <Label x:Name="longestString" Content="Access Token Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="Access_Token_Secret" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="10,0">
+                                            <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Key" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="Consumer_Key" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="10,0">
+                                            <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="Consumer_Secret" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <Button x:Name="setCredentialsButton" Content="Set" Margin="10, 0" Click="setCredentialsButton_Click"/>
+
+                                    </StackPanel>
+                                    <!-- this was the content you were looking for -->
 
 
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
 
-                        <!-- END CREDENTIALS PANEL -->
+                            <!-- END CREDENTIALS PANEL -->
+
+                        </ad:LayoutPanel>
 
                     </ad:LayoutPanel>
                     <!-- END PANELS -->

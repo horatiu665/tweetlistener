@@ -11588,4 +11588,157 @@ No filter parameters found. Expect at least one parameter: follow track location
 15-May-15 14:14:19: Counters: 0 36 0 0 0 3 2 0 0 35 0 0 0 0  - JsonObjectReceived			
 15-May-15 14:14:19: Counters: 0 36 0 0 0 3 2 0 0 36 0 0 0 0  - MatchingTweetReceived			
 15-May-15 14:14:19: Counters: 0 37 0 0 0 3 2 0 0 36 0 0 0 0  - JsonObjectReceived			
-15-May-15 14:14:19: Counters: 0 37 0 0 0 3 2 0 0
+15-May-15 14:14:19: Counters: 0 37 0 0 0 3 2 0 015-May-15 15:50:02: New log started
+15-May-15 15:50:02: OnStreamStarted event is called
+15-May-15 15:50:02: Start of Rest.TweetsGatheringCycle()
+15-May-15 15:50:02: Searching for more,stuff,
+15-May-15 15:50:03: End of Rest.TweetsGatheringCycle()
+15-May-15 15:50:03: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+15-May-15 15:50:04: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+15-May-15 15:50:06: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:06: Counters: 0 1 0 0 0 1 0 0 0 1 0 0 0 0  - MatchingTweetReceived			
+15-May-15 15:50:06: Counters: 0 2 0 0 0 1 0 0 0 1 0 0 0 0  - JsonObjectReceived			
+15-May-15 15:50:09: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:09: Counters: 0 2 0 0 0 1 0 0 0 2 0 0 0 0  - MatchingTweetReceived			
+15-May-15 15:50:09: Counters: 0 3 0 0 0 1 0 0 0 2 0 0 0 0  - JsonObjectReceived			
+15-May-15 15:50:09: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:10: Stream disconnected.
+15-May-15 15:50:10: Counters: 0 3 0 0 0 1 1 0 0 2 0 0 0 0  - StreamStopped					
+15-May-15 15:50:11: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:11: Counters: 0 3 0 0 0 1 1 0 0 3 0 0 0 0  - MatchingTweetReceived			
+15-May-15 15:50:12: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:13: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:14: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:15: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:16: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:17: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:18: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:19: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:21: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:22: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:22: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:50:24: System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it 127.0.0.1:80
+   at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+   --- End of inner exception stack trace ---
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at WPFTwitter.DatabaseSaver.SaveToPhpFullJson(String json) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 222
+   at WPFTwitter.DatabaseSaver.SaveTweet(ITweet tweet, Int32 retries) in c:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\Database.cs:line 103
+15-May-15 15:51:00: OnStreamStarted event is called
+15-May-15 15:51:00: Start of Rest.TweetsGatheringCycle()
+15-May-15 15:51:00: Searching for more,stuff,
+15-May-15 15:51:01: End of Rest.TweetsGatheringCycle()
+15-May-15 15:51:01: Counters: 0 3 0 0 0 2 1 0 0 3 0 0 0 0  - StreamStarted					
+15-May-15 15:51:02: Counters: 0 4 0 0 0 2 1 0 0 3 0 0 0 0  - JsonObjectReceived			
+15-May-15 15:51:02: Counters: 0 4 0 0 0 2 1 0 0 4 0 0 0 0  - MatchingTweetReceived			
+15-May-15 15:51:02: Counters: 0 5 0 0 0 2 1 0 0 4 0 0 0 0  - JsonObjectReceived			
+15-May-15 15:51:02: Counters: 0 5 0 0 0 2 1 0 0 5 0 0 0 0  - MatchingTweetReceived			
+15-May-15 15:51:02: Counters: 0 6 0 0 0 2 1 0 0 5 0 0 0 0  - JsonObjectReceived			
+15-May-15 15:51:02: Counters: 0 6 0 0 0 2 1 0 0 6 0 0 0 0  - MatchingTweetReceived			
+15-May-15 15:51:02: Counters: 0 7 0 0 0 2 1 0 0 6 0 0 0 0  - JsonObjectReceived			

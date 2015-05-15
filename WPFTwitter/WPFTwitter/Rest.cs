@@ -15,7 +15,6 @@ namespace WPFTwitter
 	public class Rest
 	{
 		DatabaseSaver databaseSaver;
-		Credentials credentials;
 		Log log;
 		TweetDatabase tweetDatabase;
 
@@ -36,9 +35,8 @@ namespace WPFTwitter
 
 		public int maxTweetsPerQuery = 10;
 
-		public Rest(Credentials creds, DatabaseSaver dbs, Log log, TweetDatabase tdb)
+		public Rest(DatabaseSaver dbs, Log log, TweetDatabase tdb)
 		{
-			credentials = creds;
 			databaseSaver = dbs;
 			this.log = log;
 			tweetDatabase = tdb;

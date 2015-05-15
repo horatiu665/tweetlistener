@@ -172,10 +172,8 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Autofac.dll
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.dll
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Newtonsoft.Json.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\System.Net.Http.Primitives.xml
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Expression.pdb
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Autofac.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.xml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
@@ -190,7 +188,6 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter.csproj.App.config
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter.csprojResolveAssemblyReference.cache
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\Windows\MainWindow.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\App.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter_MarkupCompile.cache

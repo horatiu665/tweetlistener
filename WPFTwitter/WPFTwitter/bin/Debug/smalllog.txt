@@ -465,3 +465,6 @@ No filter parameters found. Expect at least one parameter: follow track location
 15-May-15 14:14:00: Stream running filter:
 15-May-15 14:14:00: google
 15-May-15 14:14:05: Stream disconnected.
+15-May-15 15:50:02: New log started
+15-May-15 15:50:10: Stream disconnected.
+15-May-15 15:51:00: Stream attempting to start at time 15-May-15 15:51:00

@@ -10,7 +10,49 @@ namespace WPFTwitter
 {
 	public class KeywordDatabase
 	{
+		public List<string> GetUsableKeywords()
+		{
+			return keywordList.Where(kd => kd.UseKeyword).Select(kd => kd.Keyword).ToList();
+		}
 
+		/// <summary>
+		/// stores a list of the current keywords being looked for
+		/// </summary>
+		private KeywordDatabase.KeywordListClass keywordList;
+		public KeywordDatabase.KeywordListClass KeywordList
+		{
+			get
+			{
+				return keywordList;
+			}
+			set
+			{
+				// should not set {} an observable collection because it breaks the binding.
+				// instead should only mess around with private value. unoptimally: clear list and add each element.
+				keywordList = value;
+			}
+		}
+
+
+		public class KeywordListClass : ObservableCollection<KeywordData>
+		{
+			public void Set(ObservableCollection<KeywordData> newList)
+			{
+				this.Clear();
+				foreach (var l in newList) {
+					this.Add(l);
+				}
+			}
+
+			public void Set(List<KeywordData> newList)
+			{
+				this.Clear();
+				foreach (var l in newList) {
+					this.Add(l);
+				}
+			}
+
+		}
 
 
 		// keywords are added by expanding the original keywords, and each _expansion is expanding the next _expansion etc. until maxExpansionCount
@@ -44,6 +86,14 @@ namespace WPFTwitter
 			{
 				get { return _count; }
 				set { _count = value; }
+			}
+
+			private bool useKeyword = true;
+
+			public bool UseKeyword
+			{
+				get { return useKeyword; }
+				set { useKeyword = value; }
 			}
 
 			public KeywordData(string keyword, int generation)

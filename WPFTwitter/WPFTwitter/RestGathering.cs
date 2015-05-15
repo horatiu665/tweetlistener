@@ -31,41 +31,6 @@ namespace WPFTwitter
 			stop = true;
 		}
 
-		public class KeywordListClass : ObservableCollection<KeywordDatabase.KeywordData>
-		{
-			public void Set(ObservableCollection<KeywordDatabase.KeywordData> newList)
-			{
-				this.Clear();
-				foreach (var l in newList) {
-					this.Add(l);
-				}
-			}
-
-			public void Set(List<KeywordDatabase.KeywordData> newList)
-			{
-				this.Clear();
-				foreach (var l in newList) {
-					this.Add(l);
-				}
-			}
-
-
-		}
-
-		/// <summary>
-		/// stores a list of the current keywords being looked for
-		/// </summary>
-		private KeywordListClass keywordList;
-		public KeywordListClass KeywordList
-		{
-			get
-			{
-				return keywordList;
-			}
-			// should not set {} an observable collection because it breaks the binding.
-			// instead should only mess around with private value. unoptimally: clear list and add each element.
-		}
-
 		/// <summary>
 		/// how many times did we expand the query? 
 		/// </summary>
@@ -104,11 +69,12 @@ namespace WPFTwitter
 		public event Action<string> Message;
 		public event EventHandler Stopped;
 
-		public RestGatherer(Rest rest, Log log, TweetDatabase tdb)
+		public RestGatherer(Rest rest, Log log, TweetDatabase tdb, KeywordDatabase kdb)
 		{
 			this.rest = rest;
 			this.log = log;
 			this.tweetDatabase = tdb;
+			this.keywordDatabase = kdb;
 
 			Reset();
 
@@ -131,10 +97,10 @@ namespace WPFTwitter
 		/// <returns>true if successful, false if cannot continue.</returns>
 		public bool Reset()
 		{
-			if (KeywordList == null) {
-				keywordList = new KeywordListClass();
+			if (keywordDatabase.KeywordList == null) {
+				keywordDatabase.KeywordList = new KeywordDatabase.KeywordListClass();
 			} else {
-				KeywordList.Clear();
+				keywordDatabase.KeywordList.Clear();
 			}
 			currentExpansion = new ExpansionData(0);
 			gatheringCycle = 0;
@@ -204,7 +170,7 @@ namespace WPFTwitter
 					// only perform search if keywords were found
 					if (AnyKeywordsInCurrentExpansion()) {
 						// split query into multiple shorter ones, within Twitter limits.
-						var queries = SplitIntoSmallQueries(keywordList);
+						var queries = SplitIntoSmallQueries(keywordDatabase.KeywordList);
 						foreach (var q in queries) {
 							var sp = ResetSearchParameters(q, currentExpansion.expansion);
 
@@ -238,7 +204,7 @@ namespace WPFTwitter
 												minId = r.IdStr;
 											}
 
-											TweetFound(this,r);
+											TweetFound(this, r);
 
 										}
 
@@ -282,9 +248,9 @@ namespace WPFTwitter
 
 		}
 
-		List<KeywordListClass> SplitIntoSmallQueries(KeywordListClass fullList)
+		List<KeywordDatabase.KeywordListClass> SplitIntoSmallQueries(KeywordDatabase.KeywordListClass fullList)
 		{
-			var klc = new List<KeywordListClass>();
+			var klc = new List<KeywordDatabase.KeywordListClass>();
 
 			// twitter documentation shows the amount of tweets allowed (recommended) in each query
 			// https://dev.twitter.com/rest/public/search
@@ -297,7 +263,7 @@ namespace WPFTwitter
 				}
 
 				if (smallCount == 0) {
-					klc.Add(new KeywordListClass());
+					klc.Add(new KeywordDatabase.KeywordListClass());
 				}
 
 				klc.Last().Add(fullList[i]);
@@ -429,7 +395,7 @@ namespace WPFTwitter
 		// PLEASE OPTIMIZE ME
 		private bool HashtagExists(string h)
 		{
-			return keywordList.Any(kData => {
+			return keywordDatabase.KeywordList.Any(kData => {
 				var listTag = kData.Keyword;
 				if (listTag.Contains("#")) {
 					// remove hashtags
@@ -445,7 +411,7 @@ namespace WPFTwitter
 		private KeywordDatabase.KeywordData ExistingKeyword(string keyword)
 		{
 			if (HashtagExists(keyword)) {
-				return keywordList.First(kData => {
+				return keywordDatabase.KeywordList.First(kData => {
 					var listTag = kData.Keyword;
 					if (listTag.Contains("#")) {
 						listTag = listTag.Replace("#", "");
@@ -477,23 +443,23 @@ namespace WPFTwitter
 				addedK = addedK.ToLower();
 
 				App.Current.Dispatcher.Invoke((Action)(() => {
-					if (!keywordList.Any(kkk => kkk.Keyword == addedK)) {
-						keywordList.Add(new KeywordDatabase.KeywordData(addedK, expansion));
+					if (!keywordDatabase.KeywordList.Any(kkk => kkk.Keyword == addedK)) {
+						keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(addedK, expansion));
 					} else {
 						int i = 0;
-						for (i = 0; i < keywordList.Count; i++) {
-							if (keywordList[i].Keyword == addedK) break;
+						for (i = 0; i < keywordDatabase.KeywordList.Count; i++) {
+							if (keywordDatabase.KeywordList[i].Keyword == addedK) break;
 						}
 						// property changed! even if we did not add to the list.
 						// add and remove shit to update list.
-						var newKey = new KeywordDatabase.KeywordData(keywordList[i].Keyword, keywordList[i].Expansion);
-						newKey.Count = keywordList[i].Count + 1;
-						keywordList.RemoveAt(i);
-						keywordList.Insert(i, newKey);
+						var newKey = new KeywordDatabase.KeywordData(keywordDatabase.KeywordList[i].Keyword, keywordDatabase.KeywordList[i].Expansion);
+						newKey.Count = keywordDatabase.KeywordList[i].Count + 1;
+						keywordDatabase.KeywordList.RemoveAt(i);
+						keywordDatabase.KeywordList.Insert(i, newKey);
 
 
 						// old method, does not update list:
-						//keywordList.First(kkk => kkk.Keyword == addedK).Count++;
+						//keywordDatabase.KeywordList.First(kkk => kkk.Keyword == addedK).Count++;
 
 					}
 				}));
@@ -506,10 +472,10 @@ namespace WPFTwitter
 		/// <returns></returns>
 		private bool AnyKeywordsInCurrentExpansion()
 		{
-			return keywordList.Any(k => k.Expansion == currentExpansion.expansion);
+			return keywordDatabase.KeywordList.Any(k => k.Expansion == currentExpansion.expansion);
 		}
 
-		private ITweetSearchParameters ResetSearchParameters(KeywordListClass keywordList, int onlyFromExpansion = -1)
+		private ITweetSearchParameters ResetSearchParameters(KeywordDatabase.KeywordListClass keywordList, int onlyFromExpansion = -1)
 		{
 			return ResetSearchParameters(keywordList, onlyFromExpansion, null);
 		}
@@ -522,7 +488,7 @@ namespace WPFTwitter
 		/// also, list of requirements and limitations of search API can be found:
 		/// https://dev.twitter.com/rest/public/search
 		/// </summary>
-		private ITweetSearchParameters ResetSearchParameters(KeywordListClass keywordList, int onlyFromExpansion, ITweetSearchParameters searchParams)
+		private ITweetSearchParameters ResetSearchParameters(KeywordDatabase.KeywordListClass keywordList, int onlyFromExpansion, ITweetSearchParameters searchParams)
 		{
 			string keywordsQuery = "";
 			// get all tweets using _keyword list
@@ -565,7 +531,7 @@ namespace WPFTwitter
 			string keywordsQuery = "";
 			// get all tweets using _keyword list
 			bool atLeastOne = false;
-			foreach (var k in keywordList) {
+			foreach (var k in keywordDatabase.KeywordList) {
 				if (k.Expansion == currentExpansion.expansion) {
 					if (atLeastOne)
 						keywordsQuery += " OR ";
