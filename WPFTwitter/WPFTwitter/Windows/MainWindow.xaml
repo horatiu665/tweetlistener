@@ -1,14 +1,4 @@
-﻿<!--
-    Design pipeline
-        
-    In the main window, all controls are placed in their final positions.
-        
-    When creating new controls, they are split into panels, and created individually in a simple window.
-    This window is saved and the control can be copied from there into the final window for use.
-
--->
-
-<Window x:Class="WPFTwitter.Windows.MainWindow"
+﻿<Window x:Class="WPFTwitter.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
@@ -17,17 +7,6 @@
         Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="745" Width="928" KeyDown="Window_KeyDown">
     <DockPanel>
         <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
-            <MenuItem Header="View">
-                <MenuItem Header="Log" Click="menu_View_Log_Click"/>
-                <MenuItem Header="Log Settings" Click="menu_View_LogSettings_Click"/>
-                <MenuItem Header="Streaming Toolbox" Click="menu_View_StreamingToolbox_Click"/>
-                <MenuItem Header="Rest" Click="menu_View_Rest_Click"/>
-            </MenuItem>
-            <MenuItem Header="?">
-                <MenuItem Header="About"/>
-                <MenuItem Header="Help"/>
-
-            </MenuItem>
             <MenuItem x:Name="logInButton" Header="Log in" Click="LogIn_Click"/>
 
         </Menu>
@@ -156,7 +135,7 @@
                                         </DockPanel>
 
                                         <DockPanel>
-                                            <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <Label Content="Log path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                             <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
                                         </DockPanel>
 

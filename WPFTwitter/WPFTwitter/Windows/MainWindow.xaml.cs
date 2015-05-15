@@ -127,9 +127,9 @@ namespace WPFTwitter.Windows
 					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
 				});
 			};
-			restGatherer.TweetFound += (s, a) => {
+			restGatherer.TweetFound += (s, t) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.tweet, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
 				});
 			};
 			rest.TweetFound += (t) => {
@@ -163,16 +163,6 @@ namespace WPFTwitter.Windows
 				//if(true)
 				logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count - 1));
 			}));
-		}
-
-		private void menu_Help_About_Click(object sender, RoutedEventArgs e)
-		{
-			var a = new About();
-		}
-
-		private void menu_Help_Help_Click(object sender, RoutedEventArgs e)
-		{
-			var a = new HelpHelper();
 		}
 
 		private void startStreamButton_Click(object sender, RoutedEventArgs e)
@@ -596,6 +586,8 @@ namespace WPFTwitter.Windows
 
 				// attempts refresh of tweetview
 				tweetView.ItemsSource = tweetDatabase.Tweets;
+
+				restExpansionListView.UnselectAll();
 			});
 		}
 

@@ -162,83 +162,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\TweetDatabaseView.xaml.cs">
-      <DependentUpon>TweetDatabaseView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RestExpansionViewer.xaml.cs">
-      <DependentUpon>RestExpansionViewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Credentials.xaml.cs">
-      <DependentUpon>Credentials.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RestToolbox.xaml.cs">
-      <DependentUpon>RestToolbox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LogControls.xaml.cs">
-      <DependentUpon>LogControls.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\LogSettings.xaml.cs">
-      <DependentUpon>LogSettings.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Credentials.cs" />
-    <Compile Include="HelpHelper\HelpHelper.xaml.cs">
-      <DependentUpon>HelpHelper.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\StreamControls.xaml.cs">
-      <DependentUpon>StreamControls.xaml</DependentUpon>
-    </Compile>
     <Compile Include="KeywordDatabase.cs" />
     <Compile Include="QueryExpansion.cs" />
     <Compile Include="RestGathering.cs" />
     <Compile Include="TweetDatabase.cs" />
-    <Compile Include="Windows\About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Rest.cs" />
     <Compile Include="Stream.cs" />
     <Compile Include="Windows\MainWindowViewModel.cs" />
-    <Page Include="Controls\TweetDatabaseView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\RestExpansionViewer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Credentials.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\RestToolbox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\LogControls.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\LogSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HelpHelper\HelpHelper.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\StreamControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\About.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\DesignWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -248,9 +181,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Log.cs" />
-    <Compile Include="Windows\DesignWindow.xaml.cs">
-      <DependentUpon>DesignWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

@@ -23,6 +23,7 @@ namespace WPFTwitter
 		Rest rest;
 		Log log;
 		TweetDatabase tweetDatabase;
+		KeywordDatabase keywordDatabase;
 
 		private bool stop = false;
 		public void Stop()
@@ -96,7 +97,7 @@ namespace WPFTwitter
 		/// </summary>
 		private DateTime untilDate;
 
-		public event EventHandler<TweetDatabase.TweetData> TweetFound;
+		public event EventHandler<ITweet> TweetFound;
 		public event EventHandler<ExpansionData> ExpansionFinished;
 		// event arguments: sender, sinceDate, untilDate
 		public event Action<object, DateTime, DateTime> CycleFinished;
@@ -114,9 +115,10 @@ namespace WPFTwitter
 			// set up events
 
 			TweetFound += (s, t) => {
-				RememberTweetAndExpandKeywords(t);
+				var td = new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, gatheringCycle, currentExpansion.expansion);
+				RememberTweetAndExpandKeywords(td);
 				if (currentExpansion.tweets != null) {
-					currentExpansion.tweets.Add(t);
+					currentExpansion.tweets.Add(td);
 				}
 
 			};
@@ -236,7 +238,7 @@ namespace WPFTwitter
 												minId = r.IdStr;
 											}
 
-											TweetFound(this, new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, gatheringCycle, currentExpansion.expansion));
+											TweetFound(this,r);
 
 										}
 
@@ -352,7 +354,7 @@ namespace WPFTwitter
 										minId = r.IdStr;
 									}
 
-									TweetFound(this, new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, gatheringCycle, currentExpansion.expansion));
+									TweetFound(this, r);
 
 								}
 
@@ -390,8 +392,6 @@ namespace WPFTwitter
 				tweetDatabase.Tweets.First(pt => pt.tweet.Id == t.tweet.Id).howManyTimesFound++;
 				return;
 			}
-
-			tweetDatabase.Tweets.Add(t);
 
 			// how to figure out which expansion the hashtags in this tweet are?
 			// find the earliest expansion hashtag inside, and add 1
