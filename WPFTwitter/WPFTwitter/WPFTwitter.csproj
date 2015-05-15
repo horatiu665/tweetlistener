@@ -187,6 +187,7 @@
     <Compile Include="Controls\StreamControls.xaml.cs">
       <DependentUpon>StreamControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="KeywordDatabase.cs" />
     <Compile Include="QueryExpansion.cs" />
     <Compile Include="RestGathering.cs" />
     <Compile Include="TweetDatabase.cs" />

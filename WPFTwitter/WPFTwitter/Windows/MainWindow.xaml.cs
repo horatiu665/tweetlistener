@@ -49,18 +49,6 @@ namespace WPFTwitter.Windows
 		}
 
 
-		public string StreamFilterBinding
-		{
-			get
-			{
-				return stream.Filter;
-			}
-			set
-			{
-				stream.Filter = value;
-			}
-		}
-
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -73,7 +61,7 @@ namespace WPFTwitter.Windows
 			databaseSaver = new DatabaseSaver(log);
 			rest = new Rest(credentials, databaseSaver, log, tweetDatabase);
 			stream = new Stream(credentials, databaseSaver, log, rest);
-			restGatherer = new RestGatherer(rest, log);
+			restGatherer = new RestGatherer(rest, log, tweetDatabase);
 			queryExpansion = new QueryExpansion(log);
 
 			//////// initialize bindings
@@ -81,10 +69,13 @@ namespace WPFTwitter.Windows
 			logView.DataContext = LogMessageList;
 			log.LogOutput += Log_LogOutput;
 			checkBox_logCounters.DataContext = stream;
+			checkBox_streamJsonSpammer.DataContext = stream;
 			databaseRetries.DataContext = databaseSaver;
+			checkBox_saveToTextFile.DataContext = databaseSaver;
+			checkBox_database.DataContext = databaseSaver;
 
 			// filter binding
-			//filterTextbox.TextChanged += (s, a) => { StreamFilterBinding = filterTextbox.Text; };
+			filterTextbox.DataContext = stream;
 
 			// rest log binding
 			restView.DataContext = RestMessageList;
@@ -95,14 +86,11 @@ namespace WPFTwitter.Windows
 			restExpansionsMaxExpansionsTextbox.DataContext = restGatherer.MaxExpansionCount;
 
 			restGatherer.TweetFound += (s, t) => {
-				_restMessageList.Add(
-					new LogMessage("E " + t.firstExpansion + "; Tweet: " + t.tweet.Text));
 				App.Current.Dispatcher.Invoke(() => {
 					SetRestExpansionViewKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
 					restExpansionListView.UpdateLayout();
 				});
 			};
-
 
 			restGatherer.ExpansionFinished += (s, edata) => {
 				_restMessageList.Add(
@@ -136,12 +124,17 @@ namespace WPFTwitter.Windows
 			// saving tweets from Streaming and Rest into TweetDatabase
 			stream.stream.MatchingTweetReceived += (s, a) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.Tweet));
+					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
 				});
 			};
 			restGatherer.TweetFound += (s, a) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.tweet));
+					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.tweet, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+				});
+			};
+			rest.TweetFound += (t) => {
+				App.Current.Dispatcher.Invoke(() => {
+					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
 				});
 			};
 
@@ -187,6 +180,7 @@ namespace WPFTwitter.Windows
 
 			stream.Start(stream.Filter);
 
+
 			loggedIn = true;
 
 			// if log
@@ -194,13 +188,6 @@ namespace WPFTwitter.Windows
 				log.Start(logPathTextBox.Text, checkBox_databaseMessages.IsChecked.Value);
 			}
 
-			// if database
-			if (checkBox_database.IsChecked.Value) {
-				bool connectOnline = databaseConnectionComboBox.SelectedIndex == 0 ? false : true;
-				bool saveToDatabaseOrPhp = databaseDestinationComboBox.SelectedIndex == 0 ? false : true;
-				databaseSaver.Start(connectOnline, saveToDatabaseOrPhp);
-
-			}
 		}
 
 		private void restartStreamButton_Click(object sender, RoutedEventArgs e)
@@ -224,8 +211,8 @@ namespace WPFTwitter.Windows
 			// load avalon layout from file
 
 			credentialsPanelLayout.ToggleAutoHide();
-			streamingToolboxLayout.ToggleAutoHide();
-			logSettingsLayout.ToggleAutoHide();
+			//streamingToolboxLayout.ToggleAutoHide();
+			//logSettingsLayout.ToggleAutoHide();
 		}
 
 		private void restQueryButton_Click(object sender, RoutedEventArgs e)
@@ -257,8 +244,7 @@ namespace WPFTwitter.Windows
 						_restMessageList.Add(new LogMessage("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							_restMessageList.Add(new LogMessage(r.Text));
-
+							tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
 					}
 				} else {
@@ -281,8 +267,7 @@ namespace WPFTwitter.Windows
 						_restMessageList.Add(new LogMessage("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							_restMessageList.Add(new LogMessage(r.Text));
-
+							tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
 					}
 
@@ -436,17 +421,6 @@ namespace WPFTwitter.Windows
 
 		}
 
-		private void restAddToDatabase_Click(object sender, RoutedEventArgs e)
-		{
-			databaseSaver.Message += (s) => {
-				_restMessageList.Add(new LogMessage(s));
-
-			};
-			// add rest data to database.
-			rest.AddLastTweetsToDatabase();
-
-		}
-
 		private void databasePhpPath_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (databaseSaver != null) {
@@ -497,7 +471,7 @@ namespace WPFTwitter.Windows
 
 			// get clicked row
 			var item = ((ListViewItem)sender);
-			var content = (RestGatherer.KeywordData)(item.Content);
+			var content = (KeywordDatabase.KeywordData)(item.Content);
 
 			// get keyword
 			// in tweet viewer, show only the tweets that contain said keyword.
@@ -573,11 +547,94 @@ namespace WPFTwitter.Windows
 		private void restExhaustiveQueryButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
-				rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
+				App.Current.Dispatcher.Invoke(() => {
+					rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
+				});
 			} else {
 				// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
 			}
 		}
+
+		private void tweetView_Item_DeleteButton(object sender, RoutedEventArgs e)
+		{
+			// get clicked row
+			var button = ((Button)sender);
+			var item = FindParent<ListViewItem>(button);
+			if (item != null) {
+				App.Current.Dispatcher.Invoke(() => {
+					var content = (TweetDatabase.TweetData)(item.Content);
+					var hashtagsToUpdate = content.tweet.Hashtags.Select(hEntity => hEntity.Text.ToLower());
+					tweetDatabase.Tweets.Remove(content);
+					// update counts of hashtags
+					foreach (var k in restGatherer.KeywordList) {
+						if (hashtagsToUpdate.Contains(k.Keyword.Replace("#", "").ToLower())) {
+							k.Count = tweetDatabase.Tweets.Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
+						}
+					}
+				});
+			}
+		}
+
+		private T FindParent<T>(DependencyObject child) where T : DependencyObject
+		{
+			var parent = VisualTreeHelper.GetParent(child);
+
+			if (parent == null)
+				return null;
+
+			if (parent is T)
+				return parent as T;
+			else
+				return FindParent<T>(parent);
+		}
+
+		private void tweetView_ResetSelection(object sender, RoutedEventArgs e)
+		{
+
+			App.Current.Dispatcher.Invoke(() => {
+				tweetDatabase.onlyShowKeywords.Clear();
+
+				// attempts refresh of tweetview
+				tweetView.ItemsSource = tweetDatabase.Tweets;
+			});
+		}
+
+		private void tweetView_DeleteAll(object sender, RoutedEventArgs e)
+		{
+			App.Current.Dispatcher.Invoke(() => {
+				tweetDatabase.Tweets = new ObservableCollection<TweetDatabase.TweetData>();
+				foreach (var k in restGatherer.KeywordList) {
+					k.Count = 0;
+
+				}
+				// attempts refresh of tweetview
+				tweetView.ItemsSource = tweetDatabase.Tweets;
+			});
+		}
+
+
+		private void expandStreamButton_Click(object sender, RoutedEventArgs e)
+		{
+			var oldQuery = stream.Filter.Split(",".ToCharArray()).ToList();
+			var newQuery = queryExpansion.Expand(oldQuery, tweetDatabase.Tweets.Select(td => td.tweet).ToList());
+			var newQueryString = "";
+			foreach (var k in newQuery) {
+				newQueryString += k + ", ";
+			}
+			stream.Filter = newQueryString;
+
+			restartStreamButton_Click(sender, e);
+		}
+
+		private void logClearButtonClick(object sender, RoutedEventArgs e)
+		{
+			App.Current.Dispatcher.Invoke(() => {
+				_logMessageList.Clear();
+			});
+			logView.UpdateLayout();
+		}
+
+
 
 	}
 

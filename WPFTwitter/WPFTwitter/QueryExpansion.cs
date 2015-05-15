@@ -43,14 +43,15 @@ namespace WPFTwitter
 			// order by count somehow
 			var orderedKeywords = keywordsInTweets.OrderByDescending(kvp => kvp.Value);
 
+			// return original query + X% top most frequent new keywords
 			var expandedKeywords = orderedKeywords.Take((int)(orderedKeywords.Count() * 0.1f));
+
+			expandedKeywords = expandedKeywords.Where(kvp => kvp.Key.Any(cha => cha != ' '));
 
 			var s = "";
 			expandedKeywords.ToList().ForEach(kvp => s += kvp.Key + ", ");
 
 			log.Output("New keywords after expansion: " + s);
-
-			// return original query + X% top most frequent new keywords
 
 			return query.Concat(expandedKeywords.Select(kvp => kvp.Key)).ToList();
 		}

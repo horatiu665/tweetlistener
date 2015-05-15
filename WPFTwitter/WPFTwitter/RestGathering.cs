@@ -22,6 +22,7 @@ namespace WPFTwitter
 	{
 		Rest rest;
 		Log log;
+		TweetDatabase tweetDatabase;
 
 		private bool stop = false;
 		public void Stop()
@@ -29,9 +30,9 @@ namespace WPFTwitter
 			stop = true;
 		}
 
-		public class KeywordListClass : ObservableCollection<KeywordData>
+		public class KeywordListClass : ObservableCollection<KeywordDatabase.KeywordData>
 		{
-			public void Set(ObservableCollection<KeywordData> newList)
+			public void Set(ObservableCollection<KeywordDatabase.KeywordData> newList)
 			{
 				this.Clear();
 				foreach (var l in newList) {
@@ -39,7 +40,7 @@ namespace WPFTwitter
 				}
 			}
 
-			public void Set(List<KeywordData> newList)
+			public void Set(List<KeywordDatabase.KeywordData> newList)
 			{
 				this.Clear();
 				foreach (var l in newList) {
@@ -64,8 +65,6 @@ namespace WPFTwitter
 			// instead should only mess around with private value. unoptimally: clear list and add each element.
 		}
 
-		private List<TweetData> tweetsProcessed;
-
 		/// <summary>
 		/// how many times did we expand the query? 
 		/// </summary>
@@ -85,7 +84,7 @@ namespace WPFTwitter
 		/// </summary>
 		private int gatheringCycle;
 
-		
+
 		/// <summary>
 		/// get tweets since this date up until present day. default = present day.
 		/// </summary>
@@ -97,17 +96,19 @@ namespace WPFTwitter
 		/// </summary>
 		private DateTime untilDate;
 
-		public event EventHandler<TweetData> TweetFound;
+		public event EventHandler<TweetDatabase.TweetData> TweetFound;
 		public event EventHandler<ExpansionData> ExpansionFinished;
 		// event arguments: sender, sinceDate, untilDate
 		public event Action<object, DateTime, DateTime> CycleFinished;
 		public event Action<string> Message;
 		public event EventHandler Stopped;
 
-		public RestGatherer(Rest rest, Log log)
+		public RestGatherer(Rest rest, Log log, TweetDatabase tdb)
 		{
 			this.rest = rest;
 			this.log = log;
+			this.tweetDatabase = tdb;
+
 			Reset();
 
 			// set up events
@@ -137,7 +138,6 @@ namespace WPFTwitter
 			gatheringCycle = 0;
 			sinceDate = DateTime.Now;
 			untilDate = DateTime.Now;
-			tweetsProcessed = new List<TweetData>();
 			stop = false;
 			return true;
 		}
@@ -168,8 +168,12 @@ namespace WPFTwitter
 		/// </summary>
 		/// <param name="sinceDate"></param>
 		/// <param name="untilDate"></param>
-		private void GatheringCycle2(DateTime sinceDate, DateTime untilDate)
+		private async void GatheringCycle2(DateTime sinceDate, DateTime untilDate)
 		{
+			if (rest.WaitingForRateLimits) {
+				return;
+			}
+
 			this.sinceDate = sinceDate;
 			this.untilDate = untilDate;
 
@@ -232,7 +236,7 @@ namespace WPFTwitter
 												minId = r.IdStr;
 											}
 
-											TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+											TweetFound(this, new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, gatheringCycle, currentExpansion.expansion));
 
 										}
 
@@ -241,8 +245,12 @@ namespace WPFTwitter
 
 									} else if (rest.rateLimitCounter <= 0) {
 										// check rate limits in case we are wrong and they are not actually zero
-										var rateLimitsObj = rest.GetRateLimits_Search();
-										rest.rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
+										//var rateLimitsObj = rest.GetRateLimits_Search();
+										rest.WaitingForRateLimits = true;
+										var rateLimitsObj = await RateLimitAsync.GetCurrentCredentialsRateLimits();
+										rest.WaitingForRateLimits = false;
+										rest.rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.ApplicationRateLimitStatusLimit.Remaining;
+
 									}
 
 									// keep doing this while:
@@ -344,7 +352,7 @@ namespace WPFTwitter
 										minId = r.IdStr;
 									}
 
-									TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+									TweetFound(this, new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, gatheringCycle, currentExpansion.expansion));
 
 								}
 
@@ -375,13 +383,15 @@ namespace WPFTwitter
 		}
 
 		// expands keywords, saves tweets. runs in BG, processes tweets when it has enough resources.
-		private void RememberTweetAndExpandKeywords(TweetData t)
+		private void RememberTweetAndExpandKeywords(TweetDatabase.TweetData t)
 		{
 			// only process tweet if it has not been found before.
-			if (tweetsProcessed.Any(pt => pt.tweet.Id == t.tweet.Id)) {
-				tweetsProcessed.First(pt => pt.tweet.Id == t.tweet.Id).howManyTimesFound++;
+			if (tweetDatabase.Tweets.Any(pt => pt.tweet.Id == t.tweet.Id)) {
+				tweetDatabase.Tweets.First(pt => pt.tweet.Id == t.tweet.Id).howManyTimesFound++;
 				return;
 			}
+
+			tweetDatabase.Tweets.Add(t);
 
 			// how to figure out which expansion the hashtags in this tweet are?
 			// find the earliest expansion hashtag inside, and add 1
@@ -413,8 +423,6 @@ namespace WPFTwitter
 			}
 
 			AddKeywords(earliestExp + 1, tags.ToArray());
-			tweetsProcessed.Add(t);
-
 		}
 
 		// true if h exists in the keywordList
@@ -434,7 +442,7 @@ namespace WPFTwitter
 			});
 		}
 
-		private KeywordData ExistingKeyword(string keyword)
+		private KeywordDatabase.KeywordData ExistingKeyword(string keyword)
 		{
 			if (HashtagExists(keyword)) {
 				return keywordList.First(kData => {
@@ -470,7 +478,7 @@ namespace WPFTwitter
 
 				App.Current.Dispatcher.Invoke((Action)(() => {
 					if (!keywordList.Any(kkk => kkk.Keyword == addedK)) {
-						keywordList.Add(new KeywordData(addedK, expansion));
+						keywordList.Add(new KeywordDatabase.KeywordData(addedK, expansion));
 					} else {
 						int i = 0;
 						for (i = 0; i < keywordList.Count; i++) {
@@ -478,7 +486,7 @@ namespace WPFTwitter
 						}
 						// property changed! even if we did not add to the list.
 						// add and remove shit to update list.
-						var newKey = new KeywordData(keywordList[i].Keyword, keywordList[i].Expansion);
+						var newKey = new KeywordDatabase.KeywordData(keywordList[i].Keyword, keywordList[i].Expansion);
 						newKey.Count = keywordList[i].Count + 1;
 						keywordList.RemoveAt(i);
 						keywordList.Insert(i, newKey);
@@ -595,7 +603,7 @@ namespace WPFTwitter
 				get { return tweets != null ? tweets.Count : 0; }
 			}
 
-			public List<TweetData> tweets = new List<TweetData>();
+			public List<TweetDatabase.TweetData> tweets = new List<TweetDatabase.TweetData>();
 
 			public ExpansionData(int num)
 			{
@@ -604,77 +612,6 @@ namespace WPFTwitter
 
 		}
 
-		public class TweetData
-		{
-			// tweet data
-			public ITweet tweet;
-
-			// which cycle yielded this tweet?
-			public int gatheringCycle;
-
-			// which _expansion cycle first found this tweet?
-			public int firstExpansion;
-
-			// how many times was this tweet found after being found once and processed?
-			public int howManyTimesFound = 1;
-
-			public TweetData(ITweet tweet, int gatheringCycle, int firstExpansion)
-			{
-				this.tweet = tweet;
-				this.gatheringCycle = gatheringCycle;
-				this.firstExpansion = firstExpansion;
-
-			}
-
-			// returns a list of hashtags.
-			public List<string> GetHashtags()
-			{
-				return tweet.Entities.Hashtags.Select(h => h.Text).ToList();
-			}
-
-		}
-
-		// keywords are added by expanding the original keywords, and each _expansion is expanding the next _expansion etc. until maxExpansionCount
-		public class KeywordData
-		{
-			/// <summary>
-			/// the actual hashtag/_keyword string.
-			/// </summary>
-			private string _keyword;
-
-			public string Keyword
-			{
-				get { return _keyword; }
-				set { _keyword = value; }
-			}
-
-			/// <summary>
-			/// how many times since the original tweet were tweets with similar keywords pulled?
-			/// </summary>
-			private int _expansion;
-
-			public int Expansion
-			{
-				get { return _expansion; }
-				set { _expansion = value; }
-			}
-
-			private int _count = 1;
-
-			public int Count
-			{
-				get { return _count; }
-				set { _count = value; }
-			}
-
-			public KeywordData(string keyword, int generation)
-			{
-				this._keyword = keyword;
-				this._expansion = generation;
-
-			}
-
-		}
 
 	}
 

@@ -44,7 +44,11 @@
 
                         <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
                             <ad:LayoutAnchorable x:Name="logLayout" Title="Log" CanClose="False" CanHide="False">
-                                <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top">
+                                        <Button Content="Clear Log" Width="100" Click="logClearButtonClick"/>
+                                    </DockPanel>
+                                    <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn Header="Time">
                                             <DataGridTemplateColumn.CellTemplate>
@@ -64,7 +68,7 @@
                                         </DataGridTemplateColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
-
+                                </DockPanel>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                         <!-- END LOG PANEL -->
@@ -73,36 +77,50 @@
 
                         <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
                             <ad:LayoutAnchorable Title="Tweets">
-                                <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}" >
-                                    <ListView.Resources>
-                                        <Style TargetType="GridViewColumnHeader">
-                                            <EventSetter Event="MouseUp" Handler="tweetView_Headers_MouseUp"/>
-                                        </Style>
-                                    </ListView.Resources>
-                                    <ListView.View>
-                                        <GridView x:Name="tweetViewGrid">
-                                            <GridViewColumn DisplayMemberBinding="{Binding Date}">
-                                                <GridViewColumnHeader Content="Date"/>
-                                            </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Tweet}">
-                                                <GridViewColumnHeader Content="Tweet"/>
-                                            </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Id}">
-                                                <GridViewColumnHeader Content="Id"/>
-                                            </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Lang}">
-                                                <GridViewColumnHeader Content="Lang"/>
-                                            </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding User}">
-                                                <GridViewColumnHeader Content="User"/>
-                                            </GridViewColumn>
-                                            <GridViewColumn DisplayMemberBinding="{Binding UserId}">
-                                                <GridViewColumnHeader Content="User Id"/>
-                                            </GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top">
+                                        <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
+                                        <Button Content="Delete All" Click="tweetView_DeleteAll"/>
+                                    </DockPanel>
+                                    <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}">
+                                        <ListView.Resources>
+                                            <Style TargetType="GridViewColumnHeader">
+                                                <EventSetter Event="MouseUp" Handler="tweetView_Headers_MouseUp"/>
+                                            </Style>
+                                        </ListView.Resources>
+                                        <ListView.View>
+                                            <GridView x:Name="tweetViewGrid">
+                                                <GridViewColumn DisplayMemberBinding="{Binding Date}">
+                                                    <GridViewColumnHeader Content="Date"/>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding Tweet}">
+                                                    <GridViewColumnHeader Content="Tweet"/>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding Id}">
+                                                    <GridViewColumnHeader Content="Id"/>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding Lang}">
+                                                    <GridViewColumnHeader Content="Lang"/>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding User}">
+                                                    <GridViewColumnHeader Content="User"/>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding UserId}">
+                                                    <GridViewColumnHeader Content="User Id"/>
+                                                </GridViewColumn>
+                                                <GridViewColumn Header="Controls">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <Button Content="Delete" Click="tweetView_Item_DeleteButton"/>
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </DockPanel>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
 
@@ -111,70 +129,78 @@
                     </ad:LayoutPanel>
 
                     <ad:LayoutPanel Orientation="Vertical" DockWidth="2*">
+                        <ad:LayoutPanel Orientation="Horizontal" DockWidth="*">
 
-                        <!-- LOG SETTINGS PANEL -->
+                            <!-- LOG SETTINGS PANEL -->
 
-                        <ad:LayoutAnchorablePane DockHeight="*">
-                            <ad:LayoutAnchorable x:Name="logSettingsLayout"  Title="Log Settings" CanClose="False" CanHide="False">
-                                <StackPanel Margin="10,0">
-                                    <DockPanel>
-                                        <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
-                                        <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" VerticalAlignment="Center">
-                                            <ComboBoxItem Content="Localhost"/>
-                                        </ComboBox>
-                                    </DockPanel>
+                            <ad:LayoutAnchorablePane DockHeight="*">
+                                <ad:LayoutAnchorable x:Name="logSettingsLayout"  Title="Log Settings" CanClose="False" CanHide="False">
+                                    <StackPanel Margin="10,0" x:Name="logSettingsStackPanel">
+                                        <DockPanel>
+                                            <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                                <ComboBoxItem Content="Localhost"/>
+                                            </ComboBox>
+                                        </DockPanel>
 
-                                    <DockPanel>
-                                        <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
-                                        <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" VerticalAlignment="Center">
-                                            <ComboBoxItem Content="PHP POST"/>
-                                        </ComboBox>
-                                    </DockPanel>
+                                        <DockPanel>
+                                            <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                                <ComboBoxItem Content="PHP POST"/>
+                                            </ComboBox>
+                                        </DockPanel>
 
-                                    <DockPanel>
-                                        <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox Name="databasePhpPath" VerticalAlignment="Center" Text="http://localhost/tweetlistener/php/saveJson.php" TextChanged="databasePhpPath_TextChanged"  />
-                                    </DockPanel>
+                                        <DockPanel>
+                                            <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox Name="databasePhpPath" VerticalAlignment="Center" Text="http://localhost/tweetlistener/php/saveJson.php" TextChanged="databasePhpPath_TextChanged"  />
+                                        </DockPanel>
 
-                                    <DockPanel>
-                                        <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
-                                    </DockPanel>
+                                        <DockPanel>
+                                            <Label Content="Path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
+                                        </DockPanel>
 
-                                    <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
-                                    <DockPanel>
-                                        <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="True"/>
-                                        <Label Content="| Retries" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="databaseRetries" VerticalAlignment="Center" MinWidth="30" MaxWidth="100" HorizontalAlignment="Left" Text="{Binding Path=MaxTweetDatabaseSendRetries, Mode=TwoWay}"/>
-                                    </DockPanel>
-
-                                    <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
-                                    <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
-
-                                </StackPanel>
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
-
-                        <!-- END LOG SETTINGS PANEL -->
+                                        <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
+                                        <DockPanel>
+                                            <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}"/>
+                                            <Label Content="| Retries" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="databaseRetries" VerticalAlignment="Center" MinWidth="30" MaxWidth="100" HorizontalAlignment="Left" Text="{Binding Path=MaxTweetDatabaseSendRetries, Mode=TwoWay}"/>
+                                        </DockPanel>
+                                        <CheckBox x:Name="checkBox_saveToTextFile" Content="Save to text file" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToTextFileProperty, Mode=TwoWay}"/>
+                                        
+                                        <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
+                                        <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
+                                        <CheckBox x:Name="checkBox_streamJsonSpammer" IsChecked="{Binding Path=LogEveryJson, Mode=TwoWay}" Content="Log every JSON message from Twitter" VerticalAlignment="Top"/>
 
 
-                        <!-- STREAMING PANEL -->
+                                    </StackPanel>
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
 
-                        <ad:LayoutAnchorablePane DockHeight="*">
-                            <ad:LayoutAnchorable x:Name="streamingToolboxLayout" Title="Streaming Toolbox" CanClose="False" CanHide="False">
-                                <StackPanel>
-                                    <DockPanel Margin="10,0">
-                                        <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                        <TextBox Name="filterTextbox" VerticalAlignment="Center" Text="{Binding StreamFilterBinding, Mode=TwoWay}"/>
-                                    </DockPanel>
-                                    <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
-                                    <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
-                                    <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
-                                </StackPanel>
+                            <!-- END LOG SETTINGS PANEL -->
 
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
 
+                            <!-- STREAMING PANEL -->
+
+                            <ad:LayoutAnchorablePane DockHeight="*">
+                                <ad:LayoutAnchorable x:Name="streamingToolboxLayout" Title="Streaming Toolbox" CanClose="False" CanHide="False">
+                                    <StackPanel>
+                                        <DockPanel Margin="10,0">
+                                            <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox Name="filterTextbox" VerticalAlignment="Center" Text="{Binding Filter, Mode=TwoWay}"/>
+                                        </DockPanel>
+                                        <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
+                                        <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
+                                        <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
+                                        <Separator/>
+                                        <Button Content="Expand Stream Query" Click="expandStreamButton_Click"/>
+                                    </StackPanel>
+
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
+
+
+                        </ad:LayoutPanel>
                         <!-- END STREAMING PANEL -->
 
                         <ad:LayoutPanel Orientation="Horizontal">
@@ -182,10 +208,10 @@
                             <!-- REST CONTROLS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="3*">
-                                <ad:LayoutAnchorable Title="Rest Controls"  CanClose="False" CanHide="False">
+                                <ad:LayoutAnchorable Title="Rest Controls" CanClose="False" CanHide="False">
 
                                     <!-- this is the content you are looking for -->
-                                    <DockPanel>
+                                    <DockPanel >
                                         <DockPanel Margin="10,0" DockPanel.Dock="Top">
                                             <Label Content="Filter" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="{Binding ElementName=restStartDateLabel, Path=ActualWidth}"/>
                                             <TextBox x:Name="restFilterTextBox" VerticalAlignment="Center"/>
@@ -203,8 +229,7 @@
                                                 <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
                                                 <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
                                                 <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
-                                                <Button x:Name="restAddToDatabase" Content="Add Data To Database" Margin="10, 0" Click="restAddToDatabase_Click"/>
-
+                                                
                                             </StackPanel>
                                         </Expander>
                                         <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">

@@ -21,8 +21,6 @@ namespace WPFTwitter
 
 		public event Action<ITweet> TweetFound;
 
-		private List<ITweet> lastTweets = new List<ITweet>();
-
 		/// <summary>
 		/// TODO: reset this counter at the right times.
 		/// can query until this is <= 0
@@ -34,6 +32,8 @@ namespace WPFTwitter
 		/// </summary>
 		public DateTime rateLimitReset;
 
+		public bool WaitingForRateLimits { get; set; }
+
 		public int maxTweetsPerQuery = 10;
 
 		public Rest(Credentials creds, DatabaseSaver dbs, Log log, TweetDatabase tdb)
@@ -44,18 +44,7 @@ namespace WPFTwitter
 			tweetDatabase = tdb;
 
 			TweetFound += OnTweetFound;
-		}
-
-		/// <summary>
-		/// adds previously returned tweets to database, complementing the Stream log with extra results.
-		/// </summary>
-		public void AddLastTweetsToDatabase()
-		{
-			foreach (var t in lastTweets) {
-				// use DatabaseSaver to save each tweet just like we do with the streaming
-				databaseSaver.SaveTweet(t);
-
-			}
+			
 		}
 
 		public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
@@ -204,10 +193,6 @@ namespace WPFTwitter
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
 				var tweets = Search_SimpleTweetSearch(filter);
-				lastTweets.Clear();
-				foreach (var t in tweets) {
-					lastTweets.Add(t);
-				}
 				return tweets;
 			} else {
 				return null;
@@ -277,10 +262,6 @@ namespace WPFTwitter
 
 				try {
 					var tweets = Search_SearchTweets(searchParameters);
-					lastTweets.Clear();
-					foreach (var t in tweets) {
-						lastTweets.Add(t);
-					}
 					return tweets;
 				}
 				catch (NullReferenceException nullref) {
@@ -406,7 +387,6 @@ namespace WPFTwitter
 			//searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
 			var tweets = Search.SearchTweets(searchParameter);
-			//tweets.ForEach(t => Console.WriteLine(t.Text));
 			return tweets;
 		}
 
@@ -419,7 +399,6 @@ namespace WPFTwitter
 			searchParameter.MaximumNumberOfResults = 200;
 
 			var tweets = Search.SearchTweets(searchParameter);
-			tweets.ForEach(t => Console.WriteLine(t.Text));
 		}
 		#endregion
 

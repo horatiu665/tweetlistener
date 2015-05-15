@@ -11,18 +11,14 @@ namespace WPFTwitter
 {
 	public class TweetDatabase
 	{
+		
 		/// <summary>
-		/// store all tweets here
-		/// </summary>
-		//private ObservableCollection<TweetData> realTweets = new ObservableCollection<TweetData>();
-
-		/// <summary>
-		/// store what we show here
+		/// store the tweet database here
 		/// </summary>
 		private ObservableCollection<TweetData> tweets = new ObservableCollection<TweetData>();
 
 		/// <summary>
-		/// when accessing, take from realTweets and save to tweets, and only show the ones we want to show.
+		/// take from tweets, and only show the ones we want to show based on onlyShowKeywords
 		/// </summary>
 		public ObservableCollection<TweetData> Tweets
 		{
@@ -31,7 +27,7 @@ namespace WPFTwitter
 				if (onlyShowKeywords.Count > 0) {
 					var showList = tweets.Where(td => {
 						foreach (var k in onlyShowKeywords) {
-							if (td.Tweet.Contains(k))
+							if (td.Tweet.ToLower().Contains(k.ToLower()))
 								return true;
 						}
 						return false;
@@ -52,6 +48,14 @@ namespace WPFTwitter
 			}
 		}
 
+		public ObservableCollection<TweetData> AllTweets
+		{
+			get
+			{
+				return tweets;
+			}
+		}
+
 		public List<string> onlyShowKeywords = new List<string>();
 
 
@@ -59,9 +63,35 @@ namespace WPFTwitter
 		{
 			public ITweet tweet;
 
-			public TweetData(ITweet t)
+			public enum Sources
+			{
+				Stream,
+				Rest
+			}
+
+			// where did we find this tweet?
+			public Sources source;
+
+			// which cycle yielded this tweet?
+			public int gatheringCycle;
+
+			// which _expansion cycle first found this tweet?
+			public int firstExpansion;
+
+			// how many times was this tweet found after being found once and processed?
+			public int howManyTimesFound = 1;
+
+			public List<string> GetHashtags()
+			{
+				return tweet.Hashtags.Select(he => he.Text).ToList();
+			}
+
+			public TweetData(ITweet t, Sources source, int gatheringCycle, int firstExpansion)
 			{
 				tweet = t;
+				this.source = source;
+				this.gatheringCycle = gatheringCycle;
+				this.firstExpansion = firstExpansion;
 
 			}
 

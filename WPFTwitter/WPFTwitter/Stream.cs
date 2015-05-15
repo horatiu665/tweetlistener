@@ -227,7 +227,7 @@ namespace WPFTwitter
 
 		void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
 		{
-			log.SmallOutput("Limit reached. Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
+			log.SmallOutput("Stream limit reached. Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
 
 		}
 
@@ -240,6 +240,8 @@ namespace WPFTwitter
 			if (streamRunning) {
 				return;
 			}
+
+			lastStreamStopTime = DateTime.Now;
 
 			this.filter = filter;
 
@@ -376,13 +378,25 @@ namespace WPFTwitter
 
 		}
 
+		private bool logEveryJson = false;
+
+		public bool LogEveryJson
+		{
+			get { return logEveryJson; }
+			set { logEveryJson = value; }
+		}
+		
+
 		private void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
 		{
 			// only save Json when Json is a tweet. Handled in OnMatchingTweetReceived, for now
 			//databaseSaver.SaveJson(e.Json);
 			JObject json = JObject.Parse(e.Json);
 
-			EvaluateJsonChildren(json);
+			// spams the log every tweet. not cool. only use for debug purposes
+			if (logEveryJson) {
+				EvaluateJsonChildren(json);
+			}
 		}
 
 		/// <summary>

@@ -283,3 +283,185 @@ Error documentation description :
 12-May-15 14:02:39: twitter
 12-May-15 14:02:49: Limit reached. Tweets missed: 31
 12-May-15 14:03:11: Stream disconnected.
+15-May-15 10:17:01: New log started
+15-May-15 10:17:01: Stream running filter:
+15-May-15 10:17:01: google
+15-May-15 10:17:05: Stream disconnected.
+15-May-15 11:50:41: New log started
+15-May-15 11:50:41: Stream running filter:
+15-May-15 11:50:41: gamerproblems
+15-May-15 11:51:00: Stream disconnected.
+15-May-15 11:51:09: Stream attempting to start at time 15-May-15 11:51:09
+15-May-15 11:51:10: Stream running filter:
+15-May-15 11:51:10: evolve
+15-May-15 11:51:24: Stream disconnected.
+15-May-15 11:51:29: Stream attempting to start at time 15-May-15 11:51:29
+15-May-15 11:51:29: Stream running filter:
+15-May-15 11:51:29: google
+15-May-15 11:51:35: Stream disconnected.
+15-May-15 11:51:55: Stream attempting to start at time 15-May-15 11:51:55
+15-May-15 11:51:55: Stream running filter:
+15-May-15 11:51:55: google,  , 
+15-May-15 11:52:06: Stream disconnected.
+15-May-15 11:52:13: Stream attempting to start at time 15-May-15 11:52:13
+15-May-15 11:52:14: Stream running filter:
+15-May-15 11:52:14: google,   ,  , seo, google, 
+15-May-15 11:52:22: Stream disconnected.
+15-May-15 11:56:05: New log started
+15-May-15 11:56:05: Stream running filter:
+15-May-15 11:56:05: , gamerproblems, gamersunite, retrogaming, gamerpositivity, hipster, gameboy, retrogamer, gaming, gamer, ps4, 
+15-May-15 12:18:02: New log started
+15-May-15 12:18:02: Stream running filter:
+15-May-15 12:18:02: , gamerproblems, gamersunite, retrogaming, gamerpositivity, hipster, gameboy, retrogamer, gaming, gamer, ps4, 
+15-May-15 12:20:38: New log started
+15-May-15 12:20:38: Stream running filter:
+15-May-15 12:20:38: , gamerproblems, gamersunite, retrogaming, gamerpositivity, hipster, gameboy, retrogamer, gaming, gamer, ps4, 
+15-May-15 12:28:28: New log started
+15-May-15 12:28:28: Stream running filter:
+15-May-15 12:28:28: , 
+15-May-15 12:28:30: Stream disconnected.
+15-May-15 12:28:30: Exception: --- Date : 15-May-15 12:28:30
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%2C%20
+Code : 406
+Error documentation description : Not Acceptable - Returned by the Search API when an invalid format is specified in the request.
+No filter parameters found. Expect at least one parameter: follow track locations
+ (0)
+
+15-May-15 12:28:30: Stream attempting to start at time 15-May-15 12:28:30
+15-May-15 12:28:30: Stream running filter:
+15-May-15 12:28:30: , 
+15-May-15 12:28:31: Stream disconnected.
+15-May-15 12:28:31: Stream disconnected.
+15-May-15 12:28:31: Exception: --- Date : 15-May-15 12:28:31
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%2C%20
+Code : 406
+Error documentation description : Not Acceptable - Returned by the Search API when an invalid format is specified in the request.
+No filter parameters found. Expect at least one parameter: follow track locations
+ (0)
+
+15-May-15 12:29:00: Stream attempting to start at time 15-May-15 12:29:00
+15-May-15 12:29:01: Stream running filter:
+15-May-15 12:29:01: ios
+15-May-15 12:29:05: Stream disconnected.
+15-May-15 12:29:42: Stream attempting to start at time 15-May-15 12:29:42
+15-May-15 12:29:42: Stream running filter:
+15-May-15 12:29:42: #ios
+15-May-15 12:29:58: Stream disconnected.
+15-May-15 12:30:06: Stream attempting to start at time 15-May-15 12:30:06
+15-May-15 12:30:07: Stream running filter:
+15-May-15 12:30:07: #ios,  , 
+15-May-15 12:30:08: Stream disconnected.
+15-May-15 12:30:10: Stream attempting to start at time 15-May-15 12:30:10
+15-May-15 12:30:10: Stream running filter:
+15-May-15 12:30:10: #ios,    ,   ,  , 
+15-May-15 12:30:12: Stream disconnected.
+15-May-15 12:30:13: Stream attempting to start at time 15-May-15 12:30:13
+15-May-15 12:30:13: Stream running filter:
+15-May-15 12:30:13: #ios,      ,     ,    ,   ,  , 
+15-May-15 12:30:16: Stream disconnected.
+15-May-15 12:30:17: Stream attempting to start at time 15-May-15 12:30:17
+15-May-15 12:30:18: Stream running filter:
+15-May-15 12:30:18: #ios,        ,       ,      ,     ,    ,   ,  , 
+15-May-15 12:30:19: Stream disconnected.
+15-May-15 12:30:20: Stream attempting to start at time 15-May-15 12:30:20
+15-May-15 12:30:21: Stream running filter:
+15-May-15 12:30:21: #ios,          ,         ,        ,       ,      ,     ,    ,   ,  , 
+15-May-15 12:30:23: Stream disconnected.
+15-May-15 12:30:23: Exception: --- Date : 15-May-15 12:30:23
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23ios%2C%20%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%2C%20%20%20%20%20%2C%20%20%20%20%2C%20%20%20%2C%20%20%2C%20
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+15-May-15 12:30:23: Stream attempting to start at time 15-May-15 12:30:23
+15-May-15 12:30:23: Stream running filter:
+15-May-15 12:30:23: #ios,          ,         ,        ,       ,      ,     ,    ,   ,  , 
+15-May-15 12:30:30: Stream disconnected.
+15-May-15 12:30:30: Exception: --- Date : 15-May-15 12:30:30
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23ios%2C%20%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%2C%20%20%20%20%20%2C%20%20%20%20%2C%20%20%20%2C%20%20%2C%20
+Code : 420
+Error documentation description : 
+Easy there, Turbo. Too many requests recently. Enhance your calm.
+ (0)
+
+15-May-15 12:30:30: Stream attempting to start at time 15-May-15 12:30:30
+15-May-15 12:30:30: Stream running filter:
+15-May-15 12:30:30: #ios,          ,         ,        ,       ,      ,     ,    ,   ,  , 
+15-May-15 12:30:37: Stream disconnected.
+15-May-15 12:30:37: Exception: --- Date : 15-May-15 12:30:37
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23ios%2C%20%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%2C%20%20%20%20%20%2C%20%20%20%20%2C%20%20%20%2C%20%20%2C%20
+Code : 420
+Error documentation description : 
+Easy there, Turbo. Too many requests recently. Enhance your calm.
+ (0)
+
+15-May-15 12:30:37: Stream attempting to start at time 15-May-15 12:30:37
+15-May-15 12:30:37: Stream running filter:
+15-May-15 12:30:37: #ios,          ,         ,        ,       ,      ,     ,    ,   ,  , 
+15-May-15 12:30:37: Stream disconnected.
+15-May-15 12:30:40: Stream disconnected.
+15-May-15 12:30:40: Exception: --- Date : 15-May-15 12:30:40
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23ios%2C%20%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%20%2C%20%20%20%20%20%20%2C%20%20%20%20%20%2C%20%20%20%20%2C%20%20%20%2C%20%20%2C%20
+Code : -1
+Error documentation description : 
+
+15-May-15 12:33:22: New log started
+15-May-15 12:33:22: Stream running filter:
+15-May-15 12:33:22: , gamerproblems, gamersunite, gamerpositivity, gaming, retrogaming, gamers, nerd, 
+15-May-15 12:33:31: Stream disconnected.
+15-May-15 12:33:35: Stream attempting to start at time 15-May-15 12:33:35
+15-May-15 12:33:35: Stream running filter:
+15-May-15 12:33:35: ,   gamerproblems,   gamersunite,   gamerpositivity,   gaming,   retrogaming,   gamers,   nerd,   ,  gamerproblems,  gamersunite,  gamerpositivity,  gaming,  retrogaming,  gamers,  nerd,  , gamerproblems, gamersunite, gamerpositivity, gaming, retrogaming, gamers, nerd, 
+15-May-15 12:33:36: Stream disconnected.
+15-May-15 12:33:37: Stream disconnected.
+15-May-15 12:33:37: Exception: --- Date : 15-May-15 12:33:37
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%2C%20%20%20gamerproblems%2C%20%20%20gamersunite%2C%20%20%20gamerpositivity%2C%20%20%20gaming%2C%20%20%20retrogaming%2C%20%20%20gamers%2C%20%20%20nerd%2C%20%20%20%2C%20%20gamerproblems%2C%20%20gamersunite%2C%20%20gamerpositivity%2C%20%20gaming%2C%20%20retrogaming%2C%20%20gamers%2C%20%20nerd%2C%20%20%2C%20gamerproblems%2C%20gamersunite%2C%20gamerpositivity%2C%20gaming%2C%20retrogaming%2C%20gamers%2C%20nerd%2C%20
+Code : -1
+Error documentation description : 
+
+15-May-15 12:33:37: Stream attempting to start at time 15-May-15 12:33:37
+15-May-15 12:33:37: Stream running filter:
+15-May-15 12:33:37: ,   gamerproblems,   gamersunite,   gamerpositivity,   gaming,   retrogaming,   gamers,   nerd,   ,  gamerproblems,  gamersunite,  gamerpositivity,  gaming,  retrogaming,  gamers,  nerd,  , gamerproblems, gamersunite, gamerpositivity, gaming, retrogaming, gamers, nerd, 
+15-May-15 12:33:48: Stream disconnected.
+15-May-15 13:39:04: New log started
+15-May-15 13:39:04: Stream running filter:
+15-May-15 13:39:04: google
+15-May-15 13:39:14: Stream disconnected.
+15-May-15 13:54:40: New log started
+15-May-15 13:54:41: Stream running filter:
+15-May-15 13:54:41: google
+15-May-15 13:54:43: Stream disconnected.
+15-May-15 13:55:02: Stream attempting to start at time 15-May-15 13:55:02
+15-May-15 13:55:02: Stream running filter:
+15-May-15 13:55:02: google
+15-May-15 13:55:05: Stream disconnected.
+15-May-15 14:07:06: New log started
+15-May-15 14:07:06: Stream running filter:
+15-May-15 14:07:06: , 
+15-May-15 14:07:07: Stream disconnected.
+15-May-15 14:07:08: Stream disconnected.
+15-May-15 14:07:08: Exception: --- Date : 15-May-15 14:07:08
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%2C%20
+Code : -1
+Error documentation description : 
+
+15-May-15 14:07:08: Stream attempting to start at time 15-May-15 14:07:08
+15-May-15 14:07:08: Stream running filter:
+15-May-15 14:07:08: , 
+15-May-15 14:07:09: Stream disconnected.
+15-May-15 14:07:09: Exception: --- Date : 15-May-15 14:07:09
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%2C%20
+Code : 406
+Error documentation description : Not Acceptable - Returned by the Search API when an invalid format is specified in the request.
+No filter parameters found. Expect at least one parameter: follow track locations
+ (0)
+
+15-May-15 14:13:15: New log started
+15-May-15 14:13:15: Stream running filter:
+15-May-15 14:13:15: google
+15-May-15 14:13:18: Stream disconnected.
+15-May-15 14:14:00: Stream attempting to start at time 15-May-15 14:14:00
+15-May-15 14:14:00: Stream running filter:
+15-May-15 14:14:00: google
+15-May-15 14:14:05: Stream disconnected.

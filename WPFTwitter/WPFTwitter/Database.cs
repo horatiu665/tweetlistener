@@ -30,7 +30,27 @@ namespace WPFTwitter
 		private bool _started = false;
 
 		public bool connectOnline;
-		public bool saveToDatabaseOrPhp;
+
+		private bool saveToDatabase = true;
+		public bool SaveToDatabase
+		{
+			get
+			{
+				return saveToDatabase;
+			}
+			set
+			{
+				saveToDatabase = value;
+			}
+		}
+
+		private bool saveToTextFile = true;
+
+		public bool SaveToTextFileProperty
+		{
+			get { return saveToTextFile; }
+			set { saveToTextFile = value; }
+		}
 
 		// connection data saved as strings
 		public string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
@@ -57,34 +77,14 @@ namespace WPFTwitter
 
 		public delegate void DatabaseSaverMessage(string message);
 
-		/// <summary>
-		/// starts database module which binds to receive tweet event, and saves data to database.
-		/// </summary>
-		public void Start(bool connectOnline, bool saveToDatabaseOrPhp)
-		{
-			if (!_started) {
-				this.connectOnline = connectOnline;
-				this.saveToDatabaseOrPhp = saveToDatabaseOrPhp;
-
-				// DO NOT CREATE DEPENDENCY FROM DATABASE TO STREAM. DO IT THE OTHER WAY AROUND
-				//stream.stream.MatchingTweetReceived += onMatchedTweetReceived;
-				//stream.stream.JsonObjectReceived += onJsonObjectReceived;
-
-
-
-				_started = true;
-
-			}
-		}
 
 		public void SaveJson(string json)
 		{
-			if (saveToDatabaseOrPhp) {
-				if (Message != null) {
-					Message("Send to database not supported, only PHP");
-				}
-			} else {
+			if (SaveToDatabase) {
 				SaveToPhpFullJson(json);
+			}
+
+			if (SaveToTextFileProperty) {
 				SaveToTextFile(json);
 			}
 		}
@@ -95,16 +95,12 @@ namespace WPFTwitter
 		/// <param name="tweet"></param>
 		public void SaveTweet(ITweet tweet, int retries = 0)
 		{
-			if (saveToDatabaseOrPhp) {
-				SaveToDatabase(tweet);
-
-			} else {
+			if (SaveToDatabase) {
 				try {
+
 					// encode tweet to json and use SaveToPhpFullJson(string json).
 					JObject json = EncodeTweetToJson(tweet);
-
 					SaveToPhpFullJson(json.ToString());
-					SaveToTextFile(json.ToString());
 
 				}
 				catch (Exception e) {
@@ -126,6 +122,10 @@ namespace WPFTwitter
 						}
 					}
 				}
+			}
+
+			if (SaveToTextFileProperty) {
+				SaveToTextFile(tweet);
 			}
 		}
 
@@ -250,82 +250,82 @@ namespace WPFTwitter
 
 		}
 
+		//// this will not happen. connect directly to MySQL is too messed up compared to just using PHP
+		///// <summary>
+		///// saves directly to database.
+		///// </summary>
+		///// <param name="message"></param>
+		//void SaveToDatabase(ITweet tweet)
+		//{
+		//	string connectionString = connectOnline ? onlineConnectionString : localConnectionString;
 
-		/// <summary>
-		/// saves directly to database.
-		/// </summary>
-		/// <param name="message"></param>
-		void SaveToDatabase(ITweet tweet)
-		{
-			string connectionString = connectOnline ? onlineConnectionString : localConnectionString;
+		//	try {
+		//		MySqlConnection connection = new MySqlConnection(connectionString);
+		//		connection.Open();
+		//		if (Message != null) {
+		//			Message("Connection to " + connectionString + " opened successfully");
+		//		}
 
-			try {
-				MySqlConnection connection = new MySqlConnection(connectionString);
-				connection.Open();
-				if (Message != null) {
-					Message("Connection to " + connectionString + " opened successfully");
-				}
+		//		string query = "";
+		//		#region setup  query
 
-				string query = "";
-				#region setup  query
+		//		// raw tweet
+		//		string rawTweet = tweet.Text;
 
-				// raw tweet
-				string rawTweet = tweet.Text;
+		//		// hashtags as given by raw tweet data from Twitter API
+		//		List<string> hashtags = tweet.Hashtags.Select<Tweetinvi.Core.Interfaces.Models.Entities.IHashtagEntity, string>(h => h.Text).ToList();
 
-				// hashtags as given by raw tweet data from Twitter API
-				List<string> hashtags = tweet.Hashtags.Select<Tweetinvi.Core.Interfaces.Models.Entities.IHashtagEntity, string>(h => h.Text).ToList();
+		//		// tweet split into words
+		//		List<string> wordList = tweet.Text.Split(' ').ToList();
 
-				// tweet split into words
-				List<string> wordList = tweet.Text.Split(' ').ToList();
+		//		// the actual query
+		//		query = " INSERT INTO ";
+		//		query += " `wordscount` ";
+		//		query += " (`id`, `word`, `count`) ";
+		//		query += " VALUES ";
+		//		query += " (NULL, '" + wordList[0] + "', '1', " + rawTweet + ", " + DateTime.Now + ") ";
+		//		for (int i = 1; i < wordList.Count; i++) {
+		//			query += " ,(NULL, '" + wordList[i] + "', '1', " + rawTweet + ", " + DateTime.Now + ") ";
+		//		}
+		//		// if duplicate key (the word),increase count instead of new row
+		//		query += " ON DUPLICATE KEY UPDATE ";
+		//		query += " count = count + 1 ";
 
-				// the actual query
-				query = " INSERT INTO ";
-				query += " `wordscount` ";
-				query += " (`id`, `word`, `count`) ";
-				query += " VALUES ";
-				query += " (NULL, '" + wordList[0] + "', '1', " + rawTweet + ", " + DateTime.Now + ") ";
-				for (int i = 1; i < wordList.Count; i++) {
-					query += " ,(NULL, '" + wordList[i] + "', '1', " + rawTweet + ", " + DateTime.Now + ") ";
-				}
-				// if duplicate key (the word),increase count instead of new row
-				query += " ON DUPLICATE KEY UPDATE ";
-				query += " count = count + 1 ";
+		//		#endregion
 
-				#endregion
+		//		MySqlCommand command = new MySqlCommand(query, connection);
+		//		command.CommandType = System.Data.CommandType.Text;
+		//		// timeout in seconds
+		//		command.CommandTimeout = 60;
 
-				MySqlCommand command = new MySqlCommand(query, connection);
-				command.CommandType = System.Data.CommandType.Text;
-				// timeout in seconds
-				command.CommandTimeout = 60;
+		//		var reader = command.ExecuteReader();
 
-				var reader = command.ExecuteReader();
+		//		while (reader.Read()) {
+		//			foreach (var r in reader) {
+		//				if (Message != null) {
+		//					Message(r.ToString());
+		//				}
+		//			}
+		//		}
 
-				while (reader.Read()) {
-					foreach (var r in reader) {
-						if (Message != null) {
-							Message(r.ToString());
-						}
-					}
-				}
+		//		connection.Close();
 
-				connection.Close();
+		//	}
+		//	catch (MySqlException e) {
 
-			}
-			catch (MySqlException e) {
+		//		if (e.Number == 1045) {
+		//			if (Message != null) {
+		//				Message("Invalid username or password");
+		//			}
+		//		} else {
+		//			if (Message != null) {
+		//				Message(e.ToString());
 
-				if (e.Number == 1045) {
-					if (Message != null) {
-						Message("Invalid username or password");
-					}
-				} else {
-					if (Message != null) {
-						Message(e.ToString());
+		//			}
+		//		}
 
-					}
-				}
-
-			}
-		}
+		//	}
+		//}
 
 
 		void SaveToTextFile(ITweet tweet)
@@ -353,7 +353,7 @@ namespace WPFTwitter
 			// save tweet first, and then some other random bullshit
 			var j = JObject.Parse(json);
 
-			
+
 			var tweet = j["text"];
 			var tweetText = tweet.ToString().Replace("\n", "<hhhnewline>");
 			tweetText = tweetText.Replace(",", "<hhhseparator>");
