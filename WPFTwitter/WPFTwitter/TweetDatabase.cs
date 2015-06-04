@@ -60,6 +60,10 @@ namespace WPFTwitter
 
 		public class TweetList : ObservableCollection<TweetData>
 		{
+<<<<<<< HEAD
+=======
+			
+>>>>>>> origin/wiki
 
 			protected override void InsertItem(int index, TweetData item)
 			{
@@ -94,6 +98,13 @@ namespace WPFTwitter
 			// how many times was this tweet found after being found once and processed?
 			public int howManyTimesFound = 1;
 
+<<<<<<< HEAD
+=======
+			/// <summary>
+			/// returns list of hashtags as found raw in ITweet.
+			/// </summary>
+			/// <returns></returns>
+>>>>>>> origin/wiki
 			public List<string> GetHashtags()
 			{
 				return tweet.Hashtags.Select(he => he.Text).ToList();
