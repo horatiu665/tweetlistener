@@ -46,3 +46,4 @@ https://drive.google.com/open?id=1URuFF1xDvC2SZ3kX5zGwCny8Z93C1ppl7bBQeAwmuTk&au
 
 - here is a chart from Google Sheets just for fun
 
+  ![Most frequent hashtags](mostFrequentTweetsStreamingTest2.png "Most frequent tweets - streaming test 2")
