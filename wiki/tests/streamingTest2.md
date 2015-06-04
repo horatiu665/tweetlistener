@@ -47,3 +47,19 @@ https://drive.google.com/open?id=1URuFF1xDvC2SZ3kX5zGwCny8Z93C1ppl7bBQeAwmuTk&au
 - here is a chart from Google Sheets just for fun
 
   ![Most frequent hashtags](mostFrequentTweetsStreamingTest2.png "Most frequent tweets - streaming test 2")
+
+### Test problems and improvement ideas
+- **Most important: handle disconnects**. Both from Twitter streaming, and from free webhost.
+disconnect of Tweetinvi stream is handled, remains to be seen if it really works.
+  - free webhost disconnect has not yet been handled, however there is not much to handle because connection is made and closed every time something is to be sent. temp solution is to try multiple times to send stuff to the db when there is an error, and after 100 attempts give up, meanwhile still sending all the new data. this might become slightly chaotic but hopefully it will work.
+- URL encode messages sent to server, because we are losing data when, for example, the char “&” is used. most likely also “?” and “=” and so on.
+  - solved
+- handle similar words somehow: callofduty, #callofduty and “callofduty:” should probably be the same. or maybe hashtag should be different
+  - interesting note on this. Check out how many words contain google when the query actually is “google”
+
+  ![Google and similar keywords](hashtagcounts.png "Google and similar keywords")
+
+- store posting user along with tweet. this way users can be used just like hashtags for query expansion (to see what they post about and how they relate to the games monitored). actually store all data about tweet since it is not so big and can prove useful
+- tweets can be recovered if tweet id is known. https://dev.twitter.com/rest/reference/get/statuses/show/%3Aid 
+- try running the test on the local server instead of online. even with the memory limits it still might have a better performance, based on tests with queries like “google” which returned maybe even 10 tweets per second on localhost, and max. 3 tweets per second online.
+  - solved, prediction accurate.
