@@ -11,6 +11,7 @@ Important note about GET search/tweets: Not all Tweets will be indexed or made a
 ### Data
 Using the console app, logged in as `*horatiu665*`, request: `*search/tweets.json*`, query: `*%23callofduty*`
 Full URL of request: 
+
 `https://api.twitter.com/1.1/search/tweets.json?q=%23callofduty`
 
 A bunch of data is returned by the request, some of it is information about the current state of the  app, such as `x-rate-limit-remaining: 179` and `date: Thu, 04 Dec 2014 09:35:34 UTC`.
@@ -19,7 +20,7 @@ The rest is contained in an `object { }`, see below.
 #### Result outline
 The bulk of data is found in the array “statuses”, ommited here for better overview.
 
-`
+```
 {
   "statuses": [
     // a bunch of tweets with a lot of data. SEE NEXT SECTION FOR TWEET DATA
@@ -37,12 +38,12 @@ The bulk of data is found in the array “statuses”, ommited here for better o
     "since_id_str": "0"
   }
 }
-`
+```
 
 #### Tweet data, example tweet
 This data can be found in every tweet in the array "statuses". A lot of it seems redundant. 
 
-`
+```
 {
       "metadata": {
         "iso_language_code": "en",
@@ -149,6 +150,6 @@ This data can be found in every tweet in the array "statuses". A lot of it seems
       "retweeted": false,
       "lang": "en"
   }
-  `
+  ```
   
   
