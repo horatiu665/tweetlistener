@@ -57,9 +57,10 @@
                         <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
                             <ad:LayoutAnchorable Title="Tweets">
                                 <DockPanel>
-                                    <DockPanel DockPanel.Dock="Top">
+                                    <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10">
                                         <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
-                                        <Button Content="Delete All" Click="tweetView_DeleteAll"/>
+                                        <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left"/>
+                                        <Button Content="Expand keywords based on all tweets" Click="tweetView_Expand"/>
                                     </DockPanel>
                                     <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}">
                                         <ListView.Resources>
@@ -167,7 +168,10 @@
                                         <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
                                         <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
                                         <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
-
+                                        <DockPanel>
+                                            <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled query expansion" VerticalAlignment="Center" />
+                                            <extendedWpf:TimeSpanUpDown x:Name="expansionScheduleTimespan" Value="1.00:00:00" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
+                                        </DockPanel>
                                     </StackPanel>
 
                                 </ad:LayoutAnchorable>
@@ -199,23 +203,19 @@
                                             <Label Content="End Date" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="{Binding ElementName=restStartDateLabel, Path=ActualWidth}"/>
                                             <extendedWpf:DateTimePicker x:Name="restEndDate"/>
                                         </DockPanel>
-                                        <Expander Header="Controls" IsExpanded="False" DockPanel.Dock="Top">
-                                            <StackPanel Background="#FFE5E5E5">
-                                                <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
-                                                <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
-                                                <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
+                                        <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
+                                            <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
+                                            <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
+                                            <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
 
-                                            </StackPanel>
-                                        </Expander>
-                                        <Expander Header="Advanced filters" IsExpanded="False" DockPanel.Dock="Top">
-                                            <StackPanel Background="#FFE5E5E5">
-                                                <!-- date filter, tweet id filter, etc... -->
-                                                <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
-                                                <CheckBox x:Name="rest_filter_recent" Content="Recent" />
+                                        </StackPanel>
+                                        <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
+                                            <!-- date filter, tweet id filter, etc... -->
+                                            <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
+                                            <CheckBox x:Name="rest_filter_recent" Content="Recent" />
 
 
-                                            </StackPanel>
-                                        </Expander>
+                                        </StackPanel>
                                         <DataGrid x:Name="restView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">
                                             <DataGrid.Columns>
                                                 <DataGridTemplateColumn Header="Time">
@@ -248,7 +248,7 @@
                             <!-- REST EXPANSION PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="*">
-                                <ad:LayoutAnchorable Title="Rest Gatherer"  CanClose="False" CanHide="False">
+                                <ad:LayoutAnchorable Title="Expansion"  CanClose="False" CanHide="False">
 
                                     <!-- this is the content you are looking for -->
                                     <DockPanel>
@@ -265,8 +265,14 @@
                                             </DockPanel>
                                             <DockPanel Margin="10,0">
                                                 <Label Content="Max Expansions" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="{Binding Path=., Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="{Binding Path=MaxExpansionCount, Mode=TwoWay}"  VerticalAlignment="Center"/>
                                             </DockPanel>
+                                            <DockPanel Margin="10,0">
+                                                <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                                <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                            <Button Content="testing shit" Click="testingshitplsdelete"></Button>
+
                                         </StackPanel>
 
                                     </DockPanel>
@@ -293,7 +299,7 @@
                                             <Button Content="Delete All" Padding="10 0" Click="keywordsView_DeleteAll"/>
                                         </DockPanel>
                                         <DockPanel DockPanel.Dock="Top">
-                                            <Button Content="Add" Padding="10 0" Margin="10 0" DockPanel.Dock="Right" Height="{Binding ElementName=keywordsResetSelectionButton, Path=ActualHeight}" Click="keywordAddButtonClick"/>
+                                            <Button IsDefault="True" Content="Add" Padding="10 0" Margin="10 0" DockPanel.Dock="Right" Height="{Binding ElementName=keywordsResetSelectionButton, Path=ActualHeight}" Click="keywordAddButtonClick"/>
                                             <DockPanel>
                                                 <Label Content="Add Keyword" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                                 <TextBox Name="keywordAddTextbox" VerticalAlignment="Center"/>
@@ -324,10 +330,11 @@
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <CheckBox IsChecked="{Binding UseKeyword}"/>
-                                                                
+
                                                             </DataTemplate>
                                                         </GridViewColumn.CellTemplate>
-                                                    </GridViewColumn><GridViewColumn Header="Controls">
+                                                    </GridViewColumn>
+                                                    <GridViewColumn Header="Controls">
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <DockPanel>

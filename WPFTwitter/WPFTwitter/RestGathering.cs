@@ -99,8 +99,6 @@ namespace WPFTwitter
 		{
 			if (keywordDatabase.KeywordList == null) {
 				keywordDatabase.KeywordList = new KeywordDatabase.KeywordListClass();
-			} else {
-				keywordDatabase.KeywordList.Clear();
 			}
 			currentExpansion = new ExpansionData(0);
 			gatheringCycle = 0;
@@ -113,15 +111,17 @@ namespace WPFTwitter
 		/// <summary>
 		/// should be started in new thread.
 		/// </summary>
-		public void Algorithm(int expansions, DateTime startDate, DateTime endDate, params string[] filters)
+		public void Algorithm(int expansions, DateTime startDate, DateTime endDate)
 		{
 			// set up initial data
 
 			// start date, end date (now). = from parameters
 
-			// init. keywords-filters.
-			AddKeywords(0, filters);
-
+			// filters/keywords taken directly from keywordDatabase.
+			if (keywordDatabase.KeywordList.Count == 0) {
+				log.Output("There are no keywords in the list. Cannot expand on an empty stomach. Please add some using the Keywords panel.");
+				return;
+			}
 
 			// start algorithm.
 			Task.Factory.StartNew(() => {

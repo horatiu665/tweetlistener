@@ -62,6 +62,12 @@ namespace WPFTwitter
 		// true when stream is running.
 		bool streamRunning = false;
 
+		public bool StreamRunning
+		{
+			get { return streamRunning; }
+			set { streamRunning = value; }
+		}
+
 		/// <summary>
 		/// increases every reconnect, and resets to 100 when connection is successful
 		/// </summary>
@@ -205,7 +211,7 @@ namespace WPFTwitter
 			// initialize stuff
 
 			InitCounters();
-			
+
 			// init stream thread
 			streamThread = new Action(StartStreamTask);
 
@@ -238,7 +244,7 @@ namespace WPFTwitter
 		/// </summary>
 		public void Start()
 		{
-			if (streamRunning) {
+			if (StreamRunning) {
 				return;
 			}
 
@@ -247,6 +253,11 @@ namespace WPFTwitter
 			stream.ClearTracks();
 
 			AddTracksFromKeywordDatabase();
+
+			if (stream.TracksCount == 0) {
+				log.Output("There are no keywords in the list! Cannot start stream without any keywords, Twitter would slap us. Please add some keywords using the Keywords panel");
+				return;
+			}
 
 			StreamStartInsistBetter(stream);
 
@@ -290,11 +301,11 @@ namespace WPFTwitter
 
 				}
 
-				// log the start of the stream.
-				log.SmallOutput("Stream attempting to start at time " + DateTime.Now.ToString());
-
 				// first wait to not get banned
 				await Task.Delay(reconnectDelayMillis);
+
+				// log the start of the stream.
+				log.Output("Stream attempting to start at time " + DateTime.Now.ToString());
 
 				// catch exceptions within this thread. if they happen, we must retry connecting.
 				try {
@@ -314,13 +325,13 @@ namespace WPFTwitter
 
 			}
 
-			streamRunning = false;
+			StreamRunning = false;
 
 		}
 
 		public void Stop()
 		{
-			if (streamRunning) {
+			if (StreamRunning) {
 				stream.StopStream();
 				intentionalStop = true;
 			}
@@ -341,7 +352,7 @@ namespace WPFTwitter
 			//log.SmallOutput("Stream running filter:");
 			//log.SmallOutput(filter);
 
-			streamRunning = true;
+			StreamRunning = true;
 
 			// use Rest for gathering tweets since last time the stream stopped.
 			rest.TweetsGatheringCycle(lastStreamStopTime, DateTime.Now, keywordDatabase.GetUsableKeywords());
@@ -384,8 +395,11 @@ namespace WPFTwitter
 		private void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
 		{
 			reconnectDelayMillis = 100;
-			databaseSaver.SaveTweet(e.Tweet);
+			// do this in a separate thread to not kill the stream just because database has errors
+			Task.Factory.StartNew(() => {
+				databaseSaver.SaveTweet(e.Tweet);
 
+			});
 		}
 
 		private bool logEveryJson = false;

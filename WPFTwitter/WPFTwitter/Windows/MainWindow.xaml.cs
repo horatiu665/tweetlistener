@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace WPFTwitter.Windows
 {
@@ -50,6 +51,9 @@ namespace WPFTwitter.Windows
 		}
 
 
+		private System.Timers.Timer autoExpansionTimer = new System.Timers.Timer();
+
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -82,7 +86,12 @@ namespace WPFTwitter.Windows
 			// keyword list binding
 			keywordListView.ItemsSource = keywordDatabase.KeywordList;
 
-			restExpansionsMaxExpansionsTextbox.DataContext = restGatherer.MaxExpansionCount;
+			restExpansionsMaxExpansionsTextbox.DataContext = restGatherer;
+			expansionNaivePercentage.DataContext = queryExpansion;
+
+			autoExpansionTimer.Elapsed += (s, a) => {
+				AutoExpand();
+			};
 
 			restGatherer.TweetFound += (s, t) => {
 				App.Current.Dispatcher.Invoke(() => {
@@ -174,17 +183,39 @@ namespace WPFTwitter.Windows
 				log.Start(logPathTextBox.Text, checkBox_databaseMessages.IsChecked.Value);
 			}
 
+			autoExpansionTimer.Stop();
+
+			if (autoQueryExpansionCheckbox.IsChecked.Value) {
+				var timespan = expansionScheduleTimespan.Value.Value;
+				if (timespan == null) {
+					log.Output("Timespan null in scheduled expansion field in Streaming Toolbox. Please assign a valid timespan for the scheduler!");
+				} else {
+					autoExpansionTimer.Interval = timespan.TotalMilliseconds;
+				}
+				autoExpansionTimer.Start();
+			}
+
 		}
 
 		private void restartStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 			stopStreamButton_Click(sender, e);
+			// wait until stream has stopped && streamRunning is false
+			while (stream.StreamRunning) {
+				// wait
+				;
+			}
 			startStreamButton_Click(sender, e);
 		}
 
 		private void stopStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 			stream.Stop();
+
+			if (autoExpansionTimer.Enabled) {
+				log.Output("Attempting to stop scheduled expansion");
+				autoExpansionTimer.Stop();
+			}
 		}
 
 		private void dMan_Unloaded(object sender, RoutedEventArgs e)
@@ -266,7 +297,7 @@ namespace WPFTwitter.Windows
 
 		private void restExpansionButton_Click(object sender, RoutedEventArgs e)
 		{
-			
+
 			var button = ((Button)sender);
 
 			if (!queryExpanding) {
@@ -281,10 +312,8 @@ namespace WPFTwitter.Windows
 				restExpansionStatusLabel.Content = "Expanding";
 				//restExpansionView.DataContext = keywordDatabase.KeywordList;
 
-				var filters = restExpansionFilters.Text.Split(',');
-
 				App.Current.Dispatcher.Invoke(() => {
-					restGatherer.Algorithm(restGatherer.MaxExpansionCount, DateTime.Now.AddDays(-7), DateTime.Now, filters);
+					restGatherer.Algorithm(restGatherer.MaxExpansionCount, DateTime.Now.AddDays(-7), DateTime.Now);
 				});
 
 				button.IsEnabled = true;
@@ -351,7 +380,7 @@ namespace WPFTwitter.Windows
 			}));
 		}
 
-		
+
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
 			//if (e.Key == Key.G) {
@@ -516,19 +545,24 @@ namespace WPFTwitter.Windows
 			var button = ((Button)sender);
 			var item = FindParent<ListViewItem>(button);
 			if (item != null) {
-				App.Current.Dispatcher.Invoke(() => {
-					var content = (TweetDatabase.TweetData)(item.Content);
-					var hashtagsToUpdate = content.tweet.Hashtags.Select(hEntity => hEntity.Text.ToLower());
-					tweetDatabase.AllTweets.Remove(content);
-					// update counts of hashtags
-					foreach (var k in keywordDatabase.KeywordList) {
-						if (hashtagsToUpdate.Contains(k.Keyword.Replace("#", "").ToLower())) {
-							k.Count = tweetDatabase.Tweets.Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
-						}
-					}
+				var content = (TweetDatabase.TweetData)(item.Content);
+				var result = MessageBox.Show("Delete tweet " + content.Tweet + " ?", "Delete confirmation", MessageBoxButton.YesNo);
 
-					tweetView.ItemsSource = tweetDatabase.Tweets;
-				});
+				if (result == MessageBoxResult.Yes) {
+
+					App.Current.Dispatcher.Invoke(() => {
+						var hashtagsToUpdate = content.tweet.Hashtags.Select(hEntity => hEntity.Text.ToLower());
+						tweetDatabase.AllTweets.Remove(content);
+						// update counts of hashtags
+						foreach (var k in keywordDatabase.KeywordList) {
+							if (hashtagsToUpdate.Contains(k.Keyword.Replace("#", "").ToLower())) {
+								k.Count = tweetDatabase.Tweets.Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
+							}
+						}
+
+						tweetView.ItemsSource = tweetDatabase.Tweets;
+					});
+				}
 			}
 		}
 
@@ -576,14 +610,18 @@ namespace WPFTwitter.Windows
 
 		private void tweetView_DeleteAll(object sender, RoutedEventArgs e)
 		{
-			App.Current.Dispatcher.Invoke(() => {
-				tweetDatabase.Tweets = new ObservableCollection<TweetDatabase.TweetData>();
-				foreach (var k in keywordDatabase.KeywordList) {
-					k.Count = 0;
+			var result = MessageBox.Show("Are you sure you want to delete all tweets? The database and text files will not be affected.", "Delete confirmation", MessageBoxButton.YesNo);
 
-				}
-				keywordListView.ItemsSource = keywordDatabase.KeywordList;
-			});
+			if (result == MessageBoxResult.Yes) {
+				App.Current.Dispatcher.Invoke(() => {
+					tweetDatabase.Tweets = (TweetDatabase.TweetList)new ObservableCollection<TweetDatabase.TweetData>();
+					foreach (var k in keywordDatabase.KeywordList) {
+						k.Count = 0;
+
+					}
+					keywordListView.ItemsSource = keywordDatabase.KeywordList;
+				});
+			}
 		}
 
 		private void logClearButtonClick(object sender, RoutedEventArgs e)
@@ -601,39 +639,83 @@ namespace WPFTwitter.Windows
 
 		private void keywordsView_DeleteAll(object sender, RoutedEventArgs e)
 		{
-			App.Current.Dispatcher.Invoke(() => {
-				keywordDatabase.KeywordList.Clear();
+			var result = MessageBox.Show("Are you sure you want to delete all keywords?", "Delete confirmation", MessageBoxButton.YesNo);
 
-				SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
-			});
+			if (result == MessageBoxResult.Yes) {
+				App.Current.Dispatcher.Invoke(() => {
+					keywordDatabase.KeywordList.Clear();
+
+					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
+				});
+			}
 		}
 
 		private void keywordAddButtonClick(object sender, RoutedEventArgs e)
 		{
 			var newKeyword = keywordAddTextbox.Text;
+			newKeyword = newKeyword.Replace(" ", "");
 
-			App.Current.Dispatcher.Invoke(() => {
-				keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(newKeyword, 0));
+			if (newKeyword != "") {
+				if (!(newKeyword[0] == '#')) {
+					newKeyword = newKeyword.Insert(0, "#");
+				}
+				App.Current.Dispatcher.Invoke(() => {
+					keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(newKeyword, 0));
 
-				SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
-			});
+					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
+
+					keywordAddTextbox.Text = "";
+				});
+			}
 		}
 
 		private void keywordsView_UseAll(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.Invoke(() => {
-				keywordDatabase.KeywordList.ToList().ForEach(kd => kd.UseKeyword = true);
-				keywordListView.DataContext = keywordDatabase.KeywordList;
+				var newKeys = new ObservableCollection<KeywordDatabase.KeywordData>(keywordDatabase.KeywordList);
+				foreach (var kd in newKeys) {
+					kd.UseKeyword = true;
+				}
+
+				keywordDatabase.KeywordList.Set(newKeys);
+
 				keywordListView.UpdateLayout();
 			});
 		}
 		private void keywordsView_UseNone(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.Invoke(() => {
-				keywordDatabase.KeywordList.ToList().ForEach(kd => kd.UseKeyword = false);
-				keywordListView.DataContext = keywordDatabase.KeywordList;
+				var newKeys = new ObservableCollection<KeywordDatabase.KeywordData>(keywordDatabase.KeywordList);
+				foreach (var kd in newKeys) {
+					kd.UseKeyword = false;
+				}
+
+				keywordDatabase.KeywordList.Set(newKeys);
+
 				keywordListView.UpdateLayout();
 			});
+		}
+
+		private void tweetView_Expand(object sender, RoutedEventArgs e)
+		{
+			var newKeywords = queryExpansion.Expand(keywordDatabase.KeywordList.ToList(), tweetDatabase.AllTweets.ToList());
+			keywordDatabase.KeywordList.Set(newKeywords);
+
+			keywordListView.UpdateLayout();
+		}
+
+		private void testingshitplsdelete(object sender, RoutedEventArgs e)
+		{
+			log.Output("max exp count " + restGatherer.MaxExpansionCount);
+			log.Output("naive exp perce" + queryExpansion.NaiveExpansionPercentage);
+		}
+
+		private void AutoExpand()
+		{
+			log.Output("Attempting to expand the query automatically");
+			tweetView_Expand(null, null);
+			log.Output("Attempting to restart the stream automatically");
+			restartStreamButton_Click(null, null);
 		}
 
 	}

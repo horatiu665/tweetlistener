@@ -11,16 +11,16 @@ namespace WPFTwitter
 {
 	public class TweetDatabase
 	{
-		
+
 		/// <summary>
 		/// store the tweet database here
 		/// </summary>
-		private ObservableCollection<TweetData> tweets = new ObservableCollection<TweetData>();
+		private TweetList tweets = new TweetList();
 
 		/// <summary>
 		/// take from tweets, and only show the ones we want to show based on onlyShowKeywords
 		/// </summary>
-		public ObservableCollection<TweetData> Tweets
+		public TweetList Tweets
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace WPFTwitter
 						}
 						return false;
 					});
-					ObservableCollection<TweetData> show = new ObservableCollection<TweetData>(showList);
+					TweetList show = (TweetList) new ObservableCollection<TweetData>(showList);
 					return show;
 				}
 
@@ -48,7 +48,7 @@ namespace WPFTwitter
 			}
 		}
 
-		public ObservableCollection<TweetData> AllTweets
+		public TweetList AllTweets
 		{
 			get
 			{
@@ -58,6 +58,19 @@ namespace WPFTwitter
 
 		public List<string> onlyShowKeywords = new List<string>();
 
+		public class TweetList : ObservableCollection<TweetData>
+		{
+
+			protected override void InsertItem(int index, TweetData item)
+			{
+				if (item.tweet.IsRetweet && this.Any(td => td.Id == item.tweet.RetweetedTweet.Id)) {
+					this.First(td => td.Id == item.tweet.RetweetedTweet.Id).RetweetCount++;
+				} else {
+					base.InsertItem(index, item);
+				}
+			}
+
+		}
 
 		public class TweetData
 		{
@@ -93,9 +106,11 @@ namespace WPFTwitter
 				this.gatheringCycle = gatheringCycle;
 				this.firstExpansion = firstExpansion;
 
+				this.retweetCount = t.RetweetCount;
+
 			}
 
-			
+
 
 			public DateTime Date
 			{
@@ -142,6 +157,25 @@ namespace WPFTwitter
 				get
 				{
 					return tweet.Creator.Id;
+				}
+			}
+
+			private int retweetCount = 0;
+
+			/// <summary>
+			/// Retweet count, counted manually
+			/// beginning at twitter data when TweetData is constructed
+			/// and counting every time the tweet id is found in another tweet's retweet id
+			/// </summary>
+			public int RetweetCount
+			{
+				get
+				{
+					return retweetCount;
+				}
+				set
+				{
+					retweetCount = value;
 				}
 			}
 

@@ -204,3 +204,4 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.DataGrid.dll
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Debug\WPFTwitter.csprojResolveAssemblyReference.cache

@@ -50,7 +50,7 @@ namespace WPFTwitter
 			// TODO: implement stopping, so if stream is stopped intentionally, this also stops.
 			var stop = false;
 
-			log.Output("Start of Rest.TweetsGatheringCycle()");
+			log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
 
 			try {
 				// split query into multiple shorter ones, within Twitter limits.
@@ -133,7 +133,7 @@ namespace WPFTwitter
 				log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
 				log.Output(e.ToString());
 			}
-			log.Output("End of Rest.TweetsGatheringCycle()");
+			log.Output("End of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
 
 		}
 

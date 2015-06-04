@@ -54,7 +54,6 @@ namespace WPFTwitter
 
 		// connection data saved as strings
 		public string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
-		public string onlineConnectionString = @"server=mysql10.000webhost.com;userid=a3879893_admin;password=dumnezeu55;database=a3879893_tweet";
 		public string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
 		public string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
 

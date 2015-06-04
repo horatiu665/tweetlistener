@@ -12,26 +12,35 @@ namespace WPFTwitter
 
 		Log log;
 
+		private float naiveExpansionPercentage = 10;
+
+		public float NaiveExpansionPercentage
+		{
+			get { return naiveExpansionPercentage; }
+			set { naiveExpansionPercentage = value; }
+		}
+
+
 		public QueryExpansion(Log log)
 		{
 			this.log = log;
 		}
 
-		public List<string> Expand(List<string> query, List<ITweet> tweetPopulation)
+		public List<KeywordDatabase.KeywordData> Expand(List<KeywordDatabase.KeywordData> keywords, List<TweetDatabase.TweetData> tweetPopulation)
 		{
-			return ExpandNaive(query, tweetPopulation);
+			return ExpandNaive(keywords, tweetPopulation);
 		}
 
 
-		private List<string> ExpandNaive(List<string> query, List<ITweet> tweetPopulation)
+		public List<KeywordDatabase.KeywordData> ExpandNaive(List<KeywordDatabase.KeywordData> keywords, List<TweetDatabase.TweetData> tweetPopulation)
 		{
 			log.Output("Expanding query on " + tweetPopulation.Count + " tweets");
 
 			// find keywords from tweetPopulation (and their count)
 			Dictionary<string, int> keywordsInTweets = new Dictionary<string, int>();
 			foreach (var t in tweetPopulation) {
-				foreach (var ht in t.Hashtags) {
-					var tag = ht.Text.ToLower();
+				foreach (var ht in t.GetHashtags()) {
+					var tag = ht.ToLower();
 					if (keywordsInTweets.Keys.Contains(tag)) {
 						keywordsInTweets[tag]++;
 					} else {
@@ -40,20 +49,37 @@ namespace WPFTwitter
 				}
 			}
 
+			// remove the ones that are already in the keywords list
+			foreach (var k in keywords) {
+				var toRemove = k.Keyword;
+				toRemove = toRemove.Replace("#", "");
+				keywordsInTweets.Remove(toRemove);
+			}
+
 			// order by count somehow
 			var orderedKeywords = keywordsInTweets.OrderByDescending(kvp => kvp.Value);
 
 			// return original query + X% top most frequent new keywords
-			var expandedKeywords = orderedKeywords.Take((int)(orderedKeywords.Count() * 0.1f));
+			var expandedKeywords = orderedKeywords.Take((int)Math.Ceiling(orderedKeywords.Count() * (naiveExpansionPercentage/100f)));
 
 			expandedKeywords = expandedKeywords.Where(kvp => kvp.Key.Any(cha => cha != ' '));
 
 			var s = "";
 			expandedKeywords.ToList().ForEach(kvp => s += kvp.Key + ", ");
 
-			log.Output("New keywords after expansion: " + s);
+			if (expandedKeywords.Count() == 0) {
+				log.Output("No new keywords were found");
+			} else {
+				log.Output("New keywords after expansion: " + s);
+			}
 
-			return query.Concat(expandedKeywords.Select(kvp => kvp.Key)).ToList();
+			// create new keywordData for the new keywords found
+			var newKeywordList = new List<KeywordDatabase.KeywordData>();
+			foreach (var e in expandedKeywords) {
+				newKeywordList.Add(new KeywordDatabase.KeywordData("#" + e.Key, 0));
+			}
+
+			return keywords.Concat(newKeywordList).ToList();
 		}
 
 	}
