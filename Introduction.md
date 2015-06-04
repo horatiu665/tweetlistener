@@ -13,3 +13,12 @@ Check out the following links to explore the wiki.
 ## Getting started
 
 [Basics about the Twitter API](basicTwitterApi.md)
+
+
+<!---
+
+Cheatsheet for writing nice wikis on GitHub:
+
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+--->
