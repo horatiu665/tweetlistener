@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tweetinvi.Core.Interfaces;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 
 namespace WPFTwitter
@@ -32,7 +33,10 @@ namespace WPFTwitter
 						}
 						return false;
 					});
-					TweetList show = (TweetList) new ObservableCollection<TweetData>(showList);
+					TweetList show = new TweetList();
+					foreach (var t in showList) {
+						show.Add(t);
+					}
 					return show;
 				}
 
@@ -60,23 +64,31 @@ namespace WPFTwitter
 
 		public class TweetList : ObservableCollection<TweetData>
 		{
-<<<<<<< HEAD
-=======
-			
->>>>>>> origin/wiki
-
 			protected override void InsertItem(int index, TweetData item)
 			{
-				if (item.tweet.IsRetweet && this.Any(td => td.Id == item.tweet.RetweetedTweet.Id)) {
-					this.First(td => td.Id == item.tweet.RetweetedTweet.Id).RetweetCount++;
-				} else {
+				// only add tweet if it has not been found before (REST can find same tweets again)
+				if (this.Any(td => td.Id == item.Id)) {
+					// update retweet count but nothing more than that.
+					this.First(td => td.Id == item.Id).RetweetCount = item.RetweetCount;
+					return;
+				}
+
+				// if we captured a non-retweet, add it to the list.
+				if (!item.tweet.IsRetweet) {
 					base.InsertItem(index, item);
+				} else {
+					// if there is an item already with the ID equal to the retweet, increase count
+					if (this.Any(td => td.Id == item.tweet.RetweetedTweet.Id)) {
+						this.First(td => td.Id == item.tweet.RetweetedTweet.Id).RetweetCount++;
+					} else {
+						// add the original tweet to the list instead of the retweet.
+						base.InsertItem(index, new TweetData(item.tweet.RetweetedTweet, item.source, item.gatheringCycle, item.firstExpansion));
+					}
 				}
 			}
-
 		}
 
-		public class TweetData
+		public class TweetData : INotifyPropertyChanged
 		{
 			public ITweet tweet;
 
@@ -98,16 +110,25 @@ namespace WPFTwitter
 			// how many times was this tweet found after being found once and processed?
 			public int howManyTimesFound = 1;
 
-<<<<<<< HEAD
-=======
 			/// <summary>
 			/// returns list of hashtags as found raw in ITweet.
 			/// </summary>
 			/// <returns></returns>
->>>>>>> origin/wiki
 			public List<string> GetHashtags()
 			{
 				return tweet.Hashtags.Select(he => he.Text).ToList();
+			}
+
+			/// <summary>
+			/// does this tweet contain the hashtag tag?
+			/// </summary>
+			/// <param name="tag">hashtag to contain</param>
+			/// <returns></returns>
+			public bool ContainsHashtag(string tag)
+			{
+				if (tweet.Hashtags.Count == 0) return false;
+				var withoutHash = tag.IndexOf("#") == 0 ? tag.Substring(1) : tag;
+				return tweet.Hashtags.Select(he => he.Text.ToLower()).Contains(withoutHash);
 			}
 
 			public TweetData(ITweet t, Sources source, int gatheringCycle, int firstExpansion)
@@ -120,8 +141,6 @@ namespace WPFTwitter
 				this.retweetCount = t.RetweetCount;
 
 			}
-
-
 
 			public DateTime Date
 			{
@@ -187,9 +206,22 @@ namespace WPFTwitter
 				set
 				{
 					retweetCount = value;
+					if (PropertyChanged != null) {
+						PropertyChanged(this, new PropertyChangedEventArgs("RetweetCount"));
+					}
 				}
 			}
 
+			public List<string> Links
+			{
+				get
+				{
+					return tweet.Urls.Select(urlEntity => urlEntity.URL).ToList();
+				}
+			}
+
+
+			public event PropertyChangedEventHandler PropertyChanged;
 		}
 	}
 }

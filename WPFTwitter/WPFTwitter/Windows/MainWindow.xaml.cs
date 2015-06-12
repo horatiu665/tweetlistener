@@ -72,6 +72,7 @@ namespace WPFTwitter.Windows
 
 			//////// initialize bindings
 			// log binding
+			logPane.DataContext = log;
 			logView.DataContext = LogMessageList;
 			log.LogOutput += Log_LogOutput;
 			checkBox_logCounters.DataContext = stream;
@@ -83,11 +84,10 @@ namespace WPFTwitter.Windows
 			// rest log binding
 			restView.DataContext = RestMessageList;
 
-			// keyword list binding
+			// kData list binding
 			keywordListView.ItemsSource = keywordDatabase.KeywordList;
 
-			restExpansionsMaxExpansionsTextbox.DataContext = restGatherer;
-			expansionNaivePercentage.DataContext = queryExpansion;
+			expansionPanel.DataContext = queryExpansion;
 
 			autoExpansionTimer.Elapsed += (s, a) => {
 				AutoExpand();
@@ -119,9 +119,6 @@ namespace WPFTwitter.Windows
 				App.Current.Dispatcher.Invoke((Action)(() => {
 					_restMessageList.Add(
 						new LogMessage("RestGatherer successfully stopped"));
-					restExpansionStatusLabel.Content = "Stopped";
-					restExpansionButton.Content = "Start Expansion";
-					restExpansionButton.IsEnabled = true;
 
 				}));
 			};
@@ -133,16 +130,19 @@ namespace WPFTwitter.Windows
 			stream.stream.MatchingTweetReceived += (s, a) => {
 				App.Current.Dispatcher.Invoke(() => {
 					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 				});
 			};
 			restGatherer.TweetFound += (s, t) => {
 				App.Current.Dispatcher.Invoke(() => {
 					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 				});
 			};
 			rest.TweetFound += (t) => {
 				App.Current.Dispatcher.Invoke(() => {
 					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 				});
 			};
 
@@ -168,8 +168,8 @@ namespace WPFTwitter.Windows
 				_logMessageList.Add(new LogMessage(message));
 
 				/// if scrolling checkbox is activated, scroll into view. else stop scrolling
-				//if(true)
-				logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count - 1));
+				if (log.ScrollToLast)
+					logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count - 1));
 			}));
 		}
 
@@ -200,12 +200,16 @@ namespace WPFTwitter.Windows
 		private void restartStreamButton_Click(object sender, RoutedEventArgs e)
 		{
 			stopStreamButton_Click(sender, e);
+
 			// wait until stream has stopped && streamRunning is false
-			while (stream.StreamRunning) {
-				// wait
-				;
-			}
-			startStreamButton_Click(sender, e);
+			Task.Factory.StartNew(() => {
+				log.Output("Separate thread waiting to start stream after it stops");
+				while (stream.StreamRunning) {
+					// wait
+					;
+				}
+				startStreamButton_Click(sender, e);
+			});
 		}
 
 		private void stopStreamButton_Click(object sender, RoutedEventArgs e)
@@ -234,10 +238,6 @@ namespace WPFTwitter.Windows
 
 		private void restQueryButton_Click(object sender, RoutedEventArgs e)
 		{
-
-			// display stuff in restInfoTextBlock.Text = "<here>"
-			_restMessageList.Add(new LogMessage("trying to get rest query"));
-
 			App.Current.Dispatcher.InvokeAsync((Action)(() => {
 
 				string filter = restFilterTextBox.Text;
@@ -245,24 +245,24 @@ namespace WPFTwitter.Windows
 				bool simpleQuery = ((CheckBox)rest_filter_simpleQuery).IsChecked.Value;
 				if (simpleQuery) {
 
-					// display stuff in restInfoTextBlock.Text = "<here>"
-					_restMessageList.Add(new LogMessage("Getting Rest query with filter \"" + filter + "\""));
+					log.Output("Getting Rest query with filter \"" + filter + "\"");
 
 					// perform Rest query using Rest class
 					var res = rest.SearchTweets(filter);
 
 					if (res == null) {
-						_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials"));
+						log.Output(("Not authenticated or invalid credentials"));
 						return;
 
 					}
 
 					if (res.Count == 0) {
-						_restMessageList.Add(new LogMessage("No tweets returned"));
+						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
 							tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
+						keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 					}
 				} else {
 					var recent = rest_filter_recent.IsChecked.Value;
@@ -270,22 +270,23 @@ namespace WPFTwitter.Windows
 					searchParameters.SearchType = recent ? Tweetinvi.Core.Enum.SearchResultType.Recent : Tweetinvi.Core.Enum.SearchResultType.Popular;
 
 					// display stuff in restInfoTextBlock.Text = "<here>"
-					_restMessageList.Add(new LogMessage("Getting Rest query with advanced search parameters"));
+					log.Output(("Getting Rest query with advanced search parameters"));
 
 					var res = rest.SearchTweets(searchParameters);
 
 					if (res == null) {
-						_restMessageList.Add(new LogMessage("Not authenticated or invalid credentials"));
+						log.Output(("Not authenticated or invalid credentials"));
 						return;
 
 					}
 
 					if (res.Count == 0) {
-						_restMessageList.Add(new LogMessage("No tweets returned"));
+						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
 							tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
+						keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 					}
 
 				}
@@ -295,36 +296,7 @@ namespace WPFTwitter.Windows
 
 		private bool queryExpanding = false;
 
-		private void restExpansionButton_Click(object sender, RoutedEventArgs e)
-		{
 
-			var button = ((Button)sender);
-
-			if (!queryExpanding) {
-				queryExpanding = true;
-
-
-				button.Content = "Stop Expansion";
-				button.IsEnabled = false;
-
-				restGatherer.Reset();
-
-				restExpansionStatusLabel.Content = "Expanding";
-				//restExpansionView.DataContext = keywordDatabase.KeywordList;
-
-				App.Current.Dispatcher.Invoke(() => {
-					restGatherer.Algorithm(restGatherer.MaxExpansionCount, DateTime.Now.AddDays(-7), DateTime.Now);
-				});
-
-				button.IsEnabled = true;
-
-			} else {
-				queryExpanding = false;
-				button.IsEnabled = false;
-				restGatherer.Stop();
-
-			}
-		}
 
 		private void SetTweetViewColumnHeaders()
 		{
@@ -416,7 +388,7 @@ namespace WPFTwitter.Windows
 
 		private void keywordListView_Headers_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			// order by keyword
+			// order by kData
 			if (restGatherer == null) return;
 			if (keywordDatabase.KeywordList == null) return;
 			if (keywordDatabase.KeywordList.Count == 0) return;
@@ -458,8 +430,8 @@ namespace WPFTwitter.Windows
 			var item = ((ListViewItem)sender);
 			var content = (KeywordDatabase.KeywordData)(item.Content);
 
-			// get keyword
-			// in tweet viewer, show only the tweets that contain said keyword.
+			// get kData
+			// in tweet viewer, show only the tweets that contain said kData.
 			App.Current.Dispatcher.Invoke((Action)(() => {
 				tweetDatabase.onlyShowKeywords.Clear();
 				tweetDatabase.onlyShowKeywords.Add(content.Keyword);
@@ -531,11 +503,15 @@ namespace WPFTwitter.Windows
 		private void restExhaustiveQueryButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
-				App.Current.Dispatcher.Invoke(() => {
-					rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
-				});
+				// start this in a new thread
+				//Task.Factory.StartNew(() => {
+					App.Current.Dispatcher.Invoke(() => {
+						rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
+					});
+				//});
 			} else {
 				// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
+				log.Output("Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.");
 			}
 		}
 
@@ -574,7 +550,7 @@ namespace WPFTwitter.Windows
 			if (item != null) {
 				App.Current.Dispatcher.Invoke(() => {
 					var content = (KeywordDatabase.KeywordData)(item.Content);
-					// delete keyword from list
+					// delete kData from list
 					keywordDatabase.KeywordList.Remove(content);
 					// update header counts
 					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
@@ -614,7 +590,7 @@ namespace WPFTwitter.Windows
 
 			if (result == MessageBoxResult.Yes) {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets = (TweetDatabase.TweetList)new ObservableCollection<TweetDatabase.TweetData>();
+					tweetDatabase.Tweets.Clear();
 					foreach (var k in keywordDatabase.KeywordList) {
 						k.Count = 0;
 
@@ -696,27 +672,39 @@ namespace WPFTwitter.Windows
 			});
 		}
 
-		private void tweetView_Expand(object sender, RoutedEventArgs e)
+		private void tweetView_ExpandNaive(object sender, RoutedEventArgs e)
 		{
 			var newKeywords = queryExpansion.Expand(keywordDatabase.KeywordList.ToList(), tweetDatabase.AllTweets.ToList());
 			keywordDatabase.KeywordList.Set(newKeywords);
-
-			keywordListView.UpdateLayout();
-		}
-
-		private void testingshitplsdelete(object sender, RoutedEventArgs e)
-		{
-			log.Output("max exp count " + restGatherer.MaxExpansionCount);
-			log.Output("naive exp perce" + queryExpansion.NaiveExpansionPercentage);
+			keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 		}
 
 		private void AutoExpand()
 		{
 			log.Output("Attempting to expand the query automatically");
-			tweetView_Expand(null, null);
+			tweetView_ExpandNaive(null, null);
 			log.Output("Attempting to restart the stream automatically");
 			restartStreamButton_Click(null, null);
 		}
+
+		int currentCredentialDefaults = 0;
+
+		private void setCredentialsDefault_Click(object sender, RoutedEventArgs e)
+		{
+			var creds = (credentials.GetDefaults(currentCredentialDefaults++));
+			Access_Token.Text = creds[0];
+			Access_Token_Secret.Text = creds[1];
+			Consumer_Key.Text = creds[2];
+			Consumer_Secret.Text = creds[3];
+
+		}
+
+		private void tweetView_ExpandEfron(object sender, RoutedEventArgs e)
+		{
+			queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.AllTweets);
+
+		}
+
 
 	}
 

@@ -9,6 +9,8 @@ using Tweetinvi.Core.Interfaces;
 using Tweetinvi.Core.Enum;
 using Tweetinvi.Core.Extensions;
 using Tweetinvi.Core.Interfaces.Models.Parameters;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace WPFTwitter
 {
@@ -42,8 +44,12 @@ namespace WPFTwitter
 			tweetDatabase = tdb;
 
 			TweetFound += OnTweetFound;
-			
+
+			// tweetinvi handles rate limit tracking, and we only query tweetinvi instead of handling rate limits manually.
+			RateLimit.RateLimitTrackerOption = Tweetinvi.Core.RateLimitTrackerOptions.TrackOnly;
+
 		}
+
 
 		public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
 		{
@@ -52,89 +58,121 @@ namespace WPFTwitter
 
 			log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
 
-			try {
-				// split query into multiple shorter ones, within Twitter limits.
-				var queries = SplitIntoSmallQueries(keywordList);
-				foreach (var q in queries) {
-					var queryString = "";
-					foreach (var s in q) {
-						queryString += s + ",";
-					}
+			Task.Factory.StartNew(() => {
 
-					var sp = GenerateSearchParameters(queryString);
-					sp.SearchType = SearchResultType.Recent;
-					//sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
-					sp.Since = sinceDate;
-					sp.Until = untilDate;
-					sp.MaximumNumberOfResults = 100;
-					sp.SinceId = long.MinValue;
-					sp.MaxId = long.MaxValue;
 
-					// only search if there are keywords in the query
-					if (sp.SearchQuery != "" && !stop) {
+				try {
+					// split query into multiple shorter ones, within Twitter limits.
+					var queries = SplitIntoSmallQueries(keywordList);
 
-						log.Output("Searching for " + sp.SearchQuery);
+					// if didn't get results yet, repeat do..while until we get results.
+					bool gotResults = false;
 
-						// main results loop, waiting for rest limits, etc.
-						var results = new List<ITweet>();
+					// main results loop, waiting for rest limits, etc.
+					var results = new List<ITweet>();
 
-						// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
-						do {
-							if (rateLimitCounter > 0 && !stop) {
+					foreach (var q in queries) {
+						var queryString = "";
+						foreach (var s in q) {
+							queryString += s + ",";
+						}
 
-								results = SearchTweets(sp);
-								if (results == null) {
-									break;
-								}
-								if (results.Count == 0) {
-									break;
-								}
+						var sp = GenerateSearchParameters(queryString);
+						sp.SearchType = SearchResultType.Recent;
+						//sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
+						sp.Since = sinceDate;
+						sp.Until = untilDate;
+						sp.MaximumNumberOfResults = 100;
+						sp.SinceId = long.MinValue;
+						sp.MaxId = long.MaxValue;
 
-								rateLimitCounter--;
 
-								// save minId to use for next batch of tweets
-								var minId = results[0].IdStr;
-								foreach (var r in results) {
-									// find minId among results.
-									if (stringIntSmallerThan(r.IdStr, minId)) {
-										minId = r.IdStr;
+						////////////////////////////////////////  RATE LIMITS  //////////////////////////////////////////////// 
+
+						// check rate limits in case we are wrong and they are not actually zero
+						var rateLimitsObj = GetRateLimits_Search();
+						rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
+						rateLimitReset = rateLimitsObj == null ? DateTime.Now : rateLimitsObj.ResetDateTime;
+
+						// wait for rate limits before starting loop
+						if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
+							log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
+							Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
+						}
+
+						// only search if there are keywords in the query
+						if (sp.SearchQuery != "" && !stop) {
+
+							log.Output("Searching for " + sp.SearchQuery);
+
+							do {
+								// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
+								gotResults = false;
+								if (rateLimitCounter > 0 && !stop) {
+
+									results = SearchTweets(sp);
+
+									gotResults = true;
+
+									if (results != null && results.Count > 0) {
+
+										rateLimitCounter--;
+
+										// save minId to use for next batch of tweets
+										var minId = results[0].IdStr;
+										foreach (var r in results) {
+											// find minId among results.
+											if (stringIntSmallerThan(r.IdStr, minId)) {
+												minId = r.IdStr;
+											}
+
+											// tweet found event call (ancient remains from RestGatherer)
+											//TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
+											if (TweetFound != null) {
+												TweetFound(r);
+											}
+
+											// freeze thread so that UI can update. very ugly solution based on http://stackoverflow.com/questions/4522583/how-to-do-the-processing-and-keep-gui-refreshed-using-databinding#_=_
+											Thread.Sleep(1);
+										}
+
+										// subtract 1 so that we cannot get the same tweets again
+										sp.MaxId = long.Parse(minId) - 1;
 									}
 
-									// tweet found event call (ancient remains from RestGatherer)
-									//TweetFound(this, new TweetData(r, gatheringCycle, currentExpansion.expansion));
-									if (TweetFound != null) {
-										TweetFound(r);
+								} else if (rateLimitCounter <= 0) {
+									#region rate limits
+									// check rate limits in case we are wrong and they are not actually zero
+									rateLimitsObj = GetRateLimits_Search();
+									// wait with checking until rateLimitsResetDate happens
+									// TODO
+
+									rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
+									rateLimitReset = rateLimitsObj == null ? DateTime.Now : rateLimitsObj.ResetDateTime;
+
+									// wait for rate limits before continuing loop
+									if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
+										log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
+										Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
 									}
+									#endregion
 								}
 
-								// subtract 1 so that we cannot get the same tweets again
-								sp.MaxId = long.Parse(minId) - 1;
+								// keep doing this while:
+								//		there are still results left
+								//		or we cannot get tweets due to rate limits
+								//		or we cannot get tweets due to errors (in which case we should try again)
 
-							} else if (rateLimitCounter <= 0) {
-								// check rate limits in case we are wrong and they are not actually zero
-								var rateLimitsObj = GetRateLimits_Search();
-								// wait with checking until rateLimitsResetDate happens
-								// TODO
-
-								rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
-							}
-
-							// keep doing this while:
-							//		there are still results left
-							//		or we cannot get tweets due to rate limits
-							//		or we cannot get tweets due to errors (in which case we should try again)
-
-						} while ((results.Count > 0 || rateLimitCounter <= 0) && !stop);
+							} while ((results != null && results.Count > 0 && !stop) || !gotResults);
+						}
 					}
-
 				}
-			}
-			catch (Exception e) {
-				log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
-				log.Output(e.ToString());
-			}
-			log.Output("End of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
-
+				catch (Exception e) {
+					log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
+					log.Output(e.ToString());
+				}
+				log.Output("End of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
+			});
 		}
 
 		void OnTweetFound(ITweet tweet)
@@ -293,9 +331,9 @@ namespace WPFTwitter
 		public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits GetRateLimits_All()
 		{
 			// perform if application is authenticated
-			if (Tweetinvi.TwitterCredentials.ApplicationCredentials != null) {
+			if (Tweetinvi.TwitterCredentials.Credentials != null) {
 				Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits rateLimits =
-				RateLimit.GetCredentialsRateLimits(Tweetinvi.TwitterCredentials.ApplicationCredentials);
+				RateLimit.GetCurrentCredentialsRateLimits(true);
 
 				return rateLimits;
 			} else {
@@ -308,14 +346,27 @@ namespace WPFTwitter
 		/// gets rate limit of search API.
 		/// </summary>
 		/// <returns></returns>
-		public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit GetRateLimits_Search()
+		public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit GetRateLimits_Search(string query = "")
 		{
-			if (TwitterCredentials.ApplicationCredentials != null) {
+			// manual method which does not return proper results for some reason
+			// because we are logged with an application, but this returns limits per user
+
+			// APPLICATION CREDENTIALS NOT SUPPORTED BY TWEETINVI UNTIL VERSION 0.9.9 :( we are currently at 0.9.7
+			//if (TwitterCredentials.ApplicationCredentials != null) {
+			//	var grla = GetRateLimits_All();
+			//	if (grla != null) {
+			//		return grla.ApplicationRateLimitStatusLimit;
+			//	}
+			//}
+
+			// user credentials it is then
+			if (TwitterCredentials.Credentials != null) {
 				var grla = GetRateLimits_All();
 				if (grla != null) {
-					return grla.ApplicationRateLimitStatusLimit;
+					return grla.SearchTweetsLimit;
 				}
 			}
+
 			return null;
 		}
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tweetinvi.Core.Interfaces;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace WPFTwitter
 {
@@ -52,11 +53,21 @@ namespace WPFTwitter
 				}
 			}
 
+			/// <summary>
+			/// updates keyword list based on list of tweets
+			/// </summary>
+			public void Update(TweetDatabase.TweetList tweets)
+			{
+				foreach (var kData in this) {
+					kData.Count = tweets.Count(td => td.ContainsHashtag(kData.Keyword));
+				}
+			}
+
 		}
 
 
 		// keywords are added by expanding the original keywords, and each _expansion is expanding the next _expansion etc. until maxExpansionCount
-		public class KeywordData
+		public class KeywordData : INotifyPropertyChanged
 		{
 			/// <summary>
 			/// the actual hashtag/_keyword string.
@@ -66,7 +77,13 @@ namespace WPFTwitter
 			public string Keyword
 			{
 				get { return _keyword; }
-				set { _keyword = value; }
+				set
+				{
+					_keyword = value;
+					if (PropertyChanged != null) {
+						PropertyChanged(this, new PropertyChangedEventArgs("Keyword"));
+					}
+				}
 			}
 
 			/// <summary>
@@ -77,7 +94,13 @@ namespace WPFTwitter
 			public int Expansion
 			{
 				get { return _expansion; }
-				set { _expansion = value; }
+				set
+				{
+					_expansion = value;
+					if (PropertyChanged != null) {
+						PropertyChanged(this, new PropertyChangedEventArgs("Expansion"));
+					}
+				}
 			}
 
 			private int _count = 1;
@@ -85,7 +108,13 @@ namespace WPFTwitter
 			public int Count
 			{
 				get { return _count; }
-				set { _count = value; }
+				set
+				{
+					_count = value; 
+					if (PropertyChanged != null) {
+						PropertyChanged(this, new PropertyChangedEventArgs("Count"));
+					}
+				}
 			}
 
 			private bool useKeyword = true;
@@ -93,7 +122,13 @@ namespace WPFTwitter
 			public bool UseKeyword
 			{
 				get { return useKeyword; }
-				set { useKeyword = value; }
+				set
+				{
+					useKeyword = value; 
+					if (PropertyChanged != null) {
+						PropertyChanged(this, new PropertyChangedEventArgs("UseKeyword"));
+					}
+				}
 			}
 
 			public KeywordData(string keyword, int generation)
@@ -103,6 +138,8 @@ namespace WPFTwitter
 
 			}
 
+
+			public event PropertyChangedEventHandler PropertyChanged;
 		}
 	}
 }

@@ -4,11 +4,11 @@
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:extendedWpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:Controls="clr-namespace:WPFTwitter"
-        Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="745" Width="928" KeyDown="Window_KeyDown">
+        Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="700" Width="1024" KeyDown="Window_KeyDown">
     <DockPanel>
         <!-- This could be a menu bar -->
         <!--<Menu DockPanel.Dock="Top" VerticalAlignment="Top">
-            
+            <Button Content="Reset Layout" Click="menuResetLayout"/>
         </Menu>-->
 
         <ad:DockingManager x:Name="dMan" Loaded="dMan_Loaded" Unloaded="dMan_Unloaded">
@@ -21,11 +21,12 @@
 
                         <!-- LOG PANEL -->
 
-                        <ad:LayoutAnchorablePane DockHeight="*" DockWidth="*">
-                            <ad:LayoutAnchorable x:Name="logLayout" Title="Log" CanClose="False" CanHide="False">
-                                <DockPanel>
+                        <ad:LayoutAnchorablePane DockHeight="3*" DockWidth="*">
+                            <ad:LayoutAnchorable Title="Log" CanClose="False" CanHide="False">
+                                <DockPanel x:Name="logPane">
                                     <DockPanel DockPanel.Dock="Top">
                                         <Button Content="Clear Log" Width="100" Click="logClearButtonClick"/>
+                                        <CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"/>
                                     </DockPanel>
                                     <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
                                         <DataGrid.Columns>
@@ -51,18 +52,50 @@
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                         <!-- END LOG PANEL -->
+                        
+                        <!--  EXPANSION PANEL -->
 
+                        <ad:LayoutAnchorablePane DockHeight="2*">
+                            <ad:LayoutAnchorable Title="Expansion"  CanClose="False" CanHide="False">
+
+                                <!-- this is the content you are looking for -->
+                                <DockPanel x:Name="expansionPanel">
+                                    <StackPanel>
+                                        <DockPanel Margin="10,0">
+                                            <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <Button Content="Expand keywords using Naive (count tweets, top percent)" Click="tweetView_ExpandNaive"/>
+                                        <DockPanel Margin="10,0">
+                                            <Label Content="Efron mu value" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="10,0">
+                                            <Label Content="Efron N value" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox Text="{Binding Path=EfronN, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                        <Button Content="Expand keywords using Efron (language model + smoothing)" Click="tweetView_ExpandEfron"/>
+                                        
+                                    </StackPanel>
+                                </DockPanel>
+                                <!-- this was the content you were looking for -->
+
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+
+                        <!-- END  EXPANSION PANEL -->
+                        
                         <!-- TWEET PANEL -->
 
-                        <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
+                        <ad:LayoutAnchorablePane DockHeight="3*" DockWidth="2*">
                             <ad:LayoutAnchorable Title="Tweets">
                                 <DockPanel>
                                     <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10">
                                         <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
                                         <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left"/>
-                                        <Button Content="Expand keywords based on all tweets" Click="tweetView_Expand"/>
+                                        
                                     </DockPanel>
-                                    <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay}">
+                                    <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                         <ListView.Resources>
                                             <Style TargetType="GridViewColumnHeader">
                                                 <EventSetter Event="MouseUp" Handler="tweetView_Headers_MouseUp"/>
@@ -76,6 +109,9 @@
                                                 <GridViewColumn DisplayMemberBinding="{Binding Tweet}">
                                                     <GridViewColumnHeader Content="Tweet"/>
                                                 </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding RetweetCount}">
+                                                    <GridViewColumnHeader Content="Retweets"/>
+                                                </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding Id}">
                                                     <GridViewColumnHeader Content="Id"/>
                                                 </GridViewColumn>
@@ -88,6 +124,22 @@
                                                 <GridViewColumn DisplayMemberBinding="{Binding UserId}">
                                                     <GridViewColumnHeader Content="User Id"/>
                                                 </GridViewColumn>
+                                                <!-- this part could add another column in which to show a bunch of clickable links from the original tweet. -->
+                                                <!--<GridViewColumn Header="Links">
+                                                    <GridViewColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <ItemsControl ItemsSource="{Binding Links}" DockPanel.Dock="Left">
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <Button Height="10" Content="{Binding Path=.}"></Button>
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </GridViewColumn.CellTemplate>
+                                                </GridViewColumn>-->
                                                 <GridViewColumn Header="Controls">
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
@@ -108,8 +160,8 @@
 
                     </ad:LayoutPanel>
 
-                    <ad:LayoutPanel Orientation="Vertical" DockWidth="2*">
-                        <ad:LayoutPanel Orientation="Horizontal" DockWidth="*">
+                    <ad:LayoutPanel Orientation="Vertical" DockWidth="*">
+                        <ad:LayoutPanel Orientation="Horizontal" DockWidth="*"  DockHeight="*" >
 
                             <!-- LOG SETTINGS PANEL -->
 
@@ -179,11 +231,6 @@
 
                             <!-- END STREAMING PANEL -->
 
-
-                        </ad:LayoutPanel>
-
-                        <ad:LayoutPanel Orientation="Horizontal">
-
                             <!-- REST CONTROLS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="3*">
@@ -245,47 +292,10 @@
 
                             <!-- END REST CONTROLS PANEL -->
 
-                            <!-- REST EXPANSION PANEL -->
-
-                            <ad:LayoutAnchorablePane DockHeight="*">
-                                <ad:LayoutAnchorable Title="Expansion"  CanClose="False" CanHide="False">
-
-                                    <!-- this is the content you are looking for -->
-                                    <DockPanel>
-                                        <DockPanel Margin="10,0" DockPanel.Dock="Top">
-                                            <Label Content="Status: " HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                            <Label x:Name="restExpansionStatusLabel" Content="null" HorizontalContentAlignment="Left" VerticalAlignment="Center"/>
-                                        </DockPanel>
-                                        <StackPanel Background="#FFE5E5E5">
-                                            <Button x:Name="restExpansionButton" Content="Start Expansion" Click="restExpansionButton_Click" Margin="10, 0"/>
-
-                                            <DockPanel Margin="10,0">
-                                                <Label Content="Filters" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                <TextBox Name="restExpansionFilters" Text="#gamerproblems" VerticalAlignment="Center"/>
-                                            </DockPanel>
-                                            <DockPanel Margin="10,0">
-                                                <Label Content="Max Expansions" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                <TextBox Name="restExpansionsMaxExpansionsTextbox" Text="{Binding Path=MaxExpansionCount, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                            </DockPanel>
-                                            <DockPanel Margin="10,0">
-                                                <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                                <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                            </DockPanel>
-                                            <Button Content="testing shit" Click="testingshitplsdelete"></Button>
-
-                                        </StackPanel>
-
-                                    </DockPanel>
-                                    <!-- this was the content you were looking for -->
-
-                                </ad:LayoutAnchorable>
-                            </ad:LayoutAnchorablePane>
-
-                            <!-- END REST EXPANSION PANEL -->
-
                         </ad:LayoutPanel>
 
-                        <ad:LayoutPanel Orientation="Horizontal">
+
+                        <ad:LayoutPanel Orientation="Horizontal" DockHeight="2*">
 
                             <!-- KEYWORDS PANEL -->
 
@@ -376,6 +386,7 @@
                                             <TextBox x:Name="Consumer_Secret" VerticalAlignment="Center"/>
                                         </DockPanel>
                                         <Button x:Name="setCredentialsButton" Content="Set" Margin="10, 0" Click="setCredentialsButton_Click"/>
+                                        <Button x:Name="setCredentialsDefault" Content="Set Defaults" Margin="10, 0" Click="setCredentialsDefault_Click"/>
 
                                     </StackPanel>
                                     <!-- this was the content you were looking for -->

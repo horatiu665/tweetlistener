@@ -164,6 +164,7 @@
     </ApplicationDefinition>
     <Compile Include="Credentials.cs" />
     <Compile Include="KeywordDatabase.cs" />
+    <Compile Include="LanguageModel.cs" />
     <Compile Include="QueryExpansion.cs" />
     <Compile Include="RestGathering.cs" />
     <Compile Include="TweetDatabase.cs" />

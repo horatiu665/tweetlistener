@@ -40,6 +40,11 @@ namespace WPFTwitter
 		public delegate void LogOutputEventHandler(string message);
 		public event LogOutputEventHandler LogOutput, SmallLogOutput;
 
+		public bool ScrollToLast
+		{
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// returns a valid version of the path given

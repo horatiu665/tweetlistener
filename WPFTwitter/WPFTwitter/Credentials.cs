@@ -18,6 +18,24 @@ namespace WPFTwitter
 
 		private List<string> credentials = new List<string>() { "", "", "", "" };
 
+		/// <summary>
+		/// hardcoded default credentials that can be set using the interface
+		/// </summary>
+		private List<List<string>> defaults = new List<List<string>>() {
+			// Testing2348276347
+			new List<string>() {"2504893657-smZtLp98qZ7e461o1qUk361Hx7DX01rEv6c94JA", "L4Q0jEjexHFUR2GHOMi3T4iTERARUB3AuOzhQTDOvlEx4", "iJwYrZasX8aGU0iiHCbmYajCv", "FJPhwIHbXGX0XKbzioNlbl3UEViNRXu3Ny2BXFCzQ0eY4N231G"},
+			// Testing3473487384 - in use at KU
+			//new List<string>() {"2504893657-b30BlFnSdCKo42LFIyWKbywseTq2PyG0StdpKp6", "JDCAI46G4qDWHPYLjfhuM9iDll53wgRwXZKhcMkw84dwi", "s3QKQous2rgkpglkSTRHQz9dw", "t9cZGT3Rcheh8742LVZHaIc5uvLsSXSGvqUb3NIGr9WMt097IH"					},
+			
+		};
+
+		public List<string> GetDefaults(int i)
+		{
+			i = i % defaults.Count;
+			return defaults[i];
+		}
+
+
 		public event Action<List<string>> CredentialsChange;
 
 		/// <summary>
@@ -45,12 +63,7 @@ namespace WPFTwitter
 
 				if (!credsFoundInFile) {
 					// HARD CODE the creds
-					credentials = new List<string>() {
-						"2504893657-b30BlFnSdCKo42LFIyWKbywseTq2PyG0StdpKp6",
-						"JDCAI46G4qDWHPYLjfhuM9iDll53wgRwXZKhcMkw84dwi",
-						"s3QKQous2rgkpglkSTRHQz9dw",
-						"t9cZGT3Rcheh8742LVZHaIc5uvLsSXSGvqUb3NIGr9WMt097IH"
-					};
+					credentials = defaults[0];
 
 					var jsonWrite = new Newtonsoft.Json.Linq.JObject();
 					jsonWrite.Add("Access_Token",
@@ -76,7 +89,8 @@ namespace WPFTwitter
 				}
 			}
 
-			TwitterCredentials.ApplicationCredentials = TwitterCredentials.CreateCredentials(
+			// not application credentials because not supported until Tweetinvi 0.9.9 (current is 0.9.7)
+			TwitterCredentials.SetCredentials(TwitterCredentials.CreateCredentials(
 				// "Access_Token"
 				credentials[0],
 				// "Access_Token_Secret"
@@ -85,7 +99,7 @@ namespace WPFTwitter
 				credentials[2],
 				// "Consumer_Secret"
 				credentials[3]
-			);
+			));
 
 		}
 
