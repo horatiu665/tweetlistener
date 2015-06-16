@@ -1343,3 +1343,15 @@ Easy there, Turbo. Too many requests recently. Enhance your calm.
 12-Jun-15 19:51:28: Stream disconnected.
 12-Jun-15 19:53:55: New log started
 12-Jun-15 19:54:05: Stream disconnected.
+Tue, 16-Jun-15 13:17:55: New log started
+Tue, 16-Jun-15 13:18:38: Stream disconnected.
+Tue, 16-Jun-15 13:25:07: Stream disconnected.
+Tue, 16-Jun-15 13:25:32: Stream disconnected.
+Tue, 16-Jun-15 13:25:32: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Tue, 16-Jun-15 13:25:39: Stream disconnected.

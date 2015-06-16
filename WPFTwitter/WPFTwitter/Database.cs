@@ -399,52 +399,74 @@ namespace WPFTwitter
 		{
 			List<TweetDatabase.TweetData> newList = new List<TweetDatabase.TweetData>();
 
+			var tweetFactory = TweetinviContainer.Resolve<ITweetFactory>();
 			using (StreamReader sr = new StreamReader(path, Encoding.UTF8)) {
 
 				string line = "";
 				while (sr.Peek() >= 0) {
 					line = sr.ReadLine();
 					// parse tweet data from line
-					var tweetData = line.Split(separationChar);
+					if (line.Length > 3) {
+						if (line[3] == ',')
+							line = line.Substring(4);
 
-					//var j = new JObject();
-					//// based on previous function where we save the data, get data in the same order
-					//j["created_at"] = tweetData[0];
-					//j["id_str"] = tweetData[1];
-					//j["in_reply_to_status_id_str"] = tweetData[2];
-					//j["in_reply_to_user_id_str"] = tweetData[3];
-					//j["lang"]  = tweetData[4];
-					//j["retweet_count"] = tweetData[5];
-					//j["user"] = new JObject();
-					//j["user"]["screen_name"] = tweetData[6];
-					//j["user"]["id_str"] = tweetData[7];
-					//j["text"] = tweetData[8];
+						var tweetData = line.Split(separationChar);
 
-					// replace shit in tweet text
-					tweetData[8] = tweetData[8].Replace("<hhhnewline>", "\n");
-					tweetData[8] = tweetData[8].Replace("<hhhseparator>", ",");
+						if (tweetData.Length == 9) {
+							//var j = new JObject();
+							//// based on previous function where we save the data, get data in the same order
+							//j["created_at"] = tweetData[0];
+							//j["id_str"] = tweetData[1];
+							//j["in_reply_to_status_id_str"] = tweetData[2];
+							//j["in_reply_to_user_id_str"] = tweetData[3];
+							//j["lang"]  = tweetData[4];
+							//j["retweet_count"] = tweetData[5];
+							//j["user"] = new JObject();
+							//j["user"]["screen_name"] = tweetData[6];
+							//j["user"]["id_str"] = tweetData[7];
+							//j["text"] = tweetData[8];
 
-
-					var tweetFactory = TweetinviContainer.Resolve<ITweetFactory>();
-					var tweet = tweetFactory.CreateTweet(tweetData[8]);
-
-					CustomTweetFormat fakeTweet = new CustomTweetFormat(
-						DateTime.Parse(tweetData[0]),
-						tweetData[1],
-						tweetData[2],
-						tweetData[3],
-						tweetData[4],
-						int.Parse(tweetData[5]),
-						tweetData[6],
-						tweetData[7],
-						tweetData[8]
-						);
-
-					//var tweet = tweetFactory.GenerateTweetFromJson(j.ToString());
+							// replace shit in tweet text
+							tweetData[8] = tweetData[8].Replace("<hhhnewline>", "\n");
+							tweetData[8] = tweetData[8].Replace("<hhhseparator>", ",");
 
 
-					newList.Add(new TweetDatabase.TweetData(fakeTweet, TweetDatabase.TweetData.Sources.Unknown, 0, 0));
-					log.Output("Just loaded tweet with id " + fakeTweet.IdStr + " from file");
+							var tweet = tweetFactory.CreateTweet(tweetData[8]);
+
+							// date
+							var dateStr = tweetData[0];
+							while (dateStr[0] == ' ') {
+								dateStr = dateStr.Substring(1);
+							}
+							while (dateStr.Last() == ' ') {
+								dateStr = dateStr.Substring(0, dateStr.Length - 1);
+							}
+							DateTime date;
+							var didIt = DateTime.TryParse(dateStr, out date);
+							if (!didIt) {
+								date = DateTime.Now;
+							}
+
+
+							CustomTweetFormat fakeTweet = new CustomTweetFormat(
+								date,
+								tweetData[1],
+								tweetData[2],
+								tweetData[3],
+								tweetData[4],
+								int.Parse(tweetData[5]),
+								tweetData[6],
+								tweetData[7],
+								tweetData[8]
+								);
+
+							//var tweet = tweetFactory.GenerateTweetFromJson(j.ToString());
+
+
+							newList.Add(new TweetDatabase.TweetData(fakeTweet, TweetDatabase.TweetData.Sources.Unknown, 0, 0));
+							log.Output("Just loaded tweet with id " + fakeTweet.IdStr + " from file");
+						}
+					}
 				}
 
 			}
