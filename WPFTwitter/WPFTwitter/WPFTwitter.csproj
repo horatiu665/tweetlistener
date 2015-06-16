@@ -163,6 +163,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Credentials.cs" />
+    <Compile Include="CustomTweetFormat.cs" />
     <Compile Include="KeywordDatabase.cs" />
     <Compile Include="LanguageModel.cs" />
     <Compile Include="QueryExpansion.cs" />

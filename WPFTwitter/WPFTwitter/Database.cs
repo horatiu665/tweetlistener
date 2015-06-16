@@ -9,6 +9,10 @@ using System.Net;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using Tweetinvi.Core.Interfaces;
+using Tweetinvi;
+using Tweetinvi.Core.Helpers;
+using Tweetinvi.Core.Interfaces.DTO;
+using Tweetinvi.Core.Interfaces.Factories;
 
 namespace WPFTwitter
 {
@@ -333,6 +337,10 @@ namespace WPFTwitter
 			SaveToTextFile(json.ToString());
 		}
 
+		/// <summary>
+		/// used when saving to / loading from text file.
+		/// </summary>
+		char separationChar = ',';
 
 		// write all relevant fields except tweet first (they cannot contain separation chars)
 		// format tweet:
@@ -345,11 +353,9 @@ namespace WPFTwitter
 		// replace <hhhseparator> with ',' in the tweet column
 		void SaveToTextFile(string json)
 		{
-			var separationChar = ",";
-
 
 			StreamWriter sw = new StreamWriter(textFileDatabasePath, true, Encoding.UTF8);
-			// save tweet first, and then some other random bullshit
+
 			var j = JObject.Parse(json);
 
 
@@ -371,6 +377,8 @@ namespace WPFTwitter
 			// json.user.screen_name
 			// json.user.id_str
 
+			var separationChar = this.separationChar.ToString();
+
 			string final = "";
 			final += j["created_at"] + separationChar;
 			final += j["id_str"] + separationChar;
@@ -385,6 +393,63 @@ namespace WPFTwitter
 
 			sw.WriteLine(final);
 			sw.Close();
+		}
+
+		public List<TweetDatabase.TweetData> LoadFromTextFile(string path)
+		{
+			List<TweetDatabase.TweetData> newList = new List<TweetDatabase.TweetData>();
+
+			using (StreamReader sr = new StreamReader(path, Encoding.UTF8)) {
+
+				string line = "";
+				while (sr.Peek() >= 0) {
+					line = sr.ReadLine();
+					// parse tweet data from line
+					var tweetData = line.Split(separationChar);
+
+					//var j = new JObject();
+					//// based on previous function where we save the data, get data in the same order
+					//j["created_at"] = tweetData[0];
+					//j["id_str"] = tweetData[1];
+					//j["in_reply_to_status_id_str"] = tweetData[2];
+					//j["in_reply_to_user_id_str"] = tweetData[3];
+					//j["lang"]  = tweetData[4];
+					//j["retweet_count"] = tweetData[5];
+					//j["user"] = new JObject();
+					//j["user"]["screen_name"] = tweetData[6];
+					//j["user"]["id_str"] = tweetData[7];
+					//j["text"] = tweetData[8];
+
+					// replace shit in tweet text
+					tweetData[8] = tweetData[8].Replace("<hhhnewline>", "\n");
+					tweetData[8] = tweetData[8].Replace("<hhhseparator>", ",");
+
+
+					var tweetFactory = TweetinviContainer.Resolve<ITweetFactory>();
+					var tweet = tweetFactory.CreateTweet(tweetData[8]);
+
+					CustomTweetFormat fakeTweet = new CustomTweetFormat(
+						DateTime.Parse(tweetData[0]),
+						tweetData[1],
+						tweetData[2],
+						tweetData[3],
+						tweetData[4],
+						int.Parse(tweetData[5]),
+						tweetData[6],
+						tweetData[7],
+						tweetData[8]
+						);
+
+					//var tweet = tweetFactory.GenerateTweetFromJson(j.ToString());
+
+
+					newList.Add(new TweetDatabase.TweetData(fakeTweet, TweetDatabase.TweetData.Sources.Unknown, 0, 0));
+					log.Output("Just loaded tweet with id " + fakeTweet.IdStr + " from file");
+				}
+
+			}
+
+			return newList;
 		}
 
 	}

@@ -705,6 +705,14 @@ namespace WPFTwitter.Windows
 
 		}
 
+		private void tweetView_LoadFromFile(object sender, RoutedEventArgs e)
+		{
+			foreach (var t in databaseSaver.LoadFromTextFile(databaseSaver.textFileDatabasePath)) {
+				tweetDatabase.AllTweets.Add(t);
+			}
+
+		}
+
 
 	}
 

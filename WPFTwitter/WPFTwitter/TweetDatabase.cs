@@ -95,7 +95,8 @@ namespace WPFTwitter
 			public enum Sources
 			{
 				Stream,
-				Rest
+				Rest,
+				Unknown
 			}
 
 			// where did we find this tweet?

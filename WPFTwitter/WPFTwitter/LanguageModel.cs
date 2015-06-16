@@ -37,19 +37,21 @@ namespace WPFTwitter
 				// the number of times it appears in the corpus
 				// div. by the amount of words in the corpus
 
-				var numAppearancesOfK = 0;
+				var tweetsContainingHashtag = tweetPopulation.Where(td => td.ContainsHashtag(keyword.Keyword)).ToList();
+
+				// count words in tweet population
 				var numWordsInTweetPopulation = 0;
-				for (int i = 0; i < tweetPopulation.Count; i++) {
-					// only if it contains the original keyword
-					if (tweetPopulation[i].ContainsHashtag(keyword.Keyword)) {
-						var tweet = tweetPopulation[i].tweet;
+				for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
+					numWordsInTweetPopulation += tweetsContainingHashtag[i].tweet.Hashtags.Count;
+				}
 
-						// count occurrences of thiskey in tweetText
-						numAppearancesOfK += tweet.Hashtags.Count(h => h.Text.ToLower() == thiskey);
+				var numAppearancesOfK = 0;
+				for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
+					var tweet = tweetsContainingHashtag[i].tweet;
 
-						// count words in tweetText //////////////////////////////////////////////////////////////////////////////////////////////// pls improve. right now it counts hyperlinks, etc.
-						numWordsInTweetPopulation += tweet.Hashtags.Count;
-					}
+					// count occurrences of thiskey in tweetText
+					numAppearancesOfK += tweet.Hashtags.Count(h => h.Text.ToLower() == thiskey);
+
 				}
 
 				// max likelihood 
@@ -70,16 +72,66 @@ namespace WPFTwitter
 
 		}
 
+		/// <summary>
+		/// Additive smoothing, based on https://en.wikipedia.org/wiki/Additive_smoothing
+		/// and http://www.stat.uchicago.edu/~lafferty/pdf/smooth-tois.pdf page 6
+		/// which states that Bayesian smoothing using Dirichlet priors is another form of additive smoothing (and I couldn't find formulas for Bayesian updating)
+		/// </summary>
+		/// <param name="probabilities"></param>
+		/// <param name="N"></param>
+		/// <param name="smoothingConstantMu"></param>
+		/// <returns></returns>
 		Dictionary<KeywordDatabase.KeywordData, float> SmoothProbabilities(Dictionary<KeywordDatabase.KeywordData, float> probabilities, int N, float smoothingConstantMu = 2000)
 		{
 			var newProbs = new Dictionary<KeywordDatabase.KeywordData, float>();
+			
 			foreach (var xi in probabilities) {
+			
+				
+				// new probability of xi = (old prob. of xi + smoothing constant) / (number of trials + smoothing constant * word count)
 				newProbs[xi.Key] = (xi.Value + smoothingConstantMu) / (N + smoothingConstantMu * probabilities.Count);
-				//newProbs[xi.Key] = xi.Value;
+
 			}
 
 			return newProbs;
 		}
+
+		void Dirichlet()
+		{
+			//float wordCountInDocument;
+			//var mu = 2000f;
+			//float probabilityOfWordInCollection = 0;
+			//float priorProbability = probabilityOfWordInCollection;
+			//int totalWordCount;
+
+			//var smoothProbability = (wordCountInDocument + mu * probabilityOfWordInCollection) / (totalWordCount + mu);
+
+
+		}
+
+
+		/// <summary>
+		/// Based on Wikipedia formula https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence
+		/// The divergence can be considered the "distance" between two probability distributions.
+		/// Equal to zero when the two distributions are equal.
+		/// </summary>
+		/// <param name="probability1"></param>
+		/// <param name="probability2"></param>
+		/// <returns></returns>
+		public static double KlDivergence(List<float> probability1, List<float> probability2)
+		{
+			double sum = 0f;
+			for (int i = 0; i < probability1.Count; i++) {
+				if (probability2[i] != 0) {
+					sum += (probability1[i] * Math.Log(probability1[i] / probability2[i]));
+				}
+			}
+			return sum;
+		}
+
+
+
+		//////////////// below is not used. failed attempt. cannot understand parameters, no documentation. based on c++ library found online, latest update 2010.
 
 
 		/// <summary>

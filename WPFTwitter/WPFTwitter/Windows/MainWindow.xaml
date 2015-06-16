@@ -93,7 +93,8 @@
                                     <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10">
                                         <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
                                         <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left"/>
-                                        
+                                        <Button Content="Load from text file" Margin="0 0" Click="tweetView_LoadFromFile" HorizontalAlignment="Left"/>
+
                                     </DockPanel>
                                     <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                         <ListView.Resources>
