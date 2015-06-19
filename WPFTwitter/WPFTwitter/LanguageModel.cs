@@ -87,10 +87,11 @@ namespace WPFTwitter
 			
 			foreach (var xi in probabilities) {
 			
-				
+				// this formula is shit. number of trials does not make sense
 				// new probability of xi = (old prob. of xi + smoothing constant) / (number of trials + smoothing constant * word count)
 				newProbs[xi.Key] = (xi.Value + smoothingConstantMu) / (N + smoothingConstantMu * probabilities.Count);
 
+				
 			}
 
 			return newProbs;

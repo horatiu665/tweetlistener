@@ -337,7 +337,8 @@
                                                     <GridViewColumn DisplayMemberBinding="{Binding Expansion}">
                                                         <GridViewColumnHeader Content="Expansion"/>
                                                     </GridViewColumn>
-                                                    <GridViewColumn Header="Use">
+                                                    <GridViewColumn>
+                                                        <GridViewColumnHeader Content="Use"/>
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <CheckBox IsChecked="{Binding UseKeyword}"/>
@@ -345,11 +346,13 @@
                                                             </DataTemplate>
                                                         </GridViewColumn.CellTemplate>
                                                     </GridViewColumn>
-                                                    <GridViewColumn Header="Controls">
+                                                    <GridViewColumn>
+                                                        <GridViewColumnHeader Content="Controls"/>
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <DockPanel>
                                                                     <Button Content="Delete" Click="keywordView_Item_DeleteButton"/>
+                                                                    <Button Content="Stem" Click="keywordView_Item_StemButton"/>
                                                                 </DockPanel>
                                                             </DataTemplate>
                                                         </GridViewColumn.CellTemplate>

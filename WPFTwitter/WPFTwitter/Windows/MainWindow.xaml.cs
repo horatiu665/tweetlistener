@@ -34,6 +34,7 @@ namespace WPFTwitter.Windows
 		KeywordDatabase keywordDatabase;
 		TweetDatabase tweetDatabase;
 		QueryExpansion queryExpansion;
+		PorterStemmerAlgorithm.PorterStemmer porterStemmer;
 
 		MainWindowViewModel viewModel;
 
@@ -69,6 +70,7 @@ namespace WPFTwitter.Windows
 			stream = new Stream(databaseSaver, log, rest, keywordDatabase);
 			restGatherer = new RestGatherer(rest, log, tweetDatabase, keywordDatabase);
 			queryExpansion = new QueryExpansion(log);
+			porterStemmer = new PorterStemmerAlgorithm.PorterStemmer();
 
 			//////// initialize bindings
 			// log binding
@@ -558,6 +560,23 @@ namespace WPFTwitter.Windows
 			}
 		}
 
+		private void keywordView_Item_StemButton(object sender, RoutedEventArgs e)
+		{
+			// get clicked row
+			var button = ((Button)sender);
+			var item = FindParent<ListViewItem>(button);
+			if (item != null) {
+				App.Current.Dispatcher.Invoke(() => {
+					var content = (KeywordDatabase.KeywordData)(item.Content);
+					// stem keyword
+					var stemmed = porterStemmer.stemTerm(content.Keyword);
+					content.Keyword = stemmed;
+
+				});
+			}
+		}
+
+
 		private T FindParent<T>(DependencyObject child) where T : DependencyObject
 		{
 			var parent = VisualTreeHelper.GetParent(child);
@@ -713,6 +732,7 @@ namespace WPFTwitter.Windows
 
 		}
 
+		
 
 	}
 
