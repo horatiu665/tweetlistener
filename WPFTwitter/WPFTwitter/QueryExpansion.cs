@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using Tweetinvi.Core.Interfaces;
 
 namespace WPFTwitter
 {
-	public class QueryExpansion
+	public class QueryExpansion : INotifyPropertyChanged
 	{
 
 		Log log;
@@ -39,7 +40,37 @@ namespace WPFTwitter
 			get { return efronN; }
 			set { efronN = value; }
 		}
-		
+
+		private bool expanding = false;
+		public bool Expanding
+		{
+			get { return expanding; }
+			set
+			{
+				expanding = value;
+				OnPropertyChanged("ExpansionProgressLabel");
+			}
+		}
+		private double timeForLastOperation = 0;
+		private int operationsLeft = 0;
+		public int OperationsLeft
+		{
+			get { return operationsLeft; }
+			set
+			{
+				operationsLeft = value;
+				OnPropertyChanged("ExpansionProgressLabel");
+			}
+		}
+		public string ExpansionProgressLabel
+		{
+			get
+			{
+				return Expanding
+						? "Expanding... estimated time left: " + OperationsLeft * timeForLastOperation + " seconds"
+						: "Idle";
+			}
+		}
 
 		public QueryExpansion(Log log)
 		{
@@ -49,6 +80,8 @@ namespace WPFTwitter
 		public List<KeywordDatabase.KeywordData> ExpandNaive(List<KeywordDatabase.KeywordData> keywords, List<TweetDatabase.TweetData> tweetPopulation)
 		{
 			log.Output("Expansion: NAIVE\n expanding query on " + tweetPopulation.Count + " tweets");
+
+			Expanding = true;
 
 			// find keywords from tweetCollection (and their count)
 			Dictionary<string, int> keywordsInTweets = new Dictionary<string, int>();
@@ -93,6 +126,8 @@ namespace WPFTwitter
 				newKeywordList.Add(new KeywordDatabase.KeywordData("#" + e.Key, 0));
 			}
 
+			Expanding = false;
+
 			return keywords.Concat(newKeywordList).ToList();
 		}
 
@@ -100,28 +135,88 @@ namespace WPFTwitter
 			KeywordDatabase.KeywordListClass keywords,
 			List<TweetDatabase.TweetData> tweetPopulation)
 		{
+			expanding = true;
 			log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
-
-			// algorithm
-
-			// create language model for each word_i in database
-			//		create list of probs for each word_i k in database
-			//		probability that word_i kk will be found in the same tweet as k
-			//		probability is calculated by: number of occurences of kk 
-			//			div. by total number of words in documents containing k
-			foreach (var keyword in keywords) {
-				if (keyword.UseKeyword) {
-					LanguageModel lm = new LanguageModel(keyword, keywords, tweetPopulation, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
-					string s = "Language model for " + keyword.Keyword + ":\n";
-					foreach (var kvp in lm.probabilities) {
-						s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
+			string s;
+			// old test shit
+			if (false) {
+				foreach (var keyword in keywords) {
+					if (keyword.UseKeyword) {
+						LanguageModel lm = new LanguageModel(keyword, keywords, tweetPopulation, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
+						s = "Language model for " + keyword.Keyword + ":\n";
+						foreach (var kvp in lm.probabilities) {
+							s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
+						}
+						log.Output(s);
 					}
-					log.Output(s);
 				}
 			}
+
+			// generate query
+			var query = "";
+			foreach (var keyword in keywords) {
+				if (keyword.UseKeyword) {
+					query += keyword.Keyword + ",";
+				}
+			}
+
+			// create query model
+			QueryModel queryModel = new QueryModel(query, keywords, tweetPopulation);
+			s = "query model for query:\n " + query + ":\n";
+			foreach (var kvp in queryModel.probabilities) {
+				s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
+			}
+			log.Output(s);
+
+			Dictionary<KeywordDatabase.KeywordData, LanguageModel> languageModels = new Dictionary<KeywordDatabase.KeywordData, LanguageModel>();
+			OperationsLeft = keywords.Count;
+			DateTime initTime;
+			foreach (var keyword in keywords) {
+				initTime = DateTime.Now;
+				languageModels[keyword] = new LanguageModel(keyword, keywords, tweetPopulation, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
+				s = "Language model for " + keyword.Keyword + ":\n";
+				foreach (var kvp in languageModels[keyword].probabilities) {
+					s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
+				}
+				log.Output(s);
+				timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
+				OperationsLeft--;
+			}
+
+			OperationsLeft = languageModels.Count;
+			
+			// calculate KL divergence for each hashtag vs query, and rank them
+			var rankedTags = languageModels.OrderByDescending(lm => {
+				initTime = DateTime.Now;
+				var x = -LanguageModel.KlDivergence(
+					queryModel.probabilities.Values.ToList(),
+					lm.Value.probabilities.Values.ToList()
+				);
+				lm.Value.KldResult = x;
+				timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
+				OperationsLeft--;
+				return x;
+			}).ToList();
+
+			s = "List of ranked hashtags in descending order of their -KLD for the query:\n"
+				+ queryModel.query + "\n";
+
+			foreach (var r in rankedTags) {
+				s += r.Value.KldResult.ToString("F8") + " " + r.Key.Keyword + "\n";
+			}
+			log.Output(s);
 
 			return null;
 		}
 
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void OnPropertyChanged(string pName)
+		{
+			if (PropertyChanged != null) {
+				PropertyChanged(this, new PropertyChangedEventArgs(pName));
+			}
+		}
 	}
 }

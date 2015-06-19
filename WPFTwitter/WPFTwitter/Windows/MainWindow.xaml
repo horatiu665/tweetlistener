@@ -75,7 +75,7 @@
                                             <TextBox Text="{Binding Path=EfronN, Mode=TwoWay}"  VerticalAlignment="Center"/>
                                         </DockPanel>
                                         <Button Content="Expand keywords using Efron (language model + smoothing)" Click="tweetView_ExpandEfron"/>
-
+                                        <Label Content="{Binding Path=ExpansionProgressLabel}" HorizontalAlignment="Center" />
                                     </StackPanel>
                                 </DockPanel>
                                 <!-- this was the content you were looking for -->

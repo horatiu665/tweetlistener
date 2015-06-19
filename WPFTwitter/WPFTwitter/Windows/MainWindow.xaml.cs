@@ -69,8 +69,9 @@ namespace WPFTwitter.Windows
 		public bool ShowTweetView
 		{
 			get { return showTweetView; }
-			set {
-				showTweetView = value; 
+			set
+			{
+				showTweetView = value;
 			}
 		}
 
@@ -637,15 +638,30 @@ namespace WPFTwitter.Windows
 
 		private void tweetView_ResetSelection(object sender, RoutedEventArgs e)
 		{
+			var message = "";
+			if (tweetDatabase.tweets.Count > 50000) {
+				message = "It WILL take forever to load " + tweetDatabase.tweets.Count + " tweets. Please reconsider or continue at your own risk.";
+			} else if (tweetDatabase.tweets.Count > 10000) {
+				message = "It might take quite a while to load " + tweetDatabase.tweets.Count + " tweets. Please have patience";
+			} else {
+				message = "";
+			}
 
-			App.Current.Dispatcher.Invoke(() => {
-				tweetDatabase.onlyShowKeywords.Clear();
+			MessageBoxResult m = MessageBoxResult.None;
+			if (message != "") {
+				m = MessageBox.Show("Are you sure you want to reset selection? " + message, "Warning", MessageBoxButton.YesNo);
+			}
 
-				// attempts refresh of tweetview
-				tweetView.ItemsSource = tweetDatabase.Tweets;
+			if ((message != "" && m == MessageBoxResult.Yes) || message == "") {
+				App.Current.Dispatcher.Invoke(() => {
+					tweetDatabase.onlyShowKeywords.Clear();
 
-				keywordListView.UnselectAll();
-			});
+					// attempts refresh of tweetview
+					tweetView.ItemsSource = tweetDatabase.Tweets;
+
+					keywordListView.UnselectAll();
+				});
+			}
 		}
 
 		private void tweetView_DeleteAll(object sender, RoutedEventArgs e)
@@ -765,8 +781,9 @@ namespace WPFTwitter.Windows
 
 		private void tweetView_ExpandEfron(object sender, RoutedEventArgs e)
 		{
-			queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
-
+			Task.Factory.StartNew(() => {
+				queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
+			});
 		}
 
 		bool fromFile_isLoading = false;
@@ -826,7 +843,7 @@ namespace WPFTwitter.Windows
 					OnPropertyChanged("FromFileLoader");
 					if (fromFile_Loaded) {
 						fromFile_percentDone = fromFile_tweetLoadedCount / fromFile_tweetCount;
-						
+
 					}
 
 					if (!fromFile_isLoading) {
@@ -856,7 +873,7 @@ namespace WPFTwitter.Windows
 					});
 					log.Output("Finished loading " + fromFile_tweetCount + " tweets from file");
 					fromFile_isLoading = false;
-				
+
 				});
 
 			} else {
