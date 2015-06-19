@@ -1355,3 +1355,109 @@ Tue, 16-Jun-15 13:25:32: Exception: System.IO.IOException: Received an unexpecte
    at System.Threading.Tasks.Task`1.InnerInvoke()
    at System.Threading.Tasks.Task.Execute()
 Tue, 16-Jun-15 13:25:39: Stream disconnected.
+Fri, 19-Jun-15 10:22:02: New log started
+Fri, 19-Jun-15 10:22:49: Stream disconnected.
+Fri, 19-Jun-15 10:26:25: Stream disconnected.
+Fri, 19-Jun-15 10:26:59: Stream disconnected.
+Fri, 19-Jun-15 10:27:22: Stream disconnected.
+Fri, 19-Jun-15 10:28:01: Stream disconnected.
+Fri, 19-Jun-15 10:36:44: New log started
+Fri, 19-Jun-15 10:36:58: Stream disconnected.
+Fri, 19-Jun-15 10:37:05: Stream disconnected.
+Fri, 19-Jun-15 10:37:47: Stream disconnected.
+Fri, 19-Jun-15 10:52:37: New log started
+Fri, 19-Jun-15 10:52:52: Stream disconnected.
+Fri, 19-Jun-15 10:54:03: New log started
+Fri, 19-Jun-15 10:56:37: New log started
+Fri, 19-Jun-15 10:57:23: Stream disconnected.
+Fri, 19-Jun-15 10:57:23: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Fri, 19-Jun-15 10:57:53: Stream disconnected.
+Fri, 19-Jun-15 10:57:53: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Fri, 19-Jun-15 10:58:47: New log started
+Fri, 19-Jun-15 10:59:11: Stream disconnected.
+Fri, 19-Jun-15 10:59:11: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Fri, 19-Jun-15 10:59:44: Stream disconnected.
+Fri, 19-Jun-15 10:59:44: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Fri, 19-Jun-15 11:00:40: Stream disconnected.
+Fri, 19-Jun-15 11:00:40: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Fri, 19-Jun-15 11:00:47: Stream disconnected.
+Fri, 19-Jun-15 11:00:53: Stream disconnected.
+Fri, 19-Jun-15 11:29:46: New log started
+Fri, 19-Jun-15 11:31:32: Stream disconnected.
+Fri, 19-Jun-15 11:31:32: Exception: System.IO.IOException: Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.ConnectStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.IO.StreamReader.ReadBuffer()
+   at System.IO.StreamReader.ReadLine()
+   at AsyncExtensions.<>c__DisplayClassf.<ReadLineAsync>b__e()
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+Fri, 19-Jun-15 11:35:41: Stream disconnected.
+Fri, 19-Jun-15 13:29:29: New log started
+Fri, 19-Jun-15 13:29:32: Stream disconnected.
+Fri, 19-Jun-15 13:29:53: Stream disconnected.
+Fri, 19-Jun-15 13:30:14: Stream disconnected.
+Fri, 19-Jun-15 13:30:24: Stream disconnected.
+Fri, 19-Jun-15 13:30:25: Stream disconnected.
+Fri, 19-Jun-15 13:30:25: Exception: --- Date : Fri, 19-Jun-15 13:30:25
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23districtdojo
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Fri, 19-Jun-15 13:30:26: Stream disconnected.
+Fri, 19-Jun-15 13:30:26: Exception: --- Date : Fri, 19-Jun-15 13:30:26
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23districtdojo
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Fri, 19-Jun-15 13:30:27: Stream disconnected.
+Fri, 19-Jun-15 13:30:27: Stream disconnected.
+Fri, 19-Jun-15 13:30:27: Exception: --- Date : Fri, 19-Jun-15 13:30:27
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23districtdojo
+Code : -1
+Error documentation description : 
+
+Fri, 19-Jun-15 13:30:33: Stream disconnected.
+Fri, 19-Jun-15 13:30:33: Exception: --- Date : Fri, 19-Jun-15 13:30:33
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23districtdojo
+Code : 420
+Error documentation description : 
+Easy there, Turbo. Too many requests recently. Enhance your calm.
+ (0)
+
+Fri, 19-Jun-15 13:30:54: Stream disconnected.
+Fri, 19-Jun-15 13:31:00: Stream disconnected.
+Fri, 19-Jun-15 13:32:00: Stream disconnected.

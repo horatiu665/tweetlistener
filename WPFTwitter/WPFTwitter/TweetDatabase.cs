@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tweetinvi.Core.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 
 namespace WPFTwitter
@@ -16,7 +17,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// store the tweet database here
 		/// </summary>
-		private TweetList tweets = new TweetList();
+		public TweetList tweets = new TweetList();
 
 		/// <summary>
 		/// take from tweets, and only show the ones we want to show based on onlyShowKeywords
@@ -73,6 +74,9 @@ namespace WPFTwitter
 					return;
 				}
 
+				// if tweet contains links, it is possible that it is a clone of another tweet, but with a new link. (tweetbots)
+
+
 				// if we captured a non-retweet, add it to the list.
 				if (!item.tweet.IsRetweet) {
 					base.InsertItem(index, item);
@@ -86,6 +90,7 @@ namespace WPFTwitter
 					}
 				}
 			}
+
 		}
 
 		public class TweetData : INotifyPropertyChanged
@@ -192,6 +197,12 @@ namespace WPFTwitter
 			}
 
 			private int retweetCount = 0;
+			/// <summary>
+			/// counts how many times the tweet was posted again with a different link 
+			/// (most likely by a tweet bot)
+			/// </summary>
+			private int duplicateCount = 0;
+
 
 			/// <summary>
 			/// Retweet count, counted manually
@@ -207,9 +218,9 @@ namespace WPFTwitter
 				set
 				{
 					retweetCount = value;
-					if (PropertyChanged != null) {
-						PropertyChanged(this, new PropertyChangedEventArgs("RetweetCount"));
-					}
+					//if (PropertyChanged != null) {
+					//	PropertyChanged(this, new PropertyChangedEventArgs("RetweetCount"));
+					//}
 				}
 			}
 

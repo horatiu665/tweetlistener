@@ -46,17 +46,11 @@ namespace WPFTwitter
 			this.log = log;
 		}
 
-		public List<KeywordDatabase.KeywordData> Expand(List<KeywordDatabase.KeywordData> keywords, List<TweetDatabase.TweetData> tweetPopulation)
-		{
-			return ExpandNaive(keywords, tweetPopulation);
-		}
-
-
 		public List<KeywordDatabase.KeywordData> ExpandNaive(List<KeywordDatabase.KeywordData> keywords, List<TweetDatabase.TweetData> tweetPopulation)
 		{
 			log.Output("Expansion: NAIVE\n expanding query on " + tweetPopulation.Count + " tweets");
 
-			// find keywords from tweetPopulation (and their count)
+			// find keywords from tweetCollection (and their count)
 			Dictionary<string, int> keywordsInTweets = new Dictionary<string, int>();
 			foreach (var t in tweetPopulation) {
 				foreach (var ht in t.GetHashtags()) {
@@ -110,14 +104,14 @@ namespace WPFTwitter
 
 			// algorithm
 
-			// create language model for each keyword in database
-			//		create list of probabilities for each keyword k in database
-			//		probability that keyword kk will be found in the same tweet as k
+			// create language model for each word_i in database
+			//		create list of probs for each word_i k in database
+			//		probability that word_i kk will be found in the same tweet as k
 			//		probability is calculated by: number of occurences of kk 
 			//			div. by total number of words in documents containing k
 			foreach (var keyword in keywords) {
 				if (keyword.UseKeyword) {
-					LanguageModel lm = new LanguageModel(keyword, keywords, tweetPopulation, efronMu, efronN);
+					LanguageModel lm = new LanguageModel(keyword, keywords, tweetPopulation, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
 					string s = "Language model for " + keyword.Keyword + ":\n";
 					foreach (var kvp in lm.probabilities) {
 						s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";

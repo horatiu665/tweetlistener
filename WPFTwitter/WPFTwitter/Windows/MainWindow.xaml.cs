@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.ComponentModel;
 
 namespace WPFTwitter.Windows
 {
@@ -22,7 +23,7 @@ namespace WPFTwitter.Windows
 	/// <summary>
 	/// Interaction logic for Main2.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : Window, INotifyPropertyChanged
 	{
 		// viewmodel replacement
 		Stream stream;
@@ -37,7 +38,6 @@ namespace WPFTwitter.Windows
 		PorterStemmerAlgorithm.PorterStemmer porterStemmer;
 
 		MainWindowViewModel viewModel;
-
 
 		private LogMessageListCollection _logMessageList = new LogMessageListCollection(10000);
 		public LogMessageListCollection LogMessageList
@@ -54,6 +54,16 @@ namespace WPFTwitter.Windows
 
 		private System.Timers.Timer autoExpansionTimer = new System.Timers.Timer();
 
+		private int tweetsLastSecond = 0;
+		private float tweetsPerSecond = 0f;
+		private System.Timers.Timer tweetsPerSecondTimer = new System.Timers.Timer();
+		public string TweetsPerSecond
+		{
+			get
+			{
+				return tweetsPerSecond.ToString("F2") + " tps; " + (tweetsPerSecond * 60).ToString("F0") + " tpm; " + (tweetsPerSecond * 3600).ToString("F0") + " tph";
+			}
+		}
 
 		public MainWindow()
 		{
@@ -79,6 +89,7 @@ namespace WPFTwitter.Windows
 			log.LogOutput += Log_LogOutput;
 			checkBox_logCounters.DataContext = stream;
 			checkBox_streamJsonSpammer.DataContext = stream;
+			checkBox_databaseMessages.DataContext = databaseSaver;
 			databaseRetries.DataContext = databaseSaver;
 			checkBox_saveToTextFile.DataContext = databaseSaver;
 			checkBox_database.DataContext = databaseSaver;
@@ -131,23 +142,41 @@ namespace WPFTwitter.Windows
 			// saving tweets from Streaming and Rest into TweetDatabase
 			stream.stream.MatchingTweetReceived += (s, a) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
 					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 				});
+				tweetsLastSecond++;
+			};
+			stream.sampleStream.TweetReceived += (s, a) => {
+				App.Current.Dispatcher.Invoke(() => {
+					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+				});
+				tweetsLastSecond++;
 			};
 			restGatherer.TweetFound += (s, t) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
 					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 				});
+				tweetsLastSecond++;
 			};
 			rest.TweetFound += (t) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
 					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 				});
+				tweetsLastSecond++;
 			};
 
+			tweetsPerSecondTimer.Interval = 1000;
+			tweetsPerSecondTimer.Elapsed += (s, a) => {
+				tweetsPerSecond = 0.8f * tweetsPerSecond + 0.2f * tweetsLastSecond;
+				tweetsLastSecond = 0;
+				OnPropertyChanged("TweetsPerSecond");
+			};
+			tweetsPerSecondTimer.Start();
+			tweetsPerSecondLabel.DataContext = this;
 
 			// when credentials change
 			credentials.CredentialsChange += (creds) => {
@@ -158,6 +187,11 @@ namespace WPFTwitter.Windows
 
 			};
 
+
+			// database output messages (not active if !databaseSaver.outputDatabaseMessages)
+			databaseSaver.Message += (s) => {
+				log.Output(s);
+			};
 		}
 
 		/// <summary>
@@ -262,7 +296,7 @@ namespace WPFTwitter.Windows
 						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
+							tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
 						keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 					}
@@ -286,7 +320,7 @@ namespace WPFTwitter.Windows
 						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							tweetDatabase.Tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
+							tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
 						keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 					}
@@ -507,9 +541,9 @@ namespace WPFTwitter.Windows
 			if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
 				// start this in a new thread
 				//Task.Factory.StartNew(() => {
-					App.Current.Dispatcher.Invoke(() => {
-						rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
-					});
+				App.Current.Dispatcher.Invoke(() => {
+					rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
+				});
 				//});
 			} else {
 				// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
@@ -568,7 +602,7 @@ namespace WPFTwitter.Windows
 			if (item != null) {
 				App.Current.Dispatcher.Invoke(() => {
 					var content = (KeywordDatabase.KeywordData)(item.Content);
-					// stem keyword
+					// stem word_i
 					var stemmed = porterStemmer.stemTerm(content.Keyword);
 					content.Keyword = stemmed;
 
@@ -609,7 +643,7 @@ namespace WPFTwitter.Windows
 
 			if (result == MessageBoxResult.Yes) {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.Tweets.Clear();
+					tweetDatabase.AllTweets.Clear();
 					foreach (var k in keywordDatabase.KeywordList) {
 						k.Count = 0;
 
@@ -693,7 +727,7 @@ namespace WPFTwitter.Windows
 
 		private void tweetView_ExpandNaive(object sender, RoutedEventArgs e)
 		{
-			var newKeywords = queryExpansion.Expand(keywordDatabase.KeywordList.ToList(), tweetDatabase.AllTweets.ToList());
+			var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.AllTweets.ToList());
 			keywordDatabase.KeywordList.Set(newKeywords);
 			keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
 		}
@@ -724,16 +758,111 @@ namespace WPFTwitter.Windows
 
 		}
 
+		bool fromFile_isLoading = false;
+
+		/// <summary>
+		/// true when finally loaded from file.
+		/// </summary>
+		bool fromFile_Loaded = false;
+
+		/// <summary>
+		/// 0 to 1, percentage of tweets from file added to tweet list.
+		/// </summary>
+		float fromFile_percentDone = 0f;
+		public float FromFile_percentDone
+		{
+			get { return fromFile_percentDone; }
+			set { fromFile_percentDone = value; }
+		}
+
+		public string FromFileLoader
+		{
+			get
+			{
+				return fromFile_isLoading
+							? fromFile_Loaded
+								? "Working... percent done: "
+									+ fromFile_percentDone.ToString("F3")
+								: "Reading lines... percent done: "
+									+ fromFile_percentDone.ToString("F3")
+							: "Idle"
+								;
+
+			}
+		}
+
+		System.Timers.Timer fromFile_updateUiTimer;
+		TweetDatabase.TweetList fromFile_newTweets = new TweetDatabase.TweetList();
+
+		bool fromFile_cancelOperation = false;
+
 		private void tweetView_LoadFromFile(object sender, RoutedEventArgs e)
 		{
-			foreach (var t in databaseSaver.LoadFromTextFile(databaseSaver.textFileDatabasePath)) {
-				tweetDatabase.AllTweets.Add(t);
+			if (!fromFile_isLoading) {
+
+				((Button)sender).Content = "Cancel operation";
+
+				fromFile_Loaded = false;
+				fromFile_isLoading = true;
+				// start task which updates UI
+				fromFile_updateUiTimer = new System.Timers.Timer(100);
+				fromFile_updateUiTimer.Elapsed += (s, a) => {
+					OnPropertyChanged("FromFileLoader");
+
+					App.Current.Dispatcher.Invoke(() => {
+						foreach (var t in fromFile_newTweets) {
+							tweetDatabase.AllTweets.Add(t);
+						}
+						fromFile_newTweets.Clear();
+					});
+
+					if (!fromFile_isLoading) {
+						fromFile_updateUiTimer.Stop();
+						fromFile_updateUiTimer.Dispose();
+					}
+				};
+				fromFile_updateUiTimer.Start();
+
+				Task.Factory.StartNew(() => {
+					var fromTxt = databaseSaver.LoadFromTextFile(databaseSaver.textFileDatabasePath, ref fromFile_percentDone);
+					fromFile_Loaded = true;
+					log.Output("Loaded files. Dumping them into tweetList");
+					var step = 1 / (float)fromTxt.Count;
+					fromFile_percentDone = 0;
+					foreach (var t in fromTxt) {
+						if (fromFile_cancelOperation) {
+							fromFile_cancelOperation = false;
+							break;
+						}
+						fromFile_newTweets.Add(t);
+						fromFile_percentDone += step;
+					}
+					fromFile_isLoading = false;
+
+					App.Current.Dispatcher.Invoke(() => {
+						((Button)sender).Content = "Load from text file";
+					});
+					log.Output("Finished loading " + tweetDatabase.AllTweets.Count + " tweets from file");
+				});
+
+			} else {
+				fromFile_cancelOperation = true;
+
 			}
 
 		}
 
-		
 
+
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void OnPropertyChanged(string propertyName)
+		{
+			if (PropertyChanged != null) {
+				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
 	}
 
 	public class LogMessageListCollection : ObservableCollection<LogMessage>

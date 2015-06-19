@@ -81,11 +81,11 @@ namespace WPFTwitter
 				// open log writer
 				logWriter = new StreamWriter(logPath, true);
 				Output("New log started");
-				
+
 				// small log init
 				smallLogWriter = new StreamWriter(smallLogPath, true);
 				SmallOutput("New log started");
-				
+
 				// once in a while stop and start log, so we do not lose all the data in the log.
 				logRestartTimer = new System.Timers.Timer(restartLogIntervalMillis);
 				logRestartTimer.Start();
@@ -210,6 +210,7 @@ namespace WPFTwitter
 					Console.WriteLine(e.ToString());
 				}
 			}
+
 		}
 	}
 }

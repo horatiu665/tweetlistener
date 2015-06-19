@@ -27,8 +27,6 @@ namespace WPFTwitter
 		{
 			log = l;
 
-			// set up events
-			Message += (s) => { log.Output(s); };
 		}
 
 		private bool _started = false;
@@ -75,6 +73,15 @@ namespace WPFTwitter
 		}
 		float secondsBetweenSendRetries = 1;
 
+		private bool outputDatabaseMessages = true;
+
+		public bool OutputDatabaseMessages
+		{
+			get { return outputDatabaseMessages; }
+			set { outputDatabaseMessages = value; }
+		}
+
+
 		// event triggered every time there is some error that must be logged
 		public event DatabaseSaverMessage Message;
 
@@ -108,7 +115,8 @@ namespace WPFTwitter
 				}
 				catch (Exception e) {
 					if (Message != null) {
-						Message(e.ToString());
+						if (outputDatabaseMessages) 
+							Message(e.ToString());
 					}
 					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
 					if (retries < MaxTweetDatabaseSendRetries) {
@@ -121,7 +129,8 @@ namespace WPFTwitter
 						});
 					} else {
 						if (Message != null) {
-							Message("Failed to send after " + retries + " tries");
+							if (outputDatabaseMessages)
+								Message("Failed to send after " + retries + " tries");
 						}
 					}
 				}
@@ -233,7 +242,8 @@ namespace WPFTwitter
 			WebResponse response = request.GetResponse();
 			// Display the status.
 			if (Message != null) {
-				Message(((HttpWebResponse)response).StatusDescription);
+				if (outputDatabaseMessages)
+					Message(((HttpWebResponse)response).StatusDescription);
 			}
 			// Get the stream containing content returned by the server.
 			dataStream = response.GetResponseStream();
@@ -243,7 +253,8 @@ namespace WPFTwitter
 			string responseFromServer = reader.ReadToEnd();
 			// Display the content.
 			if (Message != null) {
-				Message(responseFromServer);
+				if (outputDatabaseMessages)
+					Message(responseFromServer);
 
 			}
 			// Clean up the streams.
@@ -395,16 +406,20 @@ namespace WPFTwitter
 			sw.Close();
 		}
 
-		public List<TweetDatabase.TweetData> LoadFromTextFile(string path)
+		public List<TweetDatabase.TweetData> LoadFromTextFile(string path, ref float percentDone)
 		{
 			List<TweetDatabase.TweetData> newList = new List<TweetDatabase.TweetData>();
 
 			var tweetFactory = TweetinviContainer.Resolve<ITweetFactory>();
 			using (StreamReader sr = new StreamReader(path, Encoding.UTF8)) {
-
+				float lineCount = File.ReadLines(path).Count();
+				log.Output("Loading " + lineCount + " lines from file " + path);
+				var linesRead = 0;
 				string line = "";
 				while (sr.Peek() >= 0) {
 					line = sr.ReadLine();
+					linesRead++;
+					percentDone = linesRead / lineCount;
 					// parse tweet data from line
 					if (line.Length > 3) {
 						if (line[3] == ',')
@@ -464,7 +479,7 @@ namespace WPFTwitter
 
 
 							newList.Add(new TweetDatabase.TweetData(fakeTweet, TweetDatabase.TweetData.Sources.Unknown, 0, 0));
-							log.Output("Just loaded tweet with id " + fakeTweet.IdStr + " from file");
+							//log.Output("just read tweet with id " + fakeTweet.IdStr);
 						}
 					}
 				}

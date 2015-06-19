@@ -94,7 +94,8 @@
                                         <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
                                         <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left"/>
                                         <Button Content="Load from text file" Margin="0 0" Click="tweetView_LoadFromFile" HorizontalAlignment="Left"/>
-
+                                        <Label x:Name="fromFileLoaderLabel" Content="{Binding Path=FromFileLoader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecond, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DockPanel>
                                     <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                         <ListView.Resources>
@@ -141,7 +142,8 @@
                                                         </DataTemplate>
                                                     </GridViewColumn.CellTemplate>
                                                 </GridViewColumn>-->
-                                                <GridViewColumn Header="Controls">
+                                                <GridViewColumn>
+                                                    <GridViewColumnHeader Content="Controls"/>
                                                     <GridViewColumn.CellTemplate>
                                                         <DataTemplate>
                                                             <DockPanel>
@@ -202,7 +204,7 @@
                                         <CheckBox x:Name="checkBox_saveToTextFile" Content="Save to text file" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToTextFileProperty, Mode=TwoWay}"/>
 
                                         <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
-                                        <CheckBox x:Name="checkBox_databaseMessages" Content="Output database messages" VerticalAlignment="Top"/>
+                                        <CheckBox x:Name="checkBox_databaseMessages" IsChecked="{Binding Path=OutputDatabaseMessages, Mode=TwoWay}" Content="Output database messages" VerticalAlignment="Top"/>
                                         <CheckBox x:Name="checkBox_streamJsonSpammer" IsChecked="{Binding Path=LogEveryJson, Mode=TwoWay}" Content="Log every JSON message from Twitter" VerticalAlignment="Top"/>
 
 

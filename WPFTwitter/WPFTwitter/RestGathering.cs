@@ -146,7 +146,7 @@ namespace WPFTwitter
 			this.untilDate = untilDate;
 
 			try {
-				// keywordList contains H0 (keywords from first expansion) and H1 (keywords found after initial search)
+				// vocabulary contains H0 (keywords from first expansion) and H1 (keywords found after initial search)
 				// we must search using the keywords, but ideally without grabbing the tweets that we already grabbed.
 				// we already grabbed ALL tweets with keywords from H0, so we should now only search using keywords from H1,
 				// to only grab extra tweets. We can even search using NOT H0, to get tweets containing H1 but not H0.
@@ -366,9 +366,9 @@ namespace WPFTwitter
 			// no hashtags? return.
 			if (tags.Count == 0) return;
 
-			// choose the tags that exist in the keywordList
+			// choose the tags that exist in the vocabulary
 			var prevTags = tags.Where(s => HashtagExists(s));
-			// if no tags exist in keywordList = impossible, they must exist, because we searched for them ffs.
+			// if no tags exist in vocabulary = impossible, they must exist, because we searched for them ffs.
 			//if (prevTags.Count() == 0) return;
 
 			var prevTagsKeywordData = prevTags.Select(k => ExistingKeyword(k));
@@ -391,7 +391,7 @@ namespace WPFTwitter
 			AddKeywords(earliestExp + 1, tags.ToArray());
 		}
 
-		// true if h exists in the keywordList
+		// true if h exists in the vocabulary
 		// PLEASE OPTIMIZE ME
 		private bool HashtagExists(string h)
 		{

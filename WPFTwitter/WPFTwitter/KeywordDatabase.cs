@@ -54,7 +54,7 @@ namespace WPFTwitter
 			}
 
 			/// <summary>
-			/// updates keyword list based on list of tweets
+			/// updates word_i list based on list of tweets
 			/// </summary>
 			public void Update(TweetDatabase.TweetList tweets)
 			{

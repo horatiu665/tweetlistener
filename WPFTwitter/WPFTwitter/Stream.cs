@@ -36,6 +36,7 @@ namespace WPFTwitter
 		/// the stream used throughout the program
 		/// </summary>
 		public Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream;
+		public Tweetinvi.Core.Interfaces.Streaminvi.ISampleStream sampleStream;
 
 		Action streamThread;
 
@@ -197,6 +198,62 @@ namespace WPFTwitter
 
 			#endregion
 
+
+			#region counters
+			sampleStream.DisconnectMessageReceived += (s, a) => { if (countersOn) CountEvent(0); };
+			sampleStream.JsonObjectReceived += (s, a) => { if (countersOn) CountEvent(1); };
+			sampleStream.LimitReached += (s, a) => { if (countersOn) CountEvent(2); };
+			sampleStream.StreamPaused += (s, a) => { if (countersOn) CountEvent(3); };
+			sampleStream.StreamResumed += (s, a) => { if (countersOn) CountEvent(4); };
+			sampleStream.StreamStarted += (s, a) => { if (countersOn) CountEvent(5); };
+			sampleStream.StreamStopped += (s, a) => { if (countersOn) CountEvent(6); };
+			sampleStream.TweetDeleted += (s, a) => { if (countersOn) CountEvent(7); };
+			sampleStream.TweetLocationInfoRemoved += (s, a) => { if (countersOn) CountEvent(8); };
+			sampleStream.TweetReceived				+= (s, a) => {  if(countersOn) CountEvent(9); }; // for sample stream
+			//sampleStream.MatchingTweetReceived += (s, a) => { if (countersOn) CountEvent(9); }; // for filtered stream
+			sampleStream.TweetWitheld += (s, a) => { if (countersOn) CountEvent(10); };
+			sampleStream.UnmanagedEventReceived += (s, a) => { if (countersOn) CountEvent(11); };
+			sampleStream.UserWitheld += (s, a) => { if (countersOn) CountEvent(12); };
+			sampleStream.WarningFallingBehindDetected += (s, a) => { if (countersOn) CountEvent(13); };
+
+			#endregion
+
+			// bind log to counter events
+			#region counters
+			sampleStream.DisconnectMessageReceived
+				+= (s, a) => { if (countersOn) log.Output(CountersString() + " - DisconnectMessageReceived		"); };
+			sampleStream.JsonObjectReceived
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - JsonObjectReceived			"); };
+			sampleStream.LimitReached
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - LimitReached					"); };
+			sampleStream.StreamPaused
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - StreamPaused					"); };
+			sampleStream.StreamResumed
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - StreamResumed					"); };
+			sampleStream.StreamStarted
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - StreamStarted					"); };
+			sampleStream.StreamStopped
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - StreamStopped					"); };
+			sampleStream.TweetDeleted
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetDeleted					"); };
+			sampleStream.TweetLocationInfoRemoved
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetLocationInfoRemoved 		"); };
+			sampleStream.TweetReceived	
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetReceived					"); }; // for sample stream
+			//sampleStream.MatchingTweetReceived
+			//	+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
+			sampleStream.TweetWitheld
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetWitheld					"); };
+			sampleStream.UnmanagedEventReceived
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - UnmanagedEventReceived		"); };
+			sampleStream.UserWitheld
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - UserWitheld					"); };
+			sampleStream.WarningFallingBehindDetected
+				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - WarningFallingBehindDetected	"); };
+
+			#endregion
+
+
 		}
 
 		#endregion
@@ -216,7 +273,7 @@ namespace WPFTwitter
 			streamThread = new Action(StartStreamTask);
 
 			// create stream
-			//stream = Stream.CreateSampleStream(); // sample stream = no filter.
+			sampleStream = Tweetinvi.Stream.CreateSampleStream(); // sample stream = no filter.
 			stream = Tweetinvi.Stream.CreateFilteredStream();
 
 			// setup events
@@ -225,6 +282,11 @@ namespace WPFTwitter
 			stream.MatchingTweetReceived += onMatchingTweetReceived;
 			stream.JsonObjectReceived += onJsonObjectReceived;
 			stream.LimitReached += onLimitReached;
+			sampleStream.StreamStarted += onStreamStarted;
+			sampleStream.StreamStopped += onStreamStopped;
+			sampleStream.TweetReceived += onTweetReceived;
+			sampleStream.JsonObjectReceived += onJsonObjectReceived;
+			sampleStream.LimitReached += onLimitReached;
 
 			// to see wtf is going on. also this is a list of all events possible for the stream. useful at a glance.
 			if (CountersOn) {
@@ -255,11 +317,12 @@ namespace WPFTwitter
 			AddTracksFromKeywordDatabase();
 
 			if (stream.TracksCount == 0) {
-				log.Output("There are no keywords in the list! Cannot start stream without any keywords, Twitter would slap us. Please add some keywords using the Keywords panel");
-				return;
+				//log.Output("There are no keywords in the list! Cannot start stream without any keywords, Twitter would slap us. Please add some keywords using the Keywords panel");
+				log.Output("There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)");
+				
 			}
 
-			StreamStartInsistBetter(stream);
+			StreamStartInsistBetter();
 
 		}
 
@@ -276,7 +339,7 @@ namespace WPFTwitter
 		/// Starts stream and makes sure it works.
 		/// </summary>
 		/// <param name="stream"></param>
-		private void StreamStartInsistBetter(Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream)
+		private void StreamStartInsistBetter()
 		{
 			Task.Factory.StartNew(streamThread);
 			//Console.WriteLine("Finished starting new Task at " + DateTime.Now.ToString());
@@ -309,7 +372,11 @@ namespace WPFTwitter
 
 				// catch exceptions within this thread. if they happen, we must retry connecting.
 				try {
-					await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
+					if (stream.TracksCount != 0) {
+						await stream.StartStreamMatchingAnyConditionAsync(); // for filtered stream
+					} else {
+						await sampleStream.StartStreamAsync(); // for sample stream
+					}
 
 				}
 				catch (Exception e) {
@@ -333,6 +400,7 @@ namespace WPFTwitter
 		{
 			if (StreamRunning) {
 				stream.StopStream();
+				sampleStream.StopStream();
 				intentionalStop = true;
 			}
 		}
@@ -390,6 +458,16 @@ namespace WPFTwitter
 
 			lastStreamStopTime = DateTime.Now;
 
+		}
+
+		private void onTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.TweetReceivedEventArgs e)
+		{
+			reconnectDelayMillis = 100;
+			// do this in a separate thread to not kill the stream just because database has errors
+			Task.Factory.StartNew(() => {
+				databaseSaver.SaveTweet(e.Tweet);
+
+			});
 		}
 
 		private void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
