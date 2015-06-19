@@ -52,7 +52,7 @@
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                         <!-- END LOG PANEL -->
-                        
+
                         <!--  EXPANSION PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="2*">
@@ -75,7 +75,7 @@
                                             <TextBox Text="{Binding Path=EfronN, Mode=TwoWay}"  VerticalAlignment="Center"/>
                                         </DockPanel>
                                         <Button Content="Expand keywords using Efron (language model + smoothing)" Click="tweetView_ExpandEfron"/>
-                                        
+
                                     </StackPanel>
                                 </DockPanel>
                                 <!-- this was the content you were looking for -->
@@ -84,19 +84,21 @@
                         </ad:LayoutAnchorablePane>
 
                         <!-- END  EXPANSION PANEL -->
-                        
+
                         <!-- TWEET PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="3*" DockWidth="2*">
                             <ad:LayoutAnchorable Title="Tweets">
                                 <DockPanel>
-                                    <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                                    <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10" >
+                                        <!--<CheckBox Content="Show" IsChecked="{Binding ShowTweetView, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0"/>-->
                                         <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
                                         <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left"/>
                                         <Button Content="Load from text file" Margin="0 0" Click="tweetView_LoadFromFile" HorizontalAlignment="Left"/>
                                         <Label x:Name="fromFileLoaderLabel" Content="{Binding Path=FromFileLoader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecond, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DockPanel>
+                                    <Expander ExpandDirection="Right">
                                     <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                         <ListView.Resources>
                                             <Style TargetType="GridViewColumnHeader">
@@ -128,20 +130,20 @@
                                                 </GridViewColumn>
                                                 <!-- this part could add another column in which to show a bunch of clickable links from the original tweet. -->
                                                 <!--<GridViewColumn Header="Links">
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <DockPanel>
-                                                                <ItemsControl ItemsSource="{Binding Links}" DockPanel.Dock="Left">
-                                                                    <ItemsControl.ItemTemplate>
-                                                                        <DataTemplate>
-                                                                            <Button Height="10" Content="{Binding Path=.}"></Button>
-                                                                        </DataTemplate>
-                                                                    </ItemsControl.ItemTemplate>
-                                                                </ItemsControl>
-                                                            </DockPanel>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>-->
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <ItemsControl ItemsSource="{Binding Links}" DockPanel.Dock="Left">
+                                                                        <ItemsControl.ItemTemplate>
+                                                                            <DataTemplate>
+                                                                                <Button Height="10" Content="{Binding Path=.}"></Button>
+                                                                            </DataTemplate>
+                                                                        </ItemsControl.ItemTemplate>
+                                                                    </ItemsControl>
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>-->
                                                 <GridViewColumn>
                                                     <GridViewColumnHeader Content="Controls"/>
                                                     <GridViewColumn.CellTemplate>
@@ -155,6 +157,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
+                                    </Expander>
                                 </DockPanel>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>

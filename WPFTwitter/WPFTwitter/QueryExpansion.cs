@@ -98,7 +98,7 @@ namespace WPFTwitter
 
 		public List<KeywordDatabase.KeywordData> ExpandEfron(
 			KeywordDatabase.KeywordListClass keywords,
-			TweetDatabase.TweetList tweetPopulation)
+			List<TweetDatabase.TweetData> tweetPopulation)
 		{
 			log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
 

@@ -65,6 +65,17 @@ namespace WPFTwitter.Windows
 			}
 		}
 
+		private bool showTweetView = false;
+		public bool ShowTweetView
+		{
+			get { return showTweetView; }
+			set {
+				showTweetView = value; 
+			}
+		}
+
+
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -142,29 +153,29 @@ namespace WPFTwitter.Windows
 			// saving tweets from Streaming and Rest into TweetDatabase
 			stream.stream.MatchingTweetReceived += (s, a) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 				});
 				tweetsLastSecond++;
 			};
 			stream.sampleStream.TweetReceived += (s, a) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 				});
 				tweetsLastSecond++;
 			};
 			restGatherer.TweetFound += (s, t) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 				});
 				tweetsLastSecond++;
 			};
 			rest.TweetFound += (t) => {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 				});
 				tweetsLastSecond++;
 			};
@@ -296,9 +307,9 @@ namespace WPFTwitter.Windows
 						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
+							tweetDatabase.tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
-						keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+						keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 					}
 				} else {
 					var recent = rest_filter_recent.IsChecked.Value;
@@ -320,9 +331,9 @@ namespace WPFTwitter.Windows
 						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							tweetDatabase.AllTweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
+							tweetDatabase.tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
-						keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+						keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 					}
 
 				}
@@ -564,11 +575,11 @@ namespace WPFTwitter.Windows
 
 					App.Current.Dispatcher.Invoke(() => {
 						var hashtagsToUpdate = content.tweet.Hashtags.Select(hEntity => hEntity.Text.ToLower());
-						tweetDatabase.AllTweets.Remove(content);
+						tweetDatabase.tweets.Remove(content);
 						// update counts of hashtags
 						foreach (var k in keywordDatabase.KeywordList) {
 							if (hashtagsToUpdate.Contains(k.Keyword.Replace("#", "").ToLower())) {
-								k.Count = tweetDatabase.Tweets.Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
+								k.Count = tweetDatabase.tweets.Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
 							}
 						}
 
@@ -643,7 +654,7 @@ namespace WPFTwitter.Windows
 
 			if (result == MessageBoxResult.Yes) {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.AllTweets.Clear();
+					tweetDatabase.tweets.Clear();
 					foreach (var k in keywordDatabase.KeywordList) {
 						k.Count = 0;
 
@@ -727,9 +738,9 @@ namespace WPFTwitter.Windows
 
 		private void tweetView_ExpandNaive(object sender, RoutedEventArgs e)
 		{
-			var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.AllTweets.ToList());
+			var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.tweets.ToList());
 			keywordDatabase.KeywordList.Set(newKeywords);
-			keywordDatabase.KeywordList.Update(tweetDatabase.AllTweets);
+			keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
 		}
 
 		private void AutoExpand()
@@ -754,7 +765,7 @@ namespace WPFTwitter.Windows
 
 		private void tweetView_ExpandEfron(object sender, RoutedEventArgs e)
 		{
-			queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.AllTweets);
+			queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
 
 		}
 
@@ -774,6 +785,7 @@ namespace WPFTwitter.Windows
 			get { return fromFile_percentDone; }
 			set { fromFile_percentDone = value; }
 		}
+		float fromFile_tweetCount, fromFile_tweetLoadedCount;
 
 		public string FromFileLoader
 		{
@@ -792,9 +804,13 @@ namespace WPFTwitter.Windows
 		}
 
 		System.Timers.Timer fromFile_updateUiTimer;
-		TweetDatabase.TweetList fromFile_newTweets = new TweetDatabase.TweetList();
+		//List<TweetDatabase.TweetData> fromFile_newTweets = new List<TweetDatabase.TweetData>();
 
 		bool fromFile_cancelOperation = false;
+
+		bool fromFile_transferingTweets = false;
+
+		int startedTimer, stoppedTimer;
 
 		private void tweetView_LoadFromFile(object sender, RoutedEventArgs e)
 		{
@@ -808,13 +824,10 @@ namespace WPFTwitter.Windows
 				fromFile_updateUiTimer = new System.Timers.Timer(100);
 				fromFile_updateUiTimer.Elapsed += (s, a) => {
 					OnPropertyChanged("FromFileLoader");
-
-					App.Current.Dispatcher.Invoke(() => {
-						foreach (var t in fromFile_newTweets) {
-							tweetDatabase.AllTweets.Add(t);
-						}
-						fromFile_newTweets.Clear();
-					});
+					if (fromFile_Loaded) {
+						fromFile_percentDone = fromFile_tweetLoadedCount / fromFile_tweetCount;
+						
+					}
 
 					if (!fromFile_isLoading) {
 						fromFile_updateUiTimer.Stop();
@@ -825,24 +838,25 @@ namespace WPFTwitter.Windows
 
 				Task.Factory.StartNew(() => {
 					var fromTxt = databaseSaver.LoadFromTextFile(databaseSaver.textFileDatabasePath, ref fromFile_percentDone);
-					fromFile_Loaded = true;
 					log.Output("Loaded files. Dumping them into tweetList");
-					var step = 1 / (float)fromTxt.Count;
-					fromFile_percentDone = 0;
-					foreach (var t in fromTxt) {
-						if (fromFile_cancelOperation) {
-							fromFile_cancelOperation = false;
-							break;
-						}
-						fromFile_newTweets.Add(t);
-						fromFile_percentDone += step;
+					fromFile_Loaded = true;
+					fromFile_tweetCount = fromTxt.Count;
+					fromFile_tweetLoadedCount = 0;
+
+					while (fromTxt.Count > 0) {
+						var smallList = fromTxt.GetRange(Math.Max(fromTxt.Count - 1000, 0), Math.Min(1000, fromTxt.Count));
+						tweetDatabase.tweets.AddRange(smallList);
+						fromTxt.RemoveRange(Math.Max(fromTxt.Count - 1000, 0), Math.Min(1000, fromTxt.Count));
+						fromFile_tweetLoadedCount += 1000;
 					}
-					fromFile_isLoading = false;
+					fromFile_tweetLoadedCount = fromFile_tweetCount;
 
 					App.Current.Dispatcher.Invoke(() => {
 						((Button)sender).Content = "Load from text file";
 					});
-					log.Output("Finished loading " + tweetDatabase.AllTweets.Count + " tweets from file");
+					log.Output("Finished loading " + fromFile_tweetCount + " tweets from file");
+					fromFile_isLoading = false;
+				
 				});
 
 			} else {
@@ -851,9 +865,6 @@ namespace WPFTwitter.Windows
 			}
 
 		}
-
-
-
 
 		public event PropertyChangedEventHandler PropertyChanged;
 

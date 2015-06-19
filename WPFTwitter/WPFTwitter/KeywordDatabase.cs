@@ -56,7 +56,7 @@ namespace WPFTwitter
 			/// <summary>
 			/// updates word_i list based on list of tweets
 			/// </summary>
-			public void Update(TweetDatabase.TweetList tweets)
+			public void Update(IEnumerable<TweetDatabase.TweetData> tweets)
 			{
 				foreach (var kData in this) {
 					kData.Count = tweets.Count(td => td.ContainsHashtag(kData.Keyword));

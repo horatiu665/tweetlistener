@@ -17,7 +17,8 @@ namespace WPFTwitter
 		/// <summary>
 		/// store the tweet database here
 		/// </summary>
-		public TweetList tweets = new TweetList();
+		public List<TweetData> tweets = new List<TweetData>();
+
 
 		/// <summary>
 		/// take from tweets, and only show the ones we want to show based on onlyShowKeywords
@@ -26,6 +27,8 @@ namespace WPFTwitter
 		{
 			get
 			{
+				TweetList show = new TweetList();
+
 				if (onlyShowKeywords.Count > 0) {
 					var showList = tweets.Where(td => {
 						foreach (var k in onlyShowKeywords) {
@@ -34,14 +37,12 @@ namespace WPFTwitter
 						}
 						return false;
 					});
-					TweetList show = new TweetList();
-					foreach (var t in showList) {
-						show.Add(t);
-					}
+					show.AddRange(showList);
 					return show;
 				}
 
-				return tweets;
+				show.AddRange(tweets);
+				return show;
 			}
 			set
 			{
@@ -57,13 +58,46 @@ namespace WPFTwitter
 		{
 			get
 			{
-				return tweets;
+				var show = new TweetList();
+				show.AddRange(tweets);
+				return show;
 			}
 		}
 
 		public List<string> onlyShowKeywords = new List<string>();
 
-		public class TweetList : ObservableCollection<TweetData>
+		/// <summary>
+		/// clever overloading and avoiding update of the UI before all items in a range have been loaded. LIFESAVER!!!
+		/// https://peteohanlon.wordpress.com/2008/10/22/bulk-loading-in-observablecollection/
+		/// </summary>
+		public class RangeObservableCollection<T> : ObservableCollection<T>
+		{
+			private bool _suppressNotification = false;
+
+			protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+			{
+				if (!_suppressNotification)
+					base.OnCollectionChanged(e);
+			}
+
+			public void AddRange(IEnumerable<T> list)
+			{
+				if (list == null)
+					throw new ArgumentNullException("list");
+
+				_suppressNotification = true;
+
+				foreach (T item in list) {
+					this.Add(item);
+				}
+
+				_suppressNotification = false;
+				OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+			}
+		}
+
+
+		public class TweetList : RangeObservableCollection<TweetData>
 		{
 			protected override void InsertItem(int index, TweetData item)
 			{

@@ -29,7 +29,7 @@ namespace WPFTwitter
 		/// <param name="word_i">word_i for which we have the language model</param>
 		/// <param name="vocabulary">other keywords in the vocabulary</param>
 		/// <param name="tweetCollection">document/corpus/all words to base the language model on</param>
-		public LanguageModel(KeywordDatabase.KeywordData word_i, KeywordDatabase.KeywordListClass vocabulary, TweetDatabase.TweetList tweetCollection, SmoothingMethods smoothingMethod, float smoothingMu = 2000f)
+		public LanguageModel(KeywordDatabase.KeywordData word_i, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, SmoothingMethods smoothingMethod, float smoothingMu = 2000f)
 		{
 			keyword = word_i;
 			
@@ -59,7 +59,7 @@ namespace WPFTwitter
 		/// </summary>
 		/// <param name="vocabulary"></param>
 		/// <param name="tweetCollection"></param>
-		void MLE(KeywordDatabase.KeywordListClass vocabulary, TweetDatabase.TweetList tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probs)
+		void MLE(KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probs)
 		{
 			probs.Clear();
 			
@@ -112,7 +112,7 @@ namespace WPFTwitter
 		/// <param name="N"></param>
 		/// <param name="smoothingConstantMu"></param>
 		/// <returns></returns>
-		void BayesianSmoothing(KeywordDatabase.KeywordListClass vocabulary, TweetDatabase.TweetList tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probabilities, float smoothingConstantMu)
+		void BayesianSmoothing(KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probabilities, float smoothingConstantMu)
 		{
 			probabilities.Clear();
 
