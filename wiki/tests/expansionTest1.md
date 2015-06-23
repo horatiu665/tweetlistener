@@ -1,6 +1,6 @@
 # Query expansion test
 - starting hashtag: `#splatoon`
-- date: `19-02-2015 12:28:44` to `06-06-2015 14:51`
+- date: `19-05-2015 12:28:44` to `06-06-2015 14:51`
 - expansion is performed at 24h intervals, naively by taking top 10% of  hashtags after being ranked by total count in gathered tweet population
 
 ## Intermediary check
