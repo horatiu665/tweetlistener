@@ -13,117 +13,98 @@ namespace WPFTwitter
 {
 	public class TweetDatabase
 	{
+		DatabaseSaver db;
+
+		public TweetDatabase(DatabaseSaver databaseSaver)
+		{
+			db = databaseSaver;
+		}
+
+		public bool OnlyEnglish { get; set; }
+		public bool OnlyWithHashtags { get; set; }
 
 		/// <summary>
 		/// store the tweet database here
 		/// </summary>
-		public List<TweetData> tweets = new List<TweetData>();
+		public TweetList tweets = new TweetList();
 
 
 		/// <summary>
 		/// take from tweets, and only show the ones we want to show based on onlyShowKeywords
 		/// </summary>
-		public TweetList Tweets
+		public RangeObservableCollection<TweetData> Tweets
 		{
 			get
 			{
-				TweetList show = new TweetList();
+				RangeObservableCollection<TweetData> show = new RangeObservableCollection<TweetData>();
 
-				if (onlyShowKeywords.Count > 0) {
-					var showList = tweets.Where(td => {
-						foreach (var k in onlyShowKeywords) {
-							if (td.Tweet.ToLower().Contains(k.ToLower()))
-								return true;
-						}
-						return false;
-					});
-					show.AddRange(showList);
-					return show;
+				try {
+					if (onlyShowKeywords.Count > 0) {
+						var showList = tweets.Where(td => {
+							foreach (var k in onlyShowKeywords) {
+								if (td.Tweet.ToLower().Contains(k.ToLower()))
+									return true;
+							}
+							return false;
+						});
+						show.AddRange(showList);
+						return show;
+					}
+
+					show.AddRange(tweets);
 				}
-
-				show.AddRange(tweets);
-				return show;
-			}
-			set
-			{
-				tweets.Clear();
-				foreach (var k in value) {
-					tweets.Add(k);
+				catch {
+					
 				}
-
-			}
-		}
-
-		public TweetList AllTweets
-		{
-			get
-			{
-				var show = new TweetList();
-				show.AddRange(tweets);
 				return show;
 			}
 		}
 
 		public List<string> onlyShowKeywords = new List<string>();
 
-		/// <summary>
-		/// clever overloading and avoiding update of the UI before all items in a range have been loaded. LIFESAVER!!!
-		/// https://peteohanlon.wordpress.com/2008/10/22/bulk-loading-in-observablecollection/
-		/// </summary>
-		public class RangeObservableCollection<T> : ObservableCollection<T>
+		public void AddTweet(TweetData item)
 		{
-			private bool _suppressNotification = false;
-
-			protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-			{
-				if (!_suppressNotification)
-					base.OnCollectionChanged(e);
+			if (OnlyEnglish) {
+				if (item.tweet.Language != Tweetinvi.Core.Enum.Language.English)
+					if (item.tweet.Language != Tweetinvi.Core.Enum.Language.UN_NotReferenced)
+						if (item.tweet.Language != Tweetinvi.Core.Enum.Language.Undefined)
+							return;
 			}
 
-			public void AddRange(IEnumerable<T> list)
-			{
-				if (list == null)
-					throw new ArgumentNullException("list");
+			if (OnlyWithHashtags) {
+				if (item.tweet.Hashtags.Count == 0)
+					return;
+			}
 
-				_suppressNotification = true;
+			// only add tweet if it has not been found before (REST can find same tweets again)
+			if (tweets.Any(td => td.Id == item.Id)) {
+				// update retweet count but nothing more than that.
+				tweets.First(td => td.Id == item.Id).RetweetCount = item.RetweetCount;
+				return;
+			}
 
-				foreach (T item in list) {
-					this.Add(item);
+			// if tweet contains links, it is possible that it is a clone of another tweet, but with a new link. (tweetbots)
+
+
+			// if we captured a non-retweet, add it to the list.
+			if (!item.tweet.IsRetweet) {
+				tweets.Add(item);
+				db.SaveTweet(item.tweet);
+			} else {
+				// if there is an item already with the ID equal to the retweet, increase count
+				if (tweets.Any(td => td.Id == item.tweet.RetweetedTweet.Id)) {
+					tweets.First(td => td.Id == item.tweet.RetweetedTweet.Id).RetweetCount++;
+				} else {
+					// add the original tweet to the list instead of the retweet.
+					tweets.Add(new TweetData(item.tweet.RetweetedTweet, item.source, item.gatheringCycle, item.firstExpansion));
+					db.SaveTweet(item.tweet.RetweetedTweet);
 				}
-
-				_suppressNotification = false;
-				OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 			}
+
 		}
 
-
-		public class TweetList : RangeObservableCollection<TweetData>
+		public class TweetList : List<TweetData>
 		{
-			protected override void InsertItem(int index, TweetData item)
-			{
-				// only add tweet if it has not been found before (REST can find same tweets again)
-				if (this.Any(td => td.Id == item.Id)) {
-					// update retweet count but nothing more than that.
-					this.First(td => td.Id == item.Id).RetweetCount = item.RetweetCount;
-					return;
-				}
-
-				// if tweet contains links, it is possible that it is a clone of another tweet, but with a new link. (tweetbots)
-
-
-				// if we captured a non-retweet, add it to the list.
-				if (!item.tweet.IsRetweet) {
-					base.InsertItem(index, item);
-				} else {
-					// if there is an item already with the ID equal to the retweet, increase count
-					if (this.Any(td => td.Id == item.tweet.RetweetedTweet.Id)) {
-						this.First(td => td.Id == item.tweet.RetweetedTweet.Id).RetweetCount++;
-					} else {
-						// add the original tweet to the list instead of the retweet.
-						base.InsertItem(index, new TweetData(item.tweet.RetweetedTweet, item.source, item.gatheringCycle, item.firstExpansion));
-					}
-				}
-			}
 
 		}
 
@@ -270,4 +251,36 @@ namespace WPFTwitter
 			public event PropertyChangedEventHandler PropertyChanged;
 		}
 	}
+
+
+	/// <summary>
+	/// clever overloading and avoiding update of the UI before all items in a range have been loaded. LIFESAVER!!!
+	/// https://peteohanlon.wordpress.com/2008/10/22/bulk-loading-in-observablecollection/
+	/// </summary>
+	public class RangeObservableCollection<T> : ObservableCollection<T>
+	{
+		private bool _suppressNotification = false;
+
+		protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+		{
+			if (!_suppressNotification)
+				base.OnCollectionChanged(e);
+		}
+
+		public void AddRange(IEnumerable<T> list)
+		{
+			if (list == null)
+				throw new ArgumentNullException("list");
+
+			_suppressNotification = true;
+
+			foreach (T item in list) {
+				this.Add(item);
+			}
+
+			_suppressNotification = false;
+			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+		}
+	}
+
 }

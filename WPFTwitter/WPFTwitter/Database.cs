@@ -59,7 +59,13 @@ namespace WPFTwitter
 		public string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
 		public string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
 
-		public string textFileDatabasePath = "rawJsonBackup.txt";
+		private string textFileDatabasePath = "rawJsonBackup.txt";
+
+		public string TextFileDatabasePath
+		{
+			get { return textFileDatabasePath; }
+			set { textFileDatabasePath = value; }
+		}
 
 		/// <summary>
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
@@ -156,7 +162,7 @@ namespace WPFTwitter
 			// json.in_reply_to_user_id_str
 			json.Add("in_reply_to_user_id_str", tweet.InReplyToUserIdStr);
 			// json.lang
-			// convert tweet.Language to two-letter code like twitter does
+			// convert tweet.Language to two-letter code like twitter does - better way would be to add an int and a space, and then the two letter, so that we can read it back in and cast to enum (else I don't know how we can save it back to an enum)
 			string twoLetterLanguage = Tweetinvi.Core.Extensions.LanguageExtension.GetDescriptionAttribute(tweet.Language);
 			json.Add("lang", twoLetterLanguage);
 			// json.retweet_count
@@ -345,6 +351,7 @@ namespace WPFTwitter
 		void SaveToTextFile(ITweet tweet)
 		{
 			var json = EncodeTweetToJson(tweet);
+			json["lang"] = (int)tweet.Language + " " + json["lang"];
 			SaveToTextFile(json.ToString());
 		}
 
@@ -365,7 +372,7 @@ namespace WPFTwitter
 		void SaveToTextFile(string json)
 		{
 
-			StreamWriter sw = new StreamWriter(textFileDatabasePath, true, Encoding.UTF8);
+			StreamWriter sw = new StreamWriter(TextFileDatabasePath, true, Encoding.UTF8);
 
 			var j = JObject.Parse(json);
 
@@ -395,7 +402,9 @@ namespace WPFTwitter
 			final += j["id_str"] + separationChar;
 			final += j["in_reply_to_status_id_str"] + separationChar;
 			final += j["in_reply_to_user_id_str"] + separationChar;
+			// instead of just language, also save int, and cast to enum when reading
 			final += j["lang"] + separationChar;
+			
 			final += j["retweet_count"] + separationChar;
 			final += j["user"]["screen_name"] + separationChar;
 			final += j["user"]["id_str"] + separationChar;
@@ -405,6 +414,10 @@ namespace WPFTwitter
 			sw.WriteLine(final);
 			sw.Close();
 		}
+
+
+		public bool fromFile_cancelOperation = false;
+
 
 		public List<TweetDatabase.TweetData> LoadFromTextFile(string path, ref float percentDone)
 		{
@@ -417,6 +430,11 @@ namespace WPFTwitter
 				var linesRead = 0;
 				string line = "";
 				while (sr.Peek() >= 0) {
+					if (fromFile_cancelOperation) {
+						fromFile_cancelOperation = false;
+						break;
+					}
+
 					line = sr.ReadLine();
 					linesRead++;
 					percentDone = linesRead / lineCount;
@@ -462,13 +480,19 @@ namespace WPFTwitter
 								date = DateTime.Now;
 							}
 
+							Tweetinvi.Core.Enum.Language lang;
+							if (tweetData[4].IndexOf(' ') >= 0) {
+								lang = (Tweetinvi.Core.Enum.Language)int.Parse(tweetData[4].Substring(0, tweetData[4].IndexOf(' ')));
+							} else {
+								lang = Tweetinvi.Core.Enum.Language.Undefined;
+							}
 
 							CustomTweetFormat fakeTweet = new CustomTweetFormat(
 								date,
 								tweetData[1],
 								tweetData[2],
 								tweetData[3],
-								tweetData[4],
+								lang, // lang
 								int.Parse(tweetData[5]),
 								tweetData[6],
 								tweetData[7],

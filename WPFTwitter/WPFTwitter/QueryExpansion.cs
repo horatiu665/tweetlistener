@@ -33,13 +33,6 @@ namespace WPFTwitter
 			set { efronMu = value; }
 		}
 
-		private int efronN = 1;
-
-		public int EfronN
-		{
-			get { return efronN; }
-			set { efronN = value; }
-		}
 
 		private bool expanding = false;
 		public bool Expanding
@@ -51,6 +44,17 @@ namespace WPFTwitter
 				OnPropertyChanged("ExpansionProgressLabel");
 			}
 		}
+
+		private int rankNHashtags = 25;
+		public int RankNHashtags
+		{
+			get { return rankNHashtags; }
+			set { rankNHashtags = value; }
+		}
+
+		/// <summary>
+		/// in seconds
+		/// </summary>
 		private double timeForLastOperation = 0;
 		private int operationsLeft = 0;
 		public int OperationsLeft
@@ -72,6 +76,36 @@ namespace WPFTwitter
 			}
 		}
 
+		private bool expandOnAllKeywords = false;
+		public bool ExpandOnAllKeywords
+		{
+			get { return expandOnAllKeywords; }
+			set { expandOnAllKeywords = value; }
+		}
+
+		private int naiveExpansionGenerations = 0;
+		public int NaiveExpansionGenerations
+		{
+			get { return naiveExpansionGenerations; }
+			set { naiveExpansionGenerations = value; }
+		}
+
+		private bool expandOnlyOnCooccurring = false;
+		public bool ExpandOnlyOnCooccurring
+		{
+			get { return expandOnlyOnCooccurring; }
+			set { expandOnlyOnCooccurring = value; }
+		}
+
+		public bool LogModels { get; set; }
+
+		private bool applyFeedback = false;
+		public bool ApplyFeedback
+		{
+			get { return applyFeedback; }
+			set { applyFeedback = value; }
+		}
+
 		public QueryExpansion(Log log)
 		{
 			this.log = log;
@@ -83,74 +117,178 @@ namespace WPFTwitter
 
 			Expanding = true;
 
-			// find keywords from tweetCollection (and their count)
-			Dictionary<string, int> keywordsInTweets = new Dictionary<string, int>();
-			foreach (var t in tweetPopulation) {
-				foreach (var ht in t.GetHashtags()) {
-					var tag = ht.ToLower();
-					if (keywordsInTweets.Keys.Contains(tag)) {
-						keywordsInTweets[tag]++;
-					} else {
-						keywordsInTweets[tag] = 1;
+			///save their count, because we return top % of them anyway.
+			List<KeyValuePair<string, int>> selectedKeywords = new List<KeyValuePair<string, int>>();
+			// if generation == 0,  select the top % of all tweets (or if there are no used keywords to expand on)
+			if (naiveExpansionGenerations == 0 || keywords.Count(k => k.UseKeyword) == 0) {
+
+				// find all keywords from tweetCollection (and their count)
+				Dictionary<string, int> keywordsInTweets = new Dictionary<string, int>();
+				timeForLastOperation = 0.001f;
+				OperationsLeft = tweetPopulation.Count;
+				foreach (var t in tweetPopulation) {
+					foreach (var ht in t.GetHashtags()) {
+						var tag = ht.ToLower();
+						if (keywordsInTweets.Keys.Contains(tag)) {
+							keywordsInTweets[tag]++;
+						} else {
+							keywordsInTweets[tag] = 1;
+						}
 					}
+					if (forceStop) {
+						forceStop = false;
+						expanding = false;
+						return null;
+					}
+					OperationsLeft--;
+				}
+
+				// remove the ones that are already in the keywords list
+				foreach (var k in keywords) {
+					var toRemove = k.Keyword;
+					toRemove = toRemove.Replace("#", "");
+					keywordsInTweets.Remove(toRemove);
+				}
+
+				// order by count somehow
+				var orderedKeywords = keywordsInTweets.OrderByDescending(kvp => kvp.Value);
+				// top % of all tweets.
+				selectedKeywords = orderedKeywords.Take((int)Math.Ceiling(orderedKeywords.Count() * (naiveExpansionPercentage / 100f))).ToList();
+			} else {
+				var initTime = DateTime.Now;
+				timeForLastOperation = 1f;
+				// for each generation count, select the keywords which co-occur with the selected ones in the keywordsList, and subsequently, with the already selected ones.
+
+				List<TweetDatabase.TweetData> tweetsContainingSelectedKeywords = new List<TweetDatabase.TweetData>();
+
+				// list of keywords which are UseKeyword from keywordsList
+				var usedKeywords = keywords.Where(k => k.UseKeyword).Select(k => k.Keyword);
+				foreach (var k in usedKeywords) {
+					tweetsContainingSelectedKeywords.AddRange(tweetPopulation.Where(t => t.ContainsHashtag(k)));
+				}
+
+				// list of keywords which belong to tweets which contain any of the searched keywords
+				//var containingUsed = keywordsInTweets.Where(kvp => tweetsContainingSelectedKeywords.Any(t => t.ContainsHashtag(kvp.Key))).OrderByDescending(kvp => kvp.Value);
+				Dictionary<string, int> containingUsed = new Dictionary<string, int>();
+				timeForLastOperation = 0.001f;
+				OperationsLeft = tweetsContainingSelectedKeywords.Count;
+				foreach (var t in tweetsContainingSelectedKeywords) {
+					foreach (var ht in t.GetHashtags()) {
+						var tag = ht.ToLower();
+						if (containingUsed.Keys.Contains(tag)) {
+							containingUsed[tag]++;
+						} else {
+							containingUsed[tag] = 1;
+						}
+					}
+					if (forceStop) {
+						forceStop = false;
+						expanding = false;
+						return null;
+					}
+					OperationsLeft--;
+				}
+
+				// remove the ones that are already in the keywords list
+				foreach (var k in keywords) {
+					var toRemove = k.Keyword;
+					toRemove = toRemove.Replace("#", "");
+					containingUsed.Remove(toRemove);
+				}
+
+				// save only the top percent of those cooccurring keywords.
+				selectedKeywords = containingUsed.OrderByDescending(kvp => kvp.Value).Take((int)Math.Ceiling(containingUsed.Count() * (naiveExpansionPercentage / 100f))).ToList();
+
+				timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
+
+				for (int i = 0; i < naiveExpansionGenerations - 1; i++) {
+					//initTime = DateTime.Now; 
+
+					tweetsContainingSelectedKeywords.Clear();
+					foreach (var k in selectedKeywords) {
+						tweetsContainingSelectedKeywords.AddRange(tweetPopulation.Where(t => t.ContainsHashtag(k.Key)));
+					}
+					foreach (var k in usedKeywords) {
+						tweetsContainingSelectedKeywords.AddRange(tweetPopulation.Where(t => t.ContainsHashtag(k)));
+					}
+
+					// repeat process, but choose cooccurring with selectedKeywords instead of usedKeywords
+					//containingUsed = keywordsInTweets.Where(kvp => tweetsContainingSelectedKeywords.Any(t => t.ContainsHashtag(kvp.Key))).OrderByDescending(kvp => kvp.Value);
+					containingUsed.Clear();
+					timeForLastOperation = 0.001f;
+					OperationsLeft = tweetsContainingSelectedKeywords.Count;
+					foreach (var t in tweetsContainingSelectedKeywords) {
+						foreach (var ht in t.GetHashtags()) {
+							var tag = ht.ToLower();
+							if (containingUsed.Keys.Contains(tag)) {
+								containingUsed[tag]++;
+							} else {
+								containingUsed[tag] = 1;
+							}
+						}
+						if (forceStop) {
+							forceStop = false;
+							expanding = false;
+							return null;
+						}
+						OperationsLeft--;
+					}
+
+					// remove the ones that are already in the keywords list
+					foreach (var k in keywords) {
+						var toRemove = k.Keyword;
+						toRemove = toRemove.Replace("#", "");
+						containingUsed.Remove(toRemove);
+					}
+
+					selectedKeywords = containingUsed.OrderByDescending(kvp => kvp.Value).Take((int)Math.Ceiling(containingUsed.Count() * (naiveExpansionPercentage / 100f))).ToList();
+
+					//timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
+					//OperationsLeft--;
 				}
 			}
 
-			// remove the ones that are already in the keywords list
-			foreach (var k in keywords) {
-				var toRemove = k.Keyword;
-				toRemove = toRemove.Replace("#", "");
-				keywordsInTweets.Remove(toRemove);
-			}
 
-			// order by count somehow
-			var orderedKeywords = keywordsInTweets.OrderByDescending(kvp => kvp.Value);
 
-			// return original query + X% top most frequent new keywords
-			var expandedKeywords = orderedKeywords.Take((int)Math.Ceiling(orderedKeywords.Count() * (naiveExpansionPercentage / 100f)));
+			selectedKeywords = selectedKeywords.Where(kvp => kvp.Key.Any(cha => cha != ' ')).ToList();
 
-			expandedKeywords = expandedKeywords.Where(kvp => kvp.Key.Any(cha => cha != ' '));
+			var logOutput = true;
+			if (logOutput) {
+				var s = "";
 
-			var s = "";
-			expandedKeywords.ToList().ForEach(kvp => s += kvp.Key + ", ");
-
-			if (expandedKeywords.Count() == 0) {
-				log.Output("No new keywords were found");
-			} else {
-				log.Output("New keywords after expansion: " + s);
+				log.Output(selectedKeywords.Count + " unique keywords after expansion");
 			}
 
 			// create new keywordData for the new keywords found
 			var newKeywordList = new List<KeywordDatabase.KeywordData>();
-			foreach (var e in expandedKeywords) {
-				newKeywordList.Add(new KeywordDatabase.KeywordData("#" + e.Key, 0));
+			timeForLastOperation = 0.001f;
+			OperationsLeft = selectedKeywords.Count();
+			foreach (var e in selectedKeywords) {
+				var newKData = new KeywordDatabase.KeywordData("#" + e.Key, 0);
+				newKData.Count = e.Value;
+				newKeywordList.Add(newKData);
+				OperationsLeft--;
 			}
 
+			OperationsLeft = 0;
 			Expanding = false;
 
-			return keywords.Concat(newKeywordList).ToList();
+			return newKeywordList;
 		}
 
-		public List<KeywordDatabase.KeywordData> ExpandEfron(
-			KeywordDatabase.KeywordListClass keywords,
-			List<TweetDatabase.TweetData> tweetPopulation)
+		/// <summary>
+		/// returns new keywords
+		/// </summary>
+		/// <param name="keywords"></param>
+		/// <param name="tweetPopulation"></param>
+		/// <returns></returns>
+		public KeywordDatabase.KeywordListClass ExpandEfron(KeywordDatabase.KeywordListClass keywords, List<TweetDatabase.TweetData> tweetPopulation)
 		{
+			KeywordDatabase.KeywordListClass newList = new KeywordDatabase.KeywordListClass();
+
 			expanding = true;
-			log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
-			string s;
-			// old test shit
-			if (false) {
-				foreach (var keyword in keywords) {
-					if (keyword.UseKeyword) {
-						LanguageModel lm = new LanguageModel(keyword, keywords, tweetPopulation, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
-						s = "Language model for " + keyword.Keyword + ":\n";
-						foreach (var kvp in lm.probabilities) {
-							s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
-						}
-						log.Output(s);
-					}
-				}
-			}
+			if (LogModels)
+				log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
 
 			// generate query
 			var query = "";
@@ -160,53 +298,164 @@ namespace WPFTwitter
 				}
 			}
 
-			// create query model
-			QueryModel queryModel = new QueryModel(query, keywords, tweetPopulation);
-			s = "query model for query:\n " + query + ":\n";
-			foreach (var kvp in queryModel.probabilities) {
-				s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
+			if (query == "") {
+				expanding = false;
+				log.Output("Query was empty. no expansion");
+				return newList;
 			}
-			log.Output(s);
 
-			Dictionary<KeywordDatabase.KeywordData, LanguageModel> languageModels = new Dictionary<KeywordDatabase.KeywordData, LanguageModel>();
+			if (forceStop) {
+				forceStop = false;
+				expanding = false;
+				return newList; ;
+			}
+
+			// create query model
+			List<TweetDatabase.TweetData> tweetsReturnedByQueryModel;
+			QueryModel queryModel = new QueryModel(query, keywords, tweetPopulation, out tweetsReturnedByQueryModel);
+
+			if (LogModels) {
+				var s = queryModel.ToString();
+				log.Output(s);
+			}
+
+			// count words in tweet collection
+			var keywordCountsC = new Dictionary<string, int>();
+			foreach (var t in tweetPopulation) {
+				foreach (var ht in t.GetHashtags()) {
+					var tag = ht.ToLower();
+					if (keywordCountsC.Keys.Contains(tag)) {
+						keywordCountsC[tag]++;
+					} else {
+						keywordCountsC[tag] = 1;
+					}
+				}
+			}
+
+			// make language model inside each keyword
 			OperationsLeft = keywords.Count;
 			DateTime initTime;
 			foreach (var keyword in keywords) {
 				initTime = DateTime.Now;
-				languageModels[keyword] = new LanguageModel(keyword, keywords, tweetPopulation, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
-				s = "Language model for " + keyword.Keyword + ":\n";
-				foreach (var kvp in languageModels[keyword].probabilities) {
-					s += kvp.Value.ToString("F9") + "\t" + kvp.Key.Keyword + "; \n";
+				if (ExpandOnlyOnCooccurring) {
+					if (keyword.LanguageModel == null) {
+						keyword.LanguageModel = new LanguageModel(keyword, keywords, tweetsReturnedByQueryModel, keywordCountsC, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
+					}
+				} else {
+					if (keyword.LanguageModel == null) {
+						keyword.LanguageModel = new LanguageModel(keyword, keywords, tweetPopulation, keywordCountsC, LanguageModel.SmoothingMethods.BayesianDirichlet, efronMu);
+					}
 				}
-				log.Output(s);
+				if (forceStop) {
+					forceStop = false;
+					expanding = false;
+					return newList; ;
+				}
+				if (LogModels) {
+					log.Output(keyword.LanguageModel.ToString());
+				}
 				timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
 				OperationsLeft--;
 			}
 
-			OperationsLeft = languageModels.Count;
-			
-			// calculate KL divergence for each hashtag vs query, and rank them
-			var rankedTags = languageModels.OrderByDescending(lm => {
+
+			// calculate KL divergence for each hashtag vs query, and rank them. Only take N for ranking (N = arbitrary 25)
+			OperationsLeft = keywords.Count;
+			var rankedTags = keywords.OrderByDescending(kData => {
 				initTime = DateTime.Now;
 				var x = -LanguageModel.KlDivergence(
 					queryModel.probabilities.Values.ToList(),
-					lm.Value.probabilities.Values.ToList()
+					kData.LanguageModel.probabilities.Values.ToList()
 				);
-				lm.Value.KldResult = x;
+				kData.LanguageModel.KldResult = x;
 				timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
 				OperationsLeft--;
 				return x;
-			}).ToList();
+			}).Take(rankNHashtags).ToList();
 
-			s = "List of ranked hashtags in descending order of their -KLD for the query:\n"
-				+ queryModel.query + "\n";
-
-			foreach (var r in rankedTags) {
-				s += r.Value.KldResult.ToString("F8") + " " + r.Key.Keyword + "\n";
+			if (forceStop) {
+				forceStop = false;
+				expanding = false;
+				return newList; ;
 			}
-			log.Output(s);
 
-			return null;
+			// use feedback on query model
+
+			// /////////////////////////////// FEEDBACK MODEL HERE /////////////////////////////
+			if (ApplyFeedback) {
+				// Theta_r = weights for all ranked elements (just to increase their weight slightly in the final formula)
+				var ThetaR = new Dictionary<KeywordDatabase.KeywordData, float>();
+
+				// use IDF? we need to calculate inverse document frequency for this. Else, use uniform distribution.
+				var IDF = false;
+				foreach (var r in rankedTags) {
+					ThetaR[r] = (IDF ? 0f : 1 / (float)rankedTags.Count);
+				}
+
+				// non-ranked elements are zero, regardless if we use IDF or uniform.
+				foreach (var k in keywords) {
+					if (rankedTags.All(kvp => kvp.Keyword != k.Keyword)) {
+						ThetaR[k] = 0f;
+					}
+				}
+
+				if (forceStop) {
+					forceStop = false;
+					expanding = false;
+					return newList; ;
+				}
+
+				// now we have the ThetaR, we can include it in a feedback loop.
+				queryModel.ApplyFeedback(ThetaR, 0.2f);
+
+				if (LogModels) {
+					var s = "After applying feedback:\n" + queryModel.ToString();
+					log.Output(s);
+				}
+
+				// after queryModel updated with feedback, ranking should be performed again.
+				OperationsLeft = keywords.Count;
+				rankedTags = keywords.OrderByDescending(kData => {
+					initTime = DateTime.Now;
+					var x = -LanguageModel.KlDivergence(
+						queryModel.probabilities.Values.ToList(),
+						kData.LanguageModel.probabilities.Values.ToList()
+					);
+					kData.LanguageModel.KldResult = x;
+					timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
+					OperationsLeft--;
+					return x;
+				}).Take(rankNHashtags).ToList();
+
+			}
+
+
+			if (true) {
+				var s = "List of ranked hashtags in descending order of their -KLD for the query:\n"
+					+ queryModel.query + "\n";
+				foreach (var r in rankedTags) {
+					s += r.LanguageModel.KldResult.ToString("F8") + " " + r.Keyword + "\n";
+				}
+				log.Output(s);
+			}
+
+
+			for (int i = 0; i < Math.Min(rankedTags.Count, 25); i++) {
+				newList.Add(rankedTags[i]);
+			}
+
+			return newList;
+		}
+
+
+		private bool forceStop = false;
+
+		/// <summary>
+		/// stops any ongoing expansion
+		/// </summary>
+		public void Stop()
+		{
+			forceStop = true;
 		}
 
 

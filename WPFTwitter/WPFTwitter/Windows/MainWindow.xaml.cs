@@ -57,6 +57,7 @@ namespace WPFTwitter.Windows
 		private int tweetsLastSecond = 0;
 		private float tweetsPerSecond = 0f;
 		private System.Timers.Timer tweetsPerSecondTimer = new System.Timers.Timer();
+
 		public string TweetsPerSecond
 		{
 			get
@@ -65,16 +66,14 @@ namespace WPFTwitter.Windows
 			}
 		}
 
-		private bool showTweetView = false;
-		public bool ShowTweetView
+		private bool continuousTweetViewUpdate = false;
+		public bool ContinuousTweetViewUpdate
 		{
-			get { return showTweetView; }
-			set
-			{
-				showTweetView = value;
-			}
+			get { return continuousTweetViewUpdate; }
+			set { continuousTweetViewUpdate = value; }
 		}
-
+		bool updateTweetsNextUpdate = false;
+		private System.Timers.Timer tweetViewUpdateTimer = new System.Timers.Timer();
 
 
 		public MainWindow()
@@ -83,11 +82,11 @@ namespace WPFTwitter.Windows
 
 			viewModel = new MainWindowViewModel();
 
-			credentials = new Credentials();
-			tweetDatabase = new TweetDatabase();
-			keywordDatabase = new KeywordDatabase();
 			log = new Log();
+			credentials = new Credentials(log);
+			keywordDatabase = new KeywordDatabase(log);
 			databaseSaver = new DatabaseSaver(log);
+			tweetDatabase = new TweetDatabase(databaseSaver);
 			rest = new Rest(databaseSaver, log, tweetDatabase);
 			stream = new Stream(databaseSaver, log, rest, keywordDatabase);
 			restGatherer = new RestGatherer(rest, log, tweetDatabase, keywordDatabase);
@@ -105,23 +104,31 @@ namespace WPFTwitter.Windows
 			databaseRetries.DataContext = databaseSaver;
 			checkBox_saveToTextFile.DataContext = databaseSaver;
 			checkBox_database.DataContext = databaseSaver;
+			database_textFileDbPathTextBox.DataContext = databaseSaver;
+			setCredentialsDefault.DataContext = credentials;
 
 			// rest log binding
 			restView.DataContext = RestMessageList;
 
 			// kData list binding
-			keywordListView.ItemsSource = keywordDatabase.KeywordList;
+			//keywordListView.ItemsSource = keywordDatabase.KeywordList;
+			keywordView.DataContext = keywordDatabase;
 
 			expansionPanel.DataContext = queryExpansion;
 
 			autoExpansionTimer.Elapsed += (s, a) => {
+				log.Output("AutoExpansionTimer elapsed");
 				AutoExpand();
 			};
+			// every 10 minutes expand.
+			//autoExpansionTimer.Interval = 10*60*1000;
 
 			restGatherer.TweetFound += (s, t) => {
 				App.Current.Dispatcher.Invoke(() => {
 					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
-					keywordListView.UpdateLayout();
+					if (keywordDatabase.ContinuousUpdate) {
+						keywordListView.UpdateLayout();
+					}
 				});
 			};
 
@@ -150,36 +157,50 @@ namespace WPFTwitter.Windows
 
 			// tweet view binding
 			tweetView.DataContext = tweetDatabase.Tweets;
+			tweetViewContinuousUpdate.DataContext = this;
+			tweetViewOnlyEnglish.DataContext = tweetDatabase;
+			tweetViewOnlyWithHashtags.DataContext = tweetDatabase;
 
 			// saving tweets from Streaming and Rest into TweetDatabase
 			stream.stream.MatchingTweetReceived += (s, a) => {
-				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+				Task.Factory.StartNew(() => {
+					tweetDatabase.AddTweet(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					updateTweetsNextUpdate = true;
+
 				});
 				tweetsLastSecond++;
 			};
 			stream.sampleStream.TweetReceived += (s, a) => {
-				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+				Task.Factory.StartNew(() => {
+					tweetDatabase.AddTweet(new TweetDatabase.TweetData(a.Tweet, TweetDatabase.TweetData.Sources.Stream, 0, 1));
+					updateTweetsNextUpdate = true;
+
 				});
 				tweetsLastSecond++;
 			};
 			restGatherer.TweetFound += (s, t) => {
-				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+				Task.Factory.StartNew(() => {
+					tweetDatabase.AddTweet(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					updateTweetsNextUpdate = true;
+
 				});
 				tweetsLastSecond++;
 			};
 			rest.TweetFound += (t) => {
-				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.tweets.Add(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
-					keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+				Task.Factory.StartNew(() => {
+					tweetDatabase.AddTweet(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
+					updateTweetsNextUpdate = true;
+
 				});
 				tweetsLastSecond++;
 			};
+
+			tweetViewUpdateTimer.Interval = 1000;
+			tweetViewUpdateTimer.Elapsed += (s, a) => {
+				UpdateTweetView();
+			};
+			tweetViewUpdateTimer.Start();
+
 
 			tweetsPerSecondTimer.Interval = 1000;
 			tweetsPerSecondTimer.Elapsed += (s, a) => {
@@ -189,6 +210,9 @@ namespace WPFTwitter.Windows
 			};
 			tweetsPerSecondTimer.Start();
 			tweetsPerSecondLabel.DataContext = this;
+
+			log.Start(logPathTextBox.Text);
+			
 
 			// when credentials change
 			credentials.CredentialsChange += (creds) => {
@@ -204,6 +228,22 @@ namespace WPFTwitter.Windows
 			databaseSaver.Message += (s) => {
 				log.Output(s);
 			};
+		}
+
+		/// <summary>
+		/// happens every sometimes, updates tweetView with the latest tweets (if so chosen)
+		/// </summary>
+		private void UpdateTweetView()
+		{
+			if (updateTweetsNextUpdate) {
+				updateTweetsNextUpdate = false;
+				App.Current.Dispatcher.Invoke(() => {
+					if (continuousTweetViewUpdate) {
+						tweetView.ItemsSource = tweetDatabase.Tweets;
+					}
+					keywordDatabase.KeywordList.UpdateCount(tweetDatabase.tweets);
+				});
+			}
 		}
 
 		/// <summary>
@@ -226,22 +266,19 @@ namespace WPFTwitter.Windows
 
 			stream.Start();
 
-			// if log
-			if (checkBox_Log.IsChecked.Value) {
-				log.Start(logPathTextBox.Text, checkBox_databaseMessages.IsChecked.Value);
-			}
+			//if (!autoExpansionTimer.Enabled) {
+			//	autoExpansionTimer.Start();
+			//}
 
-			autoExpansionTimer.Stop();
-
-			if (autoQueryExpansionCheckbox.IsChecked.Value) {
-				var timespan = expansionScheduleTimespan.Value.Value;
-				if (timespan == null) {
-					log.Output("Timespan null in scheduled expansion field in Streaming Toolbox. Please assign a valid timespan for the scheduler!");
-				} else {
-					autoExpansionTimer.Interval = timespan.TotalMilliseconds;
-				}
-				autoExpansionTimer.Start();
-			}
+			//if (autoExpansionTimer) {
+			//	TimeSpan timespan = expansionScheduleTimespan.Value.HasValue ? expansionScheduleTimespan.Value.Value : TimeSpan.FromHours(1);
+			//	if (timespan == null) {
+			//		log.Output("Timespan null in scheduled expansion field in Streaming Toolbox. Please assign a valid timespan for the scheduler!");
+			//	} else {
+			//		autoExpansionTimer.Interval = timespan.TotalMilliseconds;
+			//	}
+			//	autoExpansionTimer.Start();
+			//}
 
 		}
 
@@ -264,10 +301,10 @@ namespace WPFTwitter.Windows
 		{
 			stream.Stop();
 
-			if (autoExpansionTimer.Enabled) {
-				log.Output("Attempting to stop scheduled expansion");
-				autoExpansionTimer.Stop();
-			}
+			//if (autoExpansionTimer.Enabled) {
+			//	log.Output("Attempting to stop scheduled expansion");
+			//	autoExpansionTimer.Stop();
+			//}
 		}
 
 		private void dMan_Unloaded(object sender, RoutedEventArgs e)
@@ -279,7 +316,7 @@ namespace WPFTwitter.Windows
 		{
 			// load avalon layout from file
 
-			credentialsPanelLayout.ToggleAutoHide();
+			//credentialsPanelLayout.ToggleAutoHide();
 			//streamingToolboxLayout.ToggleAutoHide();
 			//logSettingsLayout.ToggleAutoHide();
 		}
@@ -308,9 +345,9 @@ namespace WPFTwitter.Windows
 						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							tweetDatabase.tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
+							tweetDatabase.AddTweet(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
-						keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+						updateTweetsNextUpdate = true;
 					}
 				} else {
 					var recent = rest_filter_recent.IsChecked.Value;
@@ -332,9 +369,9 @@ namespace WPFTwitter.Windows
 						log.Output(("No tweets returned"));
 					} else {
 						foreach (var r in res) {
-							tweetDatabase.tweets.Add(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
+							tweetDatabase.AddTweet(new TweetDatabase.TweetData(r, TweetDatabase.TweetData.Sources.Rest, 0, 0));
 						}
-						keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+						updateTweetsNextUpdate = true;
 					}
 
 				}
@@ -550,17 +587,32 @@ namespace WPFTwitter.Windows
 
 		private void restExhaustiveQueryButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
-				// start this in a new thread
-				//Task.Factory.StartNew(() => {
-				App.Current.Dispatcher.Invoke(() => {
-					rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
-				});
-				//});
+			if (!rest.IsGathering) {
+				if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
+					// start this in a new thread
+					//Task.Factory.StartNew(() => {
+					App.Current.Dispatcher.Invoke(() => {
+						rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
+					});
+					//});
+					restExhaustiveQueryButton.Content = "Stop Gathering Cycle";
+				} else {
+					// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
+					log.Output("Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.");
+				}
 			} else {
-				// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
-				log.Output("Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.");
+				rest.StopGatheringCycle();
 			}
+
+			rest.StoppedGatheringCycle -= ResetRestGatheringButton;
+			rest.StoppedGatheringCycle += ResetRestGatheringButton;
+		}
+
+		private void ResetRestGatheringButton()
+		{
+			App.Current.Dispatcher.Invoke(() => {
+				restExhaustiveQueryButton.Content = "Start Gathering Cycle";
+			});
 		}
 
 		private void tweetView_Item_DeleteButton(object sender, RoutedEventArgs e)
@@ -715,8 +767,12 @@ namespace WPFTwitter.Windows
 				if (!(newKeyword[0] == '#')) {
 					newKeyword = newKeyword.Insert(0, "#");
 				}
+
+				var newKeywordData = new KeywordDatabase.KeywordData(newKeyword, 0);
+				newKeywordData.Count = tweetDatabase.tweets.Count(t => t.ContainsHashtag(newKeyword));
+
 				App.Current.Dispatcher.Invoke(() => {
-					keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(newKeyword, 0));
+					keywordDatabase.KeywordList.Add(newKeywordData);
 
 					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
 
@@ -728,12 +784,11 @@ namespace WPFTwitter.Windows
 		private void keywordsView_UseAll(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.Invoke(() => {
-				var newKeys = new ObservableCollection<KeywordDatabase.KeywordData>(keywordDatabase.KeywordList);
-				foreach (var kd in newKeys) {
+				foreach (var kd in keywordDatabase.KeywordList) {
 					kd.UseKeyword = true;
 				}
 
-				keywordDatabase.KeywordList.Set(newKeys);
+				//keywordDatabase.KeywordList.Set(newKeys);
 
 				keywordListView.UpdateLayout();
 			});
@@ -741,30 +796,83 @@ namespace WPFTwitter.Windows
 		private void keywordsView_UseNone(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.Invoke(() => {
-				var newKeys = new ObservableCollection<KeywordDatabase.KeywordData>(keywordDatabase.KeywordList);
-				foreach (var kd in newKeys) {
+				foreach (var kd in keywordDatabase.KeywordList) {
 					kd.UseKeyword = false;
 				}
 
-				keywordDatabase.KeywordList.Set(newKeys);
+				//keywordDatabase.KeywordList.Set(newKeys);
 
 				keywordListView.UpdateLayout();
 			});
 		}
 
-		private void tweetView_ExpandNaive(object sender, RoutedEventArgs e)
+		private void expansion_ExpandNaive(object sender, RoutedEventArgs e)
 		{
-			var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.tweets.ToList());
-			keywordDatabase.KeywordList.Set(newKeywords);
-			keywordDatabase.KeywordList.Update(tweetDatabase.tweets);
+			Task.Factory.StartNew(() => {
+				var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.tweets.ToList());
+				//keywordDatabase.KeywordList.UpdateCount(tweetDatabase.tweets);
+
+				// COUNT IS ALREADY PERFORMED IN THE NAIVE EXPANSION!!!
+
+				// update count outside of main thread
+				//foreach (var k in newKeywords) {
+				//	k.Count = tweetDatabase.tweets.Count(td => td.ContainsHashtag(k.Keyword));
+				//}
+
+				if (newKeywords != null && newKeywords.Count > 0) {
+					App.Current.Dispatcher.Invoke(() => {
+						keywordDatabase.KeywordList.AddRange(newKeywords);
+					});
+				}
+			});
 		}
 
 		private void AutoExpand()
 		{
-			log.Output("Attempting to expand the query automatically");
-			tweetView_ExpandNaive(null, null);
-			log.Output("Attempting to restart the stream automatically");
-			restartStreamButton_Click(null, null);
+			if (stream.StreamRunning) {
+				log.Output("Attempting to expand the query automatically");
+				Task.Factory.StartNew(() => {
+					// before Efron, more tags must be gathered. preferably a full transitive closure
+					var newKeys = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.tweets);
+					if (newKeys != null && newKeys.Count > 0) {
+						App.Current.Dispatcher.Invoke(() => {
+							// set use to false (we might not want them in the stream query)
+							newKeys.ForEach(kd => kd.UseKeyword = false);
+							// add the new keywords
+							keywordDatabase.KeywordList.AddRange(newKeys);
+
+							// clear language models, every time.
+							keywordDatabase.KeywordList.ClearLanguageModels();
+
+							// now we can expand.
+							var efronExpanded = queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
+
+							// we must generate the query from the query model.
+							keywordDatabase.KeywordList.Where(kd => efronExpanded.Any(kkk => kkk.Keyword == kd.Keyword)).ToList().ForEach(kd => kd.UseKeyword = true);
+
+							// after expansion, restart stream to apply the new settings.
+							log.Output("Attempting to restart the stream automatically");
+							restartStreamButton_Click(null, null);
+						});
+					}
+				});
+			}
+		}
+
+		private void expansion_ExpandEfron(object sender, RoutedEventArgs e)
+		{
+			if (!queryExpansion.Expanding) {
+				Task.Factory.StartNew(() => {
+					queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
+
+					queryExpansion.Expanding = false;
+				});
+			} else {
+				var m = MessageBox.Show("Expansion running. Cancel current expansion?", "wait what?", MessageBoxButton.YesNo);
+				if (m == MessageBoxResult.Yes) {
+					queryExpansion.Stop();
+				}
+			}
 		}
 
 		int currentCredentialDefaults = 0;
@@ -772,18 +880,7 @@ namespace WPFTwitter.Windows
 		private void setCredentialsDefault_Click(object sender, RoutedEventArgs e)
 		{
 			var creds = (credentials.GetDefaults(currentCredentialDefaults++));
-			Access_Token.Text = creds[0];
-			Access_Token_Secret.Text = creds[1];
-			Consumer_Key.Text = creds[2];
-			Consumer_Secret.Text = creds[3];
-
-		}
-
-		private void tweetView_ExpandEfron(object sender, RoutedEventArgs e)
-		{
-			Task.Factory.StartNew(() => {
-				queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
-			});
+			credentials.TwitterCredentialsInit(creds);
 		}
 
 		bool fromFile_isLoading = false;
@@ -823,8 +920,6 @@ namespace WPFTwitter.Windows
 		System.Timers.Timer fromFile_updateUiTimer;
 		//List<TweetDatabase.TweetData> fromFile_newTweets = new List<TweetDatabase.TweetData>();
 
-		bool fromFile_cancelOperation = false;
-
 		bool fromFile_transferingTweets = false;
 
 		int startedTimer, stoppedTimer;
@@ -854,30 +949,49 @@ namespace WPFTwitter.Windows
 				fromFile_updateUiTimer.Start();
 
 				Task.Factory.StartNew(() => {
-					var fromTxt = databaseSaver.LoadFromTextFile(databaseSaver.textFileDatabasePath, ref fromFile_percentDone);
+					var fromTxt = databaseSaver.LoadFromTextFile(databaseSaver.TextFileDatabasePath, ref fromFile_percentDone);
 					log.Output("Loaded files. Dumping them into tweetList");
 					fromFile_Loaded = true;
 					fromFile_tweetCount = fromTxt.Count;
 					fromFile_tweetLoadedCount = 0;
 
-					while (fromTxt.Count > 0) {
-						var smallList = fromTxt.GetRange(Math.Max(fromTxt.Count - 1000, 0), Math.Min(1000, fromTxt.Count));
-						tweetDatabase.tweets.AddRange(smallList);
-						fromTxt.RemoveRange(Math.Max(fromTxt.Count - 1000, 0), Math.Min(1000, fromTxt.Count));
-						fromFile_tweetLoadedCount += 1000;
+					// add in bulk
+					if (false) {
+						while (fromTxt.Count > 0) {
+							var smallList = fromTxt.GetRange(Math.Max(fromTxt.Count - 1000, 0), Math.Min(1000, fromTxt.Count));
+							for (int i = 0; i < smallList.Count; i++) {
+								tweetDatabase.AddTweet(smallList[i]);
+							}
+							fromTxt.RemoveRange(Math.Max(fromTxt.Count - 1000, 0), Math.Min(1000, fromTxt.Count));
+							fromFile_tweetLoadedCount += 1000;
+						}
 					}
-					fromFile_tweetLoadedCount = fromFile_tweetCount;
+					// add one by one
+					var checkEachTweet = false;
+					if (checkEachTweet) {
+						for (int i = 0; i < fromTxt.Count; i++) {
+							tweetDatabase.AddTweet(fromTxt[i]);
+							fromFile_tweetLoadedCount++;
+							if (databaseSaver.fromFile_cancelOperation) {
+								databaseSaver.fromFile_cancelOperation = false;
+								break;
+							}
+						}
+					} else {
+						tweetDatabase.tweets.AddRange(fromTxt);
+						fromFile_tweetLoadedCount = fromTxt.Count;
+					}
 
 					App.Current.Dispatcher.Invoke(() => {
 						((Button)sender).Content = "Load from text file";
 					});
-					log.Output("Finished loading " + fromFile_tweetCount + " tweets from file");
+					log.Output("Finished loading " + fromFile_tweetLoadedCount + " tweets from file");
 					fromFile_isLoading = false;
 
 				});
 
 			} else {
-				fromFile_cancelOperation = true;
+				databaseSaver.fromFile_cancelOperation = true;
 
 			}
 
@@ -890,6 +1004,127 @@ namespace WPFTwitter.Windows
 			if (PropertyChanged != null) {
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+
+		private void keywordsView_Update(object sender, RoutedEventArgs e)
+		{
+			// counts all keywords
+			keywordDatabase.KeywordList.UpdateCount(tweetDatabase.tweets);
+
+			// update list view
+			keywordListView.UpdateLayout();
+		}
+
+		private void tweetView_Item_FollowLink(object sender, RoutedEventArgs e)
+		{
+			// get clicked row
+			var button = ((Button)sender);
+			var item = FindParent<ListViewItem>(button);
+			if (item != null) {
+				var content = (TweetDatabase.TweetData)(item.Content);
+				try {
+					System.Diagnostics.Process.Start("https://twitter.com/search?q=" + content.Id);
+				}
+				catch {
+					MessageBox.Show("Something went wrong when trying to open link " + "https://twitter.com/search?q=" + content.Id + "\n\n Try again maybe");
+				}
+			}
+		}
+
+		private void tweetView_KeepTweets(object sender, RoutedEventArgs e)
+		{
+			int howMany;
+			if (int.TryParse(tweetView_keepHowManyTweets_textBox.Text, out howMany)) {
+				var newList = tweetDatabase.tweets.Take(howMany).ToList();
+				tweetDatabase.tweets.Clear();
+				tweetDatabase.tweets.AddRange(newList);
+				log.Output("Kept only the first " + tweetDatabase.tweets.Count + " tweets");
+				updateTweetsNextUpdate = true;
+			} else if (tweetView_keepHowManyTweets_dateBox.Value.HasValue) {
+				var val = tweetView_keepHowManyTweets_dateBox.Value.Value;
+				var newList = tweetDatabase.tweets.Where(td => td.Date.CompareTo(val) <= 0).ToList();
+				tweetDatabase.tweets.Clear();
+				tweetDatabase.tweets.AddRange(newList);
+				log.Output("Deleted tweets after date " + val);
+				updateTweetsNextUpdate = true;
+			}
+		}
+
+		private void keywordView_Item_LangModelCalculateButton(object sender, RoutedEventArgs e)
+		{
+			// get clicked row
+			var button = ((Button)sender);
+			var item = FindParent<ListViewItem>(button);
+			if (item != null) {
+				App.Current.Dispatcher.Invoke(() => {
+					var content = (KeywordDatabase.KeywordData)(item.Content);
+					if (!content.HasLanguageModel) {
+						content.LanguageModel = new LanguageModel(content, keywordDatabase.KeywordList, tweetDatabase.tweets, null, LanguageModel.SmoothingMethods.BayesianDirichlet, queryExpansion.EfronMu);
+					} else {
+						log.Output("Keyword " + content.Keyword + " already has a calculated language model");
+						log.Output(content.LanguageModel.ToString());
+					}
+				});
+			}
+		}
+
+		private void keywordView_Item_LangModelClearButton(object sender, RoutedEventArgs e)
+		{
+			// get clicked row
+			var button = ((Button)sender);
+			var item = FindParent<ListViewItem>(button);
+			if (item != null) {
+				App.Current.Dispatcher.Invoke(() => {
+					var content = (KeywordDatabase.KeywordData)(item.Content);
+					content.LanguageModel = null;
+				});
+			}
+		}
+
+		private void keywordView_Item_LangModelPrintButton(object sender, RoutedEventArgs e)
+		{
+			// get clicked row
+			var button = ((Button)sender);
+			var item = FindParent<ListViewItem>(button);
+			if (item != null) {
+				App.Current.Dispatcher.Invoke(() => {
+					var content = (KeywordDatabase.KeywordData)(item.Content);
+
+					if (content.HasLanguageModel) {
+						log.Output(content.LanguageModel.ToString());
+					} else {
+						log.Output(content.Keyword + " does not have a language model");
+					}
+				});
+			}
+		}
+
+		private void tweetView_DeleteSpamTweets(object sender, RoutedEventArgs e)
+		{
+			App.Current.Dispatcher.Invoke(() => {
+				tweetDatabase.tweets.RemoveAll(td => td.Tweet.IndexOf("RT") == 0);
+				log.Output("Removed tweets starting with RT, now we have " + tweetDatabase.tweets.Count + " tweets");
+			});
+		}
+
+		private void keywordsView_DeleteSelected(object sender, RoutedEventArgs e)
+		{
+			var result = MessageBox.Show("Are you sure you want to delete selected keywords?", "Delete confirmation", MessageBoxButton.YesNo);
+			if (result == MessageBoxResult.Yes) {
+
+			}
+		}
+
+		private void keywordsView_ClearLangModels(object sender, RoutedEventArgs e)
+		{
+			App.Current.Dispatcher.Invoke(() => {
+				var i = 0;
+				while (i < keywordDatabase.KeywordList.Count) {
+					keywordDatabase.KeywordList[i].LanguageModel = null;
+					i++;
+				}
+
+			});
 		}
 	}
 

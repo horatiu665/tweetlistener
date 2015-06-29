@@ -33,7 +33,7 @@ namespace WPFTwitter
 		System.Timers.Timer logRestartTimer;
 
 		StreamWriter smallLogWriter;
-		public string smallLogPath = "smalllog.txt";
+		private string smallLogPath { get { return "small" + logPath; } }
 		public double restartSmallLogIntervalMillis = 30037;
 		System.Timers.Timer smallLogRestartTimer;
 
@@ -72,7 +72,7 @@ namespace WPFTwitter
 		/// <summary>
 		/// Log module starts here
 		/// </summary>
-		public void Start(string path, bool databaseMessages = true)
+		public void Start(string path)
 		{
 			if (!_started) {
 
@@ -81,16 +81,16 @@ namespace WPFTwitter
 				// open log writer
 				logWriter = new StreamWriter(logPath, true);
 				Output("New log started");
-
+				
 				// small log init
 				smallLogWriter = new StreamWriter(smallLogPath, true);
 				SmallOutput("New log started");
-
+				
 				// once in a while stop and start log, so we do not lose all the data in the log.
 				logRestartTimer = new System.Timers.Timer(restartLogIntervalMillis);
 				logRestartTimer.Start();
 				logRestartTimer.Elapsed += (s, a) => {
-					if (logWriter != null) {
+					if (logWriter != null && !writing) {
 						logWriter.Close();
 						logWriter = new StreamWriter(logPath, true);
 					} else {
@@ -119,6 +119,8 @@ namespace WPFTwitter
 				//	}
 				//};
 
+				StartSafeOutput();
+
 				_started = true;
 			}
 
@@ -142,7 +144,24 @@ namespace WPFTwitter
 		}
 
 
+		// output is performed by adding lines that we want output to this queue here
+		// and writing line by line from the queue when we have enough time.
+		Queue<string> outputQ = new Queue<string>();
+		bool writing = false;
 
+		void StartSafeOutput()
+		{
+			Task.Factory.StartNew(() => {
+				while (true) {
+					if (outputQ.Count > 0) {
+						string s = outputQ.Dequeue();
+						writing = true;
+						logWriter.WriteLine(s);
+						writing = false;
+					}
+				}
+			});
+		}
 
 		// output funcs
 
@@ -169,9 +188,10 @@ namespace WPFTwitter
 					Console.WriteLine(message);
 				}
 
-				if (logWriter != null) {
-					logWriter.WriteLine(message);
-				}
+				//if (logWriter != null) {
+				//	logWriter.WriteLine(message);
+				//}
+				outputQ.Enqueue(message);
 			}
 			catch (Exception e) {
 				if (LogOutput != null) {
@@ -210,7 +230,6 @@ namespace WPFTwitter
 					Console.WriteLine(e.ToString());
 				}
 			}
-
 		}
 	}
 }

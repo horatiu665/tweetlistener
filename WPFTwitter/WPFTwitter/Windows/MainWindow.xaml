@@ -4,7 +4,7 @@
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:extendedWpf="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:Controls="clr-namespace:WPFTwitter"
-        Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="700" Width="1024" KeyDown="Window_KeyDown">
+        Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="700" Width="1366" KeyDown="Window_KeyDown">
     <DockPanel>
         <!-- This could be a menu bar -->
         <!--<Menu DockPanel.Dock="Top" VerticalAlignment="Top">
@@ -22,11 +22,19 @@
                         <!-- LOG PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="3*" DockWidth="*">
-                            <ad:LayoutAnchorable Title="Log" CanClose="False" CanHide="False">
+                            <ad:LayoutAnchorable Title="Log" CanClose="False" CanHide="False" AutoHideWidth="300">
                                 <DockPanel x:Name="logPane">
                                     <DockPanel DockPanel.Dock="Top">
-                                        <Button Content="Clear Log" Width="100" Click="logClearButtonClick"/>
-                                        <CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0"/>
+                                        <Button Content="Clear Log" Width="100" Click="logClearButtonClick">
+                                            <Button.ToolTip>
+                                                Clears log messages from memory. Log file not affected.
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0">
+                                            <CheckBox.ToolTip>
+                                                Scrolls down every time there is a new log message.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
                                     </DockPanel>
                                     <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
                                         <DataGrid.Columns>
@@ -53,83 +61,101 @@
                         </ad:LayoutAnchorablePane>
                         <!-- END LOG PANEL -->
 
-                        <!--  EXPANSION PANEL -->
-
-                        <ad:LayoutAnchorablePane DockHeight="2*">
-                            <ad:LayoutAnchorable Title="Expansion"  CanClose="False" CanHide="False">
-
-                                <!-- this is the content you are looking for -->
-                                <DockPanel x:Name="expansionPanel">
-                                    <StackPanel>
-                                        <DockPanel Margin="10,0">
-                                            <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                            <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                        </DockPanel>
-                                        <Button Content="Expand keywords using Naive (count tweets, top percent)" Click="tweetView_ExpandNaive"/>
-                                        <DockPanel Margin="10,0">
-                                            <Label Content="Efron mu value" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                            <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                        </DockPanel>
-                                        <DockPanel Margin="10,0">
-                                            <Label Content="Efron N value" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
-                                            <TextBox Text="{Binding Path=EfronN, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                        </DockPanel>
-                                        <Button Content="Expand keywords using Efron (language model + smoothing)" Click="tweetView_ExpandEfron"/>
-                                        <Label Content="{Binding Path=ExpansionProgressLabel}" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </DockPanel>
-                                <!-- this was the content you were looking for -->
-
-                            </ad:LayoutAnchorable>
-                        </ad:LayoutAnchorablePane>
-
-                        <!-- END  EXPANSION PANEL -->
-
                         <!-- TWEET PANEL -->
 
                         <ad:LayoutAnchorablePane DockHeight="3*" DockWidth="2*">
                             <ad:LayoutAnchorable Title="Tweets">
                                 <DockPanel>
                                     <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10" >
-                                        <!--<CheckBox Content="Show" IsChecked="{Binding ShowTweetView, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0"/>-->
-                                        <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection"/>
-                                        <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left"/>
-                                        <Button Content="Load from text file" Margin="0 0" Click="tweetView_LoadFromFile" HorizontalAlignment="Left"/>
+                                        <CheckBox x:Name="tweetViewOnlyEnglish" Content="Only English" IsChecked="{Binding OnlyEnglish, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
+                                            <CheckBox.ToolTip>
+                                                Only save tweets in English, or undefined (since they can often be in english).
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
+                                        <CheckBox x:Name="tweetViewOnlyWithHashtags" Content="Only with Hashtags" IsChecked="{Binding OnlyWithHashtags, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
+                                            <CheckBox.ToolTip>
+                                                Only save tweets containing at least one hashtag.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
+                                        <CheckBox x:Name="tweetViewContinuousUpdate" Content="Continuous update" IsChecked="{Binding ContinuousTweetViewUpdate, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
+                                            <CheckBox.ToolTip>
+                                                Update tweetView every second with the list of tweets. Slows down the process but displays tweets. 
+                                                Not recommended with more than 10000 tweets because it can get REALLY slow.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
+                                        <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection">
+                                            <Button.ToolTip>
+                                                Reset keyword selection, show all tweets. 
+                                                Not recomended for more than 20000 tweets, real slow update.
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <Button Content="Delete All" Width="60" Margin="10 0" Click="tweetView_DeleteAll" HorizontalAlignment="Left">
+                                            <Button.ToolTip>
+                                                Delete all tweets from memory. Files and database unaffected.
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <Button Content="Load from text file" Margin="0 0" Click="tweetView_LoadFromFile" HorizontalAlignment="Left">
+                                            <Button.ToolTip>
+                                                Loads all tweets saved in file with path specified in Log Settings > Text file DB path.
+                                                Can be slow but progress is shown here. Process can be interrupted when clicked again.
+                                            </Button.ToolTip>
+                                        </Button>
                                         <Label x:Name="fromFileLoaderLabel" Content="{Binding Path=FromFileLoader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecond, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </DockPanel>
+                                    <DockPanel DockPanel.Dock="Top" >
+                                        <Button Content="Keep First Tweets" Click="tweetView_KeepTweets">
+                                            <Button.ToolTip>
+                                                Deletes all tweets after the first N, specified on the right.
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <DockPanel Margin="10,0">
+                                            <Label Content="How many?" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="tweetView_keepHowManyTweets_textBox" VerticalAlignment="Center" Width="100"/>
+                                        </DockPanel>
+                                        <Button Content="Delete Before Date" Click="tweetView_DeleteSpamTweets">
+                                            <Button.ToolTip>
+                                                Deletes tweets before date specified on the right.
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <DockPanel Margin="10,0">
+                                            <Label Content="Before date" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <extendedWpf:DateTimePicker x:Name="tweetView_keepHowManyTweets_dateBox" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                    </DockPanel>
+
                                     <Expander ExpandDirection="Right">
-                                    <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                                        <ListView.Resources>
-                                            <Style TargetType="GridViewColumnHeader">
-                                                <EventSetter Event="MouseUp" Handler="tweetView_Headers_MouseUp"/>
-                                            </Style>
-                                        </ListView.Resources>
-                                        <ListView.View>
-                                            <GridView x:Name="tweetViewGrid">
-                                                <GridViewColumn DisplayMemberBinding="{Binding Date}">
-                                                    <GridViewColumnHeader Content="Date"/>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Tweet}">
-                                                    <GridViewColumnHeader Content="Tweet"/>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding RetweetCount}">
-                                                    <GridViewColumnHeader Content="Retweets"/>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Id}">
-                                                    <GridViewColumnHeader Content="Id"/>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Lang}">
-                                                    <GridViewColumnHeader Content="Lang"/>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding User}">
-                                                    <GridViewColumnHeader Content="User"/>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding UserId}">
-                                                    <GridViewColumnHeader Content="User Id"/>
-                                                </GridViewColumn>
-                                                <!-- this part could add another column in which to show a bunch of clickable links from the original tweet. -->
-                                                <!--<GridViewColumn Header="Links">
+                                        <ListView x:Name="tweetView" ItemsSource="{Binding Path=., Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                            <ListView.Resources>
+                                                <Style TargetType="GridViewColumnHeader">
+                                                    <EventSetter Event="MouseUp" Handler="tweetView_Headers_MouseUp"/>
+                                                </Style>
+                                            </ListView.Resources>
+                                            <ListView.View>
+                                                <GridView x:Name="tweetViewGrid">
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Date}">
+                                                        <GridViewColumnHeader Content="Date"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Tweet}">
+                                                        <GridViewColumnHeader Content="Tweet"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding RetweetCount}">
+                                                        <GridViewColumnHeader Content="Retweets"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Id}">
+                                                        <GridViewColumnHeader Content="Id"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Lang}">
+                                                        <GridViewColumnHeader Content="Lang"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding User}">
+                                                        <GridViewColumnHeader Content="User"/>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding UserId}">
+                                                        <GridViewColumnHeader Content="User Id"/>
+                                                    </GridViewColumn>
+                                                    <!-- this part could add another column in which to show a bunch of clickable links from the original tweet. -->
+                                                    <!--<GridViewColumn Header="Links">
                                                         <GridViewColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <DockPanel>
@@ -144,19 +170,20 @@
                                                             </DataTemplate>
                                                         </GridViewColumn.CellTemplate>
                                                     </GridViewColumn>-->
-                                                <GridViewColumn>
-                                                    <GridViewColumnHeader Content="Controls"/>
-                                                    <GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <DockPanel>
-                                                                <Button Content="Delete" Click="tweetView_Item_DeleteButton"/>
-                                                            </DockPanel>
-                                                        </DataTemplate>
-                                                    </GridViewColumn.CellTemplate>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
+                                                    <GridViewColumn>
+                                                        <GridViewColumnHeader Content="Controls"/>
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <Button Content="Delete" Click="tweetView_Item_DeleteButton"/>
+                                                                    <Button Content="Follow link" Click="tweetView_Item_FollowLink"/>
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
                                     </Expander>
                                 </DockPanel>
                             </ad:LayoutAnchorable>
@@ -172,7 +199,7 @@
                             <!-- LOG SETTINGS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="*">
-                                <ad:LayoutAnchorable x:Name="logSettingsLayout"  Title="Log Settings" CanClose="False" CanHide="False">
+                                <ad:LayoutAnchorable x:Name="logSettingsLayout"  Title="Log Settings" CanClose="False" CanHide="False" AutoHideWidth="300">
                                     <StackPanel Margin="10,0" x:Name="logSettingsStackPanel">
                                         <DockPanel>
                                             <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
@@ -189,26 +216,61 @@
                                         </DockPanel>
 
                                         <DockPanel>
-                                            <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label.ToolTip>
+                                                    Sends database messages to this address. If not found, logs errors and slows down program.
+                                                </Label.ToolTip>
+                                            </Label>
                                             <TextBox Name="databasePhpPath" VerticalAlignment="Center" Text="http://localhost/tweetlistener/php/saveJson.php" TextChanged="databasePhpPath_TextChanged"  />
                                         </DockPanel>
 
                                         <DockPanel>
-                                            <Label Content="Log path" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
+                                            <Label Content="Log path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label.ToolTip>
+                                                    Path to log file.
+                                                </Label.ToolTip>
+                                            </Label>
                                             <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
                                         </DockPanel>
-
-                                        <CheckBox x:Name="checkBox_Log" Content="Log" VerticalAlignment="Top" IsChecked="True"/>
                                         <DockPanel>
-                                            <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}"/>
+                                            <Label Content="Text file DB path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label.ToolTip>
+                                                    Saves/loads tweets in a file, as a backup/alternative to the database.
+                                                </Label.ToolTip>
+                                            </Label>
+                                            <TextBox Name="database_textFileDbPathTextBox" VerticalAlignment="Center" Text="{Binding TextFileDatabasePath, Mode=TwoWay}" />
+                                        </DockPanel>
+
+                                        <DockPanel>
+                                            <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}">
+                                                <CheckBox.ToolTip>
+                                                   Saves each tweet to database, by sending POST request. Can slow down gathering. If sending fails, retries N times in one-second intervals.
+                                                </CheckBox.ToolTip>
+                                            </CheckBox>
                                             <Label Content="| Retries" VerticalAlignment="Center"/>
                                             <TextBox x:Name="databaseRetries" VerticalAlignment="Center" MinWidth="30" MaxWidth="100" HorizontalAlignment="Left" Text="{Binding Path=MaxTweetDatabaseSendRetries, Mode=TwoWay}"/>
                                         </DockPanel>
-                                        <CheckBox x:Name="checkBox_saveToTextFile" Content="Save to text file" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToTextFileProperty, Mode=TwoWay}"/>
+                                        <CheckBox x:Name="checkBox_saveToTextFile" Content="Save to text file" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToTextFileProperty, Mode=TwoWay}">
+                                            <CheckBox.ToolTip>
+                                                Saves each tweet to text file, as backup for database. Path specified above.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
 
-                                        <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top"/>
-                                        <CheckBox x:Name="checkBox_databaseMessages" IsChecked="{Binding Path=OutputDatabaseMessages, Mode=TwoWay}" Content="Output database messages" VerticalAlignment="Top"/>
-                                        <CheckBox x:Name="checkBox_streamJsonSpammer" IsChecked="{Binding Path=LogEveryJson, Mode=TwoWay}" Content="Log every JSON message from Twitter" VerticalAlignment="Top"/>
+                                        <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top">
+                                            <CheckBox.ToolTip>
+                                                Output a log entry for each event received from Twitter, such as: received tweet, rate limit message, stream start/end, etc..
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
+                                        <CheckBox x:Name="checkBox_databaseMessages" IsChecked="{Binding Path=OutputDatabaseMessages, Mode=TwoWay}" Content="Output database messages" VerticalAlignment="Top">
+                                            <CheckBox.ToolTip>
+                                                Logs database messages (when it works, just logs "OK") - not recommended, slows down gathering.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
+                                        <CheckBox x:Name="checkBox_streamJsonSpammer" IsChecked="{Binding Path=LogEveryJson, Mode=TwoWay}" Content="Log every JSON message from Twitter" VerticalAlignment="Top">
+                                            <CheckBox.ToolTip>
+                                                Logs raw data received from Twitter. Not recommended during gathering, but very useful when examining raw data, or debugging.
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
 
 
                                     </StackPanel>
@@ -217,30 +279,117 @@
 
                             <!-- END LOG SETTINGS PANEL -->
 
+                            <ad:LayoutPanel Orientation="Vertical" DockWidth="*">
 
-                            <!-- STREAMING PANEL -->
+                                <!-- STREAMING PANEL -->
 
-                            <ad:LayoutAnchorablePane DockHeight="*">
-                                <ad:LayoutAnchorable x:Name="streamingToolboxLayout" Title="Streaming Toolbox" CanClose="False" CanHide="False">
-                                    <StackPanel>
-                                        <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
-                                        <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
-                                        <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
-                                        <DockPanel>
-                                            <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled query expansion" VerticalAlignment="Center" />
-                                            <extendedWpf:TimeSpanUpDown x:Name="expansionScheduleTimespan" Value="1.00:00:00" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
+                                <ad:LayoutAnchorablePane DockHeight="*">
+                                    <ad:LayoutAnchorable x:Name="streamingToolboxLayout" Title="Streaming Toolbox" CanClose="False" CanHide="False" AutoHideWidth="300">
+                                        <StackPanel>
+                                            <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
+                                            <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
+                                            <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
+                                            <DockPanel>
+                                                <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled query expansion" VerticalAlignment="Center" >
+                                                    <CheckBox.ToolTip>
+                                                        Not recommended, VERY experimental. Expands query every period of time, and restarts stream with new keywords selected. Can easily blow up program.
+                                                    </CheckBox.ToolTip>
+                                                </CheckBox>
+                                                <extendedWpf:TimeSpanUpDown x:Name="expansionScheduleTimespan" Value="1.00:00:00" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
+                                            </DockPanel>
+                                        </StackPanel>
+
+                                    </ad:LayoutAnchorable>
+                                </ad:LayoutAnchorablePane>
+
+                                <!-- END STREAMING PANEL -->
+
+
+                                <!--  EXPANSION PANEL -->
+
+                                <ad:LayoutAnchorablePane DockHeight="2*">
+                                    <ad:LayoutAnchorable Title="Expansion"  CanClose="False" CanHide="False" AutoHideWidth="300">
+
+                                        <!-- this is the content you are looking for -->
+                                        <DockPanel x:Name="expansionPanel">
+                                            <StackPanel>
+                                                <DockPanel Margin="10,0">
+                                                    <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                        <Label.ToolTip>
+                                                            Percentage of top ranked (based on occurrences) total amount
+                                                        of distinct hashtags to extract from current tweet list.
+                                                        </Label.ToolTip>
+                                                    </Label>
+                                                    <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                </DockPanel>
+                                                <DockPanel Margin="10,0">
+                                                    <Label Content="Naive expansion cooccurring generations" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                        <Label.ToolTip>
+                                                            At 0, naive expansion finds the top % of hashtags.
+                                                
+                                                    At >1, naive expansion gets the top % co-occurring hashtags 
+                                                        with the "Used" ones, and then the top % for the co-occurring
+                                                        with the entire returned set, down to the N-th generation.
+                                                        </Label.ToolTip>
+                                                    </Label>
+                                                    <TextBox Name="expansionGenerations" Text="{Binding Path=NaiveExpansionGenerations, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                </DockPanel>
+                                                <Button Content="Expand keywords using Naive (count tweets, top percent)" Click="expansion_ExpandNaive"/>
+                                                <DockPanel Margin="10,0">
+                                                    <Label Content="Efron smoothing constant" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                        <Label.ToolTip>
+                                                            Determines how much smoothing to apply to language models.
+                                                        Default: 2000 based on Efron's paper, 0 means no smoothing, 
+                                                        usually less than 2000 required for smaller tweet populations.
+                                                        </Label.ToolTip>
+                                                    </Label>
+                                                    <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                </DockPanel>
+                                                <DockPanel Margin="10,0">
+                                                    <Label Content="Efron Rank top N tags" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                        <Label.ToolTip>
+                                                            How many top-ranked hashtags to keep after ranking using KL divergence?
+                                                        Amount could be high for human readability, but should be low
+                                                        when blindly expanding query. Efron's default: 25.
+                                                        </Label.ToolTip>
+                                                    </Label>
+                                                    <TextBox Text="{Binding Path=RankNHashtags, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                </DockPanel>
+                                                <DockPanel>
+                                                    <CheckBox IsChecked="{Binding ExpandOnlyOnCooccurring, Mode=TwoWay}" Content="Expand Only On Cooccurring" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                                        <CheckBox.ToolTip>
+                                                            Calculates language models a bit faster, but cannot reuse them for multiple calculations.
+                                                        </CheckBox.ToolTip>
+                                                    </CheckBox>
+                                                    <CheckBox IsChecked="{Binding ApplyFeedback, Mode=TwoWay}" Content="Apply Feedback" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 5">
+                                                        <CheckBox.ToolTip>
+                                                            Apply feedback to query model calculation? Not tested much, use at own risk.
+                                                        </CheckBox.ToolTip>
+                                                    </CheckBox>
+                                                    <CheckBox IsChecked="{Binding LogModels, Mode=TwoWay}" Content="Log models" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                                        <CheckBox.ToolTip>
+                                                            Log query model, language models, and feedback? 
+                                                    Can be much slower when language models are already calculated.
+                                                        </CheckBox.ToolTip>
+                                                    </CheckBox>
+                                                </DockPanel>
+                                                <Button Content="Expand keywords using Efron (language model + smoothing)" Click="expansion_ExpandEfron"/>
+                                                <Label Content="{Binding Path=ExpansionProgressLabel}" HorizontalAlignment="Center" />
+                                            </StackPanel>
                                         </DockPanel>
-                                    </StackPanel>
+                                        <!-- this was the content you were looking for -->
 
-                                </ad:LayoutAnchorable>
-                            </ad:LayoutAnchorablePane>
+                                    </ad:LayoutAnchorable>
+                                </ad:LayoutAnchorablePane>
 
-                            <!-- END STREAMING PANEL -->
+                                <!-- END  EXPANSION PANEL -->
 
+                            </ad:LayoutPanel>
+                            
                             <!-- REST CONTROLS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="3*">
-                                <ad:LayoutAnchorable Title="Rest Controls" CanClose="False" CanHide="False">
+                                <ad:LayoutAnchorable Title="Rest Controls" CanClose="False" CanHide="False" AutoHideWidth="300">
 
                                     <!-- this is the content you are looking for -->
                                     <DockPanel >
@@ -259,6 +408,7 @@
                                         <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
                                             <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
                                             <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
+
                                             <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
 
                                         </StackPanel>
@@ -307,12 +457,15 @@
 
                             <ad:LayoutAnchorablePane DockHeight="*" DockWidth="2*">
                                 <ad:LayoutAnchorable Title="Keywords, Hashtags">
-                                    <DockPanel>
+                                    <DockPanel x:Name="keywordView">
                                         <DockPanel DockPanel.Dock="Top">
-                                            <Button x:Name="keywordsUseAllButton" Padding="10 0" Content="Use all" Click="keywordsView_UseAll"/>
-                                            <Button x:Name="keywordsUseNoneButton" Padding="10 0" Content="Use none" Click="keywordsView_UseNone"/>
-                                            <Button x:Name="keywordsResetSelectionButton" Padding="10 0" Content="Reset Selection" Click="keywordsView_ResetSelection"/>
+                                            <CheckBox Content="Continuous update" IsChecked="{Binding Path=ContinuousUpdate, Mode=TwoWay}" Margin="10 0" VerticalAlignment="Center"/>
+                                            <Button x:Name="keywordsUpdate" Margin="0 0 10 0" Content="Update" Click="keywordsView_Update"/>
+                                            <Button x:Name="keywordsUseAllButton" Margin="0 0 10 0" Content="Use all" Click="keywordsView_UseAll"/>
+                                            <Button x:Name="keywordsUseNoneButton" Margin="0 0 10 0" Content="Use none" Click="keywordsView_UseNone"/>
+                                            <Button x:Name="keywordsResetSelectionButton" Margin="0 0 10 0" Content="Reset Selection" Click="keywordsView_ResetSelection"/>
                                             <Button Content="Delete All" Padding="10 0" Click="keywordsView_DeleteAll"/>
+                                            <Button Content="Clear LangModels" Padding="10 0" Click="keywordsView_ClearLangModels"/>
                                         </DockPanel>
                                         <DockPanel DockPanel.Dock="Top">
                                             <Button IsDefault="True" Content="Add" Padding="10 0" Margin="10 0" DockPanel.Dock="Right" Height="{Binding ElementName=keywordsResetSelectionButton, Path=ActualHeight}" Click="keywordAddButtonClick"/>
@@ -321,7 +474,7 @@
                                                 <TextBox Name="keywordAddTextbox" VerticalAlignment="Center"/>
                                             </DockPanel>
                                         </DockPanel>
-                                        <ListView x:Name="keywordListView">
+                                        <ListView x:Name="keywordListView" ItemsSource="{Binding KeywordList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                             <ListView.Resources>
                                                 <Style TargetType="GridViewColumnHeader">
                                                     <EventSetter Event="MouseUp" Handler="keywordListView_Headers_MouseUp"/>
@@ -362,6 +515,19 @@
                                                             </DataTemplate>
                                                         </GridViewColumn.CellTemplate>
                                                     </GridViewColumn>
+                                                    <GridViewColumn>
+                                                        <GridViewColumnHeader Content="Language Model"/>
+                                                        <GridViewColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <CheckBox IsChecked="{Binding HasLanguageModel, Mode=OneWay}"/>
+                                                                    <Button Content="Calculate" Click="keywordView_Item_LangModelCalculateButton"/>
+                                                                    <Button Content="Print" Click="keywordView_Item_LangModelPrintButton"/>
+                                                                    <Button Content="Clear" Click="keywordView_Item_LangModelClearButton"/>
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </GridViewColumn.CellTemplate>
+                                                    </GridViewColumn>
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
@@ -374,7 +540,8 @@
                             <!-- CREDENTIALS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="*">
-                                <ad:LayoutAnchorable x:Name="credentialsPanelLayout"  Title="Credentials" CanClose="False" CanHide="False">
+                                <ad:LayoutAnchorable x:Name="credentialsPanelLayout"  Title="Credentials" CanClose="False" CanHide="False" AutoHideWidth="300">
+                                    
 
                                     <!-- this is the content you are looking for -->
                                     <StackPanel x:Name="credentialsPanel">
@@ -394,8 +561,22 @@
                                             <Label Width="{Binding ActualWidth, ElementName=longestString}"  Content="Consumer Secret" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                             <TextBox x:Name="Consumer_Secret" VerticalAlignment="Center"/>
                                         </DockPanel>
-                                        <Button x:Name="setCredentialsButton" Content="Set" Margin="10, 0" Click="setCredentialsButton_Click"/>
-                                        <Button x:Name="setCredentialsDefault" Content="Set Defaults" Margin="10, 0" Click="setCredentialsDefault_Click"/>
+                                        <Button x:Name="setCredentialsButton" Content="Set" Margin="10, 0" Click="setCredentialsButton_Click">
+                                            <Button.ToolTip>
+                                                Sets credentials for application. Used when running multiple instances of software.
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <Button x:Name="setCredentialsDefault" Margin="10, 0" Click="setCredentialsDefault_Click">
+                                            <Button.Content>
+                                                <DockPanel>
+                                                    <Label Content="Selected Credentials:"/>
+                                                    <Label Content="{Binding SelectedCredentials, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                </DockPanel>
+                                            </Button.Content>
+                                            <Button.ToolTip>
+                                                Sets default credentials (when all else fails, but make sure only one instance of software is running).
+                                            </Button.ToolTip>
+                                        </Button>
 
                                     </StackPanel>
                                     <!-- this was the content you were looking for -->

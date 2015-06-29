@@ -385,9 +385,7 @@ namespace WPFTwitter
 
 					// notify main thread that there was an exception here.
 					streamThreadException = true;
-					// wait more next time, to not get banned.
-					reconnectDelayMillis *= 2;
-
+					
 				}
 
 			}
@@ -432,6 +430,8 @@ namespace WPFTwitter
 		/// </summary>
 		private void onStreamStopped(object sender, Tweetinvi.Core.Events.EventArguments.StreamExceptionEventArgs e)
 		{
+			// wait more next time, to not get banned.
+			reconnectDelayMillis *= 2;
 
 			log.Output("Stream disconnected.");
 			if (e.DisconnectMessage != null) {
@@ -464,20 +464,20 @@ namespace WPFTwitter
 		{
 			reconnectDelayMillis = 100;
 			// do this in a separate thread to not kill the stream just because database has errors
-			Task.Factory.StartNew(() => {
-				databaseSaver.SaveTweet(e.Tweet);
+			//Task.Factory.StartNew(() => {
+			//	databaseSaver.SaveTweet(e.Tweet);
 
-			});
+			//});
 		}
 
 		private void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
 		{
 			reconnectDelayMillis = 100;
 			// do this in a separate thread to not kill the stream just because database has errors
-			Task.Factory.StartNew(() => {
-				databaseSaver.SaveTweet(e.Tweet);
+			//Task.Factory.StartNew(() => {
+			//	databaseSaver.SaveTweet(e.Tweet);
 
-			});
+			//});
 		}
 
 		private bool logEveryJson = false;

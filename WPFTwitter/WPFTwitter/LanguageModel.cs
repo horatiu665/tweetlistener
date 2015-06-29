@@ -18,6 +18,9 @@ namespace WPFTwitter
 
 		public Dictionary<KeywordDatabase.KeywordData, float> probabilities = new Dictionary<KeywordDatabase.KeywordData, float>();
 
+		/// <summary>
+		/// previously calculated KL divergence, for use in the algorithm (so we don't calculated twice in a row)
+		/// </summary>
 		public double KldResult = 0;
 
 		public enum SmoothingMethods
@@ -32,15 +35,15 @@ namespace WPFTwitter
 		/// <param name="word_i">word_i for which we have the language model</param>
 		/// <param name="vocabulary">other keywords in the vocabulary</param>
 		/// <param name="tweetCollection">document/corpus/all words to base the language model on</param>
-		public LanguageModel(KeywordDatabase.KeywordData word_i, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, SmoothingMethods smoothingMethod, float smoothingMu = 2000f)
+		public LanguageModel(KeywordDatabase.KeywordData word_i, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, Dictionary<string, int> keywordCountsC, SmoothingMethods smoothingMethod, float smoothingMu = 2000f)
 		{
 			keyword = word_i;
 
 			// use maximum likelihood estimator?
 			if (smoothingMethod == SmoothingMethods.MLE) {
-				MLE(word_i.Keyword, vocabulary, tweetCollection, ref probabilities);
+				//MLE(word_i.Keyword, vocabulary, tweetCollection, ref probabilities);
 			} else {
-				BayesianSmoothing(word_i.Keyword, vocabulary, tweetCollection, ref probabilities, smoothingMu);
+				BayesianSmoothing(word_i.Keyword, vocabulary, tweetCollection, ref probabilities, keywordCountsC, smoothingMu);
 			}
 
 			// after all max likelihood estimators are calculated, smooth model by some smoothing method
@@ -56,66 +59,14 @@ namespace WPFTwitter
 		}
 
 		/// <summary>
-		/// Maximum likelihood estimator. Simplest language model, returns probability(i) = count of word(i) in D / total word count of D
-		/// where D is set of tweets returned by query, in this case just one keyword.
-		/// Calculates MLE in probs array (probabilities of the other words appearing along with this one).
-		/// </summary>
-		/// <param name="vocabulary"></param>
-		/// <param name="tweetCollection"></param>
-		void MLE(string keyword, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probs)
-		{
-			probs.Clear();
-
-			// D = docs containing word_i
-			var tweetsContainingHashtag = tweetCollection.Where(td => td.ContainsHashtag(keyword)).ToList();
-
-			// num words in D
-			var numWordsInSample = 0;
-			for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
-				numWordsInSample += tweetsContainingHashtag[i].tweet.Hashtags.Count;
-			}
-
-			// compute probability for each k in vocabulary to appear in a tweet from tweetCollection together with word_i
-			foreach (var k in vocabulary) {
-
-				var word_k = k.Keyword;
-				if (word_k.Contains("#")) {
-					word_k = word_k.Substring(1);
-				}
-
-				// maxmimum likelihood of K occurring along with word_i in a tweet is:
-				// the number of times it appears in D
-				// div. by the amount of words in D
-
-				// num appearances of k in D
-				var numAppearancesOfK = 0;
-				for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
-					var tweet = tweetsContainingHashtag[i].tweet;
-
-					// count occurrences of word_k in tweetText
-					numAppearancesOfK += tweet.Hashtags.Count(h => h.Text.ToLower() == word_k);
-
-				}
-
-				// max likelihood 
-				var maxLikelihoodOfK = numAppearancesOfK / (float)numWordsInSample;
-
-				probs.Add(k, maxLikelihoodOfK);
-			}
-
-			// MLE calculated in the probs[] array.
-
-		}
-
-
-		/// <summary>
 		/// Bayesian smoothing with Dirichlet priors, based on Efron and other sources. Details in paper.
 		/// </summary>
 		/// <param name="probs"></param>
 		/// <param name="N"></param>
 		/// <param name="smoothingConstantMu"></param>
 		/// <returns></returns>
-		void BayesianSmoothing(string keyword, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probabilities, float smoothingConstantMu)
+		void BayesianSmoothing(string keyword, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection,
+			ref Dictionary<KeywordDatabase.KeywordData, float> probabilities, Dictionary<string, int> keywordCountsC, float smoothingConstantMu)
 		{
 			probabilities.Clear();
 
@@ -124,46 +75,66 @@ namespace WPFTwitter
 
 			// num words in D
 			var numWordsInSample = 0;
-			for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
-				numWordsInSample += tweetsContainingHashtag[i].tweet.Hashtags.Count;
+			Dictionary<string, int> keywordCountsD = new Dictionary<string, int>();
+			foreach (var t in tweetsContainingHashtag) {
+				foreach (var ht in t.GetHashtags()) {
+					var tag = ht.ToLower();
+					if (keywordCountsD.Keys.Contains(tag)) {
+						keywordCountsD[tag]++;
+					} else {
+						keywordCountsD[tag] = 1;
+					}
+					numWordsInSample++;
+				}
 			}
 
 			var numWordsInCollection = 0;
-			for (int i = 0; i < tweetCollection.Count; i++) {
-				numWordsInCollection += tweetCollection[i].tweet.Hashtags.Count;
+			if (keywordCountsC == null) {
+				keywordCountsC = new Dictionary<string, int>();
+				foreach (var t in tweetCollection) {
+					foreach (var ht in t.GetHashtags()) {
+						var tag = ht.ToLower();
+						if (keywordCountsC.Keys.Contains(tag)) {
+							keywordCountsC[tag]++;
+						} else {
+							keywordCountsC[tag] = 1;
+						}
+						numWordsInCollection++;
+					}
+				}
+			} else {
+				numWordsInCollection = keywordCountsC.Sum(kvp => kvp.Value);
 			}
+			// now we have the counts of keywords.
+
+
+			float optimize1 = smoothingConstantMu / (float)numWordsInCollection;
+			float optimize2 = numWordsInSample + smoothingConstantMu;
 
 			// for each, use formula in paper, or see reference:
 			// C. Zhai and J. Lafferty, "A Study of Smoothing Methods for Language Models Applied to Information Retrieval," ACM Transactions on Information Systems, vol. 22, no. 2, pp. 179-214, 2004.
 			foreach (var k in vocabulary) {
 
 				var word_k = k.Keyword;
-				if (word_k.Contains("#")) {
-					word_k = word_k.Substring(1);
-				}
+				// guarranteed that the keywordList will only contain hashtags with the # in front.
+				//if (word_k.Contains("#")) {
+				word_k = word_k.Substring(1);
+				//}
 
 				// num appearances of k in D
-				var countWordKInD = 0;
-				for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
-					var tweet = tweetsContainingHashtag[i].tweet;
+				var countWordKInD = keywordCountsD.ContainsKey(word_k) ? keywordCountsD[word_k] : 0;
 
-					// count occurrences of word_k in tweetText
-					countWordKInD += tweet.Hashtags.Count(h => h.Text.ToLower() == word_k);
 
-				}
 
 				// num appearances of k in C
-				var countWordKInC = 0;
-				for (int i = 0; i < tweetCollection.Count; i++) {
-					var tweet = tweetCollection[i].tweet;
-
-					// count occurrences of word_k in tweetText
-					countWordKInC += tweet.Hashtags.Count(h => h.Text.ToLower() == word_k);
-
-				}
+				var countWordKInC = keywordCountsC.ContainsKey(word_k) ? keywordCountsC[word_k] : 0;
+				
+				// THIS IS WRONG. IT COUNTS THE TWEETS IN WHICH IT APPEARS, NOT THE AMOUNT OF TIMES IT APPEARS IN THE CORPUS.
+				//var countWordKInC = k.Count;
 
 				// smooth prob
-				var smoothProb = (countWordKInD + smoothingConstantMu * countWordKInC / numWordsInCollection) / ((float)numWordsInSample + smoothingConstantMu);
+				//var smoothProb = (countWordKInD + smoothingConstantMu * countWordKInC / numWordsInCollection) / ((float)numWordsInSample + smoothingConstantMu);
+				var smoothProb = (countWordKInD + countWordKInC * optimize1) / optimize2;
 
 				probabilities.Add(k, smoothProb);
 			}
@@ -188,11 +159,20 @@ namespace WPFTwitter
 		{
 			double sum = 0f;
 			for (int i = 0; i < probability1.Count; i++) {
-				if (probability1[i] != 0) {
-					sum += (probability1[i] * Math.Log(probability1[i] / probability2[i]));
+				if (probability1[i] != 0 && probability2[i] != 0) {
+					sum += ((double)probability1[i] * Math.Log((double)probability1[i] / (double)probability2[i]));
 				}
 			}
 			return sum;
+		}
+
+		public string ToString()
+		{
+			string s = "Language model for: " + keyword.Keyword + "\n";
+			foreach (var p in probabilities) {
+				s += p.Value.ToString("F8") + " " + p.Key.Keyword + "\n";
+			}
+			return s;
 		}
 
 	}
@@ -203,51 +183,61 @@ namespace WPFTwitter
 
 		public Dictionary<KeywordDatabase.KeywordData, float> probabilities = new Dictionary<KeywordDatabase.KeywordData, float>();
 
-		public QueryModel(string query, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection)
+		public QueryModel(string query, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, out List<TweetDatabase.TweetData> tweetsReturnedByModel)
 		{
-			MLE(query, vocabulary, tweetCollection, ref probabilities);
+			this.query = query;
+			MLE(query, vocabulary, tweetCollection, ref probabilities, out tweetsReturnedByModel);
 
 		}
 
 		/// <summary>
 		/// See MLE function in LanguageModel for more details
 		/// </summary>
-		void MLE(string query, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probs)
+		void MLE(string query, KeywordDatabase.KeywordListClass vocabulary, List<TweetDatabase.TweetData> tweetCollection, ref Dictionary<KeywordDatabase.KeywordData, float> probs, 
+			out List<TweetDatabase.TweetData> tweetsReturnedByQuery)
 		{
 			probs.Clear();
 
 			var queryParts = query.Split(',').Where(qp => qp.Replace(" ", "") != "").ToList();
 
 			// D = docs containing word_i
-			var tweetsContainingHashtag = tweetCollection.Where(td => queryParts.Any(qp => td.ContainsHashtag(qp))).ToList();
+			tweetsReturnedByQuery = tweetCollection.Where(td => queryParts.Any(qp => td.ContainsHashtag(qp))).ToList();
 
 			// num words in D
 			var numWordsInSample = 0;
-			for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
-				numWordsInSample += tweetsContainingHashtag[i].tweet.Hashtags.Count;
+			for (int i = 0; i < tweetsReturnedByQuery.Count; i++) {
+				numWordsInSample += tweetsReturnedByQuery[i].tweet.Hashtags.Count;
 			}
 
 			// compute probability for each k in vocabulary to appear in a tweet from tweetCollection together with word_i
+			
+			// count all keyword counts by going once through tweets
+			Dictionary<string, int> keywordCounts = new Dictionary<string, int>();
+			foreach (var t in tweetsReturnedByQuery) {
+				foreach (var ht in t.GetHashtags()) {
+					var tag = ht.ToLower();
+					if (keywordCounts.Keys.Contains(tag)) {
+						keywordCounts[tag]++;
+					} else {
+						keywordCounts[tag] = 1;
+					}
+				}
+			}
+			// now we have the counts of keywords.
+
 			foreach (var k in vocabulary) {
 
 				var word_k = k.Keyword;
-				if (word_k.Contains("#")) {
-					word_k = word_k.Substring(1);
-				}
+				//if (word_k.Contains("#")) {
+				word_k = word_k.Substring(1);
+				//}
 
 				// maxmimum likelihood of K occurring along with word_i in a tweet is:
 				// the number of times it appears in D
 				// div. by the amount of words in D
 
 				// num appearances of k in D
-				var numAppearancesOfK = 0;
-				for (int i = 0; i < tweetsContainingHashtag.Count; i++) {
-					var tweet = tweetsContainingHashtag[i].tweet;
-
-					// count occurrences of word_k in tweetText
-					numAppearancesOfK += tweet.Hashtags.Count(h => h.Text.ToLower() == word_k);
-
-				}
+				var numAppearancesOfK = keywordCounts.ContainsKey(word_k) ? keywordCounts[word_k] : 0;
 
 				// max likelihood 
 				var maxLikelihoodOfK = numAppearancesOfK / (float)numWordsInSample;
@@ -259,6 +249,22 @@ namespace WPFTwitter
 
 		}
 
+		public void ApplyFeedback(Dictionary<KeywordDatabase.KeywordData, float> newProbabilities, float weight)
+		{
+			foreach (var k in newProbabilities.Keys) {
+				probabilities[k] = probabilities[k] * (1 - weight) + weight * newProbabilities[k];
+			}
+
+		}
+
+		public string ToString()
+		{
+			string s = "Query model for: " + query + "\n";
+			foreach (var p in probabilities) {
+				s += p.Key.Keyword + " " + p.Value.ToString("F8") + "\n";
+			}
+			return s;
+		}
 
 	}
 

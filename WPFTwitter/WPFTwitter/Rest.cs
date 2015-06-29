@@ -45,22 +45,47 @@ namespace WPFTwitter
 
 			TweetFound += OnTweetFound;
 
+			StoppedGatheringCycle += OnStoppedGatheringCycle;
+
 			// tweetinvi handles rate limit tracking, and we only query tweetinvi instead of handling rate limits manually.
 			RateLimit.RateLimitTrackerOption = Tweetinvi.Core.RateLimitTrackerOptions.TrackOnly;
 
 		}
 
+		private bool forceStop = false;
+
+		public void StopGatheringCycle()
+		{
+			forceStop = true;
+		}
+
+		private bool isGathering;
+		public bool IsGathering
+		{
+			get { return isGathering; }
+		}
+
+		public event Action StoppedGatheringCycle;
+
+		private void OnStoppedGatheringCycle()
+		{
+			isGathering = false; 
+			
+			if (forceStop) {
+				forceStop = false;
+				log.Output("End of Rest.TweetsGatheringCycle() by force");
+			} else {
+				log.Output("End of Rest.TweetsGatheringCycle(), by natural causes");
+			}
+
+		}
 
 		public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
 		{
-			// TODO: implement stopping, so if stream is stopped intentionally, this also stops.
-			var stop = false;
-
+			isGathering = true;
 			log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
 
 			Task.Factory.StartNew(() => {
-
-
 				try {
 					// split query into multiple shorter ones, within Twitter limits.
 					var queries = SplitIntoSmallQueries(keywordList);
@@ -75,6 +100,11 @@ namespace WPFTwitter
 						var queryString = "";
 						foreach (var s in q) {
 							queryString += s + ",";
+						}
+
+						if (forceStop) {
+							StoppedGatheringCycle();
+							return;
 						}
 
 						var sp = GenerateSearchParameters(queryString);
@@ -100,15 +130,20 @@ namespace WPFTwitter
 							Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
 						}
 
+						if (forceStop) {
+							StoppedGatheringCycle();
+							return;
+						}
+
 						// only search if there are keywords in the query
-						if (sp.SearchQuery != "" && !stop) {
+						if (sp.SearchQuery != "") {
 
 							log.Output("Searching for " + sp.SearchQuery);
 
 							do {
 								// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
 								gotResults = false;
-								if (rateLimitCounter > 0 && !stop) {
+								if (rateLimitCounter > 0) {
 
 									results = SearchTweets(sp);
 
@@ -121,6 +156,11 @@ namespace WPFTwitter
 										// save minId to use for next batch of tweets
 										var minId = results[0].IdStr;
 										foreach (var r in results) {
+											if (forceStop) {
+												StoppedGatheringCycle();
+												return;
+											}
+
 											// find minId among results.
 											if (stringIntSmallerThan(r.IdStr, minId)) {
 												minId = r.IdStr;
@@ -133,7 +173,7 @@ namespace WPFTwitter
 											}
 
 											// freeze thread so that UI can update. very ugly solution based on http://stackoverflow.com/questions/4522583/how-to-do-the-processing-and-keep-gui-refreshed-using-databinding#_=_
-											Thread.Sleep(1);
+											//Thread.Sleep(1);
 										}
 
 										// subtract 1 so that we cannot get the same tweets again
@@ -155,6 +195,11 @@ namespace WPFTwitter
 										log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
 										Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
 									}
+
+									if (forceStop) {
+										StoppedGatheringCycle();
+										return;
+									}
 									#endregion
 								}
 
@@ -163,7 +208,7 @@ namespace WPFTwitter
 								//		or we cannot get tweets due to rate limits
 								//		or we cannot get tweets due to errors (in which case we should try again)
 
-							} while ((results != null && results.Count > 0 && !stop) || !gotResults);
+							} while ((results != null && results.Count > 0) || !gotResults);
 						}
 					}
 				}
@@ -171,14 +216,14 @@ namespace WPFTwitter
 					log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
 					log.Output(e.ToString());
 				}
-				log.Output("End of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
+				StoppedGatheringCycle();
 			});
 		}
 
 		void OnTweetFound(ITweet tweet)
 		{
-			log.Output("Rest gather cycle found the tweet with id " + tweet.IdStr + ": " + tweet.Text);
-			databaseSaver.SaveTweet(tweet);
+			//log.Output("Rest gather cycle found the tweet with id " + tweet.IdStr + ": " + tweet.Text);
+			//databaseSaver.SaveTweet(tweet);
 		}
 
 		/// <summary>

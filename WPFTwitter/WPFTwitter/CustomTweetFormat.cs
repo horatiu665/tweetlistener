@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tweetinvi.Core.Interfaces;
 using System.Text.RegularExpressions;
 using Tweetinvi.Core.Interfaces.Models.Entities;
+using Tweetinvi.Core.Enum;
 
 namespace WPFTwitter
 {
@@ -13,16 +14,19 @@ namespace WPFTwitter
 	{
 
 		DateTime created_at;
-		string id_str, in_reply_to_status_id_str, in_reply_to_user_id_str, lang, user_screen_name, user_id_str, text;
+		string id_str, in_reply_to_status_id_str, in_reply_to_user_id_str, user_screen_name, user_id_str, text;
+		Language lang;
 		int retweets = -1;
 		long id;
 
 		List<CustomHashtagFormat> hashtags = new List<CustomHashtagFormat>();
 
+		CustomUserFormat user;
+
 		/// <summary>
 		/// generate fake tweet from data, only requires data that is used to display in tweet viewer. this can easily break, please consider it a quickfix.
 		/// </summary>
-		public CustomTweetFormat(DateTime created_at, string id_str, string in_reply_to_status_id_str, string in_reply_to_user_id_str, string lang, int retweets, string user_screen_name, string user_id_str, string text)
+		public CustomTweetFormat(DateTime created_at, string id_str, string in_reply_to_status_id_str, string in_reply_to_user_id_str, Language lang, int retweets, string user_screen_name, string user_id_str, string text)
 		{
 			this.created_at = created_at;
 			this.id_str = id_str;
@@ -31,8 +35,9 @@ namespace WPFTwitter
 			this.in_reply_to_user_id_str = in_reply_to_user_id_str;
 			this.lang = lang;
 			this.retweets = retweets;
-			this.user_screen_name = user_screen_name;
-			this.user_id_str = user_id_str;
+			this.user = new CustomUserFormat();
+			this.user.ScreenName = user_screen_name;
+			this.user.IdStr = user_id_str;
 			this.text = text;
 
 			// extract hashtags, based on http://stackoverflow.com/questions/1563844/best-hashtag-regex
@@ -83,7 +88,7 @@ namespace WPFTwitter
 
 		public IUser Creator
 		{
-			get { throw new NotImplementedException(); }
+			get { return user; }
 		}
 
 		public Tweetinvi.Core.Interfaces.Models.ITweetIdentifier CurrentUserRetweetIdentifier
@@ -216,7 +221,7 @@ namespace WPFTwitter
 
 		public Tweetinvi.Core.Enum.Language Language
 		{
-			get { throw new NotImplementedException(); }
+			get { return lang; }
 		}
 
 		public int Length
@@ -527,6 +532,547 @@ namespace WPFTwitter
 		}
 
 		public bool Equals(Tweetinvi.Core.Interfaces.Models.Entities.IHashtagEntity other)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	public class CustomUserFormat : IUser
+	{
+
+		public bool BlockUser()
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<IUser> Contributees
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public List<IUser> Contributors
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public bool ContributorsEnabled
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public DateTime CreatedAt
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool DefaultProfile
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool DefaultProfileImage
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string Description
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public IUserEntities Entities
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public int FavouritesCount
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool FollowRequestSent
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public List<long> FollowerIds
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public List<IUser> Followers
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public int FollowersCount
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool Following
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public List<long> FriendIds
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public List<IUser> Friends
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public int FriendsCount
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public List<ITweet> FriendsRetweets
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public bool GeoEnabled
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public IEnumerable<IUser> GetContributees(bool createContributeeList = false)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<IUser> GetContributors(bool createContributorList = false)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<ITweet> GetFavorites(int maximumNumberOfTweets = 40)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<long> GetFollowerIds(int maxFriendsToRetrieve = 5000)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<IUser> GetFollowers(int maxFriendsToRetrieve = 250)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<long> GetFriendIds(int maxFriendsToRetrieve = 5000)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<IUser> GetFriends(int maxFriendsToRetrieve = 250)
+		{
+			throw new NotImplementedException();
+		}
+
+		public System.IO.Stream GetProfileImageStream(Tweetinvi.Core.Enum.ImageSize imageSize = Tweetinvi.Core.Enum.ImageSize.normal)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IRelationshipDetails GetRelationshipWith(IUser user)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<ITweet> GetUserTimeline(Tweetinvi.Core.Interfaces.Models.Parameters.IUserTimelineRequestParameters timelineRequestParameters)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEnumerable<ITweet> GetUserTimeline(int maximumNumberOfTweets = 40)
+		{
+			throw new NotImplementedException();
+		}
+
+		public long Id
+		{
+			get { return long.Parse(idStr); }
+		}
+
+		private string idStr;
+		public string IdStr
+		{
+			get { return idStr; }
+			set { idStr = value; }
+		}
+
+		public bool IsTranslator
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public Tweetinvi.Core.Enum.Language Language
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public int ListedCount
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string Location
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string Name
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool Notifications
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileBackgroundColor
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileBackgroundImageUrl
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileBackgroundImageUrlHttps
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool ProfileBackgroundTile
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileBannerURL
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileImageFullSizeUrl
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileImageUrl
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileImageUrlHttps
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileLinkColor
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileSidebarBorderColor
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileSidebarFillColor
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string ProfileTextColor
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool ProfileUseBackgroundImage
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool Protected
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool ReportUserForSpam()
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<ITweet> Retweets
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		private string screen_name;
+		public string ScreenName
+		{
+			get { return screen_name; }
+			set { screen_name = value; }
+		}
+
+		public bool ShowAllInlineMedia
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public Tweetinvi.Core.Interfaces.DTO.ITweetDTO Status
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public int StatusesCount
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string TimeZone
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public List<ITweet> Timeline
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public List<ITweet> TweetsRetweetedByFollowers
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public bool UnBlockUser()
+		{
+			throw new NotImplementedException();
+		}
+
+		public string Url
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public Tweetinvi.Core.Interfaces.DTO.IUserDTO UserDTO
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public Tweetinvi.Core.Interfaces.Models.IUserIdentifier UserIdentifier
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public int? UtcOffset
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public bool Verified
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public IEnumerable<string> WithheldInCountries
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		public string WithheldScope
+		{
+			get { throw new NotImplementedException(); }
+		}
+
+		long Tweetinvi.Core.Interfaces.Models.IUserIdentifier.Id
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		string Tweetinvi.Core.Interfaces.Models.IUserIdentifier.IdStr
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		string Tweetinvi.Core.Interfaces.Models.IUserIdentifier.ScreenName
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public Task<bool> BlockAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<IUser>> GetContributeesAsync(bool createContributeeList = false)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<IUser>> GetContributorsAsync(bool createContributorList = false)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<ITweet>> GetFavoritesAsync(int maximumTweets = 40)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<long>> GetFollowerIdsAsync(int maxFriendsToRetrieve = 5000)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<IUser>> GetFollowersAsync(int maxFriendsToRetrieve = 250)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<long>> GetFriendIdsAsync(int maxFriendsToRetrieve = 5000)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<IUser>> GetFriendsAsync(int maxFriendsToRetrieve = 250)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<System.IO.Stream> GetProfileImageStreamAsync(Tweetinvi.Core.Enum.ImageSize imageSize = Tweetinvi.Core.Enum.ImageSize.normal)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IRelationshipDetails> GetRelationshipWithAsync(IUser user)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<ITweet>> GetUserTimelineAsync(Tweetinvi.Core.Interfaces.Models.Parameters.IUserTimelineRequestParameters timelineRequestParameters)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<IEnumerable<ITweet>> GetUserTimelineAsync(int maximumTweet = 40)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> UnBlockAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public bool Equals(IUser other)
 		{
 			throw new NotImplementedException();
 		}
