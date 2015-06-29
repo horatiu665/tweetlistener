@@ -7,6 +7,8 @@ try {
 	
 	//$decodedPost = rawurldecode($_POST['json']);
 	
+	$tableName = $_POST['table'];
+	
 	// ================================ Raw tweet-json saving ====================================
 	
 	$json = json_decode($_POST['json']);
@@ -86,7 +88,7 @@ try {
 	// create query
 		$query 	=		"INSERT INTO";
 		// table name
-		$query	.= 		" `json` ";
+		$query	.= 		" `{$tableName}` ";
 		// columns 
 		$query	.=		" (`id`, `tweet_id_str`, `tweet`, `created_at`, `user_id_str`, `user_name`, `in_reply_to_status_id_str`, `in_reply_to_user_id_str`, `lang`, `retweet_count`) ";
 		$query	.=		" VALUES ";

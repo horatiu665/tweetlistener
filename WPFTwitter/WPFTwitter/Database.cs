@@ -67,6 +67,19 @@ namespace WPFTwitter
 			set { textFileDatabasePath = value; }
 		}
 
+		private string databaseTableName = "json";
+		public string DatabaseTableName
+		{
+			get
+			{
+				return databaseTableName;
+			}
+			set
+			{
+				databaseTableName = value;
+			}
+		}
+
 		/// <summary>
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
 		/// </summary>
@@ -121,7 +134,7 @@ namespace WPFTwitter
 				}
 				catch (Exception e) {
 					if (Message != null) {
-						if (outputDatabaseMessages) 
+						if (outputDatabaseMessages)
 							Message(e.ToString());
 					}
 					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
@@ -229,6 +242,7 @@ namespace WPFTwitter
 			// Create POST data and convert it to a byte array. 
 			// also encode tweet to avoid problems with "&"
 			string postData = "json=" + WebUtility.UrlEncode(json);
+			postData += "&table=" + databaseTableName;
 			//Console.WriteLine(postData);
 
 			byte[] byteArray = Encoding.UTF8.GetBytes(postData);
@@ -404,7 +418,7 @@ namespace WPFTwitter
 			final += j["in_reply_to_user_id_str"] + separationChar;
 			// instead of just language, also save int, and cast to enum when reading
 			final += j["lang"] + separationChar;
-			
+
 			final += j["retweet_count"] + separationChar;
 			final += j["user"]["screen_name"] + separationChar;
 			final += j["user"]["id_str"] + separationChar;

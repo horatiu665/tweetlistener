@@ -106,6 +106,7 @@ namespace WPFTwitter.Windows
 			checkBox_database.DataContext = databaseSaver;
 			database_textFileDbPathTextBox.DataContext = databaseSaver;
 			setCredentialsDefault.DataContext = credentials;
+			database_tableNameTextBox.DataContext = databaseSaver;
 
 			// rest log binding
 			restView.DataContext = RestMessageList;

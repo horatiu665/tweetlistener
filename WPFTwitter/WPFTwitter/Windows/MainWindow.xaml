@@ -240,6 +240,14 @@
                                             </Label>
                                             <TextBox Name="database_textFileDbPathTextBox" VerticalAlignment="Center" Text="{Binding TextFileDatabasePath, Mode=TwoWay}" />
                                         </DockPanel>
+                                        <DockPanel>
+                                            <Label Content="DB table name" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label.ToolTip>
+                                                    Sends table name to PHP script, saves tweets in this table in the DB.
+                                                </Label.ToolTip>
+                                            </Label>
+                                            <TextBox Name="database_tableNameTextBox" VerticalAlignment="Center" Text="{Binding DatabaseTableName, Mode=TwoWay}" />
+                                        </DockPanel>
 
                                         <DockPanel>
                                             <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}">
