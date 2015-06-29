@@ -119,8 +119,6 @@ namespace WPFTwitter
 				//	}
 				//};
 
-				StartSafeOutput();
-
 				_started = true;
 			}
 
@@ -149,17 +147,24 @@ namespace WPFTwitter
 		Queue<string> outputQ = new Queue<string>();
 		bool writing = false;
 
-		void StartSafeOutput()
+		/// <summary>
+		/// outputs messages in queue, by waiting until log is free. 
+		/// (Avoids writing to it at the same time from multiple calls of Output())
+		/// </summary>
+		void SafeOutput()
 		{
 			Task.Factory.StartNew(() => {
-				while (true) {
-					if (outputQ.Count > 0) {
-						string s = outputQ.Dequeue();
-						writing = true;
-						logWriter.WriteLine(s);
-						writing = false;
-					}
+				while (writing && outputQ.Count > 0) {
+					;
 				}
+
+				if (outputQ.Count > 0) {
+					writing = true;
+					string s = outputQ.Dequeue();
+					logWriter.WriteLine(s);
+					writing = false;
+				}
+				
 			});
 		}
 
@@ -192,6 +197,8 @@ namespace WPFTwitter
 				//	logWriter.WriteLine(message);
 				//}
 				outputQ.Enqueue(message);
+
+				SafeOutput();
 			}
 			catch (Exception e) {
 				if (LogOutput != null) {
