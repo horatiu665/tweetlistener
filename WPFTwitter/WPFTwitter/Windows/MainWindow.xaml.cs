@@ -90,11 +90,24 @@ namespace WPFTwitter.Windows
 			set { mailHelper.emailTimer.Interval = value.TotalMilliseconds; }
 		}
 
+		public Dictionary<string, string> commandLineArgs = new Dictionary<string, string>();
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
+			// based on http://sa.ndeep.me/post/103/how-to-create-smart-wpf-command-line-arguments
+			string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray();
+			
+			for (int i = 0; i < args.Length; i+=2) {
+				string arg = args[i].Replace("/", "");
+				commandLineArgs.Add(arg, args[i + 1]);
+			}
+
+			// now we can initialize shit from the command line, and we can run batch scripts that open multiple instances of the application with different settings.
+			// only thing is to set up those initializations.
+			// a list of initializations can be found at the end of this method.
+			
 			viewModel = new MainWindowViewModel();
 
 			log = new Log();
@@ -246,6 +259,117 @@ namespace WPFTwitter.Windows
 			databaseSaver.Message += (s) => {
 				log.Output(s);
 			};
+
+			
+
+
+			#region initializations using command line
+			if (commandLineArgs.ContainsKey("phpPostPath")) {
+				databasePhpPath.Text = commandLineArgs["phpPostPath"];
+				databaseSaver.localPhpJsonLink = commandLineArgs["phpPostPath"];
+			}
+			if (commandLineArgs.ContainsKey("logPath")) {
+				logPathTextBox.Text = commandLineArgs["logPath"];
+				log.logPath = log.ValidatePath(commandLineArgs["logPath"]);
+			}
+			if (commandLineArgs.ContainsKey("textFileDbPath")) {
+				databaseSaver.TextFileDatabasePath = commandLineArgs["textFileDbPath"];
+			}
+			if (commandLineArgs.ContainsKey("dbTableName")) {
+				databaseSaver.DatabaseTableName = commandLineArgs["dbTableName"];
+			}
+			if (commandLineArgs.ContainsKey("saveToDatabase")) {
+				databaseSaver.SaveToDatabase = commandLineArgs["saveToDatabase"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("saveToTextFile")) {
+				databaseSaver.SaveToTextFileProperty = commandLineArgs["saveToTextFile"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("outputEventCounters")) {
+				stream.CountersOn = 
+					commandLineArgs["outputEventCounters"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("outputDatabaseMessages")) {
+				databaseSaver.OutputDatabaseMessages =
+					commandLineArgs["outputDatabaseMessages"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("logEveryJson")) {
+				stream.LogEveryJson =
+					commandLineArgs["logEveryJson"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("emailDisco")) {
+				EmailSpammerTimeSpan = TimeSpan.Parse(commandLineArgs["emailDisco"]);
+				if (EmailSpammerTimeSpan != TimeSpan.Zero) {
+					EmailSpammer = true;
+				}
+			}
+			if (commandLineArgs.ContainsKey("onlyEnglish")) {
+				tweetDatabase.OnlyEnglish =
+					commandLineArgs["onlyEnglish"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("onlyWithHashtags")) {
+				tweetDatabase.OnlyWithHashtags =
+					commandLineArgs["onlyWithHashtags"] != "0";
+			}
+			if (commandLineArgs.ContainsKey("credentials")) {
+				int credentialsIndex;
+				if (int.TryParse(commandLineArgs["credentials"], out credentialsIndex)) {
+					currentCredentialDefaults = credentialsIndex;
+					credentials.SetCredentials(currentCredentialDefaults);
+				}
+			}
+			if (commandLineArgs.ContainsKey("keywords")) {
+				string keywordsString = commandLineArgs["keywords"];
+				var keywordsStringList = keywordsString.Split(" ,".ToCharArray());
+				foreach (var ks in keywordsStringList) {
+					keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(ks, 0));
+				}
+			}
+			if (commandLineArgs.ContainsKey("startStream")) {
+				if (commandLineArgs["startStream"] != "0") {
+					stream.Start();
+				}
+			}
+			// example args list:
+			/*
+			run WPFTwitter.exe 
+				/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php"
+				/logPath "log.txt"
+				/textFileDbPath "rawJsonBackup.txt"
+				/dbTableName "gametest1"
+				/saveToDatabase 1
+				/saveToTextFile 1
+				/outputEventCounters 0
+				/outputDatabaseMessages 0
+				/logEveryJson 0
+				/emailDisco 06:00:00
+				/onlyEnglish 1
+				/onlyWithHashtags 0
+				/credentials 3
+				/keywords "#callofduty #cod #ps4 #pc #xbox"
+				/startStream 1
+			 
+			because the following if statements are found above
+			
+				if (commandLineArgs.ContainsKey("phpPostPath")) {
+				if (commandLineArgs.ContainsKey("logPath")) {
+				if (commandLineArgs.ContainsKey("textFileDbPath")) {
+				if (commandLineArgs.ContainsKey("dbTableName")) {
+				if (commandLineArgs.ContainsKey("saveToDatabase")) {
+				if (commandLineArgs.ContainsKey("saveToTextFile")) {
+				if (commandLineArgs.ContainsKey("outputEventCounters")) {
+				if (commandLineArgs.ContainsKey("outputDatabaseMessages")) {
+				if (commandLineArgs.ContainsKey("logEveryJson")) {
+				if (commandLineArgs.ContainsKey("emailDisco")) {
+				if (commandLineArgs.ContainsKey("onlyEnglish")) {
+				if (commandLineArgs.ContainsKey("onlyWithHashtags")) {
+				if (commandLineArgs.ContainsKey("credentials")) {
+				if (commandLineArgs.ContainsKey("keywords")) {
+				if (commandLineArgs.ContainsKey("startStream")) {
+  
+			*/
+			#endregion
+
+
 		}
 
 		/// <summary>
@@ -897,8 +1021,8 @@ namespace WPFTwitter.Windows
 
 		private void setCredentialsDefault_Click(object sender, RoutedEventArgs e)
 		{
-			var creds = (credentials.GetDefaults(currentCredentialDefaults++));
-			credentials.TwitterCredentialsInit(creds);
+			currentCredentialDefaults++;
+			credentials.SetCredentials(currentCredentialDefaults);
 		}
 
 		bool fromFile_isLoading = false;

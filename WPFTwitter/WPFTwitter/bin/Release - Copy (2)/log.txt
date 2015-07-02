@@ -1,0 +1,70 @@
+Thu, 02-Jul-15 17:26:03: New log started
+Thu, 02-Jul-15 17:26:03: Counters off
+Thu, 02-Jul-15 17:26:04: Stream attempting to start at time Thu, 02-Jul-15 17:26:03
+Thu, 02-Jul-15 17:26:04: OnStreamStarted event is called
+Thu, 02-Jul-15 17:26:04: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 17:26:03 to Thu, 02-Jul-15 17:26:04
+Thu, 02-Jul-15 17:26:04: Stream disconnected.
+Thu, 02-Jul-15 17:26:04: Exception: --- Date : Thu, 02-Jul-15 17:26:04
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu, 02-Jul-15 17:26:04: Searching for #callofduty,#cod,#ps4,#pc,#xbox,
+Thu, 02-Jul-15 17:26:05: Stream attempting to start at time Thu, 02-Jul-15 17:26:05
+Thu, 02-Jul-15 17:26:05: OnStreamStarted event is called
+Thu, 02-Jul-15 17:26:05: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 17:26:04 to Thu, 02-Jul-15 17:26:05
+Thu, 02-Jul-15 17:26:05: Searching for #callofduty,#cod,#ps4,#pc,#xbox,
+Thu, 02-Jul-15 17:26:05: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 17:26:05: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 17:26:05: Stream disconnected.
+Thu, 02-Jul-15 17:26:05: Exception: --- Date : Thu, 02-Jul-15 17:26:05
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu, 02-Jul-15 17:26:06: Stream attempting to start at time Thu, 02-Jul-15 17:26:06
+Thu, 02-Jul-15 17:26:06: OnStreamStarted event is called
+Thu, 02-Jul-15 17:26:06: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 17:26:05 to Thu, 02-Jul-15 17:26:06
+Thu, 02-Jul-15 17:26:06: Searching for #callofduty,#cod,#ps4,#pc,#xbox,
+Thu, 02-Jul-15 17:26:06: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 17:26:06: Stream disconnected.
+Thu, 02-Jul-15 17:26:06: Exception: --- Date : Thu, 02-Jul-15 17:26:06
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu, 02-Jul-15 17:26:07: Stream attempting to start at time Thu, 02-Jul-15 17:26:07
+Thu, 02-Jul-15 17:26:07: OnStreamStarted event is called
+Thu, 02-Jul-15 17:26:07: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 17:26:06 to Thu, 02-Jul-15 17:26:07
+Thu, 02-Jul-15 17:26:07: Searching for #callofduty,#cod,#ps4,#pc,#xbox,
+Thu, 02-Jul-15 17:26:08: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 17:26:08: Stream disconnected.
+Thu, 02-Jul-15 17:26:08: Exception: --- Date : Thu, 02-Jul-15 17:26:08
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu, 02-Jul-15 17:26:09: Stream attempting to start at time Thu, 02-Jul-15 17:26:09
+Thu, 02-Jul-15 17:26:09: OnStreamStarted event is called
+Thu, 02-Jul-15 17:26:09: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 17:26:08 to Thu, 02-Jul-15 17:26:09
+Thu, 02-Jul-15 17:26:09: Searching for #callofduty,#cod,#ps4,#pc,#xbox,
+Thu, 02-Jul-15 17:26:10: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 17:26:10: Stream disconnected.
+Thu, 02-Jul-15 17:26:10: Stream disconnected.
+Thu, 02-Jul-15 17:26:10: Exception: --- Date : Thu, 02-Jul-15 17:26:10
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : -1
+Error documentation description : 
+
+Thu, 02-Jul-15 17:26:17: Stream attempting to start at time Thu, 02-Jul-15 17:26:17
+Thu, 02-Jul-15 17:26:17: OnStreamStarted event is called
+Thu, 02-Jul-15 17:26:17: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 17:26:10 to Thu, 02-Jul-15 17:26:17
+Thu, 02-Jul-15 17:26:17: Searching for #call

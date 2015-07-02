@@ -1,0 +1,26 @@
+Thu, 02-Jul-15 17:26:03: New log started
+Thu, 02-Jul-15 17:26:04: Stream disconnected.
+Thu, 02-Jul-15 17:26:04: Exception: --- Date : Thu, 02-Jul-15 17:26:04
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu, 02-Jul-15 17:26:05: Stream disconnected.
+Thu, 02-Jul-15 17:26:05: Exception: --- Date : Thu, 02-Jul-15 17:26:05
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu, 02-Jul-15 17:26:06: Stream disconnected.
+Thu, 02-Jul-15 17:26:06: Exception: --- Date : Thu, 02-Jul-15 17:26:06
+URL : https://stream.twitter.com/1.1/statuses/filter.json?track=%23callofduty%2C%23cod%2C%23ps4%2C%23pc%2C%23xbox
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+Thu,

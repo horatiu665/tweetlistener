@@ -120,6 +120,12 @@ namespace WPFTwitter
 
 		public event Action<List<string>> CredentialsChange;
 
+
+		public void SetCredentials(int index)
+		{
+			TwitterCredentialsInit(GetDefaults(index));
+		}
+
 		/// <summary>
 		/// set twitter credentials for the app
 		/// </summary>
