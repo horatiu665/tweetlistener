@@ -903,7 +903,7 @@ namespace WPFTwitter.Windows
 		private void keywordAddButtonClick(object sender, RoutedEventArgs e)
 		{
 			var newKeyword = keywordAddTextbox.Text;
-			newKeyword = newKeyword.Replace(" ", "");
+			//newKeyword = newKeyword.Replace(" ", "");
 
 			if (newKeyword != "") {
 				//if (!(newKeyword[0] == '#')) {
