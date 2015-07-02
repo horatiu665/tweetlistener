@@ -486,7 +486,11 @@
                                             <Button Content="Clear LangModels" Padding="10 0" Click="keywordsView_ClearLangModels"/>
                                         </DockPanel>
                                         <DockPanel DockPanel.Dock="Top">
-                                            <Button IsDefault="True" Content="Add" Padding="10 0" Margin="10 0" DockPanel.Dock="Right" Height="{Binding ElementName=keywordsResetSelectionButton, Path=ActualHeight}" Click="keywordAddButtonClick"/>
+                                            <Button IsDefault="True" Content="Add" Padding="10 0" Margin="10 0" DockPanel.Dock="Right" Height="{Binding ElementName=keywordsResetSelectionButton, Path=ActualHeight}" Click="keywordAddButtonClick">
+                                                <Button.ToolTip>
+                                                    Adds keyword to list. Beware, if the keyword is not a hashtag (does not begin with the character '#'), it will be gathered but its count will not work properly.
+                                                </Button.ToolTip>
+                                            </Button>
                                             <DockPanel>
                                                 <Label Content="Add Keyword" HorizontalContentAlignment="Right" VerticalAlignment="Center"/>
                                                 <TextBox Name="keywordAddTextbox" VerticalAlignment="Center"/>

@@ -906,9 +906,9 @@ namespace WPFTwitter.Windows
 			newKeyword = newKeyword.Replace(" ", "");
 
 			if (newKeyword != "") {
-				if (!(newKeyword[0] == '#')) {
-					newKeyword = newKeyword.Insert(0, "#");
-				}
+				//if (!(newKeyword[0] == '#')) {
+				//	newKeyword = newKeyword.Insert(0, "#");
+				//}
 
 				var newKeywordData = new KeywordDatabase.KeywordData(newKeyword, 0);
 				newKeywordData.Count = tweetDatabase.tweets.Count(t => t.ContainsHashtag(newKeyword));
