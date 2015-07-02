@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
+using System.Net.Mail;
+using System.Net;
 
 namespace WPFTwitter.Windows
 {
@@ -36,6 +38,7 @@ namespace WPFTwitter.Windows
 		TweetDatabase tweetDatabase;
 		QueryExpansion queryExpansion;
 		PorterStemmerAlgorithm.PorterStemmer porterStemmer;
+		MailHelper mailHelper;
 
 		MainWindowViewModel viewModel;
 
@@ -75,6 +78,18 @@ namespace WPFTwitter.Windows
 		bool updateTweetsNextUpdate = false;
 		private System.Timers.Timer tweetViewUpdateTimer = new System.Timers.Timer();
 
+		public bool EmailSpammer
+		{
+			get { return mailHelper.emailSpammer; }
+			set { mailHelper.emailSpammer = value; }
+		}
+
+		public TimeSpan EmailSpammerTimeSpan
+		{
+			get { return TimeSpan.FromMilliseconds(mailHelper.emailTimer.Interval); }
+			set { mailHelper.emailTimer.Interval = value.TotalMilliseconds; }
+		}
+
 
 		public MainWindow()
 		{
@@ -89,6 +104,7 @@ namespace WPFTwitter.Windows
 			tweetDatabase = new TweetDatabase(databaseSaver);
 			rest = new Rest(databaseSaver, log, tweetDatabase);
 			stream = new Stream(databaseSaver, log, rest, keywordDatabase);
+			mailHelper = new MailHelper(log, stream);
 			restGatherer = new RestGatherer(rest, log, tweetDatabase, keywordDatabase);
 			queryExpansion = new QueryExpansion(log);
 			porterStemmer = new PorterStemmerAlgorithm.PorterStemmer();
@@ -107,7 +123,8 @@ namespace WPFTwitter.Windows
 			database_textFileDbPathTextBox.DataContext = databaseSaver;
 			setCredentialsDefault.DataContext = credentials;
 			database_tableNameTextBox.DataContext = databaseSaver;
-
+			startStreamButton.DataContext = stream;
+			
 			// rest log binding
 			restView.DataContext = RestMessageList;
 
@@ -480,7 +497,7 @@ namespace WPFTwitter.Windows
 			if (keywordDatabase.KeywordList.Count == 0) return;
 			if (((GridViewColumnHeader)sender).Content == null) return;
 
-			App.Current.Dispatcher.Invoke((Action)(() => {
+			App.Current.Dispatcher.Invoke(() => {
 				if (((GridViewColumnHeader)sender).Content.ToString().Contains("Keyword")) {
 
 					keywordDatabase.KeywordList.Set(keywordDatabase.KeywordList.OrderBy(kd => kd.Keyword).ToList());
@@ -503,7 +520,7 @@ namespace WPFTwitter.Windows
 					}
 				}
 				keywordListView.UpdateLayout();
-			}));
+			});
 		}
 
 		private void keywordListView_Item_MouseUp(object sender, MouseButtonEventArgs e)
@@ -1127,6 +1144,12 @@ namespace WPFTwitter.Windows
 
 			});
 		}
+
+		private void log_forceResetButton(object sender, RoutedEventArgs e)
+		{
+			log.Restart();
+		}
+
 	}
 
 	public class LogMessageListCollection : ObservableCollection<LogMessage>

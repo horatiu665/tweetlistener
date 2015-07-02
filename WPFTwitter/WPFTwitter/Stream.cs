@@ -383,6 +383,8 @@ namespace WPFTwitter
 					log.Output("Exception at StartStreamTask() thread: " + e.ToString());
 					log.SmallOutput("Exception at StartStreamTask() thread: " + e.ToString());
 
+					//TODO: when exception happens, check if stream is actually running along, if we should reset stream, or if two streams are attempting to run at the same time.
+
 					// notify main thread that there was an exception here.
 					streamThreadException = true;
 					

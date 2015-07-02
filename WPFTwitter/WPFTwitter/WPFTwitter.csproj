@@ -166,6 +166,7 @@
     <Compile Include="CustomTweetFormat.cs" />
     <Compile Include="KeywordDatabase.cs" />
     <Compile Include="LanguageModel.cs" />
+    <Compile Include="MailHelper.cs" />
     <Compile Include="MeanAveragePrecision.cs" />
     <Compile Include="PorterStemmerAlgorithm.cs" />
     <Compile Include="QueryExpansion.cs" />
@@ -216,7 +217,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

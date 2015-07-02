@@ -232,6 +232,7 @@
                                             </Label>
                                             <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
                                         </DockPanel>
+                                        <Button Content="Force reset Log" Click="log_forceResetButton"></Button>
                                         <DockPanel>
                                             <Label Content="Text file DB path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
                                                 <Label.ToolTip>
@@ -252,7 +253,7 @@
                                         <DockPanel>
                                             <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}">
                                                 <CheckBox.ToolTip>
-                                                   Saves each tweet to database, by sending POST request. Can slow down gathering. If sending fails, retries N times in one-second intervals.
+                                                    Saves each tweet to database, by sending POST request. Can slow down gathering. If sending fails, retries N times in one-second intervals.
                                                 </CheckBox.ToolTip>
                                             </CheckBox>
                                             <Label Content="| Retries" VerticalAlignment="Center"/>
@@ -280,7 +281,6 @@
                                             </CheckBox.ToolTip>
                                         </CheckBox>
 
-
                                     </StackPanel>
                                 </ad:LayoutAnchorable>
                             </ad:LayoutAnchorablePane>
@@ -298,13 +298,23 @@
                                             <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
                                             <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
                                             <DockPanel>
-                                                <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled query expansion" VerticalAlignment="Center" >
+                                                <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled expansion" VerticalAlignment="Center" >
                                                     <CheckBox.ToolTip>
                                                         Not recommended, VERY experimental. Expands query every period of time, and restarts stream with new keywords selected. Can easily blow up program.
                                                     </CheckBox.ToolTip>
                                                 </CheckBox>
                                                 <extendedWpf:TimeSpanUpDown x:Name="expansionScheduleTimespan" Value="1.00:00:00" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
                                             </DockPanel>
+                                            <DockPanel>
+                                                <CheckBox x:Name="checkBox_emailSpammer" IsChecked="{Binding Path=EmailSpammer, Mode=TwoWay}" Content="E-mail Disco" VerticalAlignment="Center" >
+                                                    <CheckBox.ToolTip>
+                                                        Email when the stream is disconnected for more than the period specified. Also e-mails when it reconnects.
+                                                    </CheckBox.ToolTip>
+                                                </CheckBox>
+                                                <extendedWpf:TimeSpanUpDown x:Name="emailSpammerTimespan" Value="{Binding EmailSpammerTimeSpan, Mode=TwoWay}" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
+                                            </DockPanel>
+
+
                                         </StackPanel>
 
                                     </ad:LayoutAnchorable>
@@ -315,7 +325,7 @@
 
                                 <!--  EXPANSION PANEL -->
 
-                                <ad:LayoutAnchorablePane DockHeight="2*">
+                                <ad:LayoutAnchorablePane DockHeight="*">
                                     <ad:LayoutAnchorable Title="Expansion"  CanClose="False" CanHide="False" AutoHideWidth="300">
 
                                         <!-- this is the content you are looking for -->
@@ -393,7 +403,7 @@
                                 <!-- END  EXPANSION PANEL -->
 
                             </ad:LayoutPanel>
-                            
+
                             <!-- REST CONTROLS PANEL -->
 
                             <ad:LayoutAnchorablePane DockHeight="3*">
@@ -459,7 +469,7 @@
                         </ad:LayoutPanel>
 
 
-                        <ad:LayoutPanel Orientation="Horizontal" DockHeight="2*">
+                        <ad:LayoutPanel Orientation="Horizontal" DockHeight="*">
 
                             <!-- KEYWORDS PANEL -->
 
@@ -549,7 +559,7 @@
 
                             <ad:LayoutAnchorablePane DockHeight="*">
                                 <ad:LayoutAnchorable x:Name="credentialsPanelLayout"  Title="Credentials" CanClose="False" CanHide="False" AutoHideWidth="300">
-                                    
+
 
                                     <!-- this is the content you are looking for -->
                                     <StackPanel x:Name="credentialsPanel">

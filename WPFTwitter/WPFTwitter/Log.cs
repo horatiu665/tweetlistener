@@ -124,6 +124,15 @@ namespace WPFTwitter
 
 		}
 
+		public void Restart()
+		{
+			logWriter.Close();
+			logWriter = new StreamWriter(logPath, true);
+			smallLogWriter.Close();
+			smallLogWriter = new StreamWriter(smallLogPath, true);
+
+		}
+
 		public void Stop()
 		{
 			// too dangerous to stop log, because events are not cleaned up, and restarting it would mean double the prints.
