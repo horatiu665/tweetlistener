@@ -70,3 +70,19 @@ Here are the distributions of tweets per 3 days per game, along with the games' 
 ![16](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul%20detail.png)
 ![17](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul.png)
 ![18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/zombie%20vikings.png)
+
+#### Additional info
+
+The total number of tweets gathered in the database for each game is:
+- Armikrog: 627
+- Legends of Eisenwald: 1090
+- Everybody's gone to the rapture: 3870
+- Formula 1: 19383
+- Godzilla: 17829
+- King's quest: 11889
+- Madden 16: 11915
+- Paddington: 3010
+- Rise of incarnates: database 61 (backup text file 1092 - will be added to database at some point)
+- Rory McIlroy: 26618
+- The Swindle: 12425
+- Zombie Vikings: 985
