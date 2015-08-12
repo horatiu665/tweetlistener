@@ -27,14 +27,14 @@ An overview of gathered data up to this point is as follows:
 - overview of gathered data
 
 ### Analysis of tweets
-This section describes the steps taken for creating an overview of the gathered data.
+This section describes the steps taken for creating an overview of the gathered data
 
-#### Tweets per date
+#### Tweets per date. Method
 To count the amount of tweets per day, the created_at column can be split by date and time, and the columns with the same date can be grouped and counted, using the following query. 
 
 SELECT *, DATE_FORMAT(`created_at`, '%Y-%m-%d') DATEONLY, DATE_FORMAT(`created_at`, '%H:%i:%s') TIMEONLY, Count(*) FROM `godzilla` group by DATEONLY
 
-This results in a query result in phpmysql, which can then be turned into a chart using a button in phpmyadmin. The only issue with this is that the chart will show and x axis filled with dates which are drawn on top of each other which cannot be read. Another problem is that the histogram which is practically created is too dispersed, and it would benefit from having wider bins. Therefore the following query can be used, to merge results over several days.
+This results in a query result in phpmysql, which can then be turned into a chart using a button in phpmyadmin. The only issue with this is that the chart will show an x axis filled with dates which are drawn on top of each other, which cannot be read. Another problem is that the histogram, which is practically created, is too dispersed, and it would benefit from having wider bins. Therefore the following query can be used, to merge results over several days.
 
 SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 3) DAY), '%Y-%m-%d') as DATES, Count(*) AS COUNT FROM `godzilla` group by DATES
 
@@ -44,3 +44,13 @@ Another filter to apply to this query is a limitation of the dates between june 
 
 SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 3) DAY), '%Y-%m-%d') as DATES, Count(*) AS COUNT FROM `godzilla` WHERE (`created_at` BETWEEN '2015-06-01 00:00:00' AND '2015-09-01 00:00:00' ) group by DATES
 
+The query generates compact charts with a good overview, but some of the games have interesting evolutions near their release dates, therefore the query was modified to include every day instead of 3 days at a time - by changing the number inside the MOD() function to 1.
+
+Later on it was clear that the format %Y-%m-%d was too long, and it was changed to %m-%d for two of the games. For one of the games (Rise of incarnates), the data was not saved in the database by mistake, only in a text file as backup. As such, charts could not be made using this method, leaving this game for later analysis.
+
+#### Tweets per date. Raw data
+
+Here are the distributions of tweets per 3 days per game, along with the games' release dates marked on the charts.
+
+- add images here with some descriptions
+- see images in folder tweethistograms/
