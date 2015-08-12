@@ -52,5 +52,21 @@ Later on it was clear that the format %Y-%m-%d was too long, and it was changed 
 
 Here are the distributions of tweets per 3 days per game, along with the games' release dates marked on the charts.
 
-- add images here with some descriptions
-- see images in folder tweethistograms/
+![1](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/armikrog%2018%20aug.png)
+![2](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/eisenwald%202%20july%20detail.png)
+![3](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/eisenwald%202%20july.png)
+![4](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/everybody%20rapture%2011%20aug%20detail.png)
+![5](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/everybody%20rapture%2011%20aug.png)
+![6](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/formula%201%2010%20july%20detail.png)
+![7](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/formula%201%2010%20july.png)
+![8](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/godzilla%20detail.png)
+![9](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/godzilla.png)
+![10](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/kings%20quest%2028%20july%20detail.png)
+![11](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/kings%20quest%2028%20july.png)
+![12](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/madden16%2025%20aug.png)
+![13](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/paddington%203%20july%2011%20aug.png)
+![14](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/rory%20mcilroy%2014%20july%20detail.png)
+![15](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/rory%20mcilroy%2014%20july.png)
+![16](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul%20detail.png)
+![17](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul.png)
+![18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/zombie%20vikings.png)
