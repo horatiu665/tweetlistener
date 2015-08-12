@@ -25,3 +25,18 @@ A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00
 An overview of gathered data up to this point is as follows:
 
 - overview of gathered data
+
+### Analysis of tweets
+This section describes the steps taken for creating an overview of the gathered data.
+
+#### Tweets per date
+To count the amount of tweets per day, the created_at column can be split by date and time, and the columns with the same date can be grouped and counted, using the following query. 
+
+SELECT *, DATE_FORMAT(`created_at`, '%Y-%m-%d') DATEONLY, DATE_FORMAT(`created_at`, '%H:%i:%s') TIMEONLY, Count(*) FROM `godzilla` group by DATEONLY
+
+This results in a query result in phpmysql, which can then be turned into a chart using a button in phpmyadmin. The only issue with this is that the chart will show and x axis filled with dates which are drawn on top of each other which cannot be read. Another problem is that the histogram which is practically created is too dispersed, and it would benefit from having wider bins. Therefore the following query can be used, to merge results over several days.
+
+SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 3) DAY), '%Y-%m-%d') as DATES, Count(*) AS COUNT FROM `godzilla` group by DATES
+
+The query subtracts an amount of days equal to the remainder to the division by 3 (arbitrary amount of days) from the date, and therefore groups and counts the results based on this formula, yielding wider bins for the histogram. This makes it possible to have readable x-axis values and group the bins for an easier overview over long periods of time.
+
