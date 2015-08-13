@@ -105,18 +105,29 @@ Query expansion was performed manually on 22-07-2015 and resulted in 4 games rec
   -	Everybody’s gone to the rapture
   -	Everybody gone to the rapture
 
-
 The first major problem was a disconnect (based on a shutdown) between 27-07-2015 18:06:08 and 03-08-2015 11:30:03. The system event logs were examined and it is unclear what caused the shutdown, but the system was clearly shut down rather than the programs crashing.
 
-This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST.
+This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST. Based on the amount of data gathered during the crash using REST and all other data gathered using the stream, due to the shape of the charts showing the amount of data per day, it can be concluded that there was no significant data loss or that the data was lost in a very misleading way. (more detail about this conclusion will follow upon closer inspection)
 
-- COMPARE UPTIME DATA WITH REST AND CONCLUDE IF DATA MIGHT HAVE BEEN LOST
-
-A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00 (when the system was restarted), and it was solved in the same way as the previous disconnect. Additionally, some of the tweetlisteners had some errors, hanged, and crashed.
+A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00 (when the system was restarted), and it was solved in the same way as the previous disconnect. Additionally, some of the tweetlisteners had some errors, hanged, and crashed. They have all been restarted and data was recovered using REST between 9 and 12 august, to make sure all tweets were gathered.
 
 An overview of gathered data up to this point is as follows:
 
-- overview of gathered data
+The total number of tweets gathered in the database for each game is:
+- Armikrog: 627
+- Legends of Eisenwald: 1090
+- Everybody's gone to the rapture: 3870
+- Formula 1: 19383
+- Godzilla: 17829
+- King's quest: 11889
+- Madden 16: 11915
+- Paddington: 3010
+- Rise of incarnates: database 61 (backup text file 1092 - will be added to database at some point)
+- Rory McIlroy: 26618
+- The Swindle: 12425
+- Zombie Vikings: 985
+
+For each game, there are charts below showing the amount of data gathered per 3 day intervals between june and 12 august. Some games have an extra chart where the amount per day is shown, around the games' release dates.
 
 ### Analysis of tweets
 This section describes the steps taken for creating an overview of the gathered data
@@ -142,7 +153,7 @@ Later on it was clear that the format %Y-%m-%d was too long, and it was changed 
 
 #### Tweets per date. Raw data
 
-Here are the distributions of tweets per 3 days per game, along with the games' release dates marked on the charts.
+Here are the distributions of tweets over time, for each game, in no particular order.
 
 ![1](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/armikrog%2018%20aug.png)
 ![2](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/eisenwald%202%20july%20detail.png)
@@ -162,19 +173,3 @@ Here are the distributions of tweets per 3 days per game, along with the games' 
 ![16](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul%20detail.png)
 ![17](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul.png)
 ![18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/zombie%20vikings.png)
-
-#### Additional info
-
-The total number of tweets gathered in the database for each game is:
-- Armikrog: 627
-- Legends of Eisenwald: 1090
-- Everybody's gone to the rapture: 3870
-- Formula 1: 19383
-- Godzilla: 17829
-- King's quest: 11889
-- Madden 16: 11915
-- Paddington: 3010
-- Rise of incarnates: database 61 (backup text file 1092 - will be added to database at some point)
-- Rory McIlroy: 26618
-- The Swindle: 12425
-- Zombie Vikings: 985
