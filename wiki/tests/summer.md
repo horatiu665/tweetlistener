@@ -12,7 +12,99 @@ Event log
 ----
 
 Query expansion was performed manually on 22-07-2015 and resulted in 4 games receiving new hashtags as follows:
-- list of games with hashtags
+- Godzilla
+  -	#godzilla
+  -	#kaiju
+  -	#gojira
+  -	#godzillathegame
+  -	#mothra – name of a monster in the game
+  -	#eijitsuburaya – name of the main developer
+  -	#kaijuroar
+  -	#godzilla2014
+  -	#tsuburaya
+  -	#kingghidorah
+  -	#mechagodzilla
+  -	#shinjuku
+  -	#eiji
+  -	#teamkaiju
+  -	#kkvg – acronym for king kong vs Godzilla
+  -	#ghidorah
+  -	#dinosaur
+  -	#kaijuly
+  -	#kaijumoviemarathon
+  -	#kingofthemonsters
+  -	#godzillainhell
+  -	#kingofmonsters
+  -	#godzilla2
+  -	#godzilla2018
+  -	#hedorah
+  -	#kaijuking
+  -	#daikaiju
+  -	#godzillavideogame
+- Madden
+  -	#madden16
+  -	#madden15
+  -	#madden
+  -	#maddenseason
+  -	#madden16cover
+- Legends of eisenwald
+  -	No change
+  -	#legendsofeisenwald
+  -	Legendsofeisenwald
+  -	Legends of eisenwald
+- Rory McIlroy PGA Tour
+  -	No change
+  -	#pgatour
+  -	#nextgengolf
+  -	#rorymcilroy
+  -	#rorymcilroypgatour
+- Armikrog
+  -	No change
+  -	#armikrog
+  -	Armikrog
+- The swindle
+  -	No change
+  -	#swindle
+  -	#theswindle
+  -	Theswindle
+  -	The swindle
+- Zombie Vikings
+  -	#zombievikings
+  -	Zombie vikings
+  -	Zombievikings
+  -	Zoinkgames
+  -	#zeo
+  -	#zombieviking
+  -	#zeos
+- Formula1
+  -	#f12015
+  -	#formula1game
+  -	Formula1game
+  -	#f12015game
+  -	#f1game
+  -	#codemasters – developers
+  -	#believeinmclarenhonda
+- Rise of incarnates
+  -	No change
+  -	#riseofincarnates
+  -	Riseincarnates
+  -	Rise of incarnates
+- King’s quest
+  -	No change
+  -	#kingsquest
+  -	King’s quest
+- Paddington
+  -	No change
+  -	#paddington
+  -	#paddingtongame
+  -	#paddingtonadventuresinlondon
+  -	Paddington adventures in london
+- Everybody’s gone to the rapture
+  -	No change
+  -	#everybodysgonetotherapture
+  -	Everybody’s gone to the rapture
+  -	Everybody gone to the rapture
+
 
 The first major problem was a disconnect (based on a shutdown) between 27-07-2015 18:06:08 and 03-08-2015 11:30:03. The system event logs were examined and it is unclear what caused the shutdown, but the system was clearly shut down rather than the programs crashing.
 
