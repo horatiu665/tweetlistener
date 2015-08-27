@@ -22,3 +22,726 @@ Thu, 02-Jul-15 18:15:40: Fields in json object:
 created_at, id, id_str, text:the mf swindle, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
 Thu, 02-Jul-15 18:15:40: Counters: 0 2 0 0 0 2 1 0 0 1 0 0 0 0  - JsonObjectReceived			
 Thu, 02-Jul-15 18:15:40: Counters: 0 2 0 0 0 2 1 0 0 2 0 0 0 0  - MatchingTweetReceived			
+Thu, 27, Aug, 15 10:09:02: New log started
+Thu, 27, Aug, 15 10:10:44: New log started
+Thu, 27, Aug, 15 10:11:03: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+Thu, 27, Aug, 15 10:11:03: Stream attempting to start at time Thu, 27, Aug, 15 10:11:03
+Thu, 27, Aug, 15 10:11:03: OnStreamStarted event is called
+Thu, 27, Aug, 15 10:11:03: Start of Rest.TweetsGatheringCycle() from Thu, 27, Aug, 15 10:11:03 to Thu, 27, Aug, 15 10:11:03
+Thu, 27, Aug, 15 10:11:03: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+Thu, 27, Aug, 15 10:11:03: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 27, Aug, 15 10:11:05: Fields in json object: 
+delete:{
+  "status": {
+    "id": 636792831244374016,
+    "id_str": "636792831244374016",
+    "user_id": 3232779166,
+    "user_id_str": "3232779166"
+  },
+  "timestamp_ms": "1440659462074"
+}, 
+Thu, 27, Aug, 15 10:11:05: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:05: Counters: 0 1 0 0 0 1 0 1 0 0 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:05: Fields in json object: 
+delete:{
+  "status": {
+    "id": 632192828983128064,
+    "id_str": "632192828983128064",
+    "user_id": 2990062330,
+    "user_id_str": "2990062330"
+  },
+  "timestamp_ms": "1440659462209"
+}, 
+Thu, 27, Aug, 15 10:11:05: Counters: 0 2 0 0 0 1 0 1 0 0 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:05: Counters: 0 2 0 0 0 1 0 2 0 0 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:05: Fields in json object: 
+delete:{
+  "status": {
+    "id": 499491102810857472,
+    "id_str": "499491102810857472",
+    "user_id": 370494333,
+    "user_id_str": "370494333"
+  },
+  "timestamp_ms": "1440659462407"
+}, 
+Thu, 27, Aug, 15 10:11:05: Counters: 0 3 0 0 0 1 0 2 0 0 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:06: Counters: 0 3 0 0 0 1 0 3 0 0 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:06: Stream disconnected.
+Thu, 27, Aug, 15 10:11:06: Counters: 0 3 0 0 0 1 1 3 0 0 0 0 0 0  - StreamStopped					
+Thu, 27, Aug, 15 10:11:18: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+Thu, 27, Aug, 15 10:11:19: Stream attempting to start at time Thu, 27, Aug, 15 10:11:19
+Thu, 27, Aug, 15 10:11:19: OnStreamStarted event is called
+Thu, 27, Aug, 15 10:11:19: Start of Rest.TweetsGatheringCycle() from Thu, 27, Aug, 15 10:11:18 to Thu, 27, Aug, 15 10:11:19
+Thu, 27, Aug, 15 10:11:19: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 27, Aug, 15 10:11:19: Counters: 0 3 0 0 0 2 1 3 0 0 0 0 0 0  - StreamStarted					
+Thu, 27, Aug, 15 10:11:19: Fields in json object: 
+delete:{
+  "status": {
+    "id": 636790318856187904,
+    "id_str": "636790318856187904",
+    "user_id": 3215714745,
+    "user_id_str": "3215714745"
+  },
+  "timestamp_ms": "1440659476262"
+}, 
+Thu, 27, Aug, 15 10:11:19: Counters: 0 4 0 0 0 2 1 3 0 0 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 4 0 0 0 2 1 4 0 0 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:RT dukatuweriq: Подвицкий© для РИА© #Санкции #Европа #Карикатура., source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 5 0 0 0 2 1 4 0 0 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 5 0 0 0 2 1 4 0 1 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:Where there is a flame someone's bound to get burned, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 6 0 0 0 2 1 4 0 1 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 6 0 0 0 2 1 4 0 2 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:@LucasTabo11 por eso, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 7 0 0 0 2 1 4 0 2 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 7 0 0 0 2 1 4 0 3 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:...80 семьях из 100 ребенок считается ответственностью женщины..., source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 8 0 0 0 2 1 4 0 3 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 8 0 0 0 2 1 4 0 4 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:ネタもないし夢も見ない, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 9 0 0 0 2 1 4 0 4 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 9 0 0 0 2 1 4 0 5 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:https://t.co/PgayN6yTGP, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 10 0 0 0 2 1 4 0 5 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 10 0 0 0 2 1 4 0 6 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:RT @rina_1D_13: ほんとに楽しみすぎるぅうう
+いまからお風呂はいってまた暇になったら浮上します〜夜とか
+あぁぁぁ😳😳😳💗💗💗💗💗💗
+#BieberIsBack, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 11 0 0 0 2 1 4 0 6 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:20: Counters: 0 11 0 0 0 2 1 4 0 7 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:20: Fields in json object: 
+created_at, id, id_str, text:https://t.co/f19Uz2VLT7, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:20: Counters: 0 12 0 0 0 2 1 4 0 7 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 12 0 0 0 2 1 4 0 8 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:Мне понравилось видео "The Beloved - Sweet Harmony" (http://t.co/tBKQKfxzpk) на @YouTube., source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 13 0 0 0 2 1 4 0 8 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 13 0 0 0 2 1 4 0 9 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:RT @justinbieber: What Do You Mean? @MileyCyrus #2days see you Sunday #VMAs http://t.co/5VgeIg2ugJ, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 14 0 0 0 2 1 4 0 9 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 14 0 0 0 2 1 4 0 10 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:Жители Ставрополья украли у односельчанки металлолом и трех кроликов http://t.co/IZCUKQEesG, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 15 0 0 0 2 1 4 0 10 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 15 0 0 0 2 1 4 0 11 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:https://t.co/Aqn3PdIq4X, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 16 0 0 0 2 1 4 0 11 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 16 0 0 0 2 1 4 0 12 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:RT @justinbieber: Love my brother for life @KevinHart4real . What Do You Mean man!!!??? :) #2days to go. #whatdoyoumean http://t.co/T5silxi…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 17 0 0 0 2 1 4 0 12 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 17 0 0 0 2 1 4 0 13 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:@NolfJan  klaar vr een opiniestuk over de gebeurtenissen? Ht kn arrestaties en rellen misschien wt nuanceren in sommige gevallen ;-) @Knack, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 18 0 0 0 2 1 4 0 13 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 18 0 0 0 2 1 4 0 14 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:People are so shocked about Trump's antics but I've known for quite sometime that's how a majority of the Republican Party is., source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 19 0 0 0 2 1 4 0 14 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 19 0 0 0 2 1 4 0 15 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:RT @mi_kael: http://t.co/AJg37mp2Hy, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 20 0 0 0 2 1 4 0 15 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:21: Counters: 0 20 0 0 0 2 1 4 0 16 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:21: Fields in json object: 
+created_at, id, id_str, text:Dal 3 al 30 Agosto PAOLA MORENO
+espone in Galleria per "Le Serre Arte"
+
+Non mancate!
+Seguici su:... http://t.co/QJI0mTcloA, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:21: Counters: 0 21 0 0 0 2 1 4 0 16 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 21 0 0 0 2 1 4 0 17 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+created_at, id, id_str, text:RT @re_damned: [1차 수요조사][일정 관글+RT시 개장♥]
+"Did you miss me? 
+ I`m back."
+트커 | 2주단기 | 시리,추리,조사,탈출 | 98↑ | 글그림복합 | 사망,부상有 
+@commuhongbo http://…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 22 0 0 0 2 1 4 0 17 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 22 0 0 0 2 1 4 0 18 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+created_at, id, id_str, text:@rntlng ほんと！！！！！ニンファミの仲間に入れてくださいやしー！
+あ、そうそう、それ。ちょかはまって言います♡（公式CP）, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 23 0 0 0 2 1 4 0 18 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 23 0 0 0 2 1 4 0 19 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+created_at, id, id_str, text:◆個室空有り◆８月２９日【土曜】６～１０名様迄に空有り【 ルチオコ-ス９品+飲み放題付】４２５８円⇒３５００円～◆全靴を脱がなくていいテーブル個室【ソファ席８室有】お気軽に☆☆ http://t.co/HrSRubj5df, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 24 0 0 0 2 1 4 0 19 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 24 0 0 0 2 1 4 0 20 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+created_at, id, id_str, text:RT @sayosamonji_b: @sayosamonji_b 자. http://t.co/lSwrbBk250, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 25 0 0 0 2 1 4 0 20 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 25 0 0 0 2 1 4 0 21 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+created_at, id, id_str, text:RT @_HomidoAR: حلمك تكون أحد أبطال الألعاب الالكترونية وتكون داخل وسط اللعبة !!
+
+شاهد الفيديو
+
+واطلبها الان: http://t.co/G7ZPwbZ7mH http://…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 26 0 0 0 2 1 4 0 21 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 26 0 0 0 2 1 4 0 22 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+created_at, id, id_str, text:جيش الاحتلال الإسرائيلي يقصف موقع تدريب تابعة لحماس وسط غزة
+http://t.co/79i4QvpEXk http://t.co/lX16NU4rGP, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 27 0 0 0 2 1 4 0 22 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 27 0 0 0 2 1 4 0 23 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+delete:{
+  "status": {
+    "id": 636794685130960896,
+    "id_str": "636794685130960896",
+    "user_id": 1358436492,
+    "user_id_str": "1358436492"
+  },
+  "timestamp_ms": "1440659476874"
+}, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 28 0 0 0 2 1 4 0 23 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 28 0 0 0 2 1 5 0 23 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+delete:{
+  "status": {
+    "id": 613136499496849408,
+    "id_str": "613136499496849408",
+    "user_id": 1682540070,
+    "user_id_str": "1682540070"
+  },
+  "timestamp_ms": "1440659477265"
+}, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 29 0 0 0 2 1 5 0 23 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:22: Counters: 0 29 0 0 0 2 1 6 0 23 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:22: Fields in json object: 
+delete:{
+  "status": {
+    "id": 636798099286040576,
+    "id_str": "636798099286040576",
+    "user_id": 235750396,
+    "user_id_str": "235750396"
+  },
+  "timestamp_ms": "1440659477352"
+}, 
+Thu, 27, Aug, 15 10:11:22: Counters: 0 30 0 0 0 2 1 6 0 23 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:23: Counters: 0 30 0 0 0 2 1 7 0 23 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:23: Fields in json object: 
+delete:{
+  "status": {
+    "id": 337808300454326272,
+    "id_str": "337808300454326272",
+    "user_id": 48760884,
+    "user_id_str": "48760884"
+  },
+  "timestamp_ms": "1440659477346"
+}, 
+Thu, 27, Aug, 15 10:11:23: Counters: 0 31 0 0 0 2 1 7 0 23 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:23: Counters: 0 31 0 0 0 2 1 8 0 23 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:23: Stream disconnected.
+Thu, 27, Aug, 15 10:11:23: Counters: 0 31 0 0 0 2 2 8 0 23 0 0 0 0  - StreamStopped					
+Thu, 27, Aug, 15 10:11:23: Fields in json object: 
+delete:{
+  "status": {
+    "id": 601704248670167040,
+    "id_str": "601704248670167040",
+    "user_id": 3039158995,
+    "user_id_str": "3039158995"
+  },
+  "timestamp_ms": "1440659477632"
+}, 
+Thu, 27, Aug, 15 10:11:23: Counters: 0 32 0 0 0 2 2 8 0 23 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:11:23: Counters: 0 32 0 0 0 2 2 9 0 23 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:11:38: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:38: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:38: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:45: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:45: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:45: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:50: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:50: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:50: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:51: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:51: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:51: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:52: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:52: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:52: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:52: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:52: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:52: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:52: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:52: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:52: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:53: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:53: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:53: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:53: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:53: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:53: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:53: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:53: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:53: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:53: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:53: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:53: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:53: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:53: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:53: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:54: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:54: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:55: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:55: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:55: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:55: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:55: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:55: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:55: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:55: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:55: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:55: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:56: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:56: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:56: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:11:56: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:11:56: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:11:56: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:12:00: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:12:00: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:12:00: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:12:00: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:12:00: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:12:00: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:12:00: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:12:00: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:12:00: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:12:01: Loading 22 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:12:01: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:12:01: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:14:10: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+Thu, 27, Aug, 15 10:14:10: Stream attempting to start at time Thu, 27, Aug, 15 10:14:10
+Thu, 27, Aug, 15 10:14:10: OnStreamStarted event is called
+Thu, 27, Aug, 15 10:14:10: Start of Rest.TweetsGatheringCycle() from Thu, 27, Aug, 15 10:14:10 to Thu, 27, Aug, 15 10:14:10
+Thu, 27, Aug, 15 10:14:10: Counters: 0 32 0 0 0 3 2 9 0 23 0 0 0 0  - StreamStarted					
+Thu, 27, Aug, 15 10:14:10: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 27, Aug, 15 10:14:11: Fields in json object: 
+created_at, id, id_str, text:@SaiSuphatinee ทำไมวันนี้รรหยุดด 😳, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:11: Counters: 0 33 0 0 0 3 2 9 0 23 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:11: Counters: 0 33 0 0 0 3 2 9 0 24 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:11: Fields in json object: 
+created_at, id, id_str, text:書道しました。→ http://t.co/r3gDhiL2Xq #WebShodo http://t.co/uwQezjQHSD, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:11: Counters: 0 34 0 0 0 3 2 9 0 24 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:11: Counters: 0 34 0 0 0 3 2 9 0 25 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:11: Fields in json object: 
+delete:{
+  "status": {
+    "id": 636798560667860992,
+    "id_str": "636798560667860992",
+    "user_id": 543407393,
+    "user_id_str": "543407393"
+  },
+  "timestamp_ms": "1440659647946"
+}, 
+Thu, 27, Aug, 15 10:14:11: Counters: 0 35 0 0 0 3 2 9 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:11: Counters: 0 35 0 0 0 3 2 10 0 25 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:11: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20987921068,
+    "id_str": "20987921068",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659647978"
+}, 
+Thu, 27, Aug, 15 10:14:11: Counters: 0 36 0 0 0 3 2 10 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 36 0 0 0 3 2 11 0 25 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20985872982,
+    "id_str": "20985872982",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648061"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 37 0 0 0 3 2 11 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 37 0 0 0 3 2 12 0 25 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20990057027,
+    "id_str": "20990057027",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648104"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 38 0 0 0 3 2 12 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 38 0 0 0 3 2 13 0 25 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20983498705,
+    "id_str": "20983498705",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648155"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 39 0 0 0 3 2 13 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 39 0 0 0 3 2 14 0 25 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20974584026,
+    "id_str": "20974584026",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648181"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 40 0 0 0 3 2 14 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 40 0 0 0 3 2 15 0 25 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+created_at, id, id_str, text:@nikorun15 
+いえす！！！！, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 41 0 0 0 3 2 15 0 25 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 41 0 0 0 3 2 15 0 26 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 456237984530980864,
+    "id_str": "456237984530980864",
+    "user_id": 87613223,
+    "user_id_str": "87613223"
+  },
+  "timestamp_ms": "1440659648257"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 42 0 0 0 3 2 15 0 26 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 42 0 0 0 3 2 16 0 26 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 416767738401406976,
+    "id_str": "416767738401406976",
+    "user_id": 1382829776,
+    "user_id_str": "1382829776"
+  },
+  "timestamp_ms": "1440659648202"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 43 0 0 0 3 2 16 0 26 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 43 0 0 0 3 2 17 0 26 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 21012225305,
+    "id_str": "21012225305",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648323"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 44 0 0 0 3 2 17 0 26 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 44 0 0 0 3 2 18 0 26 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 592560800138547201,
+    "id_str": "592560800138547201",
+    "user_id": 2799586596,
+    "user_id_str": "2799586596"
+  },
+  "timestamp_ms": "1440659648416"
+}, 
+Thu, 27, Aug, 15 10:14:12: Counters: 0 45 0 0 0 3 2 18 0 26 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:12: Counters: 0 45 0 0 0 3 2 19 0 26 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:12: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20985721450,
+    "id_str": "20985721450",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648409"
+}, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 46 0 0 0 3 2 19 0 26 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 46 0 0 0 3 2 20 0 26 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:@zattoukujira 予想外の所で疑われていて驚きのあまり馬鹿正直に答えてしまい思い出すと少し恥ずかしいです😭ありがとうございますー！！, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 47 0 0 0 3 2 20 0 26 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 47 0 0 0 3 2 20 0 27 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:Ahora si chao, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 48 0 0 0 3 2 20 0 27 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 48 0 0 0 3 2 20 0 28 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20990706799,
+    "id_str": "20990706799",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648709"
+}, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 49 0 0 0 3 2 20 0 28 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 49 0 0 0 3 2 21 0 28 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:من سنن قبل النوم قول ( باسمك اللهم أموت وأحيا ) رواه البخاري  #نشر_سيرته #ﷺ, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 50 0 0 0 3 2 21 0 28 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 50 0 0 0 3 2 21 0 29 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:「れなちゃーん、なんしよーと？どこおると？暇やけん電話したと‼️」って
+可愛すぎてたまらん💕
+あとでまた電話してあげよっ☺️, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 51 0 0 0 3 2 21 0 29 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 51 0 0 0 3 2 21 0 30 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:RT @ashrouen: I can't stress how true this is majority of the time. http://t.co/RfRy2wjpAf, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 52 0 0 0 3 2 21 0 30 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 52 0 0 0 3 2 21 0 31 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:うれしいねんけど
+大阪土日おなしん参戦とか幸せすぎ～(  ；∀；)
+
+ほんまうれしいやぁぁぁぁあぁぁぁあい, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 53 0 0 0 3 2 21 0 31 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 53 0 0 0 3 2 21 0 32 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:【譲渡】テニミュ生写真お譲りいたします。このセットは500円を考えております。気になった方がいましたらリプお願いします(^^) 赤澤燈 2ndテニミュ http://t.co/0tNJrWaE1u, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 54 0 0 0 3 2 21 0 32 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:13: Counters: 0 54 0 0 0 3 2 21 0 33 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:13: Fields in json object: 
+created_at, id, id_str, text:が, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:13: Counters: 0 55 0 0 0 3 2 21 0 33 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 55 0 0 0 3 2 21 0 34 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:ちょっとしたことでも対応を相談する今の時代の感覚とは大分ズレている気がするけど。, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 56 0 0 0 3 2 21 0 34 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 56 0 0 0 3 2 21 0 35 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:@halilozkucuk 😘😘, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 57 0 0 0 3 2 21 0 36 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:PERDIENDO MIEDO A LA CAMARA - 28 JULIO ► AFRODIARIO https://t.co/jHkjkofV5D vía @YouTube, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 58 0 0 0 3 2 21 0 36 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 58 0 0 0 3 2 21 0 37 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:夜中に家のチャイムを連打されるくらいならピンポンダッシュされるほうがマシめう・・・, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 59 0 0 0 3 2 21 0 37 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 59 0 0 0 3 2 21 0 38 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:ないろんはじめた, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 60 0 0 0 3 2 21 0 38 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 60 0 0 0 3 2 21 0 39 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:かわいいメス猫こないかにゃ〜, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 61 0 0 0 3 2 21 0 39 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 61 0 0 0 3 2 21 0 40 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:RT @otasuke_bot: 佐藤拓也が1stシングル「Set Sail」でアーティストデビュー http://t.co/pIwNu8CyUS, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 62 0 0 0 3 2 21 0 40 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 62 0 0 0 3 2 21 0 41 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+delete:{
+  "status": {
+    "id": 20990566795,
+    "id_str": "20990566795",
+    "user_id": 88628320,
+    "user_id_str": "88628320"
+  },
+  "timestamp_ms": "1440659648743"
+}, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 63 0 0 0 3 2 21 0 41 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 63 0 0 0 3 2 22 0 41 0 0 0 0  - TweetDeleted					
+Thu, 27, Aug, 15 10:14:14: Fields in json object: 
+created_at, id, id_str, text:小遣いやｹﾞｰﾑの課金代はスマホで稼ぐ時代です(^^♪
+ﾎﾟｲﾝﾄｻｲﾄ、ｱﾝｹｰﾄは貯まるのに時間かかりませんか!?
+＿人人人人人人人人人人人人人人人＿
+＞ 無料で2万円稼ぐ方法教えてます ＜
+￣ＹＹＹＹＹＹＹＹＹＹＹＹＹＹＹ￣, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:14: Counters: 0 64 0 0 0 3 2 22 0 41 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:14: Counters: 0 64 0 0 0 3 2 22 0 42 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:15: Fields in json object: 
+created_at, id, id_str, text:RT @hayati_kiji: 【大阪中１殺害】山田浩二容疑者は殺害していなく他の人が殺害していた！？その犯人は・・・
+
+【http://t.co/Iymmilg21K】
+
+「◯◯が殴り、知らないうちに死んでいた。
+◯◯が遺体を遺棄した」 http://t.co/cqOlV8…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:15: Counters: 0 65 0 0 0 3 2 22 0 42 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:15: Counters: 0 65 0 0 0 3 2 22 0 43 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:15: Fields in json object: 
+created_at, id, id_str, text:@Omar_Nassef اه و في واحدة جنب النادي الاهلي بنزل مخصوص متأخر و اروح هناك عشان اكل و بعد كده اروح المدرسة, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:15: Counters: 0 66 0 0 0 3 2 22 0 43 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:15: Counters: 0 66 0 0 0 3 2 22 0 44 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:15: Fields in json object: 
+created_at, id, id_str, text:3 pessoas visualizaram seu perfil agora http://t.co/npLdDqVnOL, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:15: Counters: 0 67 0 0 0 3 2 22 0 44 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:15: Counters: 0 67 0 0 0 3 2 22 0 45 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:15: Fields in json object: 
+created_at, id, id_str, text:RT @Xmunioitz: Biblioteca Nacional España
+Sabíais q las mujeres tuvieron prohibida la entrada hasta 1837?
+Hoy leen + q los hombres http://t…, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweeted_status, retweet_count, favorite_count, entities, extended_entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 27, Aug, 15 10:14:15: Counters: 0 68 0 0 0 3 2 22 0 45 0 0 0 0  - JsonObjectReceived			
+Thu, 27, Aug, 15 10:14:15: Stream disconnected.
+Thu, 27, Aug, 15 10:14:15: Counters: 0 68 0 0 0 3 3 22 0 46 0 0 0 0  - StreamStopped					
+Thu, 27, Aug, 15 10:14:15: Counters: 0 68 0 0 0 3 2 22 0 46 0 0 0 0  - TweetReceived					
+Thu, 27, Aug, 15 10:14:19: Loading 23 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:14:19: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:14:19: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:14:21: Loading 23 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:14:21: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:14:21: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:14:22: Loading 23 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:14:22: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:14:22: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:14:22: Loading 23 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:14:23: Loaded files. Dumping them into tweetList
+Thu, 27, Aug, 15 10:14:23: Finished loading 0 tweets from file
+Thu, 27, Aug, 15 10:14:23: Loading 23 lines from file rawJsonBackup.txt
+Thu, 27, Aug, 15 10:14:23: Loaded files. Dumping them i27/08/2015 10:14:35: New log started
+27/08/2015 10:14:44: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+27/08/2015 10:14:44: Stream attempting to start at time 27/08/2015 10:14:44
+27/08/2015 10:14:44: OnStreamStarted event is called
+27/08/2015 10:14:44: Start of Rest.TweetsGatheringCycle() from 27/08/2015 10:14:44 to 27/08/2015 10:14:44
+27/08/2015 10:14:44: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+27/08/2015 10:14:44: End of Rest.TweetsGatheringCycle(), by natural causes
+27/08/2015 10:14:45: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 1 0 0 0 1 0 1 0 0 0 0 0 0  - TweetDeleted					
+27/08/2015 10:14:45: Counters: 0 2 0 0 0 1 0 1 0 0 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 2 0 0 0 1 0 1 0 1 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 3 0 0 0 1 0 1 0 1 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 3 0 0 0 1 0 1 0 2 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 4 0 0 0 1 0 1 0 2 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 4 0 0 0 1 0 1 0 3 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 5 0 0 0 1 0 1 0 3 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 5 0 0 0 1 0 1 0 4 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 6 0 0 0 1 0 1 0 4 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 6 0 0 0 1 0 1 0 5 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 7 0 0 0 1 0 1 0 5 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 7 0 0 0 1 0 1 0 6 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 8 0 0 0 1 0 1 0 6 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 8 0 0 0 1 0 1 0 7 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 9 0 0 0 1 0 1 0 7 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:45: Counters: 0 9 0 0 0 1 0 1 0 8 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:45: Counters: 0 10 0 0 0 1 0 1 0 8 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:46: Counters: 0 10 0 0 0 1 0 1 0 9 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:46: Counters: 0 11 0 0 0 1 0 1 0 9 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:46: Counters: 0 11 0 0 0 1 0 1 0 10 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:46: Counters: 0 12 0 0 0 1 0 1 0 10 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:46: Counters: 0 12 0 0 0 1 0 1 0 11 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:46: Counters: 0 13 0 0 0 1 0 1 0 11 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:46: Counters: 0 13 0 0 0 1 0 1 0 12 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:46: Counters: 0 14 0 0 0 1 0 1 0 12 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:14:46: Stream disconnected.
+27/08/2015 10:14:46: Counters: 0 14 0 0 0 1 1 1 0 13 0 0 0 0  - StreamStopped					
+27/08/2015 10:14:46: Counters: 0 14 0 0 0 1 0 1 0 13 0 0 0 0  - TweetReceived					
+27/08/2015 10:14:48: Loading 12 lines from file rawJsonBackup.txt
+27/08/2015 10:14:48: Loaded files. Dumping them into tweetList
+27/08/2015 10:14:48: Finished loading 12 tweets from file
+27/08/2015 10:16:27: New log started
+27/08/2015 10:16:35: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+27/08/2015 10:16:35: Stream attempting to start at time 27/08/2015 10:16:35
+27/08/2015 10:16:35: OnStreamStarted event is called
+27/08/2015 10:16:35: Start of Rest.TweetsGatheringCycle() from 27/08/2015 10:16:35 to 27/08/2015 10:16:35
+27/08/2015 10:16:35: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+27/08/2015 10:16:35: End of Rest.TweetsGatheringCycle(), by natural causes
+27/08/2015 10:16:36: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:36: Counters: 0 1 0 0 0 1 0 0 0 1 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:36: Counters: 0 2 0 0 0 1 0 0 0 1 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:36: Counters: 0 2 0 0 0 1 0 0 0 2 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:36: Counters: 0 3 0 0 0 1 0 0 0 2 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:36: Counters: 0 3 0 0 0 1 0 0 0 3 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:36: Counters: 0 4 0 0 0 1 0 0 0 3 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:36: Counters: 0 4 0 0 0 1 0 0 0 4 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:36: Counters: 0 5 0 0 0 1 0 0 0 4 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:36: Counters: 0 5 0 0 0 1 0 0 0 5 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:36: Counters: 0 6 0 0 0 1 0 0 0 5 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:36: Counters: 0 6 0 0 0 1 0 0 0 6 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:36: Counters: 0 7 0 0 0 1 0 0 0 6 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: Counters: 0 7 0 0 0 1 0 0 0 7 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: Counters: 0 8 0 0 0 1 0 0 0 7 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: Counters: 0 8 0 0 0 1 0 0 0 8 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:09:59) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: Counters: 0 9 0 0 0 1 0 0 0 8 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Counters: 0 9 0 0 0 1 0 0 0 9 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 08:53:54) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 05:29:25) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: Counters: 0 10 0 0 0 1 0 0 0 9 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: Counters: 0 10 0 0 0 1 0 0 0 10 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:08:36) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: Counters: 0 11 0 0 0 1 0 0 0 10 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Counters: 0 11 0 0 0 1 0 0 0 11 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 07:29:04) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: Counters: 0 12 0 0 0 1 0 0 0 11 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: Counters: 0 12 0 0 0 1 0 0 0 12 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: Stream disconnected.
+27/08/2015 10:16:37: Counters: 0 13 0 0 0 1 1 0 0 12 0 0 0 0  - StreamStopped					
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Counters: 0 13 0 0 0 1 0 0 0 12 0 0 0 0  - JsonObjectReceived			
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Counters: 0 13 0 0 0 1 1 0 0 13 0 0 0 0  - TweetReceived					
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 09:49:16) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:37: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27/08/2015 10:16:37: OK
+27/08/2015 10:16:38: Caught exception: DateTime::__construct(): Failed to parse time string (27/08/2015 10:16:32) at position 0 (2): Unexpected character
+
+27-08-2015 10:19:28: New log started
+27-08-2015 10:19:30: Loading 24 lines from file rawJsonBackup.txt
+27-08-2015 10:19:31: Loaded files. Dumping them into tweetList
+27-08-2015 10:19:31: Finished loading 24 tweets from file
+27-08-2015 10:19:42: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+27-08-2015 10:19:42: Stream attempting to start at time 27-08-2015 10:19:42
+27-08-2015 10:19:42: OnStreamStarted event is called
+27-08-2015 10:19:42: Start of Rest.TweetsGatheringCycle() from 27-08-2015 10:19:42 to 27-08-2015 10:19:42
+27-08-2015 10:19:42: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+27-08-2015 10:19:42: End of Rest.TweetsGatheringCycle(), by natural causes
+27-08-2015 10:19:43: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+27-08-2015 10:19:43: Counters: 0 1 0 0 0 1 0 1 0 0 0 0 0 0  - TweetDeleted					
+27-08-2015 10:19:43: Counters: 0 2 0 0 0 1 0 1 0 0 0 0 0 0  - JsonObjectReceived			
+27-08-2015 10:19:43: Counters: 0 2 0 0 0 1 0 1 0 1 0 0 0 0  - TweetReceived					
+27-08-2015 10:19:44: Counters: 0 3 0 0 0 1 0 1 0 1 0 0 0 0  - JsonObjectReceived			
+27-08-2015 10:19:44: Counters: 0 3 0 0 0 1 0 2 0 1 0 0 0 0  - TweetDeleted					
+27-08-2015 10:19:44: Stream disconnected.
+27-08-2015 10:19:44: Counters: 0 3 0 0 0 1 1 2 0 1 0 0 0 0  - StreamStopped					
+27-08-2015 10:19:44: OK
+27-08-2015 10:19:44: 
+27-08-2015 10:19:57: Loading 25 lines from file rawJsonBackup.txt
+27-08-2015 10:19:57: Loaded files. Dumping them into tweetList
+27-08-2015 10:19:57: Finished loading 25 tweets from file
