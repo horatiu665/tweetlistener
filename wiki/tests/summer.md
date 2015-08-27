@@ -286,6 +286,8 @@ Here are histograms showing the amount of tweets gathered between 14 days before
 
 ![Armikrog - 08-18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/armikrog%2018%20aug%20copy.png)
 
+An important mention is that the [release date for Armikrog was pushed back to 8 September](http://www.gamerheadlines.com/2015/08/armikrog-release-date-pushed-back/).
+
 ![Legends of Eisenwald - 07-02](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/eisenwald%202%20july%20copy.png)
 
 Legends of Eisenwald presents the problem that gathering started during the release of the game, therefore the numbers do not accurately describe its popularity on Twitter. Also, the tweets before 07-02 were not recovered using REST, and recovery was only attempted long after that date, and the tweets are no longer available to retrieve using the API. Furthermore, some tweets from 29 and 30 June could be found by manually searching on Twitter, which confirm the fact that there are many missing tweets from the gathered data before the 2nd of July. REST recovery was attempted on 27 august for the dates prior to 02 july, with no results being retrieved.
@@ -313,6 +315,21 @@ Among the tweets using the hashtag #Paddington there are numerous advertisements
 Zombie vikings does not have a release date for now, and therefore the chart shows the whole month of august plus some of july.
 
 Rise of incarnates is not yet in the database, only in a backup text file which must be uploaded to the database. It also has the issue of missing pre-release tweets, since the release date was July 1st.
+
+### Random sample of tweets
+
+A random sample of 200 tweets from the interval of 14 days before and after release dates for each game must be taken. For this, a SQL query is created.
+
+```sql
+SELECT * FROM `armikrog` WHERE lang = 'en' and (`created_at` BETWEEN DATE_SUB('2015-08-18 00:00:00', INTERVAL 14 DAY) AND DATE_ADD('2015-08-18 00:00:00', INTERVAL 14 DAY) ) and rand() < 0.3 limit 200
+```
+
+In order to not extract a random sample of junk tweets, some cleanup is done for each game. This did not take place when creating the histograms seen at the previous section. Even though some junk is removed, the deleted tweets are still somewhat relevant to the games, such as tweets posted by people as a response to an article or video.
+
+#### Armikrog
+The tweets containing '#gamingnews Armikrog release date announced for August' were deleted because they were spam. Same goes for tweets containing 'incredible claymation world: Classic adventure gaming gets a claymation'. Also for tweets referring to 'Armikrog release date' (~80 tweets except one were all made by bots or game news sites) or 'Armikrog release is pushed into September' (30 identical tweets).
+
+- more work is needed to clean up and export the data.
 
 ### Reference of database table names
 
