@@ -153,6 +153,21 @@ Later on it was clear that the format %Y-%m-%d was too long, and it was changed 
 
 #### Tweets per date. Raw data
 
+Here is a reference list for all games and their release dates, in chronological order
+
+- Rise of incarnates: 1 july
+- Legends of Eisenwald: 2 july
+- Paddington: EU 3 july, US 11 aug
+- Formula 1: 10 july
+- Godzilla: 14 july
+- Rory McIlroy: 14 july
+- The Swindle: 28 july
+- King's Quest: 28 july
+- Everybody's gone to the rapture: 11 august
+- Armikrog: 18 august
+- Madden 16: 25 august
+- Zombie Vikings: tba
+
 Here are the distributions of tweets over time, for each game, in no particular order.
 
 ![1](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/armikrog%2018%20aug.png)
