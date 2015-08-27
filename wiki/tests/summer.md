@@ -3,13 +3,76 @@ Summer tests overview
 
 A large operation for gathering data on 12 different games was done over the summer starting on 02-07-2015 at 18:14.
 
-The list of games being watched is:
-- list of games with hashtags
+The list of games being watched, along with their release dates:
+
+- Rise of incarnates: 1 july
+- Legends of Eisenwald: 2 july
+- Paddington: EU 3 july, US 11 aug
+- Formula 1: 10 july
+- Godzilla: 14 july
+- Rory McIlroy: 14 july
+- The Swindle: 28 july
+- King's Quest: 28 july
+- Everybody's gone to the rapture: 11 august
+- Armikrog: 18 august
+- Madden 16: 25 august
+- Zombie Vikings: tba
 
 The tweet gathering process was followed using TeamViewer, software which can be used to connect remotely over the internet. TeamViewer must be running on the target machine for the connection to work, which is reason for some of the hiccups in the gathering process.
 
 Event log
 ----
+
+### Initial hashtags/keywords
+
+The first keywords being followed for each game were:
+- Godzilla
+  -	#godzilla
+  -	#godzillathegame
+  -	#godzillavideogame
+- Madden
+  -	#madden16
+- Legends of eisenwald
+  -	#legendsofeisenwald
+  -	Legendsofeisenwald
+  -	Legends of eisenwald
+- Rory McIlroy PGA Tour
+  -	#pgatour
+  -	#nextgengolf
+  -	#rorymcilroy
+  -	#rorymcilroypgatour
+- Armikrog
+  -	#armikrog
+  -	Armikrog
+- The swindle
+  -	#swindle
+  -	#theswindle
+  -	Theswindle
+  -	The swindle
+- Zombie Vikings
+  -	#zombievikings
+  -	Zombie vikings
+  -	Zombievikings
+- Formula1
+  -	#formula1game
+  -	Formula1game
+  -	#f1game
+- Rise of incarnates
+  -	#riseofincarnates
+  -	Riseincarnates
+  -	Rise of incarnates
+- King’s quest
+  -	#kingsquest
+  -	King’s quest
+- Paddington
+  -	#paddington
+  -	#paddingtongame
+  -	#paddingtonadventuresinlondon
+  -	Paddington adventures in london
+- Everybody’s gone to the rapture
+  -	#everybodysgonetotherapture
+  -	Everybody’s gone to the rapture
+  -	Everybody gone to the rapture
 
 ### First Expansion
 
@@ -111,15 +174,17 @@ Query expansion was performed manually on 22-07-2015 and resulted in 4 games rec
 
 The first major problem was a disconnect (based on a shutdown) between 27-07-2015 18:06:08 and 03-08-2015 11:30:03. The system event logs were examined and it is unclear what caused the shutdown, but the system was clearly shut down rather than the programs crashing.
 
-This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. Due to the nature of Twitter's API, it is impossible to know for sure the amount of data recovered.
+This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. Due to the nature of Twitter's API, it is impossible to know for sure the amount of data missed.
 
 It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST. It can be seen from the charts that there was a varying amount of data being recovered for different days during the crash period, for example in the king's quest chart, the amount of data gathered for 27-28-29 july is the maximum amount of data gathered throughout the whole gathering period, which is consistent with the release date of 28 july for this game, while at the same time 1-2-3 august yields a low amount of tweets - which means that the REST system did not merely gather a set amount of tweets per day, but possibly returned all the tweets found by its query - but this is not certain, therefore it should be taken with a grain of salt.
 
-A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00 (when the system was restarted), and it was solved in the same way as the previous disconnect. Additionally, some of the tweetlisteners had some errors, hanged, and crashed. They have all been restarted and data was recovered using REST between 9 and 12 august, to make sure all tweets were gathered.
+A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00 (when the system was restarted), and it was solved in the same way as the previous disconnect. Additionally, some of the tweetlisteners had some errors, hanged, and crashed. They have all been restarted and data was recovered using REST between 9 and 12 august, to make sure all tweets were gathered. It is more likely that all data was recovered from this event due to its reduced duration and quicker response time.
+
+### Data gathering overview
 
 An overview of gathered data up to this point is as follows:
 
-Note: The possible duplicate tweets from the crash periods were not cleaned up for the following statistics.
+Note: The possible duplicate tweets from the crash periods were not cleaned up for the list below.
 
 The total number of tweets gathered in the database for each game is:
 - Armikrog: 627
@@ -147,7 +212,7 @@ To count the amount of tweets per day, the created_at column can be split by dat
 SELECT *, DATE_FORMAT(`created_at`, '%Y-%m-%d') DATEONLY, DATE_FORMAT(`created_at`, '%H:%i:%s') TIMEONLY, Count(*) FROM `godzilla` group by DATEONLY
 ```
 
-This results in a query result in phpmysql, which can then be turned into a chart using a button in phpmyadmin. The only issue with this is that the chart will show an x axis filled with dates which are drawn on top of each other, which cannot be read. Another problem is that the histogram, which is practically created, is too dispersed, and it would benefit from having wider bins. Therefore the following query can be used, to merge results over several days.
+The query result can then be turned into a chart using a button in phpmyadmin. The only issue with this is that the chart will show an x axis filled with dates which are drawn on top of each other, which cannot be read. Another problem is that the histogram, which is practically created, is too dispersed, and it would benefit from having wider bins. Therefore the following query can be used, to merge results over several days.
 
 ``` sql
 SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 3) DAY), '%Y-%m-%d') as DATES, Count(*) AS COUNT FROM `godzilla` group by DATES
@@ -165,58 +230,11 @@ The query generates compact charts with a good overview, but some of the games h
 
 Later on it was clear that the format %Y-%m-%d was too long, and it was changed to %m-%d for two of the games. For one of the games (Rise of incarnates), the data was not saved in the database by mistake, only in a text file as backup. As such, charts could not be made using this method, leaving this game for later analysis.
 
-#### Tweets per date. Raw data
+Another trick to simplify the process of generating charts based on game release dates was to use `DATE_ADD` and `DATE_SUB` with the release date as argument. The following query was used for the second batch of charts:
 
-Here is a reference list for all games and their release dates, in chronological order
-
-- Rise of incarnates: 1 july
-- Legends of Eisenwald: 2 july
-- Paddington: EU 3 july, US 11 aug
-- Formula 1: 10 july
-- Godzilla: 14 july
-- Rory McIlroy: 14 july
-- The Swindle: 28 july
-- King's Quest: 28 july
-- Everybody's gone to the rapture: 11 august
-- Armikrog: 18 august
-- Madden 16: 25 august
-- Zombie Vikings: tba
-
-Here is a reference list of all games and their database table names, alphabetical order.
-
-- armikrog
-- eisenwald
-- everybodyrapture
-- formula1
-- godzilla
-- kingsquest
-- madden16
-- paddington
-- riseofincarnates
-- rorymcilroy
-- swindle
-- zombievikings
-
-Here are the distributions of tweets over time, for each game, in alphabetical order.
-
-![1](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/armikrog%2018%20aug.png)
-![2](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/eisenwald%202%20july%20detail.png)
-![3](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/eisenwald%202%20july.png)
-![4](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/everybody%20rapture%2011%20aug%20detail.png)
-![5](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/everybody%20rapture%2011%20aug.png)
-![6](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/formula%201%2010%20july%20detail.png)
-![7](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/formula%201%2010%20july.png)
-![8](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/godzilla%20detail.png)
-![9](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/godzilla.png)
-![10](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/kings%20quest%2028%20july%20detail.png)
-![11](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/kings%20quest%2028%20july.png)
-![12](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/madden16%2025%20aug.png)
-![13](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/paddington%203%20july%2011%20aug.png)
-![14](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/rory%20mcilroy%2014%20july%20detail.png)
-![15](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/rory%20mcilroy%2014%20july.png)
-![16](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul%20detail.png)
-![17](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul.png)
-![18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/zombie%20vikings.png)
+```sql
+SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 1) DAY), '%m-%d') as DATES, Count(*) AS COUNT FROM `armikrog` WHERE (`created_at` BETWEEN DATE_SUB('2015-07-01 00:00:00', INTERVAL 14 DAY) AND DATE_ADD('2015-07-01 00:00:00', INTERVAL 14 DAY)  ) group by DATES
+```
 
 #### Duplicates removal
 
@@ -260,3 +278,26 @@ insert into eisenwald2 select * from eisenwald;
 ```
 
 Deleting all duplicates in all tables resulted in approx. 3000 entries being deleted in total, proportional to the amount of rows in each table - an average of 2% of each table. The duplicates were most likely due to errors in the php script sending multiple calls to the same query before being executed by MySQL, leading to it not detecting that some tweets have already been saved.
+
+#### Tweets per date. Raw data and charts
+
+Here are histograms showing the amount of tweets gathered between 14 days before and after each game's release date, clamped to the data gathering interval, which is 2 july - 27 august (at the time of writing).
+
+![1](asdfasdfasdf)
+
+### Reference of database table names
+
+Here is a reference list of all games and their database table names, alphabetical order - for development purposes only:
+
+- armikrog
+- eisenwald
+- everybodyrapture
+- formula1
+- godzilla
+- kingsquest
+- madden16
+- paddington
+- riseofincarnates
+- rorymcilroy
+- swindle
+- zombievikings
