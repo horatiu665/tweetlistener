@@ -11,6 +11,8 @@ The tweet gathering process was followed using TeamViewer, software which can be
 Event log
 ----
 
+### First Expansion
+
 Query expansion was performed manually on 22-07-2015 and resulted in 4 games receiving new hashtags as follows:
 - Godzilla
   -	#godzilla
@@ -105,13 +107,19 @@ Query expansion was performed manually on 22-07-2015 and resulted in 4 games rec
   -	Everybody’s gone to the rapture
   -	Everybody gone to the rapture
 
+### Disconnects, crashes
+
 The first major problem was a disconnect (based on a shutdown) between 27-07-2015 18:06:08 and 03-08-2015 11:30:03. The system event logs were examined and it is unclear what caused the shutdown, but the system was clearly shut down rather than the programs crashing.
 
-This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST. Based on the amount of data gathered during the crash using REST and all other data gathered using the stream, due to the shape of the charts showing the amount of data per day, it can be concluded that there was no significant data loss or that the data was lost in a very misleading way. (more detail about this conclusion will follow upon closer inspection)
+This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. Due to the nature of Twitter's API, it is impossible to know for sure the amount of data recovered.
+
+It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST. It can be seen from the charts that there was a varying amount of data being recovered for different days during the crash period, for example in the king's quest chart, the amount of data gathered for 27-28-29 july is the maximum amount of data gathered throughout the whole gathering period, which is consistent with the release date of 28 july for this game, while at the same time 1-2-3 august yields a low amount of tweets - which means that the REST system did not merely gather a set amount of tweets per day, but possibly returned all the tweets found by its query - but this is not certain, therefore it should be taken with a grain of salt.
 
 A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00 (when the system was restarted), and it was solved in the same way as the previous disconnect. Additionally, some of the tweetlisteners had some errors, hanged, and crashed. They have all been restarted and data was recovered using REST between 9 and 12 august, to make sure all tweets were gathered.
 
 An overview of gathered data up to this point is as follows:
+
+Note: The possible duplicate tweets from the crash periods were not cleaned up for the following statistics.
 
 The total number of tweets gathered in the database for each game is:
 - Armikrog: 627
@@ -188,3 +196,7 @@ Here are the distributions of tweets over time, for each game, in no particular 
 ![16](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul%20detail.png)
 ![17](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/swindle%2028%20jul.png)
 ![18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/zombie%20vikings.png)
+
+#### Duplicates removal
+
+Due to the crashes, it is possible that some of the tweets were saved multiple times in the database. The duplicates must be cleaned up for proper measurements, and the following technique was used to remove duplicates.
