@@ -15,7 +15,7 @@
  /keywords "#riseofincarnates riseincarnates" ^
  /startStream 1
 
- start "WPFTwitter" /D "Release - Copy (1)/" "Release - Copy (1)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy/" "Release - Copy/WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^

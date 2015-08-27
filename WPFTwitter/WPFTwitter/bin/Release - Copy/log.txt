@@ -1,0 +1,24 @@
+Thu, 02-Jul-15 18:14:20: New log started
+Thu, 02-Jul-15 18:14:50: Stream attempting to start at time Thu, 02-Jul-15 18:14:50
+Thu, 02-Jul-15 18:14:50: OnStreamStarted event is called
+Thu, 02-Jul-15 18:14:50: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 18:14:50 to Thu, 02-Jul-15 18:14:50
+Thu, 02-Jul-15 18:14:50: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+Thu, 02-Jul-15 18:14:51: Searching for the swindle,swindle,theswindle,#swindle,#theswindle,
+Thu, 02-Jul-15 18:14:51: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 18:15:14: Fields in json object: 
+created_at, id, id_str, text:the swindle, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 02-Jul-15 18:15:15: Counters: 0 1 0 0 0 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+Thu, 02-Jul-15 18:15:15: Counters: 0 1 0 0 0 1 0 0 0 1 0 0 0 0  - MatchingTweetReceived			
+Thu, 02-Jul-15 18:15:33: Stream disconnected.
+Thu, 02-Jul-15 18:15:33: Counters: 0 1 0 0 0 1 1 0 0 1 0 0 0 0  - StreamStopped					
+Thu, 02-Jul-15 18:15:34: Separate thread waiting to start stream after it stops
+Thu, 02-Jul-15 18:15:34: Stream attempting to start at time Thu, 02-Jul-15 18:15:34
+Thu, 02-Jul-15 18:15:34: OnStreamStarted event is called
+Thu, 02-Jul-15 18:15:34: Start of Rest.TweetsGatheringCycle() from Thu, 02-Jul-15 18:15:34 to Thu, 02-Jul-15 18:15:34
+Thu, 02-Jul-15 18:15:34: Counters: 0 1 0 0 0 2 1 0 0 1 0 0 0 0  - StreamStarted					
+Thu, 02-Jul-15 18:15:34: Searching for the swindle,theswindle,#swindle,#theswindle,
+Thu, 02-Jul-15 18:15:34: End of Rest.TweetsGatheringCycle(), by natural causes
+Thu, 02-Jul-15 18:15:40: Fields in json object: 
+created_at, id, id_str, text:the mf swindle, source, truncated, in_reply_to_status_id, in_reply_to_status_id_str, in_reply_to_user_id, in_reply_to_user_id_str, in_reply_to_screen_name, user, geo, coordinates, place, contributors, retweet_count, favorite_count, entities, favorited, retweeted, possibly_sensitive, filter_level, lang, timestamp_ms, 
+Thu, 02-Jul-15 18:15:40: Counters: 0 2 0 0 0 2 1 0 0 1 0 0 0 0  - JsonObjectReceived			
+Thu, 02-Jul-15 18:15:40: Counters: 0 2 0 0 0 2 1 0 0 2 0 0 0 0  - MatchingTweetReceived			
