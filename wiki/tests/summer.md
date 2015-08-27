@@ -176,9 +176,10 @@ The first major problem was a disconnect (based on a shutdown) between 27-07-201
 
 This was solved by restarting all tweetlisteners and adding the expanded hashtags manually for each game. For each game, REST was used to gather data between the previous disconnect and the restart date, and it is unknown whether all data was gathered or some of it was missed. Due to the nature of Twitter's API, it is impossible to know for sure the amount of data missed.
 
-It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST. It can be seen from the charts that there was a varying amount of data being recovered for different days during the crash period, for example in the king's quest chart, the amount of data gathered for 27-28-29 july is the maximum amount of data gathered throughout the whole gathering period, which is consistent with the release date of 28 july for this game, while at the same time 1-2-3 august yields a low amount of tweets - which means that the REST system did not merely gather a set amount of tweets per day, but possibly returned all the tweets found by its query - but this is not certain, therefore it should be taken with a grain of salt.
+It is possible to estimate how much data was lost by comparing the gathering frequency in the uptime with the posts gathered using REST. It can be seen from the charts that there was a varying amount of data being recovered for different days during the crash period, for example in the king's quest chart, the amount of data gathered for 27-28-29 july is the maximum amount of data gathered throughout the whole gathering period, which is consistent with the release date of 28 july for this game, while at the same time 1-2-3 august yields a low amount of tweets - which means that the REST system did not merely gather a set maximum amount of tweets per day, but possibly returned all the tweets found by its query. However, this does not conclude that it did return all tweets, only that there was no maximum limit. It is possible that some of the tweets from the later part of the 27-july to 03-august were lost due to faulty gathering, such as the case of the game The Swindle (see histogram below), where on the 3rd august there are surprisingly few tweets compared to all neighboring days.
 
 A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00 (when the system was restarted), and it was solved in the same way as the previous disconnect. Additionally, some of the tweetlisteners had some errors, hanged, and crashed. They have all been restarted and data was recovered using REST between 9 and 12 august, to make sure all tweets were gathered. It is more likely that all data was recovered from this event due to its reduced duration and quicker response time.
+
 
 ### Data gathering overview
 
@@ -283,7 +284,17 @@ Deleting all duplicates in all tables resulted in approx. 3000 entries being del
 
 Here are histograms showing the amount of tweets gathered between 14 days before and after each game's release date, clamped to the data gathering interval, which is 2 july - 27 august (at the time of writing).
 
-![1](asdfasdfasdf)
+![Armikrog - 08-18](asdfasdfasdf)
+![Legends of Eisenwald - 07-02](asdfsdfsdf)
+Legends of Eisenwald presents the problem that gathering started during the release of the game, therefore the numbers do not accurately describe its popularity on Twitter. Also, the tweets before 07-02 were not recovered using REST, and recovery was only attempted long after that date, and the tweets are no longer available to retrieve using the API. Furthermore, some tweets from 29 and 30 June could be found by manually searching on Twitter, which confirm the fact that there are many missing tweets from the gathered data before the 2nd of July. REST recovery was attempted on 27 august for the dates prior to 02 july, with no results being retrieved.
+
+Paddington
+Among the tweets using the hashtag #Paddington there are numerous advertisements for escorts (~400) which were deleted. Another type of tweet appears around 200 times, a presumably automatic tweet containing the text `#WIN a #Paddington Summer Prize Package from @oopsimpregnant  Ends 7/10 ` followed by a different link each time. Those were also discarded. Another batch of tweets which are clearly unrelated to the game were related to an incident involving a gas explosion in Sussex Gardens - they were around 100 and were identified by containing either #sussexgardens or the word `gas`. Four of the tweets among them were related to the game, all the rest were deleted. Another batch of tweets containing the word `strike` was deleted, since it was related to the Tube strikes, and not the game or movie Paddington (around 100 tweets). Another batch containing `#Win a #Paddington Prize Package (movie, plush &amp; more) at @She_Scribes #giveaway` was deleted (27 tweets) because even though it is related to the game, it is probably posted automatically by a robot (it was posted by different users). Tweets containing `#PADDINGTON POLICE STATION ` were also deleted because they made no sense and were posted repeatedly by multiple users and were unrelated to the game (55 tweets). There are many other tweets that can be deleted among those containing #paddington, apart from those listed here.
+
+Rise of incarnates is not yet in the database, only in a backup text file which must be uploaded to the database. It also has the issue of missing pre-release tweets, since the release date was July 1st.
+
+Zombie vikings does not have a release date for now, and therefore the chart shows the whole month of august plus some of july.
+
 
 ### Reference of database table names
 
