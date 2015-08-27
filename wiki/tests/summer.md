@@ -182,7 +182,22 @@ Here is a reference list for all games and their release dates, in chronological
 - Madden 16: 25 august
 - Zombie Vikings: tba
 
-Here are the distributions of tweets over time, for each game, in no particular order.
+Here is a reference list of all games and their database table names, alphabetical order.
+
+- armikrog
+- eisenwald
+- everybodyrapture
+- formula1
+- godzilla
+- kingsquest
+- madden16
+- paddington
+- riseofincarnates
+- rorymcilroy
+- swindle
+- zombievikings
+
+Here are the distributions of tweets over time, for each game, in alphabetical order.
 
 ![1](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/armikrog%2018%20aug.png)
 ![2](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/eisenwald%202%20july%20detail.png)
@@ -236,3 +251,12 @@ FROM everybodyrapture AS t1 where (
   ) > 1
 group by tweet_id_str
 ```
+
+As a security measure, before executing the deletion, a backup copy of all tables was performed by duplicating each table and inserting all data from the previous table into the new ones.
+
+```sql
+create table eisenwald2 like eisenwald;
+insert into eisenwald2 select * from eisenwald;
+```
+
+Deleting all duplicates in all tables resulted in approx. 3000 entries being deleted in total, proportional to the amount of rows in each table - an average of 2% of each table. The duplicates were most likely due to errors in the php script sending multiple calls to the same query before being executed by MySQL, leading to it not detecting that some tweets have already been saved.
