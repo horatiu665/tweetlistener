@@ -284,17 +284,35 @@ Deleting all duplicates in all tables resulted in approx. 3000 entries being del
 
 Here are histograms showing the amount of tweets gathered between 14 days before and after each game's release date, clamped to the data gathering interval, which is 2 july - 27 august (at the time of writing).
 
-![Armikrog - 08-18](asdfasdfasdf)
-![Legends of Eisenwald - 07-02](asdfsdfsdf)
+![Armikrog - 08-18](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/armikrog%2018%20aug%20copy.png)
+
+![Legends of Eisenwald - 07-02](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/eisenwald%202%20july%20copy.png)
+
 Legends of Eisenwald presents the problem that gathering started during the release of the game, therefore the numbers do not accurately describe its popularity on Twitter. Also, the tweets before 07-02 were not recovered using REST, and recovery was only attempted long after that date, and the tweets are no longer available to retrieve using the API. Furthermore, some tweets from 29 and 30 June could be found by manually searching on Twitter, which confirm the fact that there are many missing tweets from the gathered data before the 2nd of July. REST recovery was attempted on 27 august for the dates prior to 02 july, with no results being retrieved.
 
-Paddington
+![Everybody's gone to the rapture - 08-11](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/everybody%20rapture%2011%20aug%20copy.png)
+
+![Formula 1 - 07-10](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/formula%201%2010%20july%20copy.png)
+
+![Godzilla - 07-14](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/godzilla%2014%20july%20us%2017%20july%20eu%20copy.png)
+
+![King's quest - 07-28](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/kings%20quest%2028%20july%20copy.png)
+
+![Madden16 - 08-25](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/madden16%2025%20aug%20copy.png)
+
+![Paddington - 07-03](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/paddington%203%20july%2011%20aug.png)
+
 Among the tweets using the hashtag #Paddington there are numerous advertisements for escorts (~400) which were deleted. Another type of tweet appears around 200 times, a presumably automatic tweet containing the text `#WIN a #Paddington Summer Prize Package from @oopsimpregnant  Ends 7/10 ` followed by a different link each time. Those were also discarded. Another batch of tweets which are clearly unrelated to the game were related to an incident involving a gas explosion in Sussex Gardens - they were around 100 and were identified by containing either #sussexgardens or the word `gas`. Four of the tweets among them were related to the game, all the rest were deleted. Another batch of tweets containing the word `strike` was deleted, since it was related to the Tube strikes, and not the game or movie Paddington (around 100 tweets). Another batch containing `#Win a #Paddington Prize Package (movie, plush &amp; more) at @She_Scribes #giveaway` was deleted (27 tweets) because even though it is related to the game, it is probably posted automatically by a robot (it was posted by different users). Tweets containing `#PADDINGTON POLICE STATION ` were also deleted because they made no sense and were posted repeatedly by multiple users and were unrelated to the game (55 tweets). There are many other tweets that can be deleted among those containing #paddington, apart from those listed here.
 
-Rise of incarnates is not yet in the database, only in a backup text file which must be uploaded to the database. It also has the issue of missing pre-release tweets, since the release date was July 1st.
+![Rory McIlroy - 07-14](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/rory%20mcilroy%2014%20july%20copy.png)
+
+![The Swindle - 07-28](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/swindle%2028%20jul%20copy.png)
+
+![Zombie Vikings - tba](https://github.com/horatiu665/tweetlistener/blob/newMaster/wiki/tests/tweethistograms/14%20days/zombie%20vikings.png)
 
 Zombie vikings does not have a release date for now, and therefore the chart shows the whole month of august plus some of july.
 
+Rise of incarnates is not yet in the database, only in a backup text file which must be uploaded to the database. It also has the issue of missing pre-release tweets, since the release date was July 1st.
 
 ### Reference of database table names
 
