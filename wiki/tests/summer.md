@@ -143,17 +143,23 @@ This section describes the steps taken for creating an overview of the gathered 
 #### Tweets per date. Method
 To count the amount of tweets per day, the created_at column can be split by date and time, and the columns with the same date can be grouped and counted, using the following query. 
 
+``` sql
 SELECT *, DATE_FORMAT(`created_at`, '%Y-%m-%d') DATEONLY, DATE_FORMAT(`created_at`, '%H:%i:%s') TIMEONLY, Count(*) FROM `godzilla` group by DATEONLY
+```
 
 This results in a query result in phpmysql, which can then be turned into a chart using a button in phpmyadmin. The only issue with this is that the chart will show an x axis filled with dates which are drawn on top of each other, which cannot be read. Another problem is that the histogram, which is practically created, is too dispersed, and it would benefit from having wider bins. Therefore the following query can be used, to merge results over several days.
 
+``` sql
 SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 3) DAY), '%Y-%m-%d') as DATES, Count(*) AS COUNT FROM `godzilla` group by DATES
+```
 
 The query subtracts an amount of days equal to the remainder to the division by 3 (arbitrary amount of days) from the date, and therefore groups and counts the results based on this formula, yielding wider bins for the histogram. This makes it possible to have readable x-axis values and group the bins for an easier overview over long periods of time.
 
 Another filter to apply to this query is a limitation of the dates between june and september, to fit the data within the bounds of the experiment. For this, a WHERE extension can be applied to the previous query, yielding:
 
+``` sql
 SELECT DATE_FORMAT(DATE_SUB(`created_at`, INTERVAL MOD(DAY(`created_at`), 3) DAY), '%Y-%m-%d') as DATES, Count(*) AS COUNT FROM `godzilla` WHERE (`created_at` BETWEEN '2015-06-01 00:00:00' AND '2015-09-01 00:00:00' ) group by DATES
+```
 
 The query generates compact charts with a good overview, but some of the games have interesting evolutions near their release dates, therefore the query was modified to include every day instead of 3 days at a time - by changing the number inside the MOD() function to 1.
 
@@ -200,3 +206,33 @@ Here are the distributions of tweets over time, for each game, in no particular 
 #### Duplicates removal
 
 Due to the crashes, it is possible that some of the tweets were saved multiple times in the database. The duplicates must be cleaned up for proper measurements, and the following technique was used to remove duplicates.
+
+The following MySQL query was used to delete the duplicate tweets from a test table called everybodyrapture2.
+
+``` sql
+DELETE FROM everybodyrapture2
+ WHERE id NOT IN (SELECT * 
+                    FROM (SELECT MIN(n.id)
+                            FROM everybodyrapture2 n
+                        GROUP BY n.tweet_id_str) x)
+                        
+```
+
+The query deletes all rows with ids larger than the minimum id for each group of tweets having the same tweet_id_str. This is based on [this answer on StackOverflow] (http://stackoverflow.com/a/4685232).
+
+The following query returns the duplicates grouped by tweet_id_str, and is based on the question [mysql count duplicates] (http://stackoverflow.com/a/3935097). If it returns a null result, it means there are no duplicates in the specified table.
+
+```sql
+SELECT *,
+  (
+    SELECT COUNT(*)
+    FROM everybodyrapture
+    WHERE tweet_id_str = t1.tweet_id_str
+  ) AS count
+FROM everybodyrapture AS t1 where (
+    SELECT COUNT(*)
+    FROM everybodyrapture
+    WHERE tweet_id_str = t1.tweet_id_str
+  ) > 1
+group by tweet_id_str
+```
