@@ -14,11 +14,8 @@ Check out the following links to explore the wiki.
 
 [Basics about the Twitter API](basicTwitterApi.md)
 
+[Cheatsheet for writing nice wikis on GitHub](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-<!---
+## Tests and events
 
-Cheatsheet for writing nice wikis on GitHub:
-
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-
---->
+[Summer test](tests/summer.md)
