@@ -318,18 +318,31 @@ Rise of incarnates is not yet in the database, only in a backup text file which 
 
 ### Random sample of tweets
 
-A random sample of 200 tweets from the interval of 14 days before and after release dates for each game must be taken. For this, a SQL query is created.
+A random sample of 200 tweets from the interval of 14 days before and after release dates for each game must be taken. For this, a SQL query is created. The query filters by english language, only tweets created 14 days before or after the release date, and, in a random order, the ones that fit the rule that `rand() < x`, where `x` is a small number proportional to how many tweets there are in the collection - this avoids long waiting times to calculate random numbers for each tweet and sorting them all, when the tweet population might be very large. `order by id` is used to sort the tweets chronologically, and therefore achieve a more uniform distribution of tweets from the point of view of their dates. For this, the `x` mentioned earlier must be fine tuned so the results yield the right amount of tweets to span the whole period but not too many.
 
 ```sql
-SELECT * FROM `armikrog` WHERE lang = 'en' and (`created_at` BETWEEN DATE_SUB('2015-08-18 00:00:00', INTERVAL 14 DAY) AND DATE_ADD('2015-08-18 00:00:00', INTERVAL 14 DAY) ) and rand() < 0.3 limit 200
+SELECT * FROM `armikrog` WHERE lang = 'en' and (`created_at` BETWEEN DATE_SUB('2015-08-18 00:00:00', INTERVAL 14 DAY) AND DATE_ADD('2015-08-18 00:00:00', INTERVAL 14 DAY) ) and rand() < 0.3 order by id limit 200
 ```
 
 In order to not extract a random sample of junk tweets, some cleanup is done for each game. This did not take place when creating the histograms seen at the previous section. Even though some junk is removed, the deleted tweets are still somewhat relevant to the games, such as tweets posted by people as a response to an article or video.
 
+Note for exporting tweets from the db: export using the open documents spreadsheet format, because it preserves all characters (including unicode strange cat faces and such), and the tweet ids. 
+
 #### Armikrog
 The tweets containing '#gamingnews Armikrog release date announced for August' were deleted because they were spam. Same goes for tweets containing 'incredible claymation world: Classic adventure gaming gets a claymation'. Also for tweets referring to 'Armikrog release date' (~80 tweets except one were all made by bots or game news sites) or 'Armikrog release is pushed into September' (30 identical tweets).
 
-- more work is needed to clean up and export the data.
+#### Legends of Eisenwald
+Tweets containing `скачать` were deleted because that means `download` in russian and they were all links to illegal torrent sites, posted automatically by russian pages. Tweets containing `legends of eisenwald review` were also deleted - 325 in total - because the vast majority (all observable by a scroll through) simply followed a link towards a review website, and did not provide any useful information apart from additional hashtags such as #review, #gamespot and #fun...
+
+Most other tweets in the eisenwald set contained links to other sites, and a variety of patterns such as `Is Legends of Eisenwald the new Planescape Torment? <link>` or `Legends of Eisenwald Full PC game Free Download`. These were not removed, even though they most likely oversaturate the sample of tweets - the total amount of tweets seems full of this type of tweet and it would be easy to go through all of them by just skimming a long list sorted alphabetically by tweet, and it would be obvious which tweets are user-made and which are automatic spam.
+
+#### Everybody's gone to the rapture
+All of the tweets containing `@Youtube` are spammed by youtube being linked somehow to twitter using some app. There were 859 tweets deleted containing this. Interesting note is that the tweets containing `#EverybodysGoneToTheRapture #PS4share http` seemed like spam, because there were many in a row with that format which only contained a link at the end, however many were not spam at close inspection, because they contained this phrase at the end after some useful content, such as the tweet `Very original and interesting game, bit of a grind for the platinum tho #EverybodysGoneToTheRapture #PS4share http://t.co/ezMZiVzlcX`. However, the tweets starting with that phrase were not useful, therefore all 54 of them were discarded. Note that this type of close inspection has been done for all deleted tweets in all games.
+
+94 more tweets were deleted containing `#gamingnews Watch Everybody's Gone To The Rapture's mysterious launch trailer - http` - all identical except for the link. Out of the 9000 remaining tweets, there are too many patterns of too few tweets each to clean up in a reasonable timeframe, so the rest were left intact.
+
+#### Formula 1
+The random sample seemed to contain relevant tweets at first glance, so no cleanup was done here.
 
 ### Reference of database table names
 
