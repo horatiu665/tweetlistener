@@ -344,6 +344,30 @@ All of the tweets containing `@Youtube` are spammed by youtube being linked some
 #### Formula 1
 The random sample seemed to contain relevant tweets at first glance, so no cleanup was done here.
 
+#### Madden 16
+
+No cleanup, seems like a lot of relevant tweets.
+
+#### Paddington
+
+No cleanup, seems like 99% spam.
+
+#### RoryMcIlroy
+
+No cleanup, seems like most tweets are about golf, also apparent from the distribution of tweets which has nothing to do with the release date of the game.
+
+#### The Swindle
+
+No cleanup.
+
+#### Zombie Vikings
+
+No cleanup.
+
+#### Rise of Incarnates
+
+No export - data is not in the database, only in backup text file, due to some errors. Will be done at some point.
+
 ### Reference of database table names
 
 Here is a reference list of all games and their database table names, alphabetical order - for development purposes only:
