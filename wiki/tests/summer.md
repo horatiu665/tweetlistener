@@ -183,7 +183,7 @@ A second disconnect occurred between 11-08-2015 23:00:00 and 12-08-2015 11:30:00
 
 ### Data gathering overview
 
-An overview of gathered data up to this point is as follows:
+An overview of gathered data up to this point (12-08-2015 11:30:00) is as follows:
 
 Note: The possible duplicate tweets from the crash periods were not cleaned up for the list below.
 
@@ -201,7 +201,7 @@ The total number of tweets gathered in the database for each game is:
 - The Swindle: 12425
 - Zombie Vikings: 985
 
-For each game, there are charts below showing the amount of data gathered per 3 day intervals between june and 12 august. Some games have an extra chart where the amount per day is shown, around the games' release dates.
+Charts were made for each game, presenting gathering amounts per 3 days and per day intervals.
 
 ### Analysis of tweets
 This section describes the steps taken for creating an overview of the gathered data
