@@ -368,6 +368,27 @@ No cleanup.
 
 No export - data is not in the database, only in backup text file, due to some errors. Will be done at some point.
 
+### Recovering deleted tweets from backups
+
+An idea came before cleaning up all the other tables like the first ones, that instead of deleting tweets from them it would be better to mark them as `relevant` or `not relevant` with some kind of binary tag. Therefore all deleted data had to be restored, and it was done with the following query:
+
+```sql
+set @backuptable = 'riseofincarnates3';
+set @targettable = 'riseofincarnates2';
+set @statement = concat('insert into ',@targettable,' select ',@backuptable,'.* from ',@backuptable,' left outer join ',@targettable,' on ',@targettable,'.id = ',@backuptable,'.id where ',@targettable,'.id is null');
+prepare statement1 from @statement;
+execute statement1;
+deallocate prepare statement1;
+```
+
+Query based on a [question on stackoverflow about left outer join](http://stackoverflow.com/questions/13053052/insert-missing-records-from-one-table-to-another-using-mysql) and another about [variable table names and prepared statements] ( http://stackoverflow.com/questions/8809943/how-to-select-from-mysql-where-table-name-is-variable). The backup table contains tweets that are no longer in target table, but target table might contain new tweets which should not be lost. The query adds the missing tweets from backup into target. The prepare statement part of the query is there in order to simplify performing it for multiple tables, and being able to use a table name as a variable.
+
+After all the backup data was recovered into all the tables, the structure of the tables was altered by adding an extra column called `ignore`, and which by default is zero. When a row or a set of rows is meant to be ignored, this column is set to nonzero, meaning this column should be ignored, though it is not actually deleted.
+
+```sql
+UPDATE `twitter`.`armikrog2` SET `ignore` = '1' WHERE tweet LIKE '%Armikrog, el sucesor espiritual de Neverhood%'
+```
+
 ### Reference of database table names
 
 Here is a reference list of all games and their database table names, alphabetical order - for development purposes only:
