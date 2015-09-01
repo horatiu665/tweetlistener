@@ -385,6 +385,12 @@ Query based on a [question on stackoverflow about left outer join](http://stacko
 
 After all the backup data was recovered into all the tables, the structure of the tables was altered by adding an extra column called `ignore`, and which by default is zero. When a row or a set of rows is meant to be ignored, this column is set to nonzero, meaning this column should be ignored, though it is not actually deleted.
 
+The query below adds the column to a table.
+```sql
+ALTER TABLE `eisenwald2` ADD `ignore` BOOLEAN NOT NULL ;
+```
+
+The query below updates a set of tweets to be ignored.
 ```sql
 UPDATE `twitter`.`armikrog2` SET `ignore` = '1' WHERE tweet LIKE '%Armikrog, el sucesor espiritual de Neverhood%'
 ```
