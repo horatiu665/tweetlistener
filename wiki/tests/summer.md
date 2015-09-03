@@ -78,7 +78,9 @@ The first keywords being followed for each game were:
 
 ### First Expansion
 
-Query expansion was performed manually on 22-07-2015 and resulted in 4 games receiving new hashtags as follows:
+Query expansion was performed manually on 22-07-2015. [The expansion process is detailed here](../expansionprocess.md).
+
+Expansion resulted in 4 games receiving new hashtags as follows:
 - Godzilla
   -	#godzilla
   -	#kaiju
