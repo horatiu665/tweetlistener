@@ -1,3 +1,4 @@
+[Prev](restTest1.md)[Next](streamingTest2.md)
 # Streaming Test
 
 Not possible with Twitter Console app
@@ -19,3 +20,4 @@ A further attempt could be to connect this with a web application in which the t
 
 Info about filters to the data is available in the [official docs](https://dev.twitter.com/streaming/overview/request-parameters#track )
 
+[Prev](restTest1.md)[Next](streamingTest2.md)

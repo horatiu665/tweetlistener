@@ -1,3 +1,4 @@
+[Prev](streamingTest7.md)[Next](summer.md)
 # Query expansion test
 - starting hashtag: `#splatoon`
 - date: `19-05-2015 12:28:44` to `06-06-2015 14:51`
@@ -43,3 +44,4 @@ The main lesson is that naive expansion on 10% is way too naive (simply cannot b
 
 A relevant hashtag to #splatoon is #SplatoonGlobalTestfire, which seems to relate to a beta-testing thing that Nintendo did prior to release of the game. People were tweeting about it while others were expecting the game to release. The tag was found few times though, especially compared to #gaming and such others. It is therefore interesting to note that very common hashtags can actually cover-up useful ones, so an idea would be to not expand on the extremely common tags, only on less common ones that seem to be relevant.
 
+[Prev](streamingTest7.md)[Next](summer.md)

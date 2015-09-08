@@ -1,3 +1,4 @@
+[Prev](streamingTest2.md)[Next](streamingTest4.md)
 # TweetListener week test (14-01-2015 - 20-01-2015)
 This test will be much more interesting for a few reasons:
 - it is performed on localhost, meaning much faster connection between DB and app (but still connected through PHP POST requests)
@@ -70,3 +71,5 @@ Final log shows stream successfully start at 16:49:45, 2 minutes after first dis
 - Words must be split more accurately, take into account punctuation and such
   - perhaps follow some guide online for word parsing
 - streaming = too many results when simple improvement ideas can come from few results. REST must be implemented next.
+
+[Prev](streamingTest2.md)[Next](streamingTest4.md)

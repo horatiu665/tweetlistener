@@ -1,3 +1,4 @@
+[Prev](streamingTest6.md)[Next](expansionTest1.md)
 # New test 19-02-2015
 - Stress test, using WPF application with in-app logging
 - Filter: google. runtime: `2015-02-19 12:41:05 - 2015-02-26 09:36:43`
@@ -40,3 +41,4 @@ Exception at StartStreamTask() thread: System.Threading.Tasks.TaskCanceledExcept
 ```
   - repeatedly many times, at very short intervals. most likely my messing around with “Restart Stream” button this morning.
 
+[Prev](streamingTest6.md)[Next](expansionTest1.md)

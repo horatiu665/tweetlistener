@@ -1,3 +1,5 @@
+[Prev](streamingTest1.md)[Next](streamingTest3.md)
+
 # TweetListener overnight test (13-01-2015)
 Here are notes about the first prototype test. Many things were missing and were not thought of, but it gives a lot of good feedback to see what problems were encountered. The most important section of this test is the problems section, where we have hints for what must be changed for a better test.
 
@@ -63,3 +65,5 @@ disconnect of Tweetinvi stream is handled, remains to be seen if it really works
 - tweets can be recovered if tweet id is known. https://dev.twitter.com/rest/reference/get/statuses/show/%3Aid 
 - try running the test on the local server instead of online. even with the memory limits it still might have a better performance, based on tests with queries like “google” which returned maybe even 10 tweets per second on localhost, and max. 3 tweets per second online.
   - solved, prediction accurate.
+
+  [Prev](streamingTest1.md)[Next](streamingTest3.md)

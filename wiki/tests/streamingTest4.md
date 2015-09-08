@@ -1,3 +1,4 @@
+[Prev](streamingTest3.md)[Next](streamingTest5.md)
 # New test 29-01-2015
 - keyword: dying light
 - updates: tweetviewer web app, json saving
@@ -10,3 +11,4 @@
 - some users posted way more than others, with as many as ~750 tweets from the same user, top 30 all had over 100 tweets each
 - there were 12 disconnects which were handled and reconnected, but they were always instantly solved so the missing tweets cannot be due to them.
 
+[Prev](streamingTest3.md)[Next](streamingTest5.md)

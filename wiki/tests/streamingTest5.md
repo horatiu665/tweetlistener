@@ -1,3 +1,4 @@
+[Prev](streamingTest4.md)[Next](streamingTest6.md)
 # New test 03-02-2015
 - keyword: dying light
 - dates are saved properly
@@ -13,3 +14,4 @@ out of 45000 not one was off topic containing “dying of the light”
    at Tweetinvi.Streams.Helpers.StreamResultGenerator.<InitWebRequest>d__d.MoveNext()
    ```
 - still have 2.5 days of tweets to evaluate: from `03-02-2015 15:13:58` to `06-02-2015 00:20:53`
+[Prev](streamingTest4.md)[Next](streamingTest6.md)

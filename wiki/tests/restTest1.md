@@ -1,4 +1,6 @@
+[Next](streamingTest1.md)
 # REST test #1
+
 I have created an empty twitter app to test GET and POST requests, as well as the OAuth connection thing.
 
 A useful resource is [the twitter online console app](https://dev.twitter.com/rest/tools/console), which can be used to test various requests. It was only successfully used for the REST API because the Streaming feeds continuous data and is not suited for the app.
@@ -153,3 +155,4 @@ This data can be found in every tweet in the array "statuses". A lot of it seems
   ```
   
   
+[Next](streamingTest1.md)
