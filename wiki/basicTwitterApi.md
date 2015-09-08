@@ -12,6 +12,8 @@ Another useful service is the [console dev app](https://dev.twitter.com/rest/too
 
 Service requiring authentication for querying data, and having limitations of how much data can be returned. Authentication is based on OAuth.
 
+The REST API can retrieve [max. 6 days old tweets](https://twittercommunity.com/t/how-many-days-old-can-a-tweet-be-to-guarantee-recovery-using-rest/51460), but it's possible to retrieve more by chance. There is no way of knowing how many tweets are missed by REST.
+
 ### How to auth
 long story at:
 https://dev.twitter.com/oauth 
@@ -71,7 +73,7 @@ Providers usually have access to historical data as well as real-time data, beca
 I contacted one of them called [DataSift](https://dev.twitter.com/streaming/overview/connecting) asking for price and stuff. They replied with astronomical prices for a yearly subscription to historical data:  *“Average client spend is $200,000/year. With a bare bones subscription you could be as low as $65,000/year + data fees. Trial access to our data platform is currently available on our website with a developer's trial.  However some data sources like Twitter, NewsCred, LexisNexis, etc are not available through the trial.”* - DataSift dude
 
 #### Streaming/sample
-The sample “garden hose” is limited to 1% of all firehose data, but without filtering. The random sample returned is distributed by some Twitter rules, in the same way for all connections to the sample stream. (it is not a fully random sampling).
+The sample stream is limited to 1% of all firehose data, but without filtering. The random sample returned is distributed by some Twitter rules, in the same way for all connections to the sample stream. (it is not a fully random sampling).
 
 #### Streaming/filtered
 The filtered stream is limited to 1% of all firehose data, but if the filter does not exceed this 1% size limit, it returns all the results. If it exceeds the limit of data required, it tells how much of this data was omitted via limit JSON messages.
@@ -92,5 +94,8 @@ These messages indicate that a filtered stream has matched more Tweets than its 
 
 Streaming messages must be handled properly to avoid ban.
 
-[This link in the twitter docs](This link in the twitter docs) provides info about public stream messages that can be received from a stream. They are usually problems that need fixing.
+[This link in the twitter docs](https://dev.twitter.com/streaming/overview/messages-types) provides info about public stream messages that can be received from a stream. They are usually problems that need fixing.
 
+##### How many lost tweets?
+
+When Streaming is connected and tweets are lost due to the 1% limit, the Stream sends limit messages, as seen above. However, when Streaming disconnects for a while, **there is no way of knowing how many tweets were lost**, and [tweets can only be retrieved using REST for max. 6 days](https://twittercommunity.com/t/how-many-days-old-can-a-tweet-be-to-guarantee-recovery-using-rest/51460).
