@@ -19,3 +19,7 @@ Check out the following links to explore the wiki.
 ## Tests and events
 
 [Summer test](tests/summer.md)
+
+## Cloud
+
+[Introduction to the cloud idea](cloud/intro.md)
