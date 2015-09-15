@@ -27,12 +27,11 @@ The test ran between 15:38 and 9:40 for a total of 18h. The computer recorded th
 
 ![Network in/out](test1/networkinout.png)
 
-![Cost by resource](test1/costbyresource.png)
-
-The costs associated with these operations is listed in the figure above as a pie chart. The costs are obviously negligible, but they are still interesting to note.
+## Options for deployment of many instances of TweetListener
 
 Next step is implementing a way to automatically deploy data gathering for 45+ games simultaneously. Options:
-- TweetListener creates multiple objects for each stream/credentials pair (requires redesign of architecture)
-- Batch script runs multiple instances of software (requires very beefy VM which costs a few thousand kroners per month, as well as a lot of time to restart it in case it crashes, and a lot of time wasted deploying it = creating the batch script)
-- Deployment to multiple VMs (might be cheaper but WAY more time-consuming, most of it just waiting for computers to log in and such - and very hard to evaluate progress since all will be running on separate machines - only thing that can be done is look at the e-mails. 
-- deployment as standalone app on some kind of cloud service which simply runs the application instead of running a full VM (requires more research, currently I don't think it can be done)
+- TweetListener creates multiple objects for each stream/credentials pair (requires redesign of architecture, this would take some time but it would potentially fix other problems as well - this is the most long-term solution)
+- Batch script runs multiple instances of software (requires very beefy VM which might cost a few thousand kroners per month, as well as a lot of time to restart it in case it crashes, and a lot of time wasted deploying it = creating the batch script - this is the current method, which was pretty slow and crash-prone for the 12 games, so it will be even slower and even more crash-prone, but it is the most short-term solution)
+- Deployment to multiple VMs (might be cheaper but WAY more time-consuming, most of it just waiting for computers to log in and such - and very hard to evaluate progress since all will be running on separate machines - only thing that can be done is look at the e-mails - safer option than the previous but slower still)
+- deployment as standalone app on some kind of cloud service which simply runs the application instead of running a full VM (requires more research, currently I don't think it can be done - would be pretty nice tho)
+- hybrid solution: start gathering the slow way and hope for the best, while redesigning architecture and redeploying whenever that is ready (compromise solution, waste of time in the beginning but at least we gather some more games; long-term solution if redesigning architecture is done while gathering is going).
