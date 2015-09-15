@@ -38,7 +38,9 @@ namespace WPFTwitter.Windows
 		TweetDatabase tweetDatabase;
 		QueryExpansion queryExpansion;
 		PorterStemmerAlgorithm.PorterStemmer porterStemmer;
-		MailHelper mailHelper;
+		MailHelper mailSpammerDisco;
+		MailHelperBase mailSpammerConnect;
+
 
 		MainWindowViewModel viewModel;
 
@@ -80,17 +82,51 @@ namespace WPFTwitter.Windows
 
 		public bool EmailSpammer
 		{
-			get { return mailHelper.emailSpammer; }
-			set { mailHelper.emailSpammer = value; }
+			get { return mailSpammerDisco.emailSpammer; }
+			set { mailSpammerDisco.emailSpammer = value; }
 		}
 
 		public TimeSpan EmailSpammerTimeSpan
 		{
-			get { return TimeSpan.FromMilliseconds(mailHelper.emailTimer.Interval); }
-			set { mailHelper.emailTimer.Interval = value.TotalMilliseconds; }
+			get { return TimeSpan.FromMilliseconds(mailSpammerDisco.emailTimer.Interval); }
+			set { mailSpammerDisco.emailTimer.Interval = value.TotalMilliseconds; }
+		}
+
+		public bool EmailSpammerPositive
+		{
+			get { return mailSpammerConnect.spammingActivated; }
+			set { mailSpammerConnect.spammingActivated = value; }
+		}
+
+		public TimeSpan EmailSpammerPositiveTimeSpan
+		{
+			get { return TimeSpan.FromMilliseconds(mailSpammerConnect.emailTimer.Interval); }
+			set { mailSpammerConnect.emailTimer.Interval = value.TotalMilliseconds; }
+		}
+
+		public string WindowTitle
+		{
+			get { return this.Title; }
+			set
+			{
+				this.Title = value;
+				mailSpammerConnect.windowTitle = value;
+			}
 		}
 
 		public Dictionary<string, string> commandLineArgs = new Dictionary<string, string>();
+
+		public int DatabaseDestinationComboBoxIndex
+		{
+			get
+			{
+				return (int)databaseSaver.saveMethod;
+			}
+			set
+			{
+				databaseSaver.saveMethod = (DatabaseSaver.SaveMethods)value;
+			}
+		}
 
 		public MainWindow()
 		{
@@ -98,8 +134,8 @@ namespace WPFTwitter.Windows
 
 			// based on http://sa.ndeep.me/post/103/how-to-create-smart-wpf-command-line-arguments
 			string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray();
-			
-			for (int i = 0; i < args.Length; i+=2) {
+
+			for (int i = 0; i < args.Length; i += 2) {
 				string arg = args[i].Replace("/", "");
 				commandLineArgs.Add(arg, args[i + 1]);
 			}
@@ -107,7 +143,7 @@ namespace WPFTwitter.Windows
 			// now we can initialize shit from the command line, and we can run batch scripts that open multiple instances of the application with different settings.
 			// only thing is to set up those initializations.
 			// a list of initializations can be found at the end of this method.
-			
+
 			viewModel = new MainWindowViewModel();
 
 			log = new Log();
@@ -116,8 +152,9 @@ namespace WPFTwitter.Windows
 			databaseSaver = new DatabaseSaver(log);
 			tweetDatabase = new TweetDatabase(databaseSaver);
 			rest = new Rest(databaseSaver, log, tweetDatabase);
-			stream = new Stream(databaseSaver, log, rest, keywordDatabase);
-			mailHelper = new MailHelper(log, stream);
+			stream = new Stream(databaseSaver, log, rest, keywordDatabase, tweetDatabase);
+			mailSpammerDisco = new MailHelper(log, stream);
+			mailSpammerConnect = new MailHelperBase(log, stream);
 			restGatherer = new RestGatherer(rest, log, tweetDatabase, keywordDatabase);
 			queryExpansion = new QueryExpansion(log);
 			porterStemmer = new PorterStemmerAlgorithm.PorterStemmer();
@@ -132,12 +169,14 @@ namespace WPFTwitter.Windows
 			checkBox_databaseMessages.DataContext = databaseSaver;
 			databaseRetries.DataContext = databaseSaver;
 			checkBox_saveToTextFile.DataContext = databaseSaver;
+			checkBox_saveToRam.DataContext = tweetDatabase;
 			checkBox_database.DataContext = databaseSaver;
 			database_textFileDbPathTextBox.DataContext = databaseSaver;
 			setCredentialsDefault.DataContext = credentials;
 			database_tableNameTextBox.DataContext = databaseSaver;
 			startStreamButton.DataContext = stream;
-			
+			database_connectionString.DataContext = databaseSaver;
+
 			// rest log binding
 			restView.DataContext = RestMessageList;
 
@@ -243,7 +282,7 @@ namespace WPFTwitter.Windows
 			tweetsPerSecondLabel.DataContext = this;
 
 			log.Start(logPathTextBox.Text);
-			
+
 
 			// when credentials change
 			credentials.CredentialsChange += (creds) => {
@@ -260,7 +299,7 @@ namespace WPFTwitter.Windows
 				log.Output(s);
 			};
 
-			
+
 
 
 			#region initializations using command line
@@ -278,14 +317,24 @@ namespace WPFTwitter.Windows
 			if (commandLineArgs.ContainsKey("dbTableName")) {
 				databaseSaver.DatabaseTableName = commandLineArgs["dbTableName"];
 			}
+			if (commandLineArgs.ContainsKey("dbDestination")) {
+				databaseSaver.saveMethod = commandLineArgs["dbDestination"] == "php"
+					? DatabaseSaver.SaveMethods.PhpPost : DatabaseSaver.SaveMethods.DirectToMysql;
+			}
+			if (commandLineArgs.ContainsKey("dbConnectionStr")) {
+				databaseSaver.ConnectionString = commandLineArgs["dbConnectionStr"];
+			}
 			if (commandLineArgs.ContainsKey("saveToDatabase")) {
 				databaseSaver.SaveToDatabase = commandLineArgs["saveToDatabase"] != "0";
 			}
 			if (commandLineArgs.ContainsKey("saveToTextFile")) {
 				databaseSaver.SaveToTextFileProperty = commandLineArgs["saveToTextFile"] != "0";
 			}
+			if (commandLineArgs.ContainsKey("saveToRam")) {
+				tweetDatabase.SaveToRamProperty = commandLineArgs["saveToRam"] != "0";
+			}
 			if (commandLineArgs.ContainsKey("outputEventCounters")) {
-				stream.CountersOn = 
+				stream.CountersOn =
 					commandLineArgs["outputEventCounters"] != "0";
 			}
 			if (commandLineArgs.ContainsKey("outputDatabaseMessages")) {
@@ -300,6 +349,12 @@ namespace WPFTwitter.Windows
 				EmailSpammerTimeSpan = TimeSpan.Parse(commandLineArgs["emailDisco"]);
 				if (EmailSpammerTimeSpan != TimeSpan.Zero) {
 					EmailSpammer = true;
+				}
+			}
+			if (commandLineArgs.ContainsKey("emailConnected")) {
+				EmailSpammerPositiveTimeSpan = TimeSpan.Parse(commandLineArgs["emailConnected"]);
+				if (EmailSpammerPositiveTimeSpan != TimeSpan.Zero) {
+					EmailSpammerPositive = true;
 				}
 			}
 			if (commandLineArgs.ContainsKey("onlyEnglish")) {
@@ -319,10 +374,13 @@ namespace WPFTwitter.Windows
 			}
 			if (commandLineArgs.ContainsKey("keywords")) {
 				string keywordsString = commandLineArgs["keywords"];
-				var keywordsStringList = keywordsString.Split(" ,".ToCharArray());
+				var keywordsStringList = keywordsString.Split(",".ToCharArray());
 				foreach (var ks in keywordsStringList) {
 					keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(ks, 0));
 				}
+			}
+			if (commandLineArgs.ContainsKey("windowTitle")) {
+				WindowTitle = commandLineArgs["windowTitle"];
 			}
 			if (commandLineArgs.ContainsKey("startStream")) {
 				if (commandLineArgs["startStream"] != "0") {
@@ -331,22 +389,27 @@ namespace WPFTwitter.Windows
 			}
 			// example args list:
 			/*
-			run WPFTwitter.exe 
-				/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php"
-				/logPath "log.txt"
-				/textFileDbPath "rawJsonBackup.txt"
-				/dbTableName "gametest1"
-				/saveToDatabase 1
-				/saveToTextFile 1
-				/outputEventCounters 0
-				/outputDatabaseMessages 0
-				/logEveryJson 0
-				/emailDisco 06:00:00
-				/onlyEnglish 1
-				/onlyWithHashtags 0
-				/credentials 3
-				/keywords "#callofduty #cod #ps4 #pc #xbox"
-				/startStream 1
+			 start "WPFTwitter" /D "Release - Copy (2)/" "Release - Copy (2)/WPFTwitter.exe" ^
+				 /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+				 /logPath "log.txt" ^
+				 /textFileDbPath "rawJsonBackup.txt" ^
+				 /dbTableName "gametest1" ^
+				 /dbDestination "mysql" ^
+				 /dbConnectionStr "server=localhost;userid=root;password=;database=testing" ^
+				 /saveToDatabase 1 ^
+				 /saveToTextFile 0 ^
+				 /saveToRam 0 ^
+				 /outputEventCounters 0 ^
+				 /outputDatabaseMessages 0 ^
+				 /logEveryJson 0 ^
+				 /emailDisco 06:00:00 ^
+				 /emailConnected 23:59:59 ^
+				 /onlyEnglish 1 ^
+				 /onlyWithHashtags 0 ^
+				 /credentials 7 ^
+				 /keywords "#callofduty,#cod,#ps4,#pc,#xbox" ^
+				 /windowTitle "Game test 1" ^
+				 /startStream 0
 			 
 			because the following if statements are found above
 			
@@ -360,12 +423,14 @@ namespace WPFTwitter.Windows
 				if (commandLineArgs.ContainsKey("outputDatabaseMessages")) {
 				if (commandLineArgs.ContainsKey("logEveryJson")) {
 				if (commandLineArgs.ContainsKey("emailDisco")) {
+				if (commandLineArgs.ContainsKey("emailConnected")) {
 				if (commandLineArgs.ContainsKey("onlyEnglish")) {
 				if (commandLineArgs.ContainsKey("onlyWithHashtags")) {
 				if (commandLineArgs.ContainsKey("credentials")) {
 				if (commandLineArgs.ContainsKey("keywords")) {
 				if (commandLineArgs.ContainsKey("startStream")) {
-  
+				... and a few others which I added later and was too lazy to add here too
+			 
 			*/
 			#endregion
 
@@ -383,7 +448,7 @@ namespace WPFTwitter.Windows
 					if (continuousTweetViewUpdate) {
 						tweetView.ItemsSource = tweetDatabase.Tweets;
 					}
-					keywordDatabase.KeywordList.UpdateCount(tweetDatabase.tweets);
+					keywordDatabase.KeywordList.UpdateCount(tweetDatabase.GetAllTweets());
 				});
 			}
 		}
@@ -750,7 +815,7 @@ namespace WPFTwitter.Windows
 			rest.StoppedGatheringCycle += ResetRestGatheringButton;
 		}
 
-		private void ResetRestGatheringButton()
+		private void ResetRestGatheringButton(int tweetCount)
 		{
 			App.Current.Dispatcher.Invoke(() => {
 				restExhaustiveQueryButton.Content = "Start Gathering Cycle";
@@ -763,18 +828,18 @@ namespace WPFTwitter.Windows
 			var button = ((Button)sender);
 			var item = FindParent<ListViewItem>(button);
 			if (item != null) {
-				var content = (TweetDatabase.TweetData)(item.Content);
-				var result = MessageBox.Show("Delete tweet " + content.Tweet + " ?", "Delete confirmation", MessageBoxButton.YesNo);
+				var tweetToDelete = (TweetDatabase.TweetData)(item.Content);
+				var result = MessageBox.Show("Delete tweet " + tweetToDelete.Tweet + " ?", "Delete confirmation", MessageBoxButton.YesNo);
 
 				if (result == MessageBoxResult.Yes) {
 
 					App.Current.Dispatcher.Invoke(() => {
-						var hashtagsToUpdate = content.tweet.Hashtags.Select(hEntity => hEntity.Text.ToLower());
-						tweetDatabase.tweets.Remove(content);
+						var hashtagsToUpdate = tweetToDelete.tweet.Hashtags.Select(hEntity => hEntity.Text.ToLower());
+						tweetDatabase.RemoveTweet(tweetToDelete);
 						// update counts of hashtags
 						foreach (var k in keywordDatabase.KeywordList) {
 							if (hashtagsToUpdate.Contains(k.Keyword.Replace("#", "").ToLower())) {
-								k.Count = tweetDatabase.tweets.Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
+								k.Count = tweetDatabase.GetAllTweets().Count(td => td.Tweet.ToLower().Contains(k.Keyword.ToLower()));
 							}
 						}
 
@@ -833,10 +898,10 @@ namespace WPFTwitter.Windows
 		private void tweetView_ResetSelection(object sender, RoutedEventArgs e)
 		{
 			var message = "";
-			if (tweetDatabase.tweets.Count > 50000) {
-				message = "It WILL take forever to load " + tweetDatabase.tweets.Count + " tweets. Please reconsider or continue at your own risk.";
-			} else if (tweetDatabase.tweets.Count > 10000) {
-				message = "It might take quite a while to load " + tweetDatabase.tweets.Count + " tweets. Please have patience";
+			if (tweetDatabase.GetAllTweets().Count > 50000) {
+				message = "It WILL take forever to load " + tweetDatabase.GetAllTweets().Count + " tweets. Please reconsider or continue at your own risk.";
+			} else if (tweetDatabase.GetAllTweets().Count > 10000) {
+				message = "It might take quite a while to load " + tweetDatabase.GetAllTweets().Count + " tweets. Please have patience";
 			} else {
 				message = "";
 			}
@@ -864,7 +929,7 @@ namespace WPFTwitter.Windows
 
 			if (result == MessageBoxResult.Yes) {
 				App.Current.Dispatcher.Invoke(() => {
-					tweetDatabase.tweets.Clear();
+					tweetDatabase.RemoveAllTweets();
 					foreach (var k in keywordDatabase.KeywordList) {
 						k.Count = 0;
 
@@ -911,7 +976,7 @@ namespace WPFTwitter.Windows
 				//}
 
 				var newKeywordData = new KeywordDatabase.KeywordData(newKeyword, 0);
-				newKeywordData.Count = tweetDatabase.tweets.Count(t => t.ContainsHashtag(newKeyword));
+				newKeywordData.Count = tweetDatabase.GetAllTweets().Count(t => t.ContainsHashtag(newKeyword));
 
 				App.Current.Dispatcher.Invoke(() => {
 					keywordDatabase.KeywordList.Add(newKeywordData);
@@ -951,7 +1016,7 @@ namespace WPFTwitter.Windows
 		private void expansion_ExpandNaive(object sender, RoutedEventArgs e)
 		{
 			Task.Factory.StartNew(() => {
-				var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.tweets.ToList());
+				var newKeywords = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.GetAllTweets().ToList());
 				//keywordDatabase.KeywordList.UpdateCount(tweetDatabase.tweets);
 
 				// COUNT IS ALREADY PERFORMED IN THE NAIVE EXPANSION!!!
@@ -975,7 +1040,7 @@ namespace WPFTwitter.Windows
 				log.Output("Attempting to expand the query automatically");
 				Task.Factory.StartNew(() => {
 					// before Efron, more tags must be gathered. preferably a full transitive closure
-					var newKeys = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.tweets);
+					var newKeys = queryExpansion.ExpandNaive(keywordDatabase.KeywordList.ToList(), tweetDatabase.GetAllTweets());
 					if (newKeys != null && newKeys.Count > 0) {
 						App.Current.Dispatcher.Invoke(() => {
 							// set use to false (we might not want them in the stream query)
@@ -987,7 +1052,7 @@ namespace WPFTwitter.Windows
 							keywordDatabase.KeywordList.ClearLanguageModels();
 
 							// now we can expand.
-							var efronExpanded = queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
+							var efronExpanded = queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.GetAllTweets());
 
 							// we must generate the query from the query model.
 							keywordDatabase.KeywordList.Where(kd => efronExpanded.Any(kkk => kkk.Keyword == kd.Keyword)).ToList().ForEach(kd => kd.UseKeyword = true);
@@ -1005,7 +1070,7 @@ namespace WPFTwitter.Windows
 		{
 			if (!queryExpansion.Expanding) {
 				Task.Factory.StartNew(() => {
-					queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.tweets);
+					queryExpansion.ExpandEfron(keywordDatabase.KeywordList, tweetDatabase.GetAllTweets());
 
 					queryExpansion.Expanding = false;
 				});
@@ -1120,7 +1185,7 @@ namespace WPFTwitter.Windows
 							}
 						}
 					} else {
-						tweetDatabase.tweets.AddRange(fromTxt);
+						tweetDatabase.AddTweets(fromTxt);
 						fromFile_tweetLoadedCount = fromTxt.Count;
 					}
 
@@ -1151,7 +1216,7 @@ namespace WPFTwitter.Windows
 		private void keywordsView_Update(object sender, RoutedEventArgs e)
 		{
 			// counts all keywords
-			keywordDatabase.KeywordList.UpdateCount(tweetDatabase.tweets);
+			keywordDatabase.KeywordList.UpdateCount(tweetDatabase.GetAllTweets());
 
 			// update list view
 			keywordListView.UpdateLayout();
@@ -1177,17 +1242,13 @@ namespace WPFTwitter.Windows
 		{
 			int howMany;
 			if (int.TryParse(tweetView_keepHowManyTweets_textBox.Text, out howMany)) {
-				var newList = tweetDatabase.tweets.Take(howMany).ToList();
-				tweetDatabase.tweets.Clear();
-				tweetDatabase.tweets.AddRange(newList);
-				log.Output("Kept only the first " + tweetDatabase.tweets.Count + " tweets");
+				tweetDatabase.KeepTweets(howMany);
+				log.Output("Kept only the first " + tweetDatabase.GetAllTweets().Count + " tweets");
 				updateTweetsNextUpdate = true;
 			} else if (tweetView_keepHowManyTweets_dateBox.Value.HasValue) {
-				var val = tweetView_keepHowManyTweets_dateBox.Value.Value;
-				var newList = tweetDatabase.tweets.Where(td => td.Date.CompareTo(val) <= 0).ToList();
-				tweetDatabase.tweets.Clear();
-				tweetDatabase.tweets.AddRange(newList);
-				log.Output("Deleted tweets after date " + val);
+				var date = tweetView_keepHowManyTweets_dateBox.Value.Value;
+				tweetDatabase.KeepTweetsBeforeDate(date);
+				log.Output("Deleted tweets after date " + date);
 				updateTweetsNextUpdate = true;
 			}
 		}
@@ -1201,7 +1262,7 @@ namespace WPFTwitter.Windows
 				App.Current.Dispatcher.Invoke(() => {
 					var content = (KeywordDatabase.KeywordData)(item.Content);
 					if (!content.HasLanguageModel) {
-						content.LanguageModel = new LanguageModel(content, keywordDatabase.KeywordList, tweetDatabase.tweets, null, LanguageModel.SmoothingMethods.BayesianDirichlet, queryExpansion.EfronMu);
+						content.LanguageModel = new LanguageModel(content, keywordDatabase.KeywordList, tweetDatabase.GetAllTweets(), null, LanguageModel.SmoothingMethods.BayesianDirichlet, queryExpansion.EfronMu);
 					} else {
 						log.Output("Keyword " + content.Keyword + " already has a calculated language model");
 						log.Output(content.LanguageModel.ToString());
@@ -1244,8 +1305,8 @@ namespace WPFTwitter.Windows
 		private void tweetView_DeleteSpamTweets(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.Invoke(() => {
-				tweetDatabase.tweets.RemoveAll(td => td.Tweet.IndexOf("RT") == 0);
-				log.Output("Removed tweets starting with RT, now we have " + tweetDatabase.tweets.Count + " tweets");
+				tweetDatabase.RemoveAllRT();
+				log.Output("Removed tweets starting with RT, now we have " + tweetDatabase.GetAllTweets().Count + " tweets");
 			});
 		}
 
@@ -1307,6 +1368,7 @@ namespace WPFTwitter.Windows
 
 	public class LogMessage
 	{
+
 		private string _time;
 
 		public string Time
@@ -1327,7 +1389,6 @@ namespace WPFTwitter.Windows
 		{
 			_time = DateTime.Now.ToString();
 			_message = message;
-
 		}
 
 		public override string ToString()

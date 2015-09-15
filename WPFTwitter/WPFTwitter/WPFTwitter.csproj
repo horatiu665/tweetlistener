@@ -162,6 +162,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MailHelperBase.cs" />
     <Compile Include="Credentials.cs" />
     <Compile Include="CustomTweetFormat.cs" />
     <Compile Include="KeywordDatabase.cs" />

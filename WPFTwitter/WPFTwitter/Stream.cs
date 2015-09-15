@@ -21,6 +21,7 @@ namespace WPFTwitter
 		private Log log;
 		private Rest rest;
 		private KeywordDatabase keywordDatabase;
+		private TweetDatabase tweetDatabase;
 
 		///// <summary>
 		///// the filter used for the stream
@@ -48,7 +49,13 @@ namespace WPFTwitter
 		/// <summary>
 		/// did the stream stop previously? when?
 		/// </summary>
-		DateTime lastStreamStopTime = new DateTime(1993, 7, 23);
+		public DateTime MostRecentTweetTime
+		{
+			get
+			{
+				return tweetDatabase.MostRecentTweetTime;
+			}
+		}
 
 		/// <summary>
 		/// made true after running Init = only run some code once.
@@ -209,7 +216,7 @@ namespace WPFTwitter
 			sampleStream.StreamStopped += (s, a) => { if (countersOn) CountEvent(6); };
 			sampleStream.TweetDeleted += (s, a) => { if (countersOn) CountEvent(7); };
 			sampleStream.TweetLocationInfoRemoved += (s, a) => { if (countersOn) CountEvent(8); };
-			sampleStream.TweetReceived				+= (s, a) => {  if(countersOn) CountEvent(9); }; // for sample stream
+			sampleStream.TweetReceived += (s, a) => { if (countersOn) CountEvent(9); }; // for sample stream
 			//sampleStream.MatchingTweetReceived += (s, a) => { if (countersOn) CountEvent(9); }; // for filtered stream
 			sampleStream.TweetWitheld += (s, a) => { if (countersOn) CountEvent(10); };
 			sampleStream.UnmanagedEventReceived += (s, a) => { if (countersOn) CountEvent(11); };
@@ -238,7 +245,7 @@ namespace WPFTwitter
 				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetDeleted					"); };
 			sampleStream.TweetLocationInfoRemoved
 				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetLocationInfoRemoved 		"); };
-			sampleStream.TweetReceived	
+			sampleStream.TweetReceived
 				+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetReceived					"); }; // for sample stream
 			//sampleStream.MatchingTweetReceived
 			//	+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
@@ -258,12 +265,13 @@ namespace WPFTwitter
 
 		#endregion
 
-		public Stream(DatabaseSaver dbs, Log log, Rest rest, KeywordDatabase keywordDatabase)
+		public Stream(DatabaseSaver dbs, Log log, Rest rest, KeywordDatabase keywordDatabase, TweetDatabase tweetDatabase)
 		{
 			this.databaseSaver = dbs;
 			this.log = log;
 			this.rest = rest;
 			this.keywordDatabase = keywordDatabase;
+			this.tweetDatabase = tweetDatabase;
 
 			// initialize stuff
 
@@ -310,8 +318,6 @@ namespace WPFTwitter
 				return;
 			}
 
-			lastStreamStopTime = DateTime.Now;
-
 			stream.ClearTracks();
 
 			AddTracksFromKeywordDatabase();
@@ -319,7 +325,7 @@ namespace WPFTwitter
 			if (stream.TracksCount == 0) {
 				//log.Output("There are no keywords in the list! Cannot start stream without any keywords, Twitter would slap us. Please add some keywords using the Keywords panel");
 				log.Output("There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)");
-				
+
 			}
 
 			StreamStartInsistBetter();
@@ -383,11 +389,12 @@ namespace WPFTwitter
 					log.Output("Exception at StartStreamTask() thread: " + e.ToString());
 					log.SmallOutput("Exception at StartStreamTask() thread: " + e.ToString());
 
-					//TODO: when exception happens, check if stream is actually running along, if we should reset stream, or if two streams are attempting to run at the same time.
+					//TODO: when exception happens, check if stream is actually running along,
+					// if we should reset stream, or if two streams are attempting to run at the same time.
 
 					// notify main thread that there was an exception here.
 					streamThreadException = true;
-					
+
 				}
 
 			}
@@ -423,7 +430,7 @@ namespace WPFTwitter
 			StreamRunning = true;
 
 			// use Rest for gathering tweets since last time the stream stopped.
-			rest.TweetsGatheringCycle(lastStreamStopTime, DateTime.Now, keywordDatabase.GetUsableKeywords());
+			rest.TweetsGatheringCycle(MostRecentTweetTime, DateTime.Now, keywordDatabase.GetUsableKeywords());
 
 		}
 
@@ -458,7 +465,6 @@ namespace WPFTwitter
 				log.SmallOutput("Exception: " + e.Exception.ToString());
 			}
 
-			lastStreamStopTime = DateTime.Now;
 
 		}
 
@@ -470,6 +476,7 @@ namespace WPFTwitter
 			//	databaseSaver.SaveTweet(e.Tweet);
 
 			//});
+
 		}
 
 		private void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
@@ -480,6 +487,7 @@ namespace WPFTwitter
 			//	databaseSaver.SaveTweet(e.Tweet);
 
 			//});
+
 		}
 
 		private bool logEveryJson = false;

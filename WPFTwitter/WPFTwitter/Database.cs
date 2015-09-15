@@ -47,7 +47,6 @@ namespace WPFTwitter
 		}
 
 		private bool saveToTextFile = true;
-
 		public bool SaveToTextFileProperty
 		{
 			get { return saveToTextFile; }
@@ -55,12 +54,17 @@ namespace WPFTwitter
 		}
 
 		// connection data saved as strings
-		public string localConnectionString = @"server=localhost;userid=root;password=1234;database=hivemindcloud";
+		private string localConnectionString = @"server=localhost;userid=root;password=;database=twitter";
+		public string ConnectionString
+		{
+			get { return localConnectionString; }
+			set { localConnectionString = value; }
+		}
+
 		public string localPhpJsonLink = @"http://localhost/tweetlistener/php/saveJson.php";
 		public string onlinePhpJsonLink = @"http://hivemindcloud.hostoi.com/saveJson.php";
 
 		private string textFileDatabasePath = "rawJsonBackup.txt";
-
 		public string TextFileDatabasePath
 		{
 			get { return textFileDatabasePath; }
@@ -84,21 +88,27 @@ namespace WPFTwitter
 		/// max iterations when sending to database fails. perhaps ideally we should wait a few seconds between retries. But brute force is also good sometimes.
 		/// </summary>
 		int maxTweetDatabaseSendRetries = 100;
-
 		public int MaxTweetDatabaseSendRetries
 		{
 			get { return maxTweetDatabaseSendRetries; }
 			set { maxTweetDatabaseSendRetries = value; }
 		}
+
 		float secondsBetweenSendRetries = 1;
 
 		private bool outputDatabaseMessages = true;
-
 		public bool OutputDatabaseMessages
 		{
 			get { return outputDatabaseMessages; }
 			set { outputDatabaseMessages = value; }
 		}
+
+		public enum SaveMethods
+		{
+			PhpPost,
+			DirectToMysql
+		}
+		public SaveMethods saveMethod;
 
 
 		// event triggered every time there is some error that must be logged
@@ -125,34 +135,42 @@ namespace WPFTwitter
 		public void SaveTweet(ITweet tweet, int retries = 0)
 		{
 			if (SaveToDatabase) {
-				try {
+				if (saveMethod == SaveMethods.DirectToMysql) {
+					// save to mysql
+					Task.Factory.StartNew(() => {
+						SaveToSQL(tweet, DatabaseTableName);
+					});
+				} else {
+					// save to php 
+					try {
+						// encode tweet to json and use SaveToPhpFullJson(string json).
+						JObject json = EncodeTweetToJson(tweet);
+						SaveToPhpFullJson(json.ToString());
 
-					// encode tweet to json and use SaveToPhpFullJson(string json).
-					JObject json = EncodeTweetToJson(tweet);
-					SaveToPhpFullJson(json.ToString());
-
-				}
-				catch (Exception e) {
-					if (Message != null) {
-						if (outputDatabaseMessages)
-							Message(e.ToString());
 					}
-					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
-					if (retries < MaxTweetDatabaseSendRetries) {
-						Task.Factory.StartNew(() => {
-							// wait a little and then try again
-							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;
-							while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
-							SaveTweet(tweet, retries + 1);
-
-						});
-					} else {
+					catch (Exception e) {
 						if (Message != null) {
 							if (outputDatabaseMessages)
-								Message("Failed to send after " + retries + " tries");
+								Message(e.ToString());
+						}
+						// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
+						if (retries < MaxTweetDatabaseSendRetries) {
+							Task.Factory.StartNew(() => {
+								// wait a little and then try again
+								var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;
+								while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
+								SaveTweet(tweet, retries + 1);
+
+							});
+						} else {
+							if (Message != null) {
+								if (outputDatabaseMessages)
+									Message("Failed to send after " + retries + " tries");
+							}
 						}
 					}
 				}
+
 			}
 
 			if (SaveToTextFileProperty) {
@@ -265,13 +283,13 @@ namespace WPFTwitter
 				if (outputDatabaseMessages)
 					Message(((HttpWebResponse)response).StatusDescription);
 			}
-			// Get the stream containing content returned by the server.
+			// Get the stream containing tweetToDelete returned by the server.
 			dataStream = response.GetResponseStream();
 			// Open the stream using a StreamReader for easy access.
 			StreamReader reader = new StreamReader(dataStream);
-			// Read the content.
+			// Read the tweetToDelete.
 			string responseFromServer = reader.ReadToEnd();
-			// Display the content.
+			// Display the tweetToDelete.
 			if (Message != null) {
 				if (outputDatabaseMessages)
 					Message(responseFromServer);
@@ -284,82 +302,90 @@ namespace WPFTwitter
 
 		}
 
-		//// this will not happen. connect directly to MySQL is too messed up compared to just using PHP
-		///// <summary>
-		///// saves directly to database.
-		///// </summary>
-		///// <param name="message"></param>
-		//void SaveToDatabase(ITweet tweet)
-		//{
-		//	string connectionString = connectOnline ? onlineConnectionString : localConnectionString;
+		/// <summary>
+		/// saves directly to database.
+		/// </summary>
+		/// <param name="message"></param>
+		void SaveToSQL(ITweet tweet, string tableName)
+		{
+			string connectionString = ConnectionString;
 
-		//	try {
-		//		MySqlConnection connection = new MySqlConnection(connectionString);
-		//		connection.Open();
-		//		if (Message != null) {
-		//			Message("Connection to " + connectionString + " opened successfully");
-		//		}
+			try {
+				MySqlConnection connection = new MySqlConnection(connectionString);
+				if (Message != null) {
+					Message("Opening " + connectionString);
+				} 
+				connection.Open();
+				if (Message != null) {
+					Message("Connection to " + connectionString + " opened successfully");
+				}
 
-		//		string query = "";
-		//		#region setup  query
+				string query = "";
+				#region setup  query
 
-		//		// raw tweet
-		//		string rawTweet = tweet.Text;
+				string twoLetterLanguage = Tweetinvi.Core.Extensions.LanguageExtension.GetDescriptionAttribute(tweet.Language);
 
-		//		// hashtags as given by raw tweet data from Twitter API
-		//		List<string> hashtags = tweet.Hashtags.Select<Tweetinvi.Core.Interfaces.Models.Entities.IHashtagEntity, string>(h => h.Text).ToList();
+				// the actual query
+				query = " INSERT INTO ";
+				query += " " + tableName + " ";
+				query += " (`id`, `tweet_id_str`, `tweet`, `created_at`, `user_id_str`, `user_name`, `in_reply_to_status_id_str`, `in_reply_to_user_id_str`, `lang`, `retweet_count`) ";
+				query += " VALUES ";
+				query += @" (NULL, @tweet_id_str, @tweet, @created_at, @user_id_str, @user_name, @in_reply_to_status_id_str, @in_reply_to_user_id_str, @lang, @retweet_count) ";
+				query += " ON DUPLICATE KEY UPDATE ";
+				query += " retweet_count = @retweet_count";
 
-		//		// tweet split into words
-		//		List<string> wordList = tweet.Text.Split(' ').ToList();
+				#endregion
 
-		//		// the actual query
-		//		query = " INSERT INTO ";
-		//		query += " `wordscount` ";
-		//		query += " (`id`, `word`, `count`) ";
-		//		query += " VALUES ";
-		//		query += " (NULL, '" + wordList[0] + "', '1', " + rawTweet + ", " + DateTime.Now + ") ";
-		//		for (int i = 1; i < wordList.Count; i++) {
-		//			query += " ,(NULL, '" + wordList[i] + "', '1', " + rawTweet + ", " + DateTime.Now + ") ";
-		//		}
-		//		// if duplicate key (the word),increase count instead of new row
-		//		query += " ON DUPLICATE KEY UPDATE ";
-		//		query += " count = count + 1 ";
+				if (Message != null) {
+					Message("Creating command for " + connectionString);
+				} 
 
-		//		#endregion
+				MySqlCommand command = new MySqlCommand(query, connection);
+				command.Parameters.AddWithValue("@tweet_id_str", tweet.IdStr);
+				command.Parameters.AddWithValue("@tweet", tweet.Text);
+				command.Parameters.AddWithValue("@created_at", tweet.CreatedAt.ToString("dd-MM-yyyy HH:mm:ss"));
+				command.Parameters.AddWithValue("@user_id_str", tweet.Creator.IdStr);
+				command.Parameters.AddWithValue("@user_name", tweet.Creator.ScreenName);
+				command.Parameters.AddWithValue("@in_reply_to_status_id_str", tweet.InReplyToStatusIdStr);
+				command.Parameters.AddWithValue("@in_reply_to_user_id_str", tweet.InReplyToUserIdStr);
+				command.Parameters.AddWithValue("@lang", twoLetterLanguage);
+				command.Parameters.AddWithValue("@retweet_count", tweet.RetweetCount);
+				command.CommandType = System.Data.CommandType.Text;
+				// timeout in seconds
+				command.CommandTimeout = 60;
 
-		//		MySqlCommand command = new MySqlCommand(query, connection);
-		//		command.CommandType = System.Data.CommandType.Text;
-		//		// timeout in seconds
-		//		command.CommandTimeout = 60;
+				if (Message != null) {
+					Message("Executing reader for " + connectionString);
+				} 
+				
+				var reader = command.ExecuteReader();
 
-		//		var reader = command.ExecuteReader();
+				while (reader.Read()) {
+					foreach (var r in reader) {
+						if (Message != null) {
+							Message(r.ToString());
+						}
+					}
+				}
 
-		//		while (reader.Read()) {
-		//			foreach (var r in reader) {
-		//				if (Message != null) {
-		//					Message(r.ToString());
-		//				}
-		//			}
-		//		}
+				connection.Close();
 
-		//		connection.Close();
+			}
+			catch (MySqlException e) {
 
-		//	}
-		//	catch (MySqlException e) {
+				if (e.Number == 1045) {
+					if (Message != null) {
+						Message("Invalid username or password");
+					}
+				} else {
+					if (Message != null) {
+						Message(e.ToString());
 
-		//		if (e.Number == 1045) {
-		//			if (Message != null) {
-		//				Message("Invalid username or password");
-		//			}
-		//		} else {
-		//			if (Message != null) {
-		//				Message(e.ToString());
+					}
+				}
 
-		//			}
-		//		}
-
-		//	}
-		//}
+			}
+		}
 
 
 		void SaveToTextFile(ITweet tweet)

@@ -65,17 +65,17 @@ namespace WPFTwitter
 			get { return isGathering; }
 		}
 
-		public event Action StoppedGatheringCycle;
+		public event Action<int> StoppedGatheringCycle;
 
-		private void OnStoppedGatheringCycle()
+		private void OnStoppedGatheringCycle(int tweetCount)
 		{
 			isGathering = false; 
 			
 			if (forceStop) {
 				forceStop = false;
-				log.Output("End of Rest.TweetsGatheringCycle() by force");
+				log.Output("End of Rest.TweetsGatheringCycle() by force. Tweets found: " + tweetCount);
 			} else {
-				log.Output("End of Rest.TweetsGatheringCycle(), by natural causes");
+				log.Output("End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: " + tweetCount);
 			}
 
 		}
@@ -84,6 +84,8 @@ namespace WPFTwitter
 		{
 			isGathering = true;
 			log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
+
+			int tweetsGatheredTotal = 0;
 
 			Task.Factory.StartNew(() => {
 				try {
@@ -103,7 +105,7 @@ namespace WPFTwitter
 						}
 
 						if (forceStop) {
-							StoppedGatheringCycle();
+							StoppedGatheringCycle(tweetsGatheredTotal);
 							return;
 						}
 
@@ -131,7 +133,7 @@ namespace WPFTwitter
 						}
 
 						if (forceStop) {
-							StoppedGatheringCycle();
+							StoppedGatheringCycle(tweetsGatheredTotal);
 							return;
 						}
 
@@ -157,7 +159,7 @@ namespace WPFTwitter
 										var minId = results[0].IdStr;
 										foreach (var r in results) {
 											if (forceStop) {
-												StoppedGatheringCycle();
+												StoppedGatheringCycle(tweetsGatheredTotal);
 												return;
 											}
 
@@ -171,6 +173,7 @@ namespace WPFTwitter
 											if (TweetFound != null) {
 												TweetFound(r);
 											}
+											tweetsGatheredTotal++;
 
 											// freeze thread so that UI can update. very ugly solution based on http://stackoverflow.com/questions/4522583/how-to-do-the-processing-and-keep-gui-refreshed-using-databinding#_=_
 											//Thread.Sleep(1);
@@ -197,7 +200,7 @@ namespace WPFTwitter
 									}
 
 									if (forceStop) {
-										StoppedGatheringCycle();
+										StoppedGatheringCycle(tweetsGatheredTotal);
 										return;
 									}
 									#endregion
@@ -216,7 +219,7 @@ namespace WPFTwitter
 					log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
 					log.Output(e.ToString());
 				}
-				StoppedGatheringCycle();
+				StoppedGatheringCycle(tweetsGatheredTotal);
 			});
 		}
 

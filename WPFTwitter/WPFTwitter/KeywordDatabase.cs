@@ -95,7 +95,6 @@ namespace WPFTwitter
 		}
 
 
-		// keywords are added by expanding the original keywords, and each _expansion is expanding the next _expansion etc. until maxExpansionCount
 		public class KeywordData : INotifyPropertyChanged
 		{
 			/// <summary>

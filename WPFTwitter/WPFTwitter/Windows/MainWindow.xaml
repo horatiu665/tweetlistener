@@ -41,7 +41,7 @@
                                             <DataGridTemplateColumn Header="Time">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Time}"  TextWrapping="Wrap" />
+                                                        <TextBlock Text="{Binding Time}"  TextWrapping="Wrap"/>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -210,8 +210,9 @@
 
                                         <DockPanel>
                                             <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
-                                            <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="0" VerticalAlignment="Center">
+                                            <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="{Binding DatabaseDestinationComboBoxIndex}" VerticalAlignment="Center">
                                                 <ComboBoxItem Content="PHP POST"/>
+                                                <ComboBoxItem Content="Direct to MySQL"/>
                                             </ComboBox>
                                         </DockPanel>
 
@@ -249,6 +250,14 @@
                                             </Label>
                                             <TextBox Name="database_tableNameTextBox" VerticalAlignment="Center" Text="{Binding DatabaseTableName, Mode=TwoWay}" />
                                         </DockPanel>
+                                        <DockPanel>
+                                            <Label Content="DB connection str" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label.ToolTip>
+                                                    (only for data destination direct to SQL) Info about the connection to the database.
+                                                </Label.ToolTip>
+                                            </Label>
+                                            <TextBox Name="database_connectionString" VerticalAlignment="Center" Text="{Binding ConnectionString, Mode=TwoWay}" />
+                                        </DockPanel>
 
                                         <DockPanel>
                                             <CheckBox x:Name="checkBox_database" Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}">
@@ -264,7 +273,12 @@
                                                 Saves each tweet to text file, as backup for database. Path specified above.
                                             </CheckBox.ToolTip>
                                         </CheckBox>
-
+                                        <CheckBox x:Name="checkBox_saveToRam" Content="Save to RAM memory" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToRamProperty, Mode=TwoWay}">
+                                            <CheckBox.ToolTip>
+                                                Keeps received tweets in memory. Not useful when connected with a long-term stream connection on a low-resource machine. 
+                                                Drawback: cannot check for duplicates in listener, only in database (but that's better).
+                                            </CheckBox.ToolTip>
+                                        </CheckBox>
                                         <CheckBox x:Name="checkBox_logCounters" IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top">
                                             <CheckBox.ToolTip>
                                                 Output a log entry for each event received from Twitter, such as: received tweet, rate limit message, stream start/end, etc..
@@ -280,6 +294,14 @@
                                                 Logs raw data received from Twitter. Not recommended during gathering, but very useful when examining raw data, or debugging.
                                             </CheckBox.ToolTip>
                                         </CheckBox>
+                                        <DockPanel>
+                                            <Label Content="Window Title" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label.ToolTip>
+                                                    Displays a custom window title for easy managemenet of many apps running at once.
+                                                </Label.ToolTip>
+                                            </Label>
+                                            <TextBox VerticalAlignment="Center" Text="{Binding WindowTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DockPanel>
 
                                     </StackPanel>
                                 </ad:LayoutAnchorable>
@@ -312,6 +334,14 @@
                                                     </CheckBox.ToolTip>
                                                 </CheckBox>
                                                 <extendedWpf:TimeSpanUpDown x:Name="emailSpammerTimespan" Value="{Binding EmailSpammerTimeSpan, Mode=TwoWay}" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <CheckBox x:Name="checkBox_emailSpammerPositive" IsChecked="{Binding Path=EmailSpammerPositive, Mode=TwoWay}" Content="E-mail Connected" VerticalAlignment="Center" >
+                                                    <CheckBox.ToolTip>
+                                                        Email once every X interval, to inform that the program still works and is connected. If no email is received, there is a problem!!!
+                                                    </CheckBox.ToolTip>
+                                                </CheckBox>
+                                                <extendedWpf:TimeSpanUpDown x:Name="emailSpammerPositiveTimespan" Value="{Binding EmailSpammerPositiveTimeSpan, Mode=TwoWay}" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
                                             </DockPanel>
 
 
