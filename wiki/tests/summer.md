@@ -15,8 +15,8 @@ The list of games being watched, along with their release dates:
 - The Swindle: 28 july
 - King's Quest: 28 july
 - Everybody's gone to the rapture: 11 august
-- Armikrog: 18 august
 - Madden 16: 25 august
+- Armikrog: ~~18 august~~ 9 september
 - Zombie Vikings: tba
 
 The tweet gathering process was followed using TeamViewer, software which can be used to connect remotely over the internet. TeamViewer must be running on the target machine for the connection to work, which is reason for some of the hiccups in the gathering process.
