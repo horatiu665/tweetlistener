@@ -32,7 +32,6 @@ namespace WPFTwitter.Windows
 		Rest rest;
 		Credentials credentials;
 		DatabaseSaver databaseSaver;
-		RestGatherer restGatherer;
 		Log log;
 		KeywordDatabase keywordDatabase;
 		TweetDatabase tweetDatabase;
@@ -155,7 +154,6 @@ namespace WPFTwitter.Windows
 			stream = new Stream(databaseSaver, log, rest, keywordDatabase, tweetDatabase);
 			mailSpammerDisco = new MailHelper(log, stream);
 			mailSpammerConnect = new MailHelperBase(log, stream);
-			restGatherer = new RestGatherer(rest, log, tweetDatabase, keywordDatabase);
 			queryExpansion = new QueryExpansion(log);
 			porterStemmer = new PorterStemmerAlgorithm.PorterStemmer();
 
@@ -193,37 +191,7 @@ namespace WPFTwitter.Windows
 			// every 10 minutes expand.
 			//autoExpansionTimer.Interval = 10*60*1000;
 
-			restGatherer.TweetFound += (s, t) => {
-				App.Current.Dispatcher.Invoke(() => {
-					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
-					if (keywordDatabase.ContinuousUpdate) {
-						keywordListView.UpdateLayout();
-					}
-				});
-			};
-
-			restGatherer.ExpansionFinished += (s, edata) => {
-				_restMessageList.Add(
-					new LogMessage("E " + edata.expansion + "; Tweets " + edata.TweetCount));
-
-			};
-			restGatherer.CycleFinished += (s, sinceDate, untilDate) => {
-				_restMessageList.Add(
-					new LogMessage("Cycle from " + sinceDate + " until " + untilDate + " finished"));
-
-			};
-			restGatherer.Message += (m) => {
-				_restMessageList.Add(
-					new LogMessage("Message: " + m));
-
-			};
-			restGatherer.Stopped += (s, a) => {
-				App.Current.Dispatcher.Invoke((Action)(() => {
-					_restMessageList.Add(
-						new LogMessage("RestGatherer successfully stopped"));
-
-				}));
-			};
+			
 
 			// tweet view binding
 			tweetView.DataContext = tweetDatabase.Tweets;
@@ -248,14 +216,7 @@ namespace WPFTwitter.Windows
 				});
 				tweetsLastSecond++;
 			};
-			restGatherer.TweetFound += (s, t) => {
-				Task.Factory.StartNew(() => {
-					tweetDatabase.AddTweet(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
-					updateTweetsNextUpdate = true;
-
-				});
-				tweetsLastSecond++;
-			};
+			
 			rest.TweetFound += (t) => {
 				Task.Factory.StartNew(() => {
 					tweetDatabase.AddTweet(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
@@ -605,7 +566,7 @@ namespace WPFTwitter.Windows
 		}
 
 
-		private void SetKeywordListColumnHeaders(RestGatherer restGatherer, int expansionCount)
+		private void SetKeywordListColumnHeaders()
 		{
 			// set column headers text to give info about stuff
 			//var cols = restExpansionView.Columns;
@@ -613,7 +574,7 @@ namespace WPFTwitter.Windows
 			cols[0].Header = "Keywords (" + keywordDatabase.KeywordList.Count + ")";
 			cols[1].Header = "Count";
 			cols[2].Header = "Expansion ";
-			for (int i = 0; i <= expansionCount; i++) {
+			for (int i = 0; i <= 2; i++) {
 				cols[2].Header += keywordDatabase.KeywordList.Where(kd => kd.Expansion == i).Count().ToString() + " ";
 			}
 			// set up events for column headers for restExpansionView if they are not set up yet
@@ -681,7 +642,6 @@ namespace WPFTwitter.Windows
 		private void keywordListView_Headers_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			// order by kData
-			if (restGatherer == null) return;
 			if (keywordDatabase.KeywordList == null) return;
 			if (keywordDatabase.KeywordList.Count == 0) return;
 			if (((GridViewColumnHeader)sender).Content == null) return;
@@ -714,7 +674,6 @@ namespace WPFTwitter.Windows
 
 		private void keywordListView_Item_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			if (restGatherer == null) return;
 			if (keywordDatabase.KeywordList == null) return;
 			if (keywordDatabase.KeywordList.Count == 0) return;
 
@@ -860,7 +819,7 @@ namespace WPFTwitter.Windows
 					// delete kData from list
 					keywordDatabase.KeywordList.Remove(content);
 					// update header counts
-					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
+					SetKeywordListColumnHeaders();
 				});
 			}
 		}
@@ -960,7 +919,7 @@ namespace WPFTwitter.Windows
 				App.Current.Dispatcher.Invoke(() => {
 					keywordDatabase.KeywordList.Clear();
 
-					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
+					SetKeywordListColumnHeaders();
 				});
 			}
 		}
@@ -981,7 +940,7 @@ namespace WPFTwitter.Windows
 				App.Current.Dispatcher.Invoke(() => {
 					keywordDatabase.KeywordList.Add(newKeywordData);
 
-					SetKeywordListColumnHeaders(restGatherer, restGatherer.MaxExpansionCount);
+					SetKeywordListColumnHeaders();
 
 					keywordAddTextbox.Text = "";
 				});
