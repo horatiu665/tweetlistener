@@ -1,0 +1,89 @@
+create new app button position: 	{X=1354,Y=187};
+name textfield position: 			{X=563,Y=353};
+description: 						{X=551,Y=441};
+website: 							{X=566,Y=549};
+<scroll down>
+accept license: 					{X=513,Y=728}; gggg
+create: 							{X=511,Y=794};
+
+keys and tokens :					{X=722,Y=229};
+customer key:						{X=779,Y=375}; (double click to select)
+customer secret: 					{X=800,Y=414}; (double click to select)
+create access:						{X=584,Y=786}; (click once on button and wait)
+access key:							{X=779,Y=479}; (triple click to select because dash)
+access secret: 						{X=768,Y=514}; (double click to select)
+
+chrome address bar:					366 41
+
+
+
+MouseDown: 	Left; Location: 	{X=1354,Y=187}; 	 System Timestamp: 	22-09-2015 11:52:02
+MouseDown: 	Left; Location: 	{X=1354,Y=187}; 	 System Timestamp: 	22-09-2015 11:52:02
+MouseDown: 	Left; Location: 	{X=563,Y=353}; 	 System Timestamp: 	22-09-2015 11:52:08
+MouseDown: 	Left; Location: 	{X=563,Y=353}; 	 System Timestamp: 	22-09-2015 11:52:08
+KeyPress: 	a
+KeyPress: 	s
+KeyPress: 	d
+KeyPress: 	f
+MouseDown: 	Left; Location: 	{X=551,Y=441}; 	 System Timestamp: 	22-09-2015 11:52:15
+MouseDown: 	Left; Location: 	{X=551,Y=441}; 	 System Timestamp: 	22-09-2015 11:52:16
+KeyPress: 	a
+KeyPress: 	s
+KeyPress: 	d
+KeyPress: 	f
+MouseDown: 	Left; Location: 	{X=566,Y=549}; 	 System Timestamp: 	22-09-2015 11:52:19
+MouseDown: 	Left; Location: 	{X=566,Y=549}; 	 System Timestamp: 	22-09-2015 11:52:19
+KeyPress: 	q
+KeyPress: 	w
+KeyPress: 	e
+KeyPress: 	r
+MouseDown: 	Left; Location: 	{X=513,Y=728}; 	 System Timestamp: 	22-09-2015 11:52:32
+MouseDown: 	Left; Location: 	{X=513,Y=728}; 	 System Timestamp: 	22-09-2015 11:52:33
+The thread 0x28ac has exited with code 0 (0x0).
+MouseDown: 	Left; Location: 	{X=511,Y=794}; 	 System Timestamp: 	22-09-2015 11:52:37
+MouseDown: 	Left; Location: 	{X=325,Y=1074}; 	 System Timestamp: 	22-09-2015 11:52:42
+MouseDown: 	Left; Location: 	{X=741,Y=65}; 	 System Timestamp: 	22-09-2015 11:52:48
+
+
+KeyPress: 	k
+MouseDown: 	Left; Location: 	{X=722,Y=229}; 	 System Timestamp: 	22-09-2015 12:02:32
+MouseDown: 	Left; Location: 	{X=722,Y=229}; 	 System Timestamp: 	22-09-2015 12:02:32
+MouseDown: 	Left; Location: 	{X=722,Y=229}; 	 System Timestamp: 	22-09-2015 12:02:33
+MouseDown: 	Left; Location: 	{X=710,Y=374}; 	 System Timestamp: 	22-09-2015 12:02:45
+MouseDown: 	Left; Location: 	{X=710,Y=374}; 	 System Timestamp: 	22-09-2015 12:02:45
+KeyPress: 	
+MouseDown: 	Left; Location: 	{X=914,Y=384}; 	 System Timestamp: 	22-09-2015 12:03:13
+MouseDown: 	Left; Location: 	{X=879,Y=363}; 	 System Timestamp: 	22-09-2015 12:03:14
+MouseDown: 	Left; Location: 	{X=719,Y=377}; 	 System Timestamp: 	22-09-2015 12:03:20
+MouseDown: 	Left; Location: 	{X=719,Y=377}; 	 System Timestamp: 	22-09-2015 12:03:20
+KeyPress: 	c
+KeyPress: 	k
+MouseDown: 	Left; Location: 	{X=779,Y=375}; 	 System Timestamp: 	22-09-2015 12:03:35
+MouseDown: 	Left; Location: 	{X=779,Y=375}; 	 System Timestamp: 	22-09-2015 12:03:36
+KeyPress: 	c
+KeyPress: 	s
+MouseDown: 	Left; Location: 	{X=800,Y=414}; 	 System Timestamp: 	22-09-2015 12:03:40
+MouseDown: 	Left; Location: 	{X=800,Y=414}; 	 System Timestamp: 	22-09-2015 12:03:40
+KeyPress: 	c
+KeyPress: 	r
+KeyPress: 	e
+KeyPress: 	a
+KeyPress: 	t
+KeyPress: 	e
+MouseDown: 	Left; Location: 	{X=584,Y=786}; 	 System Timestamp: 	22-09-2015 12:03:51
+MouseDown: 	Left; Location: 	{X=779,Y=479}; 	 System Timestamp: 	22-09-2015 12:04:06
+MouseDown: 	Left; Location: 	{X=779,Y=479}; 	 System Timestamp: 	22-09-2015 12:04:06
+MouseDown: 	Left; Location: 	{X=779,Y=479}; 	 System Timestamp: 	22-09-2015 12:04:06
+KeyPress: 	a
+KeyPress: 	c
+KeyPress: 	c
+KeyPress: 	e
+KeyPress: 	s
+KeyPress: 	s
+MouseDown: 	Left; Location: 	{X=779,Y=479}; 	 System Timestamp: 	22-09-2015 12:04:14
+MouseDown: 	Left; Location: 	{X=779,Y=479}; 	 System Timestamp: 	22-09-2015 12:04:14
+MouseDown: 	Left; Location: 	{X=779,Y=479}; 	 System Timestamp: 	22-09-2015 12:04:15
+KeyPress: 	a
+KeyPress: 	s
+MouseDown: 	Left; Location: 	{X=768,Y=514}; 	 System Timestamp: 	22-09-2015 12:04:22
+MouseDown: 	Left; Location: 	{X=768,Y=515}; 	 System Timestamp: 	22-09-2015 12:04:22
