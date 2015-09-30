@@ -2,6 +2,8 @@
 
 In order to cover more ground and gather larger amounts of data than is currently possible, a cloud solution is sought.
 
+[A log of the setup and startup instructions is available here](https://github.com/horatiu665/tweetlistener/new/newMaster/wiki/cloud/setuplog.md)
+
 ## AWS
 
 Amazon Web Services (AWS) offers scalable cloud computing and storage solutions. The simplest step seems to be creating a [free account which offers some amount of free usage](http://aws.amazon.com/free/), however it can only be used by providing credit card/bank account details, and preparing to be billed unexpectedly by exceeding the free limits of the service. A big nasty [thread states that there is apparently no service for limiting the budget for AWS](https://forums.aws.amazon.com/thread.jspa?threadID=58127) for a few years, and therefore it is possible that without great care, the price of services used can skyrocket (since services are scalable automatically, and even tests/tutorial projects are billed).
@@ -39,3 +41,4 @@ Next step is implementing a way to automatically deploy data gathering for 45+ g
 ### Automated Twitter Application creator
 
 In an (unethical & ridiculous) attempt to increase the limit of allowed gathered tweets for the experiment, a small program was made that uses artificial mouse strokes and a web browser to automatically create twitter apps and copy-paste the authentication data into the console. The goal was to automate the process so that many (~200) applications can be created without much manual labor. Unfortunately, the evil plan was easily disrupted by the rate limiting of twitter, which does not seem to allow more than 3 apps being created per day (approximation based on a few attempts - the forums do not say anything about this), therefore spamming accounts must be done over a longer period of time, with 6 apps being created each day (3 from each of my two accounts).
+
