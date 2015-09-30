@@ -1057,3 +1057,4 @@ Error documentation description :
 15-09-2015 13:18:16: Stream disconnected.
 15-09-2015 13:18:40: Stream disconnected.
 15-09-2015 13:18:45: Stream disconnected.
+30-09-2015 09:47:17: New log started

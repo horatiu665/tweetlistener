@@ -171,7 +171,6 @@
     <Compile Include="MeanAveragePrecision.cs" />
     <Compile Include="PorterStemmerAlgorithm.cs" />
     <Compile Include="QueryExpansion.cs" />
-    <Compile Include="RestGathering.cs" />
     <Compile Include="TweetDatabase.cs" />
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Database.cs" />
