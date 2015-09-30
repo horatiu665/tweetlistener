@@ -31,6 +31,8 @@ The test ran between 15:38 and 9:40 for a total of 18h. The computer recorded th
 
 ## Options for deployment of many instances of TweetListener
 
+**This section is outdated! Please refer to [this page about the setup and startup instructions](https://github.com/horatiu665/tweetlistener/new/newMaster/wiki/cloud/setuplog.md)**
+
 Next step is implementing a way to automatically deploy data gathering for 45+ games simultaneously. Options:
 - TweetListener creates multiple objects for each stream/credentials pair (requires redesign of architecture, this would take some time but it would potentially fix other problems as well - this is the most long-term solution)
 - Batch script runs multiple instances of software (requires very beefy VM which might cost a few thousand kroners per month, as well as a lot of time to restart it in case it crashes, and a lot of time wasted deploying it = creating the batch script - this is the current method, which was pretty slow and crash-prone for the 12 games, so it will be even slower and even more crash-prone, but it is the most short-term solution)
