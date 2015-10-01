@@ -2,7 +2,7 @@
 
 In order to cover more ground and gather larger amounts of data than is currently possible, a cloud solution is sought.
 
-[A log of the setup and startup instructions is available here](https://github.com/horatiu665/tweetlistener/new/newMaster/wiki/cloud/setuplog.md)
+[A log of the setup and startup instructions is available here](setuplog.md)
 
 ## AWS
 
@@ -31,7 +31,7 @@ The test ran between 15:38 and 9:40 for a total of 18h. The computer recorded th
 
 ## Options for deployment of many instances of TweetListener
 
-**This section is outdated! Please refer to [this page about the setup and startup instructions](https://github.com/horatiu665/tweetlistener/new/newMaster/wiki/cloud/setuplog.md)**
+**This section is outdated! Please refer to [this page about the setup and startup instructions](setuplog.md)**
 
 Next step is implementing a way to automatically deploy data gathering for 45+ games simultaneously. Options:
 - TweetListener creates multiple objects for each stream/credentials pair (requires redesign of architecture, this would take some time but it would potentially fix other problems as well - this is the most long-term solution)
