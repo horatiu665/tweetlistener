@@ -27,6 +27,10 @@ This section allows an inexperienced user to successfully start data gathering w
   - How to check if streams are running: Is the last Log message something along the lines of "Stream started successfully" and "Rest Gathering started/completed"? Then the stream is running. The stream is not running only when there is a log message "Stream disconnected" after the latest "Stream started successfully".
   
 
+** due to the A1 tier and the fact that the VM has only one core, starting 24 tweet listeners completely froze the computer. At a glance, it was obvious that the data gathering did not work as well, because there was an error with the database connection. This must be fixed and tested before the proper gathering can be started. **
+
 ## List of games, release dates and queries
+
+The list of games is based on the Wikipedia page [2015 in video gaming] (https://en.wikipedia.org/wiki/2015_in_video_gaming#Game_releases)
 
 [This is a work in progress document where the games being searched for are described and the queries prepared](https://docs.google.com/spreadsheets/d/1ZXYjN8EHy2IchDqg0WT9960YriWKkpUA8guh68HA8C8/edit#gid=0)
