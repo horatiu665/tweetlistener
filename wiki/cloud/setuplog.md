@@ -16,18 +16,21 @@ This section allows an inexperienced user to successfully start data gathering w
 ![XAMPP settings](setup/xamppsettings.png)
   
 - Step 2. Find the folder TweetListeners on the desktop
-  - Inside this folder, there is a batch file, which is the only file needed to start data gathering for all games. Inside it, the configuration settings are already set up for each game.
+  - Inside this folder, there is a batch file called "run oct-dec games.bat", which is the only file needed to start data gathering for all games. Inside it, the configuration settings are already set up for each game.
   - Note that the batch file is not updated when the settings are changed inside the TweetListener software. As a result, after tweaking the settings in the software, please be sure to change the .bat file if you want those changes to be available after a potential restart. This should not be required unless the changes in the software are significant and unless a restart is required using the batch file.
   
-- Step 3. Run the file "TweetListenerBatch.bat" and make sure all the expected TweetListener windows are open, one for each game.
+- Step 3. Run the file "run oct-dec games.bat" and make sure all the expected TweetListener windows are open, one for each game.
   - the windows will be named accordingly, so a mouse-hover over the icons on the task bar on the bottom of the screen should be enough.
   
 - (optional) Step 4. Check each individual TweetListener instance by looking at the Log window in each of them. 
   - This step might be intense old-chineseman work. A future version of the software should ideally have a much better interface for running/verifying multiple streams at a glance.
   - How to check if streams are running: Is the last Log message something along the lines of "Stream started successfully" and "Rest Gathering started/completed"? Then the stream is running. The stream is not running only when there is a log message "Stream disconnected" after the latest "Stream started successfully".
   
+### Process log
+*Due to the A1 tier and the fact that the VM has only one core, starting 24 tweet listeners completely froze the computer. At a glance, it was obvious that the data gathering did not work as well, because there was an error with the database connection. This must be fixed and tested before the proper gathering can be started.*
+The fix came in the form of creating some more timed retries in the application (i.e. when an error came from Twitter, a retry is attempted after a second or so, and the same goes for errors from the database system or other potential problems). Another major change was upgrading to the A3 tier, which provides 14 GB RAM and 4 cores to the VM. This change allowed the machine to be much more responsive when all the applications were started simultaneously. Another option attempted was to start the applications 12-at-a-time, therefore reducing the initial workload and allowing them to stabilize before the others were started, which resulted in a stable configuration where all the applications were started.
 
-** due to the A1 tier and the fact that the VM has only one core, starting 24 tweet listeners completely froze the computer. At a glance, it was obvious that the data gathering did not work as well, because there was an error with the database connection. This must be fixed and tested before the proper gathering can be started. **
+The problem now is to observe if the applications will run safely over a period of a few days. The restart procedure is simply running the batch file again, and the data gathering should take care of itself.
 
 ## List of games, release dates and queries
 
