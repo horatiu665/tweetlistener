@@ -22,11 +22,12 @@ namespace WPFTwitter
 	public class DatabaseSaver
 	{
 		private Log log;
+		private Random random;
 
 		public DatabaseSaver(Log l)
 		{
 			log = l;
-
+			random = new Random();
 		}
 
 		private bool _started = false;
@@ -135,42 +136,42 @@ namespace WPFTwitter
 		public void SaveTweet(ITweet tweet, int retries = 0)
 		{
 			if (SaveToDatabase) {
-				if (saveMethod == SaveMethods.DirectToMysql) {
-					// save to mysql
-					Task.Factory.StartNew(() => {
-						SaveToSQL(tweet, DatabaseTableName);
-					});
-				} else {
-					// save to php 
-					try {
+				// save to php 
+				try {
+					if (saveMethod == SaveMethods.DirectToMysql) {
+						// save to mysql
+						Task.Factory.StartNew(() => {
+							SaveToSQL(tweet, DatabaseTableName);
+						});
+
+					} else {
 						// encode tweet to json and use SaveToPhpFullJson(string json).
 						JObject json = EncodeTweetToJson(tweet);
 						SaveToPhpFullJson(json.ToString());
 
 					}
-					catch (Exception e) {
+				}
+				catch (Exception e) {
+					if (Message != null) {
+						if (outputDatabaseMessages)
+							Message(e.ToString());
+					}
+					// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
+					if (retries < MaxTweetDatabaseSendRetries) {
+						Task.Factory.StartNew(() => {
+							// wait a little and then try again. wait random amount to spread calls among multiple programs
+							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries + random.NextDouble()*secondsBetweenSendRetries).Ticks;
+							while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
+							SaveTweet(tweet, retries + 1);
+
+						});
+					} else {
 						if (Message != null) {
 							if (outputDatabaseMessages)
-								Message(e.ToString());
-						}
-						// retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
-						if (retries < MaxTweetDatabaseSendRetries) {
-							Task.Factory.StartNew(() => {
-								// wait a little and then try again
-								var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries).Ticks;
-								while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
-								SaveTweet(tweet, retries + 1);
-
-							});
-						} else {
-							if (Message != null) {
-								if (outputDatabaseMessages)
-									Message("Failed to send after " + retries + " tries");
-							}
+								Message("Failed to send after " + retries + " tries");
 						}
 					}
 				}
-
 			}
 
 			if (SaveToTextFileProperty) {
@@ -313,11 +314,13 @@ namespace WPFTwitter
 			try {
 				MySqlConnection connection = new MySqlConnection(connectionString);
 				if (Message != null) {
-					Message("Opening " + connectionString);
-				} 
+					if (outputDatabaseMessages)
+						Message("Opening " + connectionString);
+				}
 				connection.Open();
 				if (Message != null) {
-					Message("Connection to " + connectionString + " opened successfully");
+					if (outputDatabaseMessages)
+						Message("Connection to " + connectionString + " opened successfully");
 				}
 
 				string query = "";
@@ -337,13 +340,14 @@ namespace WPFTwitter
 				#endregion
 
 				if (Message != null) {
-					Message("Creating command for " + connectionString);
-				} 
+					if (outputDatabaseMessages)
+						Message("Creating command for " + connectionString);
+				}
 
 				MySqlCommand command = new MySqlCommand(query, connection);
 				command.Parameters.AddWithValue("@tweet_id_str", tweet.IdStr);
 				command.Parameters.AddWithValue("@tweet", tweet.Text);
-				command.Parameters.AddWithValue("@created_at", tweet.CreatedAt.ToString("dd-MM-yyyy HH:mm:ss"));
+				command.Parameters.AddWithValue("@created_at", tweet.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
 				command.Parameters.AddWithValue("@user_id_str", tweet.Creator.IdStr);
 				command.Parameters.AddWithValue("@user_name", tweet.Creator.ScreenName);
 				command.Parameters.AddWithValue("@in_reply_to_status_id_str", tweet.InReplyToStatusIdStr);
@@ -355,15 +359,17 @@ namespace WPFTwitter
 				command.CommandTimeout = 60;
 
 				if (Message != null) {
-					Message("Executing reader for " + connectionString);
-				} 
-				
+					if (outputDatabaseMessages)
+						Message("Executing reader for " + connectionString);
+				}
+
 				var reader = command.ExecuteReader();
 
 				while (reader.Read()) {
 					foreach (var r in reader) {
 						if (Message != null) {
-							Message(r.ToString());
+							if (outputDatabaseMessages)
+								Message(r.ToString());
 						}
 					}
 				}

@@ -99,10 +99,18 @@ namespace WPFTwitter
 					var results = new List<ITweet>();
 
 					foreach (var q in queries) {
+
 						var queryString = "";
-						foreach (var s in q) {
-							queryString += s + ",";
+						if (q.Count > 0) {
+							queryString = q[0];
+							for (int queryIndex = 1; queryIndex < q.Count; queryIndex++) {
+								queryString += " OR " + q[queryIndex];
+							}
 						}
+						// gives error due to final floating " OR "
+						//foreach (var s in q) {
+						//	queryString += s + " OR ";
+						//}
 
 						if (forceStop) {
 							StoppedGatheringCycle(tweetsGatheredTotal);
@@ -142,14 +150,16 @@ namespace WPFTwitter
 
 							log.Output("Searching for " + sp.SearchQuery);
 
+							Tweetinvi.Core.Exceptions.ITwitterException twitterException = null;
+							
 							do {
 								// gathers tweets only when allowed, until there are no more tweets to gather for this set of keywords.
 								gotResults = false;
 								if (rateLimitCounter > 0) {
 
-									results = SearchTweets(sp);
+									results = SearchTweets(sp, out twitterException);
 
-									gotResults = true;
+									gotResults = twitterException == null;
 
 									if (results != null && results.Count > 0) {
 
@@ -183,7 +193,9 @@ namespace WPFTwitter
 										sp.MaxId = long.Parse(minId) - 1;
 									}
 
-								} else if (rateLimitCounter <= 0) {
+								}
+								
+								if (rateLimitCounter <= 0 || twitterException != null) {
 									#region rate limits
 									// check rate limits in case we are wrong and they are not actually zero
 									rateLimitsObj = GetRateLimits_Search();
@@ -283,7 +295,7 @@ namespace WPFTwitter
 			}
 		}
 
-		public List<ITweet> SearchTweets(ITweetSearchParameters searchParameters)
+		public List<ITweet> SearchTweets(ITweetSearchParameters searchParameters, out Tweetinvi.Core.Exceptions.ITwitterException twitterException)
 		{
 			if (TwitterCredentials.ApplicationCredentials != null) {
 				if (false) {
@@ -346,18 +358,20 @@ namespace WPFTwitter
 
 				try {
 					var tweets = Search_SearchTweets(searchParameters);
+					twitterException = null;
 					return tweets;
 				}
 				catch (NullReferenceException nullref) {
 					log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
 					log.Output("Here is the error: " + nullref.ToString());
 					// attempting to get error from twitter message
-					var ex = Tweetinvi.ExceptionHandler.GetLastException();
-					log.Output("Latest exception from Tweetinvi! Status code: " + ex.StatusCode
-						+ "\nException description: " + ex.TwitterDescription);
+					twitterException = Tweetinvi.ExceptionHandler.GetLastException();
+					log.Output("Latest exception from Tweetinvi! Status code: " + twitterException.StatusCode
+						+ "\nException description: " + twitterException.TwitterDescription);
 					return null;
 				}
 			}
+			twitterException = null;
 			return null;
 		}
 

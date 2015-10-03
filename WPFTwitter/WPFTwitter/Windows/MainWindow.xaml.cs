@@ -191,7 +191,7 @@ namespace WPFTwitter.Windows
 			// every 10 minutes expand.
 			//autoExpansionTimer.Interval = 10*60*1000;
 
-			
+
 
 			// tweet view binding
 			tweetView.DataContext = tweetDatabase.Tweets;
@@ -216,7 +216,7 @@ namespace WPFTwitter.Windows
 				});
 				tweetsLastSecond++;
 			};
-			
+
 			rest.TweetFound += (t) => {
 				Task.Factory.StartNew(() => {
 					tweetDatabase.AddTweet(new TweetDatabase.TweetData(t, TweetDatabase.TweetData.Sources.Rest, 0, 1));
@@ -337,7 +337,11 @@ namespace WPFTwitter.Windows
 				string keywordsString = commandLineArgs["keywords"];
 				var keywordsStringList = keywordsString.Split(",".ToCharArray());
 				foreach (var ks in keywordsStringList) {
-					keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(ks, 0));
+					// trim spaces from beginning and end of each keyword
+					var trimmedKeyword = ks.Trim(' ');
+					if (trimmedKeyword.Length > 0) {
+						keywordDatabase.KeywordList.Add(new KeywordDatabase.KeywordData(trimmedKeyword, 0));
+					}
 				}
 			}
 			if (commandLineArgs.ContainsKey("windowTitle")) {
@@ -489,13 +493,16 @@ namespace WPFTwitter.Windows
 			//logSettingsLayout.ToggleAutoHide();
 		}
 
+		private bool queryExpanding = false;
+
 		private void restQueryButton_Click(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.InvokeAsync((Action)(() => {
 
 				string filter = restFilterTextBox.Text;
 
-				bool simpleQuery = ((CheckBox)rest_filter_simpleQuery).IsChecked.Value;
+				// non-simple query never worked, might as well just have the simple query type
+				bool simpleQuery = true;//((CheckBox)rest_filter_simpleQuery).IsChecked.Value;
 				if (simpleQuery) {
 
 					log.Output("Getting Rest query with filter \"" + filter + "\"");
@@ -525,7 +532,13 @@ namespace WPFTwitter.Windows
 					// display stuff in restInfoTextBlock.Text = "<here>"
 					log.Output(("Getting Rest query with advanced search parameters"));
 
-					var res = rest.SearchTweets(searchParameters);
+					Tweetinvi.Core.Exceptions.ITwitterException twitterException;
+					var res = rest.SearchTweets(searchParameters, out twitterException);
+
+					if (twitterException != null) {
+						log.Output("Latest exception from Tweetinvi! Status code: " + twitterException.StatusCode
+						+ "\nException description: " + twitterException.TwitterDescription);
+					}
 
 					if (res == null) {
 						log.Output(("Not authenticated or invalid credentials"));
@@ -547,8 +560,65 @@ namespace WPFTwitter.Windows
 
 		}
 
-		private bool queryExpanding = false;
+		private void restExhaustiveQueryButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (!rest.IsGathering) {
+				if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
+					// start this in a new thread
+					//Task.Factory.StartNew(() => {
+					App.Current.Dispatcher.Invoke(() => {
+						rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
+					});
+					//});
+					restExhaustiveQueryButton.Content = "Stop Gathering Cycle";
+					restKeywordsQueryButton.Content = "Stop Gathering Cycle";
 
+				} else {
+					// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
+					log.Output("Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.");
+				}
+			} else {
+				rest.StopGatheringCycle();
+			}
+
+			rest.StoppedGatheringCycle -= ResetRestGatheringButton;
+			rest.StoppedGatheringCycle += ResetRestGatheringButton;
+		}
+
+
+		private void restKeywordsQueryButton_Click(object sender, RoutedEventArgs e)
+		{
+			// get keywords from keywordsList and use REST to do exhaustive query on them.
+			if (!rest.IsGathering) {
+				if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
+					App.Current.Dispatcher.Invoke(() => {
+						rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, keywordDatabase.GetUsableKeywords());
+					});
+				} else {
+					// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
+					log.Output("Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.");
+				}
+				restExhaustiveQueryButton.Content = "Stop Gathering Cycle";
+				restKeywordsQueryButton.Content = "Stop Gathering Cycle";
+
+			} else {
+				log.Output("Cannot start Rest gathering cycle because Rest gathering cycle in progress. Stopping now...");
+				rest.StopGatheringCycle();
+			}
+
+			rest.StoppedGatheringCycle -= ResetRestGatheringButton;
+			rest.StoppedGatheringCycle += ResetRestGatheringButton;
+		}
+
+
+		private void ResetRestGatheringButton(int tweetCount)
+		{
+			App.Current.Dispatcher.Invoke(() => {
+				restExhaustiveQueryButton.Content = "Perform Exhaustive Query";
+				restKeywordsQueryButton.Content = "Perform Query From KeywordList";
+
+			});
+		}
 
 
 		private void SetTweetViewColumnHeaders()
@@ -749,36 +819,6 @@ namespace WPFTwitter.Windows
 
 				tweetView.UpdateLayout();
 			}));
-		}
-
-		private void restExhaustiveQueryButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (!rest.IsGathering) {
-				if (restStartDate.Value.HasValue && restEndDate.Value.HasValue) {
-					// start this in a new thread
-					//Task.Factory.StartNew(() => {
-					App.Current.Dispatcher.Invoke(() => {
-						rest.TweetsGatheringCycle(restStartDate.Value.Value, restEndDate.Value.Value, restFilterTextBox.Text.Split(',').ToList());
-					});
-					//});
-					restExhaustiveQueryButton.Content = "Stop Gathering Cycle";
-				} else {
-					// highlight startDate and endDate to signal the user that they need to be filled with values. #nicetohave
-					log.Output("Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.");
-				}
-			} else {
-				rest.StopGatheringCycle();
-			}
-
-			rest.StoppedGatheringCycle -= ResetRestGatheringButton;
-			rest.StoppedGatheringCycle += ResetRestGatheringButton;
-		}
-
-		private void ResetRestGatheringButton(int tweetCount)
-		{
-			App.Current.Dispatcher.Invoke(() => {
-				restExhaustiveQueryButton.Content = "Start Gathering Cycle";
-			});
 		}
 
 		private void tweetView_Item_DeleteButton(object sender, RoutedEventArgs e)

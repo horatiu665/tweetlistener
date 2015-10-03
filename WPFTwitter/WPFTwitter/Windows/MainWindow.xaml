@@ -454,16 +454,16 @@
                                             <extendedWpf:DateTimePicker x:Name="restEndDate"/>
                                         </DockPanel>
                                         <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
-                                            <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0"/>
-                                            <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0"/>
+                                            <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0" ToolTip="Perform simple query, using filter specified above, and using settings from the buttons below (recent or not)"/>
+                                            <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0" ToolTip="Perform exhaustive query using filter specified above and settings from below (recent or not)"/>
+                                            <Button x:Name="restKeywordsQueryButton" Content="Perform Query From KeywordList" Click="restKeywordsQueryButton_Click" Margin="10, 0" ToolTip="Perform exhaustive query using selected keywords from the KeywordList panel, identical to the one being performed at the start of a Streaming connection"/>
 
-                                            <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0"/>
+                                            <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0" ToolTip="Queries Twitter for the rate limits for the current application"/>
 
                                         </StackPanel>
                                         <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
                                             <!-- date filter, tweet id filter, etc... -->
-                                            <CheckBox x:Name="rest_filter_simpleQuery" Content="Simple Query" />
-                                            <CheckBox x:Name="rest_filter_recent" Content="Recent" />
+                                            <CheckBox x:Name="rest_filter_recent" Content="Recent" IsChecked="True" ToolTip="If true, returns recent tweets (in order). If false, returns popular tweets, not necessarily recent - could be 4 years old or something"/>
 
 
                                         </StackPanel>

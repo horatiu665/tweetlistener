@@ -1,4 +1,4 @@
- start "WPFTwitter" "Release/WPFTwitter.exe" ^
+start "WPFTwitter" /MAX /D "Release\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -19,8 +19,8 @@
  /keywords "#YoshiWoollyWorld, #YoshisWoollyWorld, #yoshiwoolyworld,#yoshiswoolyworld, #woollyworld, #woolyworld" ^
  /windowTitle "Yoshi's Woolly World" ^
  /startStream 1
-
- start "WPFTwitter" "Release - Copy/WPFTwitter.exe" ^
+goto :eof
+ start "WPFTwitter" /D "Release - Copy\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -42,7 +42,7 @@
  /windowTitle "DragonBallZ" ^
  /startStream 1
 
- start "WPFTwitter" "Release - Copy (2)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (2)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -64,7 +64,7 @@
  /windowTitle "Guitar Hero Live" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (3)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (3)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -86,7 +86,7 @@
  /windowTitle "life is strange" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (4)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (4)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -108,7 +108,7 @@
  /windowTitle "rebel galaxy" ^
  /startStream 1
 
- start "WPFTwitter" "Release - Copy (5)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (5)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -130,7 +130,7 @@
  /windowTitle "Tales of Zestiria" ^
  /startStream 1
 
- start "WPFTwitter" "Release - Copy (6)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (6)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -152,7 +152,8 @@
  /windowTitle "sword coast legends" ^
  /startStream 1
 
- start "WPFTwitter" "Release - Copy (7)/WPFTwitter.exe" ^
+goto :eof
+ start "WPFTwitter" /D "Release - Copy (7)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -174,7 +175,7 @@
  /windowTitle "Fatal Frame Maiden of Black Water" ^
  /startStream 1
 
- start "WPFTwitter" "Release - Copy (8)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (8)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -196,7 +197,7 @@
  /windowTitle "Assassins Creed Syndicate" ^
  /startStream 1
 
- start "WPFTwitter" "Release - Copy (9)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (9)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -219,7 +220,7 @@
  /startStream 1
  
  
- start "WPFTwitter" "Release - Copy (10)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (10)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -242,7 +243,7 @@
  /startStream 1
  
  
- start "WPFTwitter" "Release - Copy (11)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (11)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -265,7 +266,7 @@
  /startStream 1
  
  
- start "WPFTwitter" "Release - Copy (12)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (12)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -288,7 +289,7 @@
  /startStream 1
  
  
- start "WPFTwitter" "Release - Copy (13)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (13)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -310,7 +311,7 @@
  /windowTitle "Anno 2205" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (14)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (14)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -332,7 +333,7 @@
  /windowTitle "Need For Speed" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (15)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (15)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -354,7 +355,7 @@
  /windowTitle "Call of Duty: Black Ops III" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (16)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (16)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -376,7 +377,7 @@
  /windowTitle "The Peanuts Movie: Snoopy's Grand Adventure" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (17)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (17)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -398,7 +399,7 @@
  /windowTitle "Yokai watch" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (18)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (18)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -420,7 +421,7 @@
  /windowTitle "Fallout 4" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (19)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (19)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -442,7 +443,7 @@
  /windowTitle "tony hawk pro skater 5" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (20)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (20)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -464,7 +465,7 @@
  /windowTitle "Rise of the Tomb Raider" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (21)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (21)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -486,7 +487,7 @@
  /windowTitle "Rodea the Sky Soldier" ^
  /startStream 1
  
- start "WPFTwitter" "Release - Copy (22)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (22)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -509,7 +510,7 @@
  /startStream 1
  
  
- start "WPFTwitter" "Release - Copy (23)/WPFTwitter.exe" ^
+ start "WPFTwitter" /D "Release - Copy (23)\" "WPFTwitter.exe" ^
  /phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
  /logPath "log.txt" ^
  /textFileDbPath "rawJsonBackup.txt" ^
@@ -531,3 +532,4 @@
  /windowTitle "Back to the Future: The Game" ^
  /startStream 1
  
+:eof
