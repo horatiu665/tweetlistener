@@ -37,7 +37,7 @@ In the root folder of all the TweetListeners there are multiple batch files that
 This section allows an inexperienced user to successfully start data gathering with minimal configuration options.
 
 - Step 1. Starting up the virtual machine
-  - The virtual machine (VM) must be accessed through the Azure portal or a Remote Desktop Connection provided from the portal beforehand. Once a machine is setup, the connection can be accessed from anywhere with the correct credentials. For the current configuration, the username and password are: `horatiu665` and `Twitter665`. All programs needed for running data gathering are available on the desktop of the VM.
+  - The virtual machine (VM) must be accessed through the Azure portal or a Remote Desktop Connection provided from the portal beforehand. Once a machine is setup, the connection can be accessed from anywhere with the correct credentials. For the current configuration, the username and password can be found if you e-mail me. All programs needed for running data gathering are available on the desktop of the VM.
   
 - Step 1.1. Make sure the local server and database is running, by checking the XAMPP control panel from the icon in the lower right corner. Apache and MySQL should be running as seen in the image below. If there is no icon, please start XAMPP manually from the Start menu.
 
@@ -65,6 +65,8 @@ The problem now is to observe if the applications will run safely over a period 
 **3 days** have passed since gathering started. The VM has been running at 100% CPU for the past 2 days but surprisingly it is still somewhat responsive and all the programs are running. Unfortunately, none of the TweetListeners were able to send any e-mails, probably due to the VM not allowing such connections to be made (an error was received about the server response being 5.5.1. Authentication required). After a simple check for the raw numbers of tweets saved in the database, it is clear that some games are being given preferential treatment by the machine by receiving more CPU time than others, and therefore gathering more tweets than others. For example, halo5 gathered 12000 tweets in 3 days whereas dragon ball z only gathered 9 - and its release date is about 1 month sooner. Even though the first game is much more popular, this is suspicious, and at a closer look it appears that the application registered 62 tweets saved, the text file saved something like 20 tweets, but in the database only 9 managed to get through. The amount of data being missed is impossible to find out, as the stream simply sends messages in its own rhythm, and the application is capturing them at its own pace, not knowing that it might be too slow for the incoming data.
 
 A solution for this might be to attempt improving the quality of the VM even further, or starting up multiple VMs and placing smaller loads on each (but then the setup operations must be done twice). Another solution is to redesign the software but as we decided that is time consuming and not worthwhile atm.
+
+A first attempt is to upgrade the machine to the D4 tier (8 cores, 16 GB RAM) - this seems to be the second highest CPU performance and third highest price available.
 
 ## List of games, release dates and queries
 
