@@ -2,7 +2,10 @@
 
 This section describes how to restart data gathering in the unfortunate event of a crash.
 
-## blablabla
+1. Start-up the virtual machine (if machine is stopped), and connect to it using remote desktop connection.
+2. Find the folder TweetListeners on the desktop, find the batch files "run oct-dec games.bat" and "kill all tweetlisteners.bat" inside it.
+3. If there are any currently running TweetListeners, open the file "kill all tweetlisteners.bat" to close them all.
+4. Open the file "run oct-dec games.bat" to start data gathering using the initial settings for each game. *This starts all instances of the software, so it might take a little while and be a bit unresponsive, but once all programs have been started, a check should be performed that all desired games are running, just in case. Each window is named as the game name, so a simple mouse hover over the task bar should be enough*
 
 # Pre-Setup
 
