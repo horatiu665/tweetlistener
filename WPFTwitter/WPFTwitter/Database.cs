@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using Newtonsoft.Json.Linq;
 using Tweetinvi.Core.Interfaces;
 using Tweetinvi;
@@ -107,7 +108,8 @@ namespace WPFTwitter
 		public enum SaveMethods
 		{
 			PhpPost,
-			DirectToMysql
+			DirectToMysql,
+			DirectToSql
 		}
 		public SaveMethods saveMethod;
 
@@ -141,10 +143,16 @@ namespace WPFTwitter
 					if (saveMethod == SaveMethods.DirectToMysql) {
 						// save to mysql
 						Task.Factory.StartNew(() => {
+							SaveToMySQL(tweet, DatabaseTableName);
+						});
+
+					} else if (saveMethod == SaveMethods.DirectToSql) {
+						// save to mysql
+						Task.Factory.StartNew(() => {
 							SaveToSQL(tweet, DatabaseTableName);
 						});
 
-					} else {
+					} else if (saveMethod == SaveMethods.PhpPost) {
 						// encode tweet to json and use SaveToPhpFullJson(string json).
 						JObject json = EncodeTweetToJson(tweet);
 						SaveToPhpFullJson(json.ToString());
@@ -152,6 +160,21 @@ namespace WPFTwitter
 					}
 				}
 				catch (Exception e) {
+					if (e is SqlException) {
+						if (((SqlException)e).Number == 1045) {
+							if (Message != null) {
+								Message("Invalid username or password");
+							}
+						}
+					}
+					if (e is MySqlException) {
+						if (((MySqlException)e).Number == 1045) {
+							if (Message != null) {
+								Message("Invalid username or password");
+							}
+						}
+					}
+
 					if (Message != null) {
 						if (outputDatabaseMessages)
 							Message(e.ToString());
@@ -160,7 +183,7 @@ namespace WPFTwitter
 					if (retries < MaxTweetDatabaseSendRetries) {
 						Task.Factory.StartNew(() => {
 							// wait a little and then try again. wait random amount to spread calls among multiple programs
-							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries + random.NextDouble()*secondsBetweenSendRetries).Ticks;
+							var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries + random.NextDouble() * secondsBetweenSendRetries).Ticks;
 							while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
 							SaveTweet(tweet, retries + 1);
 
@@ -307,7 +330,7 @@ namespace WPFTwitter
 		/// saves directly to database.
 		/// </summary>
 		/// <param name="message"></param>
-		void SaveToSQL(ITweet tweet, string tableName)
+		void SaveToMySQL(ITweet tweet, string tableName)
 		{
 			string connectionString = ConnectionString;
 
@@ -389,10 +412,111 @@ namespace WPFTwitter
 
 					}
 				}
-
+				throw new Exception("Database MySqlException. Pls retry");
 			}
 		}
 
+		void SaveToSQL(ITweet tweet, string tableName)
+		{
+			/// connection string format for SQL ADO.NET taken from Azure:
+			/// Server=tcp:tweetlistener.database.windows.net,1433;Database=twitter;User ID=horatiu665@tweetlistener;Password={your_password_here};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+			string connectionString = ConnectionString;
+
+			SqlConnection connection = new SqlConnection(connectionString);
+
+			if (Message != null) {
+				if (outputDatabaseMessages)
+					Message("Opening " + connectionString);
+			}
+			connection.Open();
+			if (Message != null) {
+				if (outputDatabaseMessages)
+					Message("Connection to " + connectionString + " opened successfully");
+			}
+
+			string query = "";
+			#region setup  query
+
+			string twoLetterLanguage = Tweetinvi.Core.Extensions.LanguageExtension.GetDescriptionAttribute(tweet.Language);
+
+			// the blog post here http://samsaffron.com/blog/archive/2007/04/04/14.aspx
+			// states that SQL does not support ON DUPLICATE KEY UPDATE
+			// and it should rather use something like the below adaptation:
+			/*
+				begin tran
+				   update t with (serializable)
+				   set hitCount = hitCount + 1
+				   where pk = @id
+				   if @@rowcount = 0
+				   begin
+					  insert t (pk, hitCount)
+					  values (@id,1)
+				   end
+				commit tran
+				 
+			 */
+
+			query += " begin tran					 ";
+			query += " 	update " + tableName + " with (serializable) ";
+			query += " 	set retweet_count = @retweet_count ";
+			query += " 	where tweet_id_str = @tweet_id_str ";
+			query += " 	if @@rowcount = 0			 ";
+			query += " 	begin						 ";
+			query += " 		insert " + tableName + " (id, tweet_id_str, tweet, created_at, user_id_str, user_name, in_reply_to_status_id_str, in_reply_to_user_id_str, lang, retweet_count) ";
+			query += " 		values " + @" (NULL, @tweet_id_str, @tweet, @created_at, @user_id_str, @user_name, @in_reply_to_status_id_str, @in_reply_to_user_id_str, @lang, @retweet_count) ";
+			query += " 	end							 ";
+			query += " commit tran					 ";
+
+			//query = " INSERT INTO ";
+			//query += " " + tableName + " ";
+			//query += " (`id`, `tweet_id_str`, `tweet`, `created_at`, `user_id_str`, `user_name`, `in_reply_to_status_id_str`, `in_reply_to_user_id_str`, `lang`, `retweet_count`) ";
+			//query += " VALUES ";
+			//query += @" (NULL, @tweet_id_str, @tweet, @created_at, @user_id_str, @user_name, @in_reply_to_status_id_str, @in_reply_to_user_id_str, @lang, @retweet_count) ";
+			//query += " ON DUPLICATE KEY UPDATE ";
+			//query += " retweet_count = @retweet_count";
+
+			#endregion
+
+
+			if (Message != null) {
+				if (outputDatabaseMessages)
+					Message("Creating command for " + connectionString);
+			}
+
+			SqlCommand command = new SqlCommand(query, connection);
+			command.Parameters.AddWithValue("@tweet_id_str", tweet.IdStr);
+			command.Parameters.AddWithValue("@tweet", tweet.Text);
+			command.Parameters.AddWithValue("@created_at", tweet.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"));
+			command.Parameters.AddWithValue("@user_id_str", tweet.Creator.IdStr);
+			command.Parameters.AddWithValue("@user_name", tweet.Creator.ScreenName);
+			command.Parameters.AddWithValue("@in_reply_to_status_id_str", tweet.InReplyToStatusIdStr);
+			command.Parameters.AddWithValue("@in_reply_to_user_id_str", tweet.InReplyToUserIdStr);
+			command.Parameters.AddWithValue("@lang", twoLetterLanguage);
+			command.Parameters.AddWithValue("@retweet_count", tweet.RetweetCount);
+			command.CommandType = System.Data.CommandType.Text;
+			// timeout in seconds
+			command.CommandTimeout = 60;
+
+			if (Message != null) {
+				if (outputDatabaseMessages)
+					Message("Executing reader for " + connectionString);
+			}
+
+			var reader = command.ExecuteReader();
+
+			while (reader.Read()) {
+				foreach (var r in reader) {
+					if (Message != null) {
+						if (outputDatabaseMessages)
+							Message(r.ToString());
+					}
+				}
+			}
+
+			connection.Close();
+
+
+		}
 
 		void SaveToTextFile(ITweet tweet)
 		{

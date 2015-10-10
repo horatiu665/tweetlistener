@@ -213,6 +213,7 @@
                                             <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="{Binding DatabaseDestinationComboBoxIndex}" VerticalAlignment="Center">
                                                 <ComboBoxItem Content="PHP POST"/>
                                                 <ComboBoxItem Content="Direct to MySQL"/>
+                                                <ComboBoxItem Content="Direct to SQL"/>
                                             </ComboBox>
                                         </DockPanel>
 

@@ -1,0 +1,63 @@
+06-10-2015 13:59:08: New log started
+06-10-2015 14:00:02: Stream disconnected.
+06-10-2015 14:00:02: Exception: --- Date : 06-10-2015 14:00:02
+URL : https://stream.twitter.com/1.1/statuses/sample.json?
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+06-10-2015 14:00:03: Stream disconnected.
+06-10-2015 14:00:03: Stream disconnected.
+06-10-2015 14:00:03: Exception: --- Date : 06-10-2015 14:00:03
+URL : https://stream.twitter.com/1.1/statuses/sample.json?
+Code : -1
+Error documentation description : 
+
+06-10-2015 14:00:05: Stream disconnected.
+06-10-2015 14:00:05: Exception: --- Date : 06-10-2015 14:00:05
+URL : https://stream.twitter.com/1.1/statuses/sample.json?
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+06-10-2015 14:00:20: Stream disconnected.
+06-10-2015 14:00:20: Exception: --- Date : 06-10-2015 14:00:20
+URL : https://stream.twitter.com/1.1/statuses/sample.json?
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+06-10-2015 14:00:25: Stream disconnected.
+06-10-2015 14:00:25: Exception: --- Date : 06-10-2015 14:00:25
+URL : https://stream.twitter.com/1.1/statuses/sample.json?
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+06-10-2015 14:00:32: Stream disconnected.
+06-10-2015 14:00:32: Exception: --- Date : 06-10-2015 14:00:32
+URL : https://stream.twitter.com/1.1/statuses/sample.json?
+Code : 420
+Error documentation description : 
+Exceeded connection limit for user
+ (0)
+
+08-10-2015 13:36:15: New log started
+08-10-2015 13:37:22: Stream disconnected.
+08-10-2015 13:38:29: Stream disconnected.
+08-10-2015 13:39:09: New log started
+08-10-2015 13:40:01: Stream disconnected.
+08-10-2015 13:43:38: Stream disconnected.
+08-10-2015 13:47:51: New log started
+08-10-2015 13:48:43: Stream disconnected.
+08-10-2015 13:50:04: Stream disconnected.
+08-10-2015 13:54:32: New log started
+08-10-2015 13:55:01: Stream disconnected.
+08-10-2015 13:56:31: New log started
+08-10-2015 13:56:46: Stream disconnected.
+08-10-2015 13:57:22: Stream disconnected.
+08-10-2015 14:00:58: New log started
