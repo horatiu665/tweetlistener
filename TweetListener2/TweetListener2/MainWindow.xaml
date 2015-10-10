@@ -1,0 +1,27 @@
+﻿<Window x:Class="TweetListener2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TweetListener2.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel Margin="0">
+        <!--This scroll viewer contains all the HorizontalNodeUserControl's, which in turn contain all the custom controls of various little buttons (nodes)--> 
+        <local:ExtScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Panels, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <!--<ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        --><!--<customUserControl DockPanel.Dock="Left" DataContext="{Binding Path=.}"/>--><!--
+                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>-->
+            </ItemsControl>
+        </local:ExtScrollViewer>
+    </DockPanel>
+</Window>
