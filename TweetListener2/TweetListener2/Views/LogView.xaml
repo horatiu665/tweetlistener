@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="TweetListener2.Views.LogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TweetListener2.Views"
+             xmlns:controls="clr-namespace:TweetListener2.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button Content="Clear Log" Width="100" Command="{Binding ClearLogButtonClick}" HorizontalAlignment="Left">
+                <Button.ToolTip>
+                    Clears log messages from memory. Log file not affected.
+                </Button.ToolTip>
+            </Button>
+            <!-- There were some problems with AutoScroll leaving the application less responsive. Should be fixed before reintroduction -->
+            <!--<CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0">
+                <CheckBox.ToolTip>
+                    Scrolls down every time there is a new log message.
+                </CheckBox.ToolTip>
+            </CheckBox>-->
+        </DockPanel>
+        <DataGrid ItemsSource="{Binding Path=LogMessageList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Time">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Time}"  TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Message" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <controls:ExtScrollViewer MaxHeight="300" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+                            </controls:ExtScrollViewer>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

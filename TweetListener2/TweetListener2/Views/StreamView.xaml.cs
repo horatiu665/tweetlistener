@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TweetListener2.Views
 {
     /// <summary>
-    /// Interaction logic for StreamUC.xaml
+    /// Interaction logic for StreamView.xaml
     /// </summary>
-    public partial class StreamUC : UserControl
+    public partial class StreamView : UserControl
     {
-        public StreamUC()
+        public StreamView()
         {
             InitializeComponent();
         }

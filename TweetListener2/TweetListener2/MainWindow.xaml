@@ -3,25 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TweetListener2.Controls"
+        xmlns:local="clr-namespace:TweetListener2"
+        xmlns:controls="clr-namespace:TweetListener2.Controls"
+        xmlns:views="clr-namespace:TweetListener2.Views"
+        xmlns:viewModels="clr-namespace:TweetListener2.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel/>
+    </Window.DataContext>
     <DockPanel Margin="0">
-        <!--This scroll viewer contains all the HorizontalNodeUserControl's, which in turn contain all the custom controls of various little buttons (nodes)--> 
-        <local:ExtScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <ItemsControl ItemsSource="{Binding Panels, UpdateSourceTrigger=PropertyChanged}">
+        <controls:ExtScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <!--<ItemsControl ItemsSource="{Binding Panels, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <!--<ItemsControl.ItemTemplate>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        --><!--<customUserControl DockPanel.Dock="Left" DataContext="{Binding Path=.}"/>--><!--
-                        
+                        <customUserControl DockPanel.Dock="Left" DataContext="{Binding Path=.}"/>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>-->
-            </ItemsControl>
-        </local:ExtScrollViewer>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>-->
+            <StackPanel Orientation="Horizontal">
+                <views:LogView />
+            </StackPanel>
+        </controls:ExtScrollViewer>
     </DockPanel>
 </Window>

@@ -5,7 +5,16 @@ using System.Windows.Input;
 namespace TweetListener2.Controls
 {
     /// <summary>
-    /// scroll viewer which can be parented under other scroll viewers and scroll each of them as their scrolling completes in each direction
+    /// scroll viewer which can be parented under other scroll viewers and scroll each of them as their scrolling completes in each direction.
+    /// xmlns call:
+    /*
+    xmlns:controls="clr-namespace:TweetListener2.Controls"
+    */
+    /// control xaml call with settings
+    /*
+    <controls:ExtScrollViewer MaxHeight="300" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+    </controls:ExtScrollViewer>
+    */
     /// </summary>
     public class ExtScrollViewer : ScrollViewer
     {

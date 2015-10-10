@@ -149,6 +149,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Controls\ExtScrollViewer.cs" />
     <Compile Include="Systems\Credentials.cs" />
     <Compile Include="Systems\Database.cs" />
@@ -160,9 +161,15 @@
     <Compile Include="Systems\Rest.cs" />
     <Compile Include="Systems\Stream.cs" />
     <Compile Include="Systems\TweetDatabase.cs" />
-    <Compile Include="ViewModels\StreamVM.cs" />
-    <Compile Include="Views\StreamUC.xaml.cs">
-      <DependentUpon>StreamUC.xaml</DependentUpon>
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\Log\LogMessage.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\StreamViewModel.cs" />
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StreamView.xaml.cs">
+      <DependentUpon>StreamView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -176,7 +183,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\StreamUC.xaml">
+    <Page Include="Views\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StreamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
