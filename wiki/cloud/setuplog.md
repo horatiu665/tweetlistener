@@ -70,6 +70,8 @@ A first attempt is to upgrade the machine to the D4 tier (8 cores, 16 GB RAM) - 
 
 Another attempt to improve the setup was to create a SQL database in Azure (The only one that can fit more than 2 GB of data that seemed reasonably easy to use and setup), though in fact it is not that easy to set up... so that didn't work.
 
+10-10-2015: Discovered that multiple word queries in REST do not work (example: #Yokai #Watch returns zero tweets, whereas #YokaiWatch returns hundreds in the last days). Likely has to do with the unclear documentation of the operators/tracks on the [Twitter API documentation page](https://dev.twitter.com/rest/public/search).
+
 ## List of games, release dates and queries
 
 The list of games is based on the Wikipedia page [2015 in video gaming] (https://en.wikipedia.org/wiki/2015_in_video_gaming#Game_releases)
