@@ -9,11 +9,21 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
-            <Button Content="Clear Log" Width="100" Command="{Binding ClearLogButtonClick}" HorizontalAlignment="Left">
+            <DockPanel>
+                <Label Content="Path"/>
+                <TextBox Text="{Binding Path, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" VerticalAlignment="Center"/>
+            </DockPanel>
+            <Button Content="Clear Log" Click="ClearLog_Click" Width="100" HorizontalAlignment="Left" Margin="4">
                 <Button.ToolTip>
                     Clears log messages from memory. Log file not affected.
                 </Button.ToolTip>
             </Button>
+            <Button Content="Test msg" Click="TestMessage_Click" Width="100" HorizontalAlignment="Left" Margin="4">
+                <Button.ToolTip>
+                    Test msg in log
+                </Button.ToolTip>
+            </Button>
+
             <!-- There were some problems with AutoScroll leaving the application less responsive. Should be fixed before reintroduction -->
             <!--<CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0">
                 <CheckBox.ToolTip>
@@ -23,14 +33,14 @@
         </DockPanel>
         <DataGrid ItemsSource="{Binding Path=LogMessageList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Time">
+                <DataGridTemplateColumn Header="Time" MinWidth="30">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Time}"  TextWrapping="Wrap"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Message" Width="*">
+                <DataGridTemplateColumn Header="Message" MinWidth="80" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <controls:ExtScrollViewer MaxHeight="300" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">

@@ -24,6 +24,25 @@ namespace TweetListener2.Systems
         string path;
 
         /// <summary>
+        /// path for StreamWriter - validated
+        /// </summary>
+        public string Path
+        {
+            get
+            {
+                return path;
+            }
+
+            set
+            {
+                var validPath = ValidatePath(value);
+                if (path != validPath) {
+                    path = validPath;
+                }
+            }
+        }
+
+        /// <summary>
         /// is log running? is the reset timer active?
         /// </summary>
         bool started = false;
@@ -46,10 +65,9 @@ namespace TweetListener2.Systems
         /// <summary>
         /// constructor
         /// </summary>
-        public Log()
+        public Log(string path = "log.txt")
         {
-            path = "log.txt";
-
+            this.Path = path;
         }
 
         /// <summary>
@@ -61,9 +79,12 @@ namespace TweetListener2.Systems
         {
             if (logWriter != null) {
                 logWriter.Close();
-                logWriter = new StreamWriter(path, true);
+                logWriter = new StreamWriter(Path, true);
             } else {
-                logRestartTimer.Stop();
+                if (logRestartTimer != null) {
+                    logRestartTimer.Stop();
+                }
+                Start();
             }
         }
 
@@ -75,7 +96,7 @@ namespace TweetListener2.Systems
         string ValidatePath(string path)
         {
             try {
-                string fullPath = Path.GetFullPath(path);
+                string fullPath = System.IO.Path.GetFullPath(path);
                 // if no error, path is valid
                 if (path.EndsWith(".txt")) {
                     return path;
@@ -93,14 +114,13 @@ namespace TweetListener2.Systems
         /// starts log = validates path and initializes restart timer
         /// </summary>
         /// <param name="path"></param>
-        public void Start(string path)
+        void Start()
         {
             if (!started) {
-
-                path = ValidatePath(path);
+                started = true;
 
                 // open log writer
-                logWriter = new StreamWriter(path, true);
+                logWriter = new StreamWriter(Path, true);
                 Output("New log started");
 
                 // once in a while stop and start log, so we do not lose all the data in the log.
@@ -108,30 +128,21 @@ namespace TweetListener2.Systems
                 logRestartTimer.Start();
                 logRestartTimer.Elapsed += RestartTimerElapsed;
 
-                started = true;
             }
         }
 
         /// <summary>
         /// stops log and restart timer
         /// </summary>
-        public void Stop()
+        void Stop()
         {
             if (started) {
                 started = false;
-                Output("Log stopped at " + path);
+                Output("Log stopped at " + Path);
                 logRestartTimer.Elapsed -= RestartTimerElapsed;
                 logRestartTimer.Stop();
                 logWriter.Close();
             }
-        }
-
-        /// <summary>
-        /// restart log manually (same as restart timer does)
-        /// </summary>
-        public void Restart()
-        {
-            RestartTimerElapsed(this, null);
         }
 
         /// <summary>
@@ -140,6 +151,8 @@ namespace TweetListener2.Systems
         /// <param name="message"></param>
         public void Output(string message)
         {
+            Start();
+
             try {
                 if (LogOutput != null) {
                     LogOutput(message);

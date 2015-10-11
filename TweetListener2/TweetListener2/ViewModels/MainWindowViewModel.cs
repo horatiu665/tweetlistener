@@ -8,9 +8,11 @@ namespace TweetListener2.ViewModels
 {
     public class MainWindowViewModel
     {
+        public LogViewModel Log { get; set; }
+
         public MainWindowViewModel()
         {
-            Console.WriteLine("nigger");
+            Log = new LogViewModel();
         }
     }
 }

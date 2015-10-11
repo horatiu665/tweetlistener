@@ -20,14 +20,28 @@ namespace TweetListener2.Views
     /// </summary>
     public partial class LogView : UserControl
     {
-        ViewModels.LogViewModel logVM;
+        private TweetListener2.ViewModels.LogViewModel ViewModel
+        {
+            get
+            {
+                return (ViewModels.LogViewModel)DataContext;
+            }
+        }
 
         public LogView()
         {
             InitializeComponent();
-            this.DataContext = logVM;
 
         }
-        
+
+        private void TestMessage_Click(object sender, EventArgs e)
+        {
+            ViewModel.TestMessage();
+        }
+
+        private void ClearLog_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Clear();
+        }
     }
 }
