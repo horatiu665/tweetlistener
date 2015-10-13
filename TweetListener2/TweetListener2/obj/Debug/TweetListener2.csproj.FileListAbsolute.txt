@@ -82,3 +82,5 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetLis
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.csproj.GenerateResource.Cache
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.exe
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.pdb
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\bin\Debug\MySql.Data.dll
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.csprojResolveAssemblyReference.cache

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TweetListener2.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
         public LogViewModel Log { get; set; }
 

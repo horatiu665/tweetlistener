@@ -11,7 +11,7 @@
         <DockPanel DockPanel.Dock="Top">
             <DockPanel>
                 <Label Content="Path"/>
-                <TextBox Text="{Binding Path, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Path, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" VerticalAlignment="Center"/>
             </DockPanel>
             <Button Content="Clear Log" Click="ClearLog_Click" Width="100" HorizontalAlignment="Left" Margin="4">
                 <Button.ToolTip>
@@ -40,7 +40,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Message" MinWidth="80" Width="*">
+                <DataGridTemplateColumn Header="Message" MinWidth="80" Width="300">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <controls:ExtScrollViewer MaxHeight="300" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">

@@ -33,3 +33,7 @@
 11-10-2015 15:01:11: yoyoyo testestest1
 11-10-2015 15:01:11: yoyoyo testestest1
 11-10-2015 15:01:11: yoyoyo testestest1
+13-10-2015 10:59:10: New log started
+13-10-2015 10:59:10: Path invalid. Using "log.txt". Try not to use fancy characters. Just letters and numbers
+13-10-2015 11:00:42: New log started
+13-10-2015 11:00:42: Path invalid. Using "log.txt". Try not to use fancy characters. Just letters and numbers

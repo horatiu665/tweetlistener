@@ -9,7 +9,7 @@ using TweetListener2.Systems;
 
 namespace TweetListener2.ViewModels
 {
-    public class LogViewModel : INotifyPropertyChanged
+    public class LogViewModel : ViewModelBase
     {
         private Log log;
 
@@ -87,9 +87,6 @@ namespace TweetListener2.ViewModels
         }
 
         public ObservableCollection<LogMessage> LogMessageList { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
 
         /// <summary>
         /// clears log list in the interface

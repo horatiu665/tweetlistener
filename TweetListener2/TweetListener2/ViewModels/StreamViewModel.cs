@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TweetListener2.ViewModels
 {
-    public class StreamViewModel
+    public class StreamViewModel : ViewModelBase
     {
         public Systems.Stream stream;
 
