@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using Tweetinvi.Core.Interfaces.Models.Entities;
 using Tweetinvi.Core.Enum;
 
-namespace TweetListener2.Systems
+namespace TweetListener2
 {
     /// <summary>
     /// hack used to import tweets from a file without saving all the data, but still incorporating them in all the systems used by the program - because the program uses ITweet

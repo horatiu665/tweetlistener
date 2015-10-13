@@ -4,14 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TweetListener2.Views"
+             xmlns:vm="clr-namespace:TweetListener2.ViewModels"
              xmlns:controls="clr-namespace:TweetListener2.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <!--<UserControl.DataContext>
+        <vm:LogViewModel/>
+    </UserControl.DataContext>-->
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <DockPanel>
                 <Label Content="Path"/>
-                <TextBox Text="{Binding Path, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="40" VerticalAlignment="Center"/>
             </DockPanel>
             <Button Content="Clear Log" Click="ClearLog_Click" Width="100" HorizontalAlignment="Left" Margin="4">
                 <Button.ToolTip>

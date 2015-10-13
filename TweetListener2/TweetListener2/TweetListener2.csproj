@@ -157,7 +157,7 @@
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Controls\ExtScrollViewer.cs" />
     <Compile Include="Systems\Credentials.cs" />
-    <Compile Include="Systems\CustomTweetFormat.cs" />
+    <Compile Include="CustomTweetFormat.cs" />
     <Compile Include="Systems\Database.cs" />
     <Compile Include="Systems\KeywordData.cs" />
     <Compile Include="Systems\KeywordDatabase.cs" />
@@ -177,11 +177,18 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\StreamViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewSpawnerViewModel.cs" />
+    <Compile Include="Views\CredentialsView.xaml.cs">
+      <DependentUpon>CredentialsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StreamView.xaml.cs">
       <DependentUpon>StreamView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewSpawner.xaml.cs">
+      <DependentUpon>ViewSpawner.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -195,11 +202,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CredentialsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StreamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewSpawner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

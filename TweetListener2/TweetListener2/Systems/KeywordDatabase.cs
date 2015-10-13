@@ -20,7 +20,7 @@ namespace TweetListener2.Systems
 
         public KeywordDatabase(Log log)
         {
-            this.log = log;
+            this.Log = log;
 
             //keywordList.CollectionChanged += (s, a) => {
             //	if (keywordList != null) {
@@ -47,6 +47,18 @@ namespace TweetListener2.Systems
             }
         }
 
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
 
         public class KeywordListClass : RangeObservableCollection<KeywordData>
         {

@@ -21,7 +21,7 @@ namespace TweetListener2.Systems
         /// <summary>
         /// path for StreamWriter
         /// </summary>
-        string path;
+        string path = "log.txt";
 
         /// <summary>
         /// path for StreamWriter - validated

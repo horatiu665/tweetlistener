@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\App.xaml
-3169100047
+5-1067204934
 
-32-242632676
+351770088712
 91-189728354
-MainWindow.xaml;Views\LogView.xaml;Views\StreamView.xaml;
+MainWindow.xaml;Views\CredentialsView.xaml;Views\LogView.xaml;Views\StreamView.xaml;Views\ViewSpawner.xaml;
 
 False
 

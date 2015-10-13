@@ -27,7 +27,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>-->
             <StackPanel Orientation="Horizontal">
-                <views:LogView DataContext="{Binding Log}"/>
+                <views:LogView/>
             </StackPanel>
         </controls:ExtScrollViewer>
     </DockPanel>
