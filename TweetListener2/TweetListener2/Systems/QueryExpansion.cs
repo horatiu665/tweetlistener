@@ -21,7 +21,7 @@ namespace TweetListener2.Systems
             get { return naiveExpansionPercentage; }
             set
             {
-                log.Output("Naive expansion percentage set to " + value);
+                Log.Output("Naive expansion percentage set to " + value);
                 naiveExpansionPercentage = value;
             }
         }
@@ -107,14 +107,27 @@ namespace TweetListener2.Systems
             set { applyFeedback = value; }
         }
 
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
+
         public QueryExpansion(Log log)
         {
-            this.log = log;
+            this.Log = log;
         }
 
         public List<KeywordData> ExpandNaive(List<KeywordData> keywords, List<TweetData> tweetPopulation)
         {
-            log.Output("Expansion: NAIVE\n expanding query on " + tweetPopulation.Count + " tweets");
+            Log.Output("Expansion: NAIVE\n expanding query on " + tweetPopulation.Count + " tweets");
 
             Expanding = true;
 
@@ -257,7 +270,7 @@ namespace TweetListener2.Systems
             if (logOutput) {
                 var s = "";
 
-                log.Output(selectedKeywords.Count + " unique keywords after expansion");
+                Log.Output(selectedKeywords.Count + " unique keywords after expansion");
             }
 
             // create new keywordData for the new keywords found
@@ -289,7 +302,7 @@ namespace TweetListener2.Systems
 
             expanding = true;
             if (LogModels)
-                log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
+                Log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
 
             // generate query
             var query = "";
@@ -301,7 +314,7 @@ namespace TweetListener2.Systems
 
             if (query == "") {
                 expanding = false;
-                log.Output("Query was empty. no expansion");
+                Log.Output("Query was empty. no expansion");
                 return newList;
             }
 
@@ -317,7 +330,7 @@ namespace TweetListener2.Systems
 
             if (LogModels) {
                 var s = queryModel.ToString();
-                log.Output(s);
+                Log.Output(s);
             }
 
             // count words in tweet collection
@@ -353,7 +366,7 @@ namespace TweetListener2.Systems
                     return newList; ;
                 }
                 if (LogModels) {
-                    log.Output(keyword.LanguageModel.ToString());
+                    Log.Output(keyword.LanguageModel.ToString());
                 }
                 timeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
                 OperationsLeft--;
@@ -411,7 +424,7 @@ namespace TweetListener2.Systems
 
                 if (LogModels) {
                     var s = "After applying feedback:\n" + queryModel.ToString();
-                    log.Output(s);
+                    Log.Output(s);
                 }
 
                 // after queryModel updated with feedback, ranking should be performed again.
@@ -437,7 +450,7 @@ namespace TweetListener2.Systems
                 foreach (var r in rankedTags) {
                     s += r.LanguageModel.KldResult.ToString("F8") + " " + r.Keyword + "\n";
                 }
-                log.Output(s);
+                Log.Output(s);
             }
 
 

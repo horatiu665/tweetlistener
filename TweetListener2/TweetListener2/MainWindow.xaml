@@ -14,7 +14,7 @@
     </Window.DataContext>
     <DockPanel Margin="0">
         <controls:ExtScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <!--<ItemsControl ItemsSource="{Binding Panels, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl ItemsSource="{Binding Panels, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -22,13 +22,13 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <customUserControl DockPanel.Dock="Left" DataContext="{Binding Path=.}"/>
+                        <views:ViewSpawner DockPanel.Dock="Left" DataContext="{Binding Path=.}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
-            <StackPanel Orientation="Horizontal">
+            </ItemsControl>
+            <!--<StackPanel Orientation="Horizontal">
                 <views:LogView/>
-            </StackPanel>
+            </StackPanel>-->
         </controls:ExtScrollViewer>
     </DockPanel>
 </Window>

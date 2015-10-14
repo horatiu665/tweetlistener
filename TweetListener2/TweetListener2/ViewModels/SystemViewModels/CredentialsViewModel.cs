@@ -38,6 +38,15 @@ namespace TweetListener2.ViewModels
         }
 
         /// <summary>
+        /// init viewModel
+        /// </summary>
+        public CredentialsViewModel(LogViewModel log)
+        {
+            // create new model
+            Credentials = new Credentials(log.Log);
+        }
+
+        /// <summary>
         /// only for display
         /// </summary>
         public string SelectedCredentials
@@ -58,15 +67,6 @@ namespace TweetListener2.ViewModels
                 }
                 return "other/" + Credentials.Defaults.Count;
             }
-        }
-
-        /// <summary>
-        /// init viewModel
-        /// </summary>
-        public CredentialsViewModel()
-        {
-            // create new model
-            Credentials = new Credentials();
         }
 
         public void ReadCredentialsFromFile(string path = "config.ini")

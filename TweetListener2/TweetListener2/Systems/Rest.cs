@@ -17,9 +17,48 @@ namespace TweetListener2.Systems
 
     public class Rest
     {
-        Database databaseSaver;
+        Database database;
         Log log;
         TweetDatabase tweetDatabase;
+
+        public Database Database
+        {
+            get
+            {
+                return database;
+            }
+
+            set
+            {
+                database = value;
+            }
+        }
+
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
+
+        public TweetDatabase TweetDatabase
+        {
+            get
+            {
+                return tweetDatabase;
+            }
+
+            set
+            {
+                tweetDatabase = value;
+            }
+        }
 
         public event Action<ITweet> TweetFound;
 
@@ -40,9 +79,9 @@ namespace TweetListener2.Systems
 
         public Rest(Database dbs, Log log, TweetDatabase tdb)
         {
-            databaseSaver = dbs;
-            this.log = log;
-            tweetDatabase = tdb;
+            Database = dbs;
+            this.Log = log;
+            TweetDatabase = tdb;
 
             TweetFound += OnTweetFound;
 
@@ -66,6 +105,7 @@ namespace TweetListener2.Systems
             get { return isGathering; }
         }
 
+
         public event Action<int> StoppedGatheringCycle;
 
         private void OnStoppedGatheringCycle(int tweetCount)
@@ -74,9 +114,9 @@ namespace TweetListener2.Systems
 
             if (forceStop) {
                 forceStop = false;
-                log.Output("End of Rest.TweetsGatheringCycle() by force. Tweets found: " + tweetCount);
+                Log.Output("End of Rest.TweetsGatheringCycle() by force. Tweets found: " + tweetCount);
             } else {
-                log.Output("End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: " + tweetCount);
+                Log.Output("End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: " + tweetCount);
             }
 
         }
@@ -84,7 +124,7 @@ namespace TweetListener2.Systems
         public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
         {
             isGathering = true;
-            log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
+            Log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
 
             int tweetsGatheredTotal = 0;
 
@@ -137,7 +177,7 @@ namespace TweetListener2.Systems
 
                         // wait for rate limits before starting loop
                         if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
-                            log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
+                            Log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
                             Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
                         }
 
@@ -149,7 +189,7 @@ namespace TweetListener2.Systems
                         // only search if there are keywords in the query
                         if (sp.SearchQuery != "") {
 
-                            log.Output("Searching for " + sp.SearchQuery);
+                            Log.Output("Searching for " + sp.SearchQuery);
 
                             Tweetinvi.Core.Exceptions.ITwitterException twitterException = null;
 
@@ -208,7 +248,7 @@ namespace TweetListener2.Systems
 
                                     // wait for rate limits before continuing loop
                                     if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
-                                        log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
+                                        Log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
                                         Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
                                     }
 
@@ -229,8 +269,8 @@ namespace TweetListener2.Systems
                     }
                 }
                 catch (Exception e) {
-                    log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
-                    log.Output(e.ToString());
+                    Log.Output("Error in TweetsGatherCycle() algorithm in Rest.cs");
+                    Log.Output(e.ToString());
                 }
                 StoppedGatheringCycle(tweetsGatheredTotal);
             });
@@ -341,17 +381,17 @@ namespace TweetListener2.Systems
                                                                             //Log.Output("Search parameters:" + s);
                     }
                     catch (NullReferenceException nref) {
-                        log.Output("One of the search parameters was null. we will find out which one here:");
-                        log.Output("Could it be this one? " + searchParameters.Lang);// Undefined
-                        log.Output("Could it be this one? " + searchParameters.Locale);//  
-                        log.Output("Could it be this one? " + searchParameters.MaxId);// -1
-                        log.Output("Could it be this one? " + searchParameters.MaximumNumberOfResults);// 100
-                        log.Output("Could it be this one? " + searchParameters.SearchQuery);// callofduty hehehhe
-                        log.Output("Could it be this one? " + searchParameters.SearchType);// Popular
-                        log.Output("Could it be this one? " + searchParameters.Since);// 01-Jan-01 00:00:00
-                        log.Output("Could it be this one? " + searchParameters.SinceId);// -1
+                        Log.Output("One of the search parameters was null. we will find out which one here:");
+                        Log.Output("Could it be this one? " + searchParameters.Lang);// Undefined
+                        Log.Output("Could it be this one? " + searchParameters.Locale);//  
+                        Log.Output("Could it be this one? " + searchParameters.MaxId);// -1
+                        Log.Output("Could it be this one? " + searchParameters.MaximumNumberOfResults);// 100
+                        Log.Output("Could it be this one? " + searchParameters.SearchQuery);// callofduty hehehhe
+                        Log.Output("Could it be this one? " + searchParameters.SearchType);// Popular
+                        Log.Output("Could it be this one? " + searchParameters.Since);// 01-Jan-01 00:00:00
+                        Log.Output("Could it be this one? " + searchParameters.SinceId);// -1
                                                                                         //log.Output("Could it be this one? " + searchParameters.TweetSearchFilter);// All
-                        log.Output("Could it be this one? " + searchParameters.Until);// 01-Jan-01 00:00:00		
+                        Log.Output("Could it be this one? " + searchParameters.Until);// 01-Jan-01 00:00:00		
 
                     }
                     #endregion
@@ -363,11 +403,11 @@ namespace TweetListener2.Systems
                     return tweets;
                 }
                 catch (NullReferenceException nullref) {
-                    log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
-                    log.Output("Here is the error: " + nullref.ToString());
+                    Log.Output("Null reference at searchTweets function. Cannot fix, will have to ignore.");
+                    Log.Output("Here is the error: " + nullref.ToString());
                     // attempting to get error from twitter message
                     twitterException = Tweetinvi.ExceptionHandler.GetLastException();
-                    log.Output("Latest exception from Tweetinvi! Status code: " + twitterException.StatusCode
+                    Log.Output("Latest exception from Tweetinvi! Status code: " + twitterException.StatusCode
                         + "\nException description: " + twitterException.TwitterDescription);
                     return null;
                 }
@@ -470,7 +510,7 @@ namespace TweetListener2.Systems
             //searchParameter.MaxId = 405001488843284480;
 
             if (searchParameters == null) {
-                log.Output("Search parameters were null at Rest.cs line 211");
+                Log.Output("Search parameters were null at Rest.cs line 211");
                 return null;
             }
 

@@ -170,21 +170,33 @@
     <Compile Include="Systems\Stream.cs" />
     <Compile Include="Systems\TweetData.cs" />
     <Compile Include="Systems\TweetDatabase.cs" />
-    <Compile Include="ViewModels\CredentialsViewModel.cs" />
-    <Compile Include="ViewModels\KeywordDatabaseViewModel.cs" />
-    <Compile Include="ViewModels\LogViewModel.cs" />
-    <Compile Include="ViewModels\Log\LogMessage.cs" />
+    <Compile Include="ViewModels\AllResourcesViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\CredentialsViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\DatabaseViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\KeywordDatabaseViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\Log\LogMessage.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\StreamViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\MailHelperViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\PorterStemmerViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\QueryExpansionViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\RestViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\StreamViewModel.cs" />
+    <Compile Include="ViewModels\SystemViewModels\TweetDatabaseViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="ViewModels\ViewSpawnerViewModel.cs" />
-    <Compile Include="Views\CredentialsView.xaml.cs">
+    <Compile Include="Views\AllResourcesView.xaml.cs">
+      <DependentUpon>AllResourcesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResourceButtonView.xaml.cs">
+      <DependentUpon>ResourceButtonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemViews\CredentialsView.xaml.cs">
       <DependentUpon>CredentialsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LogView.xaml.cs">
+    <Compile Include="Views\SystemViews\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StreamView.xaml.cs">
+    <Compile Include="Views\SystemViews\StreamView.xaml.cs">
       <DependentUpon>StreamView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewSpawner.xaml.cs">
@@ -202,19 +214,31 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\CredentialsView.xaml">
+    <Page Include="Views\AllResourcesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LogView.xaml">
+    <Page Include="Views\ResourceButtonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StreamView.xaml">
+    <Page Include="Views\SystemViews\CredentialsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\StreamView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewSpawner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewSpawnerResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

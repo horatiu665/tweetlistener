@@ -17,12 +17,76 @@ namespace TweetListener2.Systems
     /// </summary>
     public class Stream
     {
-        private Credentials credentials;
-        private Database databaseSaver;
+        private Database database;
         private Log log;
         private Rest rest;
         private KeywordDatabase keywordDatabase;
         private TweetDatabase tweetDatabase;
+
+        public Database Database
+        {
+            get
+            {
+                return database;
+            }
+
+            set
+            {
+                database = value;
+            }
+        }
+
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
+
+        public Rest Rest
+        {
+            get
+            {
+                return rest;
+            }
+
+            set
+            {
+                rest = value;
+            }
+        }
+
+        public KeywordDatabase KeywordDatabase
+        {
+            get
+            {
+                return keywordDatabase;
+            }
+
+            set
+            {
+                keywordDatabase = value;
+            }
+        }
+
+        public TweetDatabase TweetDatabase
+        {
+            get
+            {
+                return tweetDatabase;
+            }
+
+            set
+            {
+                tweetDatabase = value;
+            }
+        }
 
         ///// <summary>
         ///// the filter used for the stream
@@ -54,7 +118,7 @@ namespace TweetListener2.Systems
         {
             get
             {
-                return tweetDatabase.MostRecentTweetTime;
+                return TweetDatabase.MostRecentTweetTime;
             }
         }
 
@@ -98,7 +162,7 @@ namespace TweetListener2.Systems
             set
             {
                 countersOn = value;
-                log.Output("Counters " + (value ? "on" : "off"));
+                Log.Output("Counters " + (value ? "on" : "off"));
             }
         }
 
@@ -174,35 +238,35 @@ namespace TweetListener2.Systems
             // bind log to counter events
             #region counters
             stream.DisconnectMessageReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - DisconnectMessageReceived		"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - DisconnectMessageReceived		"); };
             stream.JsonObjectReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - JsonObjectReceived			"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - JsonObjectReceived			"); };
             stream.LimitReached
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - LimitReached					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - LimitReached					"); };
             stream.StreamPaused
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamPaused					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamPaused					"); };
             stream.StreamResumed
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamResumed					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamResumed					"); };
             stream.StreamStarted
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamStarted					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamStarted					"); };
             stream.StreamStopped
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamStopped					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamStopped					"); };
             stream.TweetDeleted
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetDeleted					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetDeleted					"); };
             stream.TweetLocationInfoRemoved
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetLocationInfoRemoved 		"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetLocationInfoRemoved 		"); };
             // stream.TweetReceived	
             //	+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - TweetReceived					"); }; // for sample stream
             stream.MatchingTweetReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
             stream.TweetWitheld
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetWitheld					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetWitheld					"); };
             stream.UnmanagedEventReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - UnmanagedEventReceived		"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - UnmanagedEventReceived		"); };
             stream.UserWitheld
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - UserWitheld					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - UserWitheld					"); };
             stream.WarningFallingBehindDetected
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - WarningFallingBehindDetected	"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - WarningFallingBehindDetected	"); };
 
             #endregion
 
@@ -229,35 +293,35 @@ namespace TweetListener2.Systems
             // bind log to counter events
             #region counters
             sampleStream.DisconnectMessageReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - DisconnectMessageReceived		"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - DisconnectMessageReceived		"); };
             sampleStream.JsonObjectReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - JsonObjectReceived			"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - JsonObjectReceived			"); };
             sampleStream.LimitReached
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - LimitReached					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - LimitReached					"); };
             sampleStream.StreamPaused
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamPaused					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamPaused					"); };
             sampleStream.StreamResumed
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamResumed					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamResumed					"); };
             sampleStream.StreamStarted
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamStarted					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamStarted					"); };
             sampleStream.StreamStopped
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - StreamStopped					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - StreamStopped					"); };
             sampleStream.TweetDeleted
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetDeleted					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetDeleted					"); };
             sampleStream.TweetLocationInfoRemoved
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetLocationInfoRemoved 		"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetLocationInfoRemoved 		"); };
             sampleStream.TweetReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetReceived					"); }; // for sample stream
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetReceived					"); }; // for sample stream
                                                                                                                        //sampleStream.MatchingTweetReceived
                                                                                                                        //	+= (s, a) => { if (countersOn)  log.Output(CountersString() + " - MatchingTweetReceived			"); }; // for filtered stream
             sampleStream.TweetWitheld
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - TweetWitheld					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - TweetWitheld					"); };
             sampleStream.UnmanagedEventReceived
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - UnmanagedEventReceived		"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - UnmanagedEventReceived		"); };
             sampleStream.UserWitheld
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - UserWitheld					"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - UserWitheld					"); };
             sampleStream.WarningFallingBehindDetected
-                += (s, a) => { if (countersOn) log.Output(CountersString() + " - WarningFallingBehindDetected	"); };
+                += (s, a) => { if (countersOn) Log.Output(CountersString() + " - WarningFallingBehindDetected	"); };
 
             #endregion
 
@@ -268,11 +332,11 @@ namespace TweetListener2.Systems
 
         public Stream(Database dbs, Log log, Rest rest, KeywordDatabase keywordDatabase, TweetDatabase tweetDatabase)
         {
-            this.databaseSaver = dbs;
-            this.log = log;
-            this.rest = rest;
-            this.keywordDatabase = keywordDatabase;
-            this.tweetDatabase = tweetDatabase;
+            this.Database = dbs;
+            this.Log = log;
+            this.Rest = rest;
+            this.KeywordDatabase = keywordDatabase;
+            this.TweetDatabase = tweetDatabase;
 
             // initialize stuff
 
@@ -306,7 +370,7 @@ namespace TweetListener2.Systems
 
         void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
         {
-            log.Output("Stream limit reached. Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
+            Log.Output("Stream limit reached. Tweets missed: " + e.NumberOfTweetsNotReceived.ToString());
 
         }
 
@@ -325,7 +389,7 @@ namespace TweetListener2.Systems
 
             if (stream.TracksCount == 0) {
                 //log.Output("There are no keywords in the list! Cannot start stream without any keywords, Twitter would slap us. Please add some keywords using the Keywords panel");
-                log.Output("There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)");
+                Log.Output("There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)");
 
             }
 
@@ -335,7 +399,7 @@ namespace TweetListener2.Systems
 
         void AddTracksFromKeywordDatabase()
         {
-            foreach (var keyword in keywordDatabase.KeywordList) {
+            foreach (var keyword in KeywordDatabase.KeywordList) {
                 if (keyword.UseKeyword) {
                     stream.AddTrack(keyword.Keyword);
                 }
@@ -375,7 +439,7 @@ namespace TweetListener2.Systems
                 await Task.Delay(reconnectDelayMillis);
 
                 // log the start of the stream.
-                log.Output("Stream attempting to start at time " + DateTime.Now.ToString());
+                Log.Output("Stream attempting to start at time " + DateTime.Now.ToString());
 
                 // catch exceptions within this thread. if they happen, we must retry connecting.
                 try {
@@ -387,7 +451,7 @@ namespace TweetListener2.Systems
 
                 }
                 catch (Exception e) {
-                    log.Output("Exception at StartStreamTask() thread: " + e.ToString());
+                    Log.Output("Exception at StartStreamTask() thread: " + e.ToString());
 
                     //TODO: when exception happens, check if stream is actually running along,
                     // if we should reset stream, or if two streams are attempting to run at the same time.
@@ -420,7 +484,7 @@ namespace TweetListener2.Systems
         private void onStreamStarted(object sender, EventArgs e)
         {
             // log start and print event args
-            log.Output("OnStreamStarted event is called");
+            Log.Output("OnStreamStarted event is called");
 
             //log.Output("Stream running filter:");
             //log.Output(filter);
@@ -430,7 +494,7 @@ namespace TweetListener2.Systems
             StreamRunning = true;
 
             // use Rest for gathering tweets since last time the stream stopped.
-            rest.TweetsGatheringCycle(MostRecentTweetTime, DateTime.Now, keywordDatabase.GetUsableKeywords());
+            Rest.TweetsGatheringCycle(MostRecentTweetTime, DateTime.Now, KeywordDatabase.GetUsableKeywords());
 
         }
 
@@ -442,15 +506,15 @@ namespace TweetListener2.Systems
             // wait more next time, to not get banned.
             reconnectDelayMillis *= 2;
 
-            log.Output("Stream disconnected.");
+            Log.Output("Stream disconnected.");
             if (e.DisconnectMessage != null) {
-                log.Output("Message code: " + e.DisconnectMessage.Code);
+                Log.Output("Message code: " + e.DisconnectMessage.Code);
                 if (e.DisconnectMessage.Reason != null) {
-                    log.Output("Reason: " + e.DisconnectMessage.Reason);
+                    Log.Output("Reason: " + e.DisconnectMessage.Reason);
                 }
             }
             if (e.Exception != null) {
-                log.Output("Exception: " + e.Exception.ToString());
+                Log.Output("Exception: " + e.Exception.ToString());
             }
 
         }
@@ -484,7 +548,6 @@ namespace TweetListener2.Systems
             get { return logEveryJson; }
             set { logEveryJson = value; }
         }
-
 
         private void onJsonObjectReceived(object sender, Tweetinvi.Core.Events.EventArguments.JsonObjectEventArgs e)
         {
@@ -520,7 +583,7 @@ namespace TweetListener2.Systems
                     s += ", ";
                 }
             }
-            log.Output(s);
+            Log.Output(s);
 
             /*
              * jsonRoot: {

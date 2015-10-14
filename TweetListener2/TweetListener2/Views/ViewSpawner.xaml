@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TweetListener2.Views"
+             xmlns:views="clr-namespace:TweetListener2.Views"
              xmlns:vm="clr-namespace:TweetListener2.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.DataContext>
-        <vm:ViewSpawnerViewModel/>
-    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary Source="ViewSpawnerResources.xaml" />
+    </UserControl.Resources>
+    <ContentPresenter Content="{Binding}" />
 </UserControl>

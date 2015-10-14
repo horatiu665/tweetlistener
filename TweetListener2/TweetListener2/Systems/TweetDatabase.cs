@@ -8,7 +8,20 @@ namespace TweetListener2.Systems
 {
     public class TweetDatabase
     {
-        Database db;
+        Database database;
+
+        public Database Database
+        {
+            get
+            {
+                return database;
+            }
+
+            set
+            {
+                database = value;
+            }
+        }
 
         private bool saveToRamProperty = true;
         public bool SaveToRamProperty
@@ -17,9 +30,9 @@ namespace TweetListener2.Systems
             set { saveToRamProperty = value; }
         }
 
-        public TweetDatabase(Database databaseSaver)
+        public TweetDatabase(Database db)
         {
-            db = databaseSaver;
+            Database = db;
 
             // initialize mostrecenttweet with datetime.now because otherwise any query will spend 
             // a few days gathering all the known previous tweets (which might not be such a bad 
@@ -171,7 +184,7 @@ namespace TweetListener2.Systems
                     tweets.Add(item);
                 }
 
-                db.SaveTweet(item.tweet);
+                Database.SaveTweet(item.tweet);
             } else {
                 // if there is an item already with the ID equal to the retweet, increase count
                 if (tweets.Any(td => td.Id == item.tweet.RetweetedTweet.Id)) {
@@ -181,7 +194,7 @@ namespace TweetListener2.Systems
                     if (SaveToRamProperty) {
                         tweets.Add(new TweetData(item.tweet.RetweetedTweet, item.source, item.gatheringCycle, item.firstExpansion));
                     }
-                    db.SaveTweet(item.tweet.RetweetedTweet);
+                    Database.SaveTweet(item.tweet.RetweetedTweet);
                 }
             }
 

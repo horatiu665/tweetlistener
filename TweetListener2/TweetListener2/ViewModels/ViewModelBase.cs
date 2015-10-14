@@ -11,6 +11,13 @@ namespace TweetListener2.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
+        public string Name
+        {
+            get
+            {
+                return GetType().ToString();
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

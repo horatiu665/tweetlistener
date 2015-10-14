@@ -23,11 +23,26 @@ namespace TweetListener2.Systems
     public class Database
     {
         private Log log;
+
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
+
+
         private Random random;
 
         public Database(Log l)
         {
-            log = l;
+            Log = l;
             random = new Random();
         }
 
@@ -596,7 +611,7 @@ namespace TweetListener2.Systems
             var tweetFactory = TweetinviContainer.Resolve<ITweetFactory>();
             using (StreamReader sr = new StreamReader(path, Encoding.UTF8)) {
                 float lineCount = File.ReadLines(path).Count();
-                log.Output("Loading " + lineCount + " lines from file " + path);
+                Log.Output("Loading " + lineCount + " lines from file " + path);
                 var linesRead = 0;
                 string line = "";
                 while (sr.Peek() >= 0) {

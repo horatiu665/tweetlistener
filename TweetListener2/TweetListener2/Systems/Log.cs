@@ -120,7 +120,16 @@ namespace TweetListener2.Systems
                 started = true;
 
                 // open log writer
-                logWriter = new StreamWriter(Path, true);
+                try {
+                    logWriter = new StreamWriter(Path, true);
+                }
+                catch (IOException e) {
+                    var error = ("Exception when trying to write to file " + Path + "\n" + "File might be in use by another program");
+                    Output(error);
+                    started = false;
+                    return;
+                }
+
                 Output("New log started");
 
                 // once in a while stop and start log, so we do not lose all the data in the log.

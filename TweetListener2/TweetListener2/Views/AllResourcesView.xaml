@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="TweetListener2.Views.AllResourcesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:TweetListener2.Views"
+             xmlns:controls="clr-namespace:TweetListener2.Controls"
+    
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel>
+        <controls:ExtScrollViewer DockPanel.Dock="Top">
+            <ItemsControl ItemsSource="{Binding Path=StreamViewModels, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Name}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </controls:ExtScrollViewer>
+        <controls:ExtScrollViewer DockPanel.Dock="Top">
+            <ItemsControl ItemsSource="{Binding Path=LogViewModels, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Name}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </controls:ExtScrollViewer>
+        <Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>
+
+        <Expander>
+            <controls:ExtScrollViewer>
+                <DockPanel>
+                    <Label Content="Create Individual Resources" DockPanel.Dock="Top"/>
+                    <Button Content="Add new Stream" Height="30" DockPanel.Dock="Top" Click="AddNewStream_Click"/>
+                    <Button Content="Add new Rest" Height="30" DockPanel.Dock="Top" Click="AddNewRest_Click"/>
+                    <Button Content="Add new Credentials" Height="30" DockPanel.Dock="Top" Click="AddNewCredentials_Click"/>
+                    <Button Content="Add new Database" Height="30" DockPanel.Dock="Top" Click="AddNewDatabase_Click"/>
+                    <Button Content="Add new Log" Height="30" DockPanel.Dock="Top" Click="AddNewLog_Click"/>
+                    <Button Content="Add new KeywordDatabase" Height="30" DockPanel.Dock="Top" Click="AddNewKeywordDatabase_Click"/>
+                    <Button Content="Add new TweetDatabase" Height="30" DockPanel.Dock="Top" Click="AddNewTweetDatabase_Click"/>
+                    <Button Content="Add new QueryExpansion" Height="30" DockPanel.Dock="Top" Click="AddNewQueryExpansion_Click"/>
+                    <Button Content="Add new PorterStemmer" Height="30" DockPanel.Dock="Top" Click="AddNewPorterStemmer_Click"/>
+                    <Button Content="Add new MailHelper" Height="30" DockPanel.Dock="Top" Click="AddNewMailHelper_Click"/>
+                </DockPanel>
+            </controls:ExtScrollViewer>
+        </Expander>
+    </DockPanel>
+</UserControl>

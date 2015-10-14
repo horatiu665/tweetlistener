@@ -13,6 +13,19 @@ namespace TweetListener2.Controls
     /// control xaml call with settings
     /*
     <controls:ExtScrollViewer MaxHeight="300" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <ItemsControl ItemsSource="{Binding Path=., UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <views:ViewSpawner DockPanel.Dock="Left" DataContext="{Binding Path=.}"/>
+                    <customUserControl DataContext="{Binding}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </controls:ExtScrollViewer>
     */
     /// </summary>

@@ -26,10 +26,36 @@ namespace TweetListener2.Systems
         public Timer emailTimer = new Timer(1000 * 60 * 60 * 6);
         private bool sentMailForLatestDisconnect = false;
 
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
+
+        public Stream Stream
+        {
+            get
+            {
+                return stream;
+            }
+
+            set
+            {
+                stream = value;
+            }
+        }
+
         public MailHelper(Log log, Stream stream)
         {
-            this.log = log;
-            this.stream = stream;
+            this.Log = log;
+            this.Stream = stream;
 
             stream.stream.StreamStarted += OnStreamStarted;
             stream.sampleStream.StreamStarted += OnStreamStarted;
@@ -117,7 +143,7 @@ namespace TweetListener2.Systems
                 }
             }
             catch (Exception ex) {
-                log.Output("Exception when trying to send e-mail:\n" + ex.ToString());
+                Log.Output("Exception when trying to send e-mail:\n" + ex.ToString());
             }
         }
 
@@ -149,7 +175,7 @@ namespace TweetListener2.Systems
                 }
             }
             catch (Exception ex) {
-                log.Output("Exception when trying to send e-mail:\n" + ex.ToString());
+                Log.Output("Exception when trying to send e-mail:\n" + ex.ToString());
             }
         }
     }

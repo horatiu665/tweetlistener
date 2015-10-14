@@ -1,8 +1,11 @@
 ﻿
 
 FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\MainWindow.xaml;;
-FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\LogView.xaml;;
-FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\StreamView.xaml;;
-FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\CredentialsView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\CredentialsView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\LogView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\StreamView.xaml;;
 FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\ViewSpawner.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\ViewSpawnerResources.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\AllResourcesView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\ResourceButtonView.xaml;;
 

@@ -31,12 +31,15 @@ namespace TweetListener2.Views
                 } else {
                     if (DataContext is ViewModels.LogViewModel) {
                         viewModel = (ViewModels.LogViewModel)DataContext;
+                        return viewModel;
 
                     } else {
-                        viewModel = new ViewModels.LogViewModel();
-                        DataContext = viewModel;
+                        // do not spawn new viewmodel, but rather let systemsmanager handle that
+
+                        //viewModel = new ViewModels.LogViewModel();
+                        //DataContext = viewModel;
+                        return null;
                     }
-                    return viewModel;
                 }
             }
         }

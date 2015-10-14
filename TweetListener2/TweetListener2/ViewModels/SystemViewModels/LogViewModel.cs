@@ -13,6 +13,34 @@ namespace TweetListener2.ViewModels
     {
         private Log log;
 
+        public Log Log
+        {
+            get
+            {
+                return log;
+            }
+
+            set
+            {
+                log = value;
+            }
+        }
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        public LogViewModel()
+        {
+            // create new model
+            Log = new Log();
+            
+            // init this
+            LogMessageList = new ObservableCollection<LogMessage>();
+
+            // event
+            Log.LogOutput += Log_LogOutput;
+        }
+
         #region === exposed from model ===
 
         /// <summary>
@@ -22,11 +50,11 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return log.Path;
+                return Log.Path;
             }
             set
             {
-                log.Path = value;
+                Log.Path = value;
             }
         }
         
@@ -49,22 +77,7 @@ namespace TweetListener2.ViewModels
 
         public void TestMessage()
         {
-            log.Output("yoyoyo testestest1");
-        }
-
-        /// <summary>
-        /// constructor
-        /// </summary>
-        public LogViewModel()
-        {
-            // init this
-            LogMessageList = new ObservableCollection<LogMessage>();
-
-            // create new model
-            log = new Log();
-
-            // event
-            log.LogOutput += Log_LogOutput;
+            Log.Output("yoyoyo testestest1");
         }
 
         private void Log_LogOutput(string message)

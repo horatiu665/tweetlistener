@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:vm="clr-namespace:TweetListener2.ViewModels"
+  xmlns:views="clr-namespace:TweetListener2.Views"
+  >
+    <DataTemplate DataType="{x:Type vm:LogViewModel}">
+        <views:LogView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:StreamViewModel}">
+        <views:StreamView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:AllResourcesViewModel}">
+        <views:AllResourcesView/>
+    </DataTemplate>
+
+
+
+</ResourceDictionary>

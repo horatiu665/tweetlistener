@@ -66,7 +66,7 @@ namespace TweetListener2.Systems
         /// constructor, initializes default credentials from file and initializes Auth.ApplicationCredentials
         /// </summary>
         /// <param name="log"></param>
-        public Credentials(Log log = null)
+        public Credentials(Log log)
         {
             this.Log = log;
             // reads list of credentials from file, saves them in private field for use in UI
