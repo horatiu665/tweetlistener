@@ -10,6 +10,14 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <controls:ExtScrollViewer DockPanel.Dock="Top">
+            <!-- Instead of binding to StreamViewModels or other System ViewModels, 
+            rather bind to a list of custom classes which simply specify which 
+            systems exist, and provide functionality to spawn views in the MainWindow to control them.
+            
+            Binding to ViewModels only results in the View for that model being instantiated within the button/control... which is anything but useful.
+
+            When those buttons are done, the only remaining step is being able to delete the created systems, and the last step is making the Views and ViewModels of the systems to complete the CMS/Resource management system
+            -->
             <ItemsControl ItemsSource="{Binding Path=StreamViewModels, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -23,20 +31,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </controls:ExtScrollViewer>
-        <controls:ExtScrollViewer DockPanel.Dock="Top">
-            <ItemsControl ItemsSource="{Binding Path=LogViewModels, UpdateSourceTrigger=PropertyChanged}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding Name}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </controls:ExtScrollViewer>
+        
         <Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>
 
         <Expander>

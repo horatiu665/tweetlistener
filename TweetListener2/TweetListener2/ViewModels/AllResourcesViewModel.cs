@@ -10,6 +10,8 @@ namespace TweetListener2.ViewModels
 {
     public class AllResourcesViewModel : ViewModelBase
     {
+
+
         public ObservableCollection<StreamViewModel> StreamViewModels
         {
             get
