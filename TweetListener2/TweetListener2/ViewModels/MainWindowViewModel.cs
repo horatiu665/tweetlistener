@@ -9,6 +9,8 @@ namespace TweetListener2.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public static MainWindowViewModel instance;
+
         private ObservableCollection<ViewModelBase> panels = new ObservableCollection<ViewModelBase>();
         public ObservableCollection<ViewModelBase> Panels
         {
@@ -25,8 +27,21 @@ namespace TweetListener2.ViewModels
 
         public MainWindowViewModel()
         {
+            instance = this;
+
             Systems.SystemManager.Init();
             panels.Add(new AllResourcesViewModel());
+
+        }
+
+        public void AddPanel(ViewModelBase panel)
+        {
+            panels.Add(panel);
+        }
+
+        public void RemovePanel(ViewModelBase panel)
+        {
+            panels.Remove(panel);
         }
 
     }

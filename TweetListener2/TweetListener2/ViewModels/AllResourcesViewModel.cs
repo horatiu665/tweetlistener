@@ -4,14 +4,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using TweetListener2.Systems;
 
 namespace TweetListener2.ViewModels
 {
     public class AllResourcesViewModel : ViewModelBase
     {
+        #region ViewModel lists
 
-
+        /*
         public ObservableCollection<StreamViewModel> StreamViewModels
         {
             get
@@ -102,12 +105,35 @@ namespace TweetListener2.ViewModels
             
         }
 
+        //*/
+        #endregion
+
+        private ObservableCollection<ResourceListItem> resourceList = new ObservableCollection<ResourceListItem>();
+
+        public ObservableCollection<ResourceListItem> ResourceList
+        {
+            get
+            {
+                return resourceList;
+            }
+
+            set
+            {
+                resourceList = value;
+            }
+        }
+
         /// <summary>
         /// constructor
         /// </summary>
         public AllResourcesViewModel()
         {
+            SystemManager.instance.OnAddedSystem += SystemManager_OnAddedSystem;
+        }
 
+        private void SystemManager_OnAddedSystem(object sender, AddedSystemEventArgs e)
+        {
+            resourceList.Add(new ResourceListItem(e.system));
         }
 
         public void AddNewStream_Click()
@@ -179,6 +205,15 @@ namespace TweetListener2.ViewModels
             var stream = new StreamViewModel(database, log, rest, keywordDatabase, tweetDatabase);
             sysMan.Add(stream);
 
+        }
+
+        public void ResourceListItem_Click(object sender, RoutedEventArgs e)
+        {
+            var resourceListItem = (ResourceListItem)((Button)sender).DataContext;
+            if (resourceListItem != null) {
+                // create viewmodel and whatnot in mainwindow
+                MainWindowViewModel.instance.AddPanel(resourceListItem.Resource);
+            }
         }
     }
 }

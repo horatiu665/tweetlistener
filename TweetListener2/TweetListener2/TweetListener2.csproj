@@ -153,6 +153,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\BoolToVisibilityConverter.cs" />
     <Compile Include="RangeObservableCollection.cs" />
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Controls\ExtScrollViewer.cs" />
@@ -168,9 +169,11 @@
     <Compile Include="Systems\QueryExpansion.cs" />
     <Compile Include="Systems\Rest.cs" />
     <Compile Include="Systems\Stream.cs" />
+    <Compile Include="Systems\SystemManager\AddedSystemEventArgs.cs" />
     <Compile Include="Systems\TweetData.cs" />
     <Compile Include="Systems\TweetDatabase.cs" />
     <Compile Include="ViewModels\AllResourcesViewModel.cs" />
+    <Compile Include="ViewModels\AllResourcesViewModel\ResourceButton.cs" />
     <Compile Include="ViewModels\SystemViewModels\CredentialsViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\KeywordDatabaseViewModel.cs" />
@@ -187,8 +190,8 @@
     <Compile Include="Views\AllResourcesView.xaml.cs">
       <DependentUpon>AllResourcesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResourceButtonView.xaml.cs">
-      <DependentUpon>ResourceButtonView.xaml</DependentUpon>
+    <Compile Include="Views\QuickViewSpawner.xaml.cs">
+      <DependentUpon>QuickViewSpawner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SystemViews\CredentialsView.xaml.cs">
       <DependentUpon>CredentialsView.xaml</DependentUpon>
@@ -218,7 +221,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ResourceButtonView.xaml">
+    <Page Include="Views\QuickViewSpawner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuickViewSpawnerResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,7 +251,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Systems\SystemsManager.cs" />
+    <Compile Include="Systems\SystemManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -274,6 +281,10 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\greendot.png" />
+    <Resource Include="Icons\reddot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -14,6 +14,8 @@
         <views:AllResourcesView/>
     </DataTemplate>
 
-
+    <DataTemplate DataType="{x:Type vm:ResourceListItem}">
+        <views:QuickViewSpawner/>
+    </DataTemplate>
 
 </ResourceDictionary>

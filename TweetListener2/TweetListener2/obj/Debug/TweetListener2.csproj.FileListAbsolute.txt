@@ -79,7 +79,6 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetLis
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.exe
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.pdb
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\bin\Debug\MySql.Data.dll
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.csprojResolveAssemblyReference.cache
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\ViewSpawner.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\ViewSpawner.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\ViewSpawnerResources.baml
@@ -91,5 +90,5 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetLis
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\SystemViews\StreamView.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\AllResourcesView.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\AllResourcesView.baml
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\ResourceButtonView.g.cs
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\ResourceButtonView.baml
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\QuickViewSpawner.g.cs
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\QuickViewSpawner.baml

@@ -18,7 +18,7 @@
 
             When those buttons are done, the only remaining step is being able to delete the created systems, and the last step is making the Views and ViewModels of the systems to complete the CMS/Resource management system
             -->
-            <ItemsControl ItemsSource="{Binding Path=StreamViewModels, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl ItemsSource="{Binding Path=ResourceList, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -26,29 +26,30 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Name}"/>
+                        <Button Click="ResourceListItem_Click">
+                            <views:QuickViewSpawner DataContext="{Binding}"/>
+                        </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </controls:ExtScrollViewer>
         
         <Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>
-
         <Expander>
             <controls:ExtScrollViewer>
-                <DockPanel>
-                    <Label Content="Create Individual Resources" DockPanel.Dock="Top"/>
-                    <Button Content="Add new Stream" Height="30" DockPanel.Dock="Top" Click="AddNewStream_Click"/>
-                    <Button Content="Add new Rest" Height="30" DockPanel.Dock="Top" Click="AddNewRest_Click"/>
-                    <Button Content="Add new Credentials" Height="30" DockPanel.Dock="Top" Click="AddNewCredentials_Click"/>
-                    <Button Content="Add new Database" Height="30" DockPanel.Dock="Top" Click="AddNewDatabase_Click"/>
-                    <Button Content="Add new Log" Height="30" DockPanel.Dock="Top" Click="AddNewLog_Click"/>
-                    <Button Content="Add new KeywordDatabase" Height="30" DockPanel.Dock="Top" Click="AddNewKeywordDatabase_Click"/>
-                    <Button Content="Add new TweetDatabase" Height="30" DockPanel.Dock="Top" Click="AddNewTweetDatabase_Click"/>
-                    <Button Content="Add new QueryExpansion" Height="30" DockPanel.Dock="Top" Click="AddNewQueryExpansion_Click"/>
-                    <Button Content="Add new PorterStemmer" Height="30" DockPanel.Dock="Top" Click="AddNewPorterStemmer_Click"/>
-                    <Button Content="Add new MailHelper" Height="30" DockPanel.Dock="Top" Click="AddNewMailHelper_Click"/>
-                </DockPanel>
+                <StackPanel>
+                    <Label Content="Create Individual Resources"/>
+                    <Button Content="Add new Stream" Height="30" Click="AddNewStream_Click"/>
+                    <!--<Button Content="Add new Rest" Height="30" Click="AddNewRest_Click"/>-->
+                    <!--<Button Content="Add new Credentials" Height="30" Click="AddNewCredentials_Click"/>-->
+                    <!--<Button Content="Add new Database" Height="30" Click="AddNewDatabase_Click"/>-->
+                    <Button Content="Add new Log" Height="30" Click="AddNewLog_Click"/>
+                    <!--<Button Content="Add new KeywordDatabase" Height="30" Click="AddNewKeywordDatabase_Click"/>-->
+                    <!--<Button Content="Add new TweetDatabase" Height="30" Click="AddNewTweetDatabase_Click"/>-->
+                    <!--<Button Content="Add new QueryExpansion" Height="30" Click="AddNewQueryExpansion_Click"/>-->
+                    <!--<Button Content="Add new PorterStemmer" Height="30" Click="AddNewPorterStemmer_Click"/>-->
+                    <!--<Button Content="Add new MailHelper" Height="30" Click="AddNewMailHelper_Click"/>-->
+                </StackPanel>
             </controls:ExtScrollViewer>
         </Expander>
     </DockPanel>

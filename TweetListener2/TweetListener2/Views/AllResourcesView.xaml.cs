@@ -92,5 +92,10 @@ namespace TweetListener2.Views
         {
             ViewModel.AddNewTweetListener_Click();
         }
+
+        private void ResourceListItem_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ResourceListItem_Click(sender, e);
+        }
     }
 }

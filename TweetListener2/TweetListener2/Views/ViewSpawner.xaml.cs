@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TweetListener2.ViewModels;
 
 namespace TweetListener2.Views
 {
@@ -23,6 +24,11 @@ namespace TweetListener2.Views
         public ViewSpawner()
         {
             InitializeComponent();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel.instance.RemovePanel((ViewModelBase)DataContext);
         }
     }
 }

@@ -171,39 +171,28 @@ namespace TweetListener2.Systems
         public void Add<T>(T system)
         {
             if (system == null) return;
-        
+
             Console.WriteLine("[SystemManager] Adding system " + system);
 
             if (system is StreamViewModel) {
-                StreamViewModels.Add(system as StreamViewModel);
-            }
-            if (system is RestViewModel) {
-                RestViewModels.Add(system as RestViewModel);
-            }
-            if (system is CredentialsViewModel) {
-                CredentialsViewModels.Add(system as CredentialsViewModel);
-            }
-            if (system is DatabaseViewModel) {
-                DatabaseViewModels.Add(system as DatabaseViewModel);
+                var sysRef = system as StreamViewModel;
+                StreamViewModels.Add(sysRef);
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
             }
             if (system is LogViewModel) {
-                LogViewModels.Add(system as LogViewModel);
-            }
-            if (system is KeywordDatabaseViewModel) {
-                KeywordDatabaseViewModels.Add(system as KeywordDatabaseViewModel);
-            }
-            if (system is TweetDatabaseViewModel) {
-                TweetDatabaseViewModels.Add(system as TweetDatabaseViewModel);
-            }
-            if (system is QueryExpansionViewModel) {
-                QueryExpansionViewModels.Add(system as QueryExpansionViewModel);
-            }
-            if (system is PorterStemmerViewModel) {
-                PorterStemmerViewModels.Add(system as PorterStemmerViewModel);
-            }
-            if (system is MailHelperViewModel) {
-                MailHelperViewModels.Add(system as MailHelperViewModel);
+                var sysRef = system as LogViewModel;
+                LogViewModels.Add(sysRef);
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
             }
         }
+
+        private void AddedSystem(object sender, AddedSystemEventArgs args)
+        {
+            if (OnAddedSystem != null) {
+                OnAddedSystem(sender, args);
+            }
+        }
+
+        public event EventHandler<AddedSystemEventArgs> OnAddedSystem;
     }
 }

@@ -12,7 +12,7 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
-    <DockPanel Margin="0">
+    <!--<DockPanel Margin="0">-->
         <controls:ExtScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <ItemsControl ItemsSource="{Binding Panels, UpdateSourceTrigger=PropertyChanged}">
                 <ItemsControl.ItemsPanel>
@@ -30,5 +30,5 @@
                 <views:LogView/>
             </StackPanel>-->
         </controls:ExtScrollViewer>
-    </DockPanel>
+    <!--</DockPanel>-->
 </Window>

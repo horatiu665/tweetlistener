@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TweetListener2.Views
 {
     /// <summary>
-    /// Interaction logic for ResourceButtonView.xaml
+    /// Interaction logic for StreamQuickView.xaml
     /// </summary>
-    public partial class ResourceButtonView : UserControl
+    public partial class QuickViewSpawner : UserControl
     {
-        public ResourceButtonView()
+        public QuickViewSpawner()
         {
             InitializeComponent();
         }

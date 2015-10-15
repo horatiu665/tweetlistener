@@ -18,6 +18,7 @@ namespace TweetListener2.ViewModels
                 return GetType().ToString();
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
