@@ -4,9 +4,84 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TweetListener2.Views"
+             xmlns:controls="clr-namespace:TweetListener2.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" MinWidth="300">
-    <Grid>
-            
-    </Grid>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <controls:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <controls:ExtScrollViewer>
+        <Grid Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="124"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center"  Grid.Row="0" Height="26" Margin="0,2,0,3"/>
+            <ComboBox SelectedIndex="{Binding DatabaseDestinationComboBoxIndex}" VerticalAlignment="Center"  Grid.Row="0" Grid.Column="1" Height="22" Margin="0,4,0,5">
+                <ComboBoxItem Content="PHP POST"/>
+                <ComboBoxItem Content="Direct to MySQL"/>
+                <ComboBoxItem Content="Direct to SQL"/>
+            </ComboBox>
+
+            <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Height="26" Margin="0,3,0,2">
+                <Label.ToolTip>
+                    Sends database messages to this address. If not found, logs errors and slows down program.
+                </Label.ToolTip>
+            </Label>
+            <TextBox VerticalAlignment="Center" Text="{Binding Path=PhpPostPath}" Grid.Column="1" Grid.Row="1" Height="18" Margin="0,7,0,6"/>
+
+            <Label Content="Text file DB path" HorizontalContentAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Height="26" Margin="0,2,0,3">
+                <Label.ToolTip>
+                    Saves/loads tweets in a file, as a backup/alternative to the database.
+                </Label.ToolTip>
+            </Label>
+            <TextBox VerticalAlignment="Center" Text="{Binding TextFileDatabasePath, Mode=TwoWay}"  Grid.Column="1" Grid.Row="2" Height="18" Margin="0,6,0,7"/>
+            <Label Content="DB table name" HorizontalContentAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Height="26" Margin="0,3,0,2">
+                <Label.ToolTip>
+                    Sends table name to PHP script, saves tweets in this table in the DB.
+                </Label.ToolTip>
+            </Label>
+            <TextBox VerticalAlignment="Center" Text="{Binding DatabaseTableName, Mode=TwoWay}"  Grid.Column="1" Grid.Row="3" Height="18" Margin="0,7,0,6"/>
+            <Label Content="DB connection str" HorizontalContentAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Height="26" Margin="0,2,0,3">
+                <Label.ToolTip>
+                    (only for data destination direct to SQL) Info about the connection to the database.
+                </Label.ToolTip>
+            </Label>
+            <TextBox VerticalAlignment="Center" Text="{Binding ConnectionString, Mode=TwoWay}"  Grid.Column="1" Grid.Row="4" Height="18" Margin="0,6,0,7"/>
+            <CheckBox Content="Save to database" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToDatabase, Mode=TwoWay}" Grid.Row="5" Height="15" Margin="0,8">
+                <CheckBox.ToolTip>
+                    Saves each tweet to database, by sending POST request. Can slow down gathering. If sending fails, retries N times in one-second intervals.
+                </CheckBox.ToolTip>
+            </CheckBox>
+            <DockPanel Grid.Row="5" Grid.Column="1">
+                <Label Content="| Retries" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1"/>
+                <TextBox VerticalAlignment="Center" MinWidth="30" MaxWidth="100" HorizontalAlignment="Left" Text="{Binding Path=MaxTweetDatabaseSendRetries, Mode=TwoWay}"/>
+            </DockPanel>
+            <CheckBox Content="Save to text file" VerticalAlignment="Center" IsChecked="{Binding Path=SaveToTextFileProperty, Mode=TwoWay}" Grid.Row="6" Grid.ColumnSpan="2" Height="15" Margin="0,8">
+                <CheckBox.ToolTip>
+                    Saves each tweet to text file, as backup for database. Path specified above.
+                </CheckBox.ToolTip>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding Path=OutputDatabaseMessages, Mode=TwoWay}" Content="Output database messages" VerticalAlignment="Center"  Grid.Row="7" Grid.ColumnSpan="2" Height="15" Margin="0,8">
+                <CheckBox.ToolTip>
+                    Logs database messages (when it works, just logs "OK") - not recommended, slows down gathering.
+                </CheckBox.ToolTip>
+            </CheckBox>
+
+        </Grid>
+    </controls:ExtScrollViewer>
 </UserControl>

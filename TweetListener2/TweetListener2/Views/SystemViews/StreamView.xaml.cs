@@ -52,7 +52,17 @@ namespace TweetListener2.Views
 
         private void StartStream_Button(object sender, RoutedEventArgs e)
         {
-            ViewModel.IsRunning = true;
+            ViewModel.StartStream();
+        }
+
+        private void RestartStream_Button(object sender, RoutedEventArgs e)
+        {
+            ViewModel.RestartStream();
+        }
+
+        private void StopStream_Button(object sender, RoutedEventArgs e)
+        {
+            ViewModel.StopStream();
         }
     }
 }

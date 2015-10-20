@@ -12,6 +12,7 @@ namespace TweetListener2.Systems
 {
     public class Credentials
     {
+        
         /// <summary>
         /// Which log to use for debug?
         /// </summary>
@@ -33,7 +34,7 @@ namespace TweetListener2.Systems
         /// <summary>
         /// Active credentials, should remain private, current creds can be accessed using Tweetinvi.Auth.ApplicationCredentials instead.
         /// </summary>
-        private List<string> credentials = new List<string>() { "", "", "", "" };
+        private List<string> credentials;
 
         /// <summary>
         /// hardcoded default credentials that can be set using the interface
@@ -47,7 +48,7 @@ namespace TweetListener2.Systems
         };
 
         /// <summary>
-        /// getter and private setter
+        /// The available credentials for the application
         /// </summary>
         public List<List<string>> Defaults
         {

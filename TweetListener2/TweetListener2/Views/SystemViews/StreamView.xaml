@@ -10,6 +10,28 @@
     <!-- DataContext is a Stream instance. This panel should provide all necessary information and interaction options with the Stream -->
     <StackPanel>
         <Button Content="Start Stream" Click="StartStream_Button"/>
-        
+        <Button Content="Restart Stream" Click="RestartStream_Button"/>
+        <Button Content="Stop Stream" Click="StopStream_Button"/>
+        <CheckBox Content="Stream Running" IsChecked="{Binding StreamRunning, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0,0" Height="30">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <CheckBox IsChecked="{Binding Path=CountersOn, Mode=TwoWay}" Content="Output event counters"  VerticalAlignment="Top">
+            <CheckBox.ToolTip>
+                Output a log entry for each event received from Twitter, such as: received tweet, rate limit message, stream start/end, etc..
+            </CheckBox.ToolTip>
+        </CheckBox>
+        <CheckBox  IsChecked="{Binding Path=LogEveryJson, Mode=TwoWay}" Content="Log every JSON message from Twitter" VerticalAlignment="Top">
+            <CheckBox.ToolTip>
+                Logs raw data received from Twitter. Not recommended during gathering, but very useful when examining raw data, or debugging.
+            </CheckBox.ToolTip>
+        </CheckBox>
+
     </StackPanel>
 </UserControl>

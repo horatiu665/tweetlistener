@@ -87,16 +87,7 @@ namespace TweetListener2.Systems
                 tweetDatabase = value;
             }
         }
-
-        ///// <summary>
-        ///// the filter used for the stream
-        ///// </summary>
-        //private string filter = "";
-        //public string Filter
-        //{
-        //	get { return filter; }
-        //	set { filter = value; }
-        //}
+        
 
         /// <summary>
         /// the stream used throughout the program
@@ -121,11 +112,6 @@ namespace TweetListener2.Systems
                 return TweetDatabase.MostRecentTweetTime;
             }
         }
-
-        /// <summary>
-        /// made true after running Init = only run some code once.
-        /// </summary>
-        private bool _initialized = false;
 
         /// <summary>
         /// used when intentionally stopping stream, to know not to attempt a restart.

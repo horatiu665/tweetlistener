@@ -83,7 +83,10 @@ namespace TweetListener2.ViewModels
         private void Log_LogOutput(string message)
         {
             KeepLogListShort();
-            LogMessageList.Add(new LogMessage(message));
+            App.Current.Dispatcher.InvokeAsync(() => {
+                LogMessageList.Add(new LogMessage(message));
+
+            });
         }
 
         /// <summary>

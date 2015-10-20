@@ -47,6 +47,7 @@ namespace TweetListener2.ViewModels
         }
 
         /// <summary>
+        /// OLD SHIT FROM OLD PROJECT PLS DELETE AND FIX
         /// only for display
         /// </summary>
         public string SelectedCredentials
@@ -69,6 +70,63 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        internal void SetCredentialsButton()
+        {
+            Log.Output("Set credentials not implemented.. pls fix");
+        }
+
+        public string AccessToken
+        {
+            get
+            {
+                return Tweetinvi.Auth.ApplicationCredentials.AccessToken;
+            }
+            set
+            {
+                Log.Output("Set credentials not implemented.. pls fix");
+
+            }
+        }
+
+        public string AccessTokenSecret
+        {
+            get
+            {
+                return Tweetinvi.Auth.ApplicationCredentials.AccessTokenSecret;
+            }
+            set
+            {
+                Log.Output("Set credentials not implemented.. pls fix");
+
+            }
+        }
+
+        public string ConsumerKey
+        {
+            get
+            {
+                return Tweetinvi.Auth.ApplicationCredentials.ConsumerKey;
+            }
+            set
+            {
+                Log.Output("Set credentials not implemented.. pls fix");
+
+            }
+        }
+
+        public string ConsumerSecret
+        {
+            get
+            {
+                return Tweetinvi.Auth.ApplicationCredentials.ConsumerSecret;
+            }
+            set
+            {
+                Log.Output("Set credentials not implemented.. pls fix");
+
+            }
+        }
+
         public override string Name
         {
             get
@@ -77,12 +135,46 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        /// <summary>
+        /// TODO: instead of int, create a credential atom class, 
+        /// that contains a list of string (the four credential strings) 
+        /// and a bool which specifies if the cred is currently used by some stream or is available for use
+        /// </summary>
+        public List<int> CredentialsOptions
+        {
+            get
+            {
+                return Credentials.Defaults.Select(cList => Credentials.Defaults.IndexOf(cList)).ToList();
+            }
+        }
+
+        int credIndex;
+
+        /// <summary>
+        /// TODO: instead of int, create a credential atom class, 
+        /// that contains a list of string (the four credential strings) 
+        /// and a bool which specifies if the cred is currently used by some stream or is available for use
+        /// </summary>
+        public int SelectedItem
+        {
+            get
+            {
+                return credIndex;
+            }
+            set
+            {
+                credIndex = value;
+                credentials.SetCredentials(credIndex);
+                // update properties for credential view...
+            }
+        }
+
         public void ReadCredentialsFromFile(string path = "config.ini")
         {
             Credentials.ReadCredentialsDefaults(path);
 
         }
-        
+
         public void SetCredentials(int index)
         {
             Credentials.SetCredentials(index);

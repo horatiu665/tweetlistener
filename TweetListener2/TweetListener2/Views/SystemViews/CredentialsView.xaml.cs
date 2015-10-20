@@ -51,16 +51,7 @@ namespace TweetListener2.Views
 
         private void setCredentialsButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.SetCredentials(new List<string>() {
-                // "Access_Token"
-				Access_Token.Text,
-				// "Access_Token_Secret"
-				Access_Token_Secret.Text,
-				// "Consumer_Key"
-				Consumer_Key.Text,
-				// "Consumer_Secret"
-				Consumer_Secret.Text
-            });
+            ViewModel.SetCredentialsButton();
         }
     }
 }

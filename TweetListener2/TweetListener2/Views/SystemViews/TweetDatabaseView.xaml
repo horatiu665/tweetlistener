@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <CheckBox Content="Save To RAM" IsChecked="{Binding SaveToRam}">
+            <CheckBox.ToolTip>
+                Keeps received tweets in memory. Not useful when connected with a long-term stream connection on a low-resource machine. 
+                                                Drawback: cannot check for duplicates in listener, only in database (but that's better).
+            </CheckBox.ToolTip>
+        </CheckBox>
     </Grid>
 </UserControl>
