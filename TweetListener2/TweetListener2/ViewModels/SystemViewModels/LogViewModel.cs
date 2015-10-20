@@ -101,6 +101,14 @@ namespace TweetListener2.ViewModels
 
         public ObservableCollection<LogMessage> LogMessageList { get; set; }
 
+        public override string Name
+        {
+            get
+            {
+                return "Log";
+            }
+        }
+
         /// <summary>
         /// clears log list in the interface
         /// </summary>

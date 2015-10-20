@@ -8,8 +8,9 @@
     
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel>
-        <controls:ExtScrollViewer DockPanel.Dock="Top">
+    <controls:ExtScrollViewer DockPanel.Dock="Top">
+        <DockPanel>
+        <Button Content="Sort Resource List" DockPanel.Dock="Top" Click="SortResourceList_Click"/>
             <!-- Instead of binding to StreamViewModels or other System ViewModels, 
             rather bind to a list of custom classes which simply specify which 
             systems exist, and provide functionality to spawn views in the MainWindow to control them.
@@ -18,7 +19,7 @@
 
             When those buttons are done, the only remaining step is being able to delete the created systems, and the last step is making the Views and ViewModels of the systems to complete the CMS/Resource management system
             -->
-            <ItemsControl ItemsSource="{Binding Path=ResourceList, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl ItemsSource="{Binding Path=ResourceList, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" Margin="6">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -32,10 +33,9 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </controls:ExtScrollViewer>
         
         <Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>
-        <Expander>
+        <Expander DockPanel.Dock="Top">
             <controls:ExtScrollViewer>
                 <StackPanel>
                     <Label Content="Create Individual Resources"/>
@@ -53,4 +53,6 @@
             </controls:ExtScrollViewer>
         </Expander>
     </DockPanel>
+    </controls:ExtScrollViewer>
+
 </UserControl>

@@ -22,9 +22,18 @@ namespace TweetListener2.ViewModels
 		    {                                            
 		        mailHelper = value;                 
 		    }                                            
-		}                                                
-		
-		public MailHelperViewModel(LogViewModel log, StreamViewModel stream)
+		}
+
+        public override string Name
+        {
+            get
+            {
+                return "Mail Helper";
+                throw new NotImplementedException();
+            }
+        }
+
+        public MailHelperViewModel(LogViewModel log, StreamViewModel stream)
 		{
 			// create new model
 			mailHelper = new MailHelper(log.Log, stream.Stream);

@@ -13,11 +13,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <Label Content="Stream"/>
-        <Grid>
+        <Label Content="{Binding Name}"/>
+        <Label Content="{Binding CountInSystemManager}"/>
+        <!--This was supposed to show a little gizmo with information about the system, to be visible at a quick glance--> 
+        <!--<Grid>
             <Image Source="/TweetListener2;component/Icons/greendot.png" Height="12" Width="12"/>
             <Image Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}}" Source="/TweetListener2;component/Icons/reddot.png" Height="12" Width="12"/>
-        </Grid>
+        </Grid>-->
     </DockPanel>
     
 </UserControl>

@@ -22,9 +22,18 @@ namespace TweetListener2.ViewModels
 		    {                                            
 		        queryExpansion = value;                 
 		    }                                            
-		}                                                
-		
-		public QueryExpansionViewModel(LogViewModel log)
+		}
+
+        public override string Name
+        {
+            get
+            {
+                return "Query expansion";
+                throw new NotImplementedException();
+            }
+        }
+
+        public QueryExpansionViewModel(LogViewModel log)
 		{
 			// create new model
 			queryExpansion = new QueryExpansion(log.Log);

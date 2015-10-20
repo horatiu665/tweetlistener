@@ -22,9 +22,18 @@ namespace TweetListener2.ViewModels
 		    {                                            
 		        tweetDatabase = value;                 
 		    }                                            
-		}                                                
-		
-		public TweetDatabaseViewModel(DatabaseViewModel database)
+		}
+
+        public override string Name
+        {
+            get
+            {
+                return "Tweet Database";
+                throw new NotImplementedException();
+            }
+        }
+
+        public TweetDatabaseViewModel(DatabaseViewModel database)
 		{
 			// create new model
 			tweetDatabase = new TweetDatabase(database.Database);

@@ -25,6 +25,14 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        public override string Name
+        {
+            get
+            {
+               return "Main Window";
+            }
+        }
+
         public MainWindowViewModel()
         {
             instance = this;

@@ -69,6 +69,14 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        public override string Name
+        {
+            get
+            {
+                return "Credentials";
+            }
+        }
+
         public void ReadCredentialsFromFile(string path = "config.ini")
         {
             Credentials.ReadCredentialsDefaults(path);

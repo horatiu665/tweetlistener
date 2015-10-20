@@ -22,9 +22,18 @@ namespace TweetListener2.ViewModels
 		    {                                            
 		        rest = value;                 
 		    }                                            
-		}                                                
-		
-		public RestViewModel(DatabaseViewModel database, LogViewModel log, TweetDatabaseViewModel tweetDb)
+		}
+
+        public override string Name
+        {
+            get
+            {
+                return "Rest";
+                throw new NotImplementedException();
+            }
+        }
+
+        public RestViewModel(DatabaseViewModel database, LogViewModel log, TweetDatabaseViewModel tweetDb)
 		{
 			// create new model
 			rest = new Rest(database.Database, log.Log, tweetDb.TweetDatabase);

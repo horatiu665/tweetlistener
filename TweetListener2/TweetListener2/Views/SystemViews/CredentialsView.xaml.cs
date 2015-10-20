@@ -20,7 +20,29 @@ namespace TweetListener2.Views
     /// </summary>
     public partial class CredentialsView : UserControl
     {
-        ViewModels.CredentialsViewModel ViewModel { get; set; }
+        private ViewModels.CredentialsViewModel viewModel;
+
+        public TweetListener2.ViewModels.CredentialsViewModel ViewModel
+        {
+            get
+            {
+                if (viewModel != null) {
+                    return viewModel;
+                } else {
+                    if (DataContext is ViewModels.CredentialsViewModel) {
+                        viewModel = (ViewModels.CredentialsViewModel)DataContext;
+                        return viewModel;
+
+                    } else {
+                        // do not spawn new viewmodel, but rather let systemsmanager handle that
+
+                        //viewModel = new ViewModels.CredentialsViewModel();
+                        //DataContext = viewModel;
+                        return null;
+                    }
+                }
+            }
+        }
 
         public CredentialsView()
         {

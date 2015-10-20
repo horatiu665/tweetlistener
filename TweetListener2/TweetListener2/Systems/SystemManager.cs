@@ -168,6 +168,8 @@ namespace TweetListener2.Systems
             }
         }
 
+        private int StreamCount, RestCount, CredentialsCount, DatabaseCount, LogCount, KeywordDatabaseCount, TweetDatabaseCount, QueryExpansionCount, PorterStemmerCount, MailHelperCount;
+
         public void Add<T>(T system)
         {
             if (system == null) return;
@@ -177,13 +179,64 @@ namespace TweetListener2.Systems
             if (system is StreamViewModel) {
                 var sysRef = system as StreamViewModel;
                 StreamViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = StreamCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is RestViewModel) {
+                var sysRef = system as RestViewModel;
+                RestViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = RestCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is CredentialsViewModel) {
+                var sysRef = system as CredentialsViewModel;
+                CredentialsViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = CredentialsCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is DatabaseViewModel) {
+                var sysRef = system as DatabaseViewModel;
+                DatabaseViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = DatabaseCount++;
                 AddedSystem(this, new AddedSystemEventArgs(sysRef));
             }
             if (system is LogViewModel) {
                 var sysRef = system as LogViewModel;
                 LogViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = LogCount++;
                 AddedSystem(this, new AddedSystemEventArgs(sysRef));
             }
+            if (system is KeywordDatabaseViewModel) {
+                var sysRef = system as KeywordDatabaseViewModel;
+                KeywordDatabaseViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = KeywordDatabaseCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is TweetDatabaseViewModel) {
+                var sysRef = system as TweetDatabaseViewModel;
+                TweetDatabaseViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = TweetDatabaseCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is QueryExpansionViewModel) {
+                var sysRef = system as QueryExpansionViewModel;
+                QueryExpansionViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = QueryExpansionCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is PorterStemmerViewModel) {
+                var sysRef = system as PorterStemmerViewModel;
+                PorterStemmerViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = PorterStemmerCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+            if (system is MailHelperViewModel) {
+                var sysRef = system as MailHelperViewModel;
+                MailHelperViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = MailHelperCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
+
         }
 
         private void AddedSystem(object sender, AddedSystemEventArgs args)

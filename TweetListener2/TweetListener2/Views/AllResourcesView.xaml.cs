@@ -97,5 +97,10 @@ namespace TweetListener2.Views
         {
             ViewModel.ResourceListItem_Click(sender, e);
         }
+
+        private void SortResourceList_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SortResourceList_Click(sender, e);
+        }
     }
 }

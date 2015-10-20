@@ -29,12 +29,17 @@ namespace TweetListener2.ViewModels
             Stream = new Stream(database.Database, log.Log, rest.Rest, keywordDatabase.KeywordDatabase, tweetDatabase.TweetDatabase);
         }
 
+        bool tempIsRunning = false;
+
         public bool IsRunning
         {
             get
             {
-                throw new NotImplementedException();
-                //return false;
+                return true;
+            }
+            set
+            {
+                tempIsRunning = value;
             }
         }
 
@@ -43,6 +48,14 @@ namespace TweetListener2.ViewModels
             get
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return "Stream";
             }
         }
     }

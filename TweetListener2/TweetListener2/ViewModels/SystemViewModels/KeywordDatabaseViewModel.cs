@@ -24,6 +24,15 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        public override string Name
+        {
+            get
+            {
+                return "Keyword Database";
+
+            }
+        }
+
         public KeywordDatabaseViewModel(LogViewModel log)
 		{
 			// create new model

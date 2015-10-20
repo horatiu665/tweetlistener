@@ -9,15 +9,11 @@ using TweetListener2.Systems;
 
 namespace TweetListener2.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        public string Name
-        {
-            get
-            {
-                return GetType().ToString();
-            }
-        }
+        public abstract string Name { get; }
+
+        public int CountInSystemManager { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

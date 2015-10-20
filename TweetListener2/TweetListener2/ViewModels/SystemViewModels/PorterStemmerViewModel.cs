@@ -22,9 +22,17 @@ namespace TweetListener2.ViewModels
 		    {                                            
 		        porterStemmer = value;                 
 		    }                                            
-		}                                                
-		
-		public PorterStemmerViewModel()
+		}
+
+        public override string Name
+        {
+            get
+            {
+                return "Porter stemmer";
+            }
+        }
+
+        public PorterStemmerViewModel()
 		{
 			// create new model
 			porterStemmer = new PorterStemmer();

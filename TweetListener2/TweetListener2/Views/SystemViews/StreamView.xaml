@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <!-- DataContext is a Stream instance. This panel should provide all necessary information and interaction options with the Stream -->
     <StackPanel>
-        <Button Content="Start Stream" />
-
+        <Button Content="Start Stream" Click="StartStream_Button"/>
+        
     </StackPanel>
 </UserControl>

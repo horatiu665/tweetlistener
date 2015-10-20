@@ -173,7 +173,7 @@
     <Compile Include="Systems\TweetData.cs" />
     <Compile Include="Systems\TweetDatabase.cs" />
     <Compile Include="ViewModels\AllResourcesViewModel.cs" />
-    <Compile Include="ViewModels\AllResourcesViewModel\ResourceButton.cs" />
+    <Compile Include="ViewModels\AllResourcesViewModel\ResourceListItem.cs" />
     <Compile Include="ViewModels\SystemViewModels\CredentialsViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\KeywordDatabaseViewModel.cs" />
@@ -196,11 +196,32 @@
     <Compile Include="Views\SystemViews\CredentialsView.xaml.cs">
       <DependentUpon>CredentialsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SystemViews\DatabaseView.xaml.cs">
+      <DependentUpon>DatabaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemViews\KeywordDatabaseView.xaml.cs">
+      <DependentUpon>KeywordDatabaseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SystemViews\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SystemViews\MailHelperView.xaml.cs">
+      <DependentUpon>MailHelperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemViews\PorterStemmerView.xaml.cs">
+      <DependentUpon>PorterStemmerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemViews\QueryExpansionView.xaml.cs">
+      <DependentUpon>QueryExpansionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemViews\RestView.xaml.cs">
+      <DependentUpon>RestView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SystemViews\StreamView.xaml.cs">
       <DependentUpon>StreamView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemViews\TweetDatabaseView.xaml.cs">
+      <DependentUpon>TweetDatabaseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewSpawner.xaml.cs">
       <DependentUpon>ViewSpawner.xaml</DependentUpon>
@@ -233,11 +254,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SystemViews\DatabaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\KeywordDatabaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SystemViews\LogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SystemViews\MailHelperView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\PorterStemmerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\QueryExpansionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\RestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SystemViews\StreamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemViews\TweetDatabaseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,13 +24,21 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return resource.ToString();
-                // should make this prettier - for each system, give it a nice name
+                return resource.Name;
+            }
+        }
+
+        public int CountInSystemManager
+        {
+            get
+            {
+                return resource.CountInSystemManager;
             }
         }
 
         public ResourceListItem(ViewModelBase type)
         {
+
             resource = type;
         }
 

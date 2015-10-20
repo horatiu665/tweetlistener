@@ -22,9 +22,17 @@ namespace TweetListener2.ViewModels
 		    {                                            
 		        database = value;                 
 		    }                                            
-		}                                                
-		
-		public DatabaseViewModel(LogViewModel log)
+		}
+
+        public override string Name
+        {
+            get
+            {
+                return "Database";
+            }
+        }
+
+        public DatabaseViewModel(LogViewModel log)
 		{
 			// create new model
 			database = new Database(log.Log);

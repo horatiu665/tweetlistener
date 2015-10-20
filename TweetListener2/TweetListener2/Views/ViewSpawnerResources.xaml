@@ -4,12 +4,37 @@
   xmlns:vm="clr-namespace:TweetListener2.ViewModels"
   xmlns:views="clr-namespace:TweetListener2.Views"
   >
-    <DataTemplate DataType="{x:Type vm:LogViewModel}">
-        <views:LogView/>
-    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:StreamViewModel}">
-        <views:StreamView/>
+        <views:StreamView></views:StreamView>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:RestViewModel}">
+        <views:RestView></views:RestView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CredentialsViewModel}">
+        <views:CredentialsView></views:CredentialsView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DatabaseViewModel}">
+        <views:DatabaseView></views:DatabaseView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:LogViewModel}">
+        <views:LogView></views:LogView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:KeywordDatabaseViewModel}">
+        <views:KeywordDatabaseView></views:KeywordDatabaseView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TweetDatabaseViewModel}">
+        <views:TweetDatabaseView></views:TweetDatabaseView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:QueryExpansionViewModel}">
+        <views:QueryExpansionView></views:QueryExpansionView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:PorterStemmerViewModel}">
+        <views:PorterStemmerView></views:PorterStemmerView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MailHelperViewModel}">
+        <views:MailHelperView></views:MailHelperView>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:AllResourcesViewModel}">
         <views:AllResourcesView/>
     </DataTemplate>

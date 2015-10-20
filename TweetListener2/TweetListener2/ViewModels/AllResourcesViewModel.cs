@@ -123,6 +123,24 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        public override string Name
+        {
+            get
+            {
+                return "All Resources";
+
+            }
+        }
+
+        internal void SortResourceList_Click(object sender, RoutedEventArgs e)
+        {
+            var sortedList = new List<ResourceListItem>(resourceList.OrderBy(rli => rli.Name));
+            ResourceList.Clear();
+            for (int i = 0; i < sortedList.Count; i++) {
+                ResourceList.Add(sortedList[i]);
+            }
+        }
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -134,6 +152,7 @@ namespace TweetListener2.ViewModels
         private void SystemManager_OnAddedSystem(object sender, AddedSystemEventArgs e)
         {
             resourceList.Add(new ResourceListItem(e.system));
+            
         }
 
         public void AddNewStream_Click()
