@@ -4338,3 +4338,117 @@ created_at, id, id_str, text:@noel627 had to get my daily re-tweet in. 💯, sou
 21-10-2015 17:50:10: Counters off
 21-10-2015 17:51:44: New log started
 21-10-2015 17:51:44: Counters off
+21-10-2015 18:19:26: New log started
+21-10-2015 18:19:26: Counters off
+21-10-2015 18:19:27: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+21-10-2015 18:19:27: Stream attempting to start at time 21-10-2015 18:19:27
+21-10-2015 18:19:27: OnStreamStarted event is called
+21-10-2015 18:19:27: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 21-10-2015 18:19:27
+21-10-2015 18:19:27: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+21-10-2015 18:19:31: Stream disconnected.
+21-10-2015 18:19:31: Stream disconnected.
+21-10-2015 18:19:39: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:39: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:39: Finished loading 76 tweets from file
+21-10-2015 18:19:42: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:42: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:42: Finished loading 76 tweets from file
+21-10-2015 18:19:43: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:43: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:43: Finished loading 76 tweets from file
+21-10-2015 18:19:43: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:43: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:43: Finished loading 76 tweets from file
+21-10-2015 18:19:43: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:43: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:43: Finished loading 76 tweets from file
+21-10-2015 18:19:43: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:43: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:43: Finished loading 76 tweets from file
+21-10-2015 18:19:59: Loading 76 lines from file rawJsonBackup.txt
+21-10-2015 18:19:59: Loaded files. Dumping them into tweetList
+21-10-2015 18:19:59: Finished loading 76 tweets from file
+21-10-2015 18:28:59: New log started
+21-10-2015 18:28:59: Counters off
+21-10-2015 18:28:59: Stream attempting to start at time 21-10-2015 18:28:59
+21-10-2015 18:28:59: OnStreamStarted event is called
+21-10-2015 18:29:00: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 21-10-2015 18:28:59
+21-10-2015 18:29:01: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+21-10-2015 18:29:14: Stream disconnected.
+21-10-2015 18:29:14: Stream disconnected.
+21-10-2015 18:29:14: Stream attempting to start at time 21-10-2015 18:29:14
+21-10-2015 18:29:14: OnStreamStarted event is called
+21-10-2015 18:29:14: Start of Rest.TweetsGatheringCycle() from 21-10-2015 18:29:12 to 21-10-2015 18:29:14
+21-10-2015 18:29:14: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+21-10-2015 18:29:15: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+21-10-2015 18:29:22: Stream disconnected.
+21-10-2015 18:29:22: Stream disconnected.
+21-10-2015 18:29:36: Stream attempting to start at time 21-10-2015 18:29:36
+21-10-2015 18:29:36: OnStreamStarted event is called
+21-10-2015 18:29:36: Start of Rest.TweetsGatheringCycle() from 21-10-2015 18:29:34 to 21-10-2015 18:29:36
+21-10-2015 18:29:36: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+21-10-2015 18:29:37: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+21-10-2015 18:29:43: Stream disconnected.
+21-10-2015 18:29:43: Stream disconnected.
+21-10-2015 18:29:43: Separate thread waiting to start stream after it stops
+21-10-2015 18:29:45: Stream attempting to start at time 21-10-2015 18:29:45
+21-10-2015 18:29:45: OnStreamStarted event is called
+21-10-2015 18:29:45: Start of Rest.TweetsGatheringCycle() from 21-10-2015 18:29:45 to 21-10-2015 18:29:45
+21-10-2015 18:29:45: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+21-10-2015 18:29:46: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+21-10-2015 18:29:46: Stream disconnected.
+21-10-2015 18:29:46: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+21-10-2015 18:29:49: Stream attempting to start at time 21-10-2015 18:29:49
+21-10-2015 18:29:49: OnStreamStarted event is called
+21-10-2015 18:29:49: Start of Rest.TweetsGatheringCycle() from 21-10-2015 18:29:47 to 21-10-2015 18:29:49
+21-10-2015 18:29:49: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+21-10-2015 18:29:50: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+21-10-2015 18:29:56: Stream disconnected.
+21-10-2015 18:29:56: Stream disconnected.
+21-10-2015 18:30:27: New log started
+21-10-2015 18:30:27: Counters off
+21-10-2015 18:30:27: Stream attempting to start at time 21-10-2015 18:30:27
+21-10-2015 18:30:27: OnStreamStarted event is called
+21-10-2015 18:30:27: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 21-10-2015 18:30:27
+21-10-2015 18:30:28: Searching for #google
+21-10-2015 18:30:37: Stream disconnected.
+21-10-2015 18:30:37: Stream disconnected.
+21-10-2015 18:30:41: Stream attempting to start at time 21-10-2015 18:30:41
+21-10-2015 18:30:41: OnStreamStarted event is called
+21-10-2015 18:30:41: Start of Rest.TweetsGatheringCycle() from 21-10-2015 18:30:39 to 21-10-2015 18:30:41
+21-10-2015 18:30:41: Searching for #google
+21-10-2015 18:30:42: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+21-10-2015 18:31:02: Stream disconnected.
+21-10-2015 18:31:02: Stream disconnected.
+21-10-2015 18:34:13: New log started
+21-10-2015 18:34:13: Counters off
+21-10-2015 18:34:13: Stream attempting to start at time 21-10-2015 18:34:13
+21-10-2015 18:34:13: OnStreamStarted event is called
+21-10-2015 18:34:13: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 21-10-2015 18:34:13
+21-10-2015 18:34:14: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+21-10-2015 18:34:19: Loading 1507 lines from file rawJsonBackup.txt
+21-10-2015 18:34:19: Loaded files. Dumping them into tweetList
+21-10-2015 18:34:19: Finished loading 1507 tweets from file
+21-10-2015 18:34:22: Loading 1611 lines from file rawJsonBackup.txt
+21-10-2015 18:34:22: Loaded files. Dumping them into tweetList
+21-10-2015 18:34:22: Finished loading 1611 tweets from file
+21-10-2015 18:34:22: Loading 1611 lines from file rawJsonBackup.txt
+21-10-2015 18:34:22: Loaded files. Dumping them into tweetList
+21-10-2015 18:34:22: Finished loading 1611 t

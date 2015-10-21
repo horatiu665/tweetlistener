@@ -174,14 +174,16 @@ namespace TweetListener2.Views
 
         public OldMainWindow()
         {
-            InitializeComponent();
             this.Loaded += OldMainWindow_Loaded;
         }
 
         private void OldMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Starting to initialize bindings YOYOYOYYOYO");
+            var x = viewModel;
+            InitializeComponent();
             InitializeBindings();
+            
         }
 
         /// <summary>
@@ -291,6 +293,7 @@ namespace TweetListener2.Views
                 vm.Log.Output(s);
             };
 
+            fromFileLoaderLabel.DataContext = this;
 
         }
 

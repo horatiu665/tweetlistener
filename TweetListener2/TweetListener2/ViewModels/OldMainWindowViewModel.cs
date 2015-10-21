@@ -193,7 +193,7 @@ namespace TweetListener2.ViewModels
             }
             if (commandLineArgs.ContainsKey("startStream")) {
                 if (commandLineArgs["startStream"] != "0") {
-                    //stream.Start();
+                    stream.Start();
                 }
             }
             // example args list:

@@ -30,16 +30,16 @@
                                 <ad:LayoutAnchorable Title="Log" CanClose="False" CanHide="False" AutoHideWidth="300">
                                     <DockPanel x:Name="logPane">
                                         <DockPanel DockPanel.Dock="Top">
-                                            <Button Content="Clear Log" Width="100" Click="logClearButtonClick">
+                                            <Button Content="Clear Log" Width="100" Click="logClearButtonClick" HorizontalAlignment="Left">
                                                 <Button.ToolTip>
                                                     Clears log messages from memory. Log file not affected.
                                                 </Button.ToolTip>
                                             </Button>
-                                            <CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0">
+                                            <!--<CheckBox Content="Auto Scroll" Width="100" IsChecked="{Binding ScrollToLast}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0">
                                                 <CheckBox.ToolTip>
                                                     Scrolls down every time there is a new log message.
                                                 </CheckBox.ToolTip>
-                                            </CheckBox>
+                                            </CheckBox>-->
                                         </DockPanel>
                                         <DataGrid x:Name="logView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False">
                                             <DataGrid.Columns>
