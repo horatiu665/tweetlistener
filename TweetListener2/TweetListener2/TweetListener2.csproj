@@ -193,6 +193,9 @@
     <Compile Include="Views\QuickViewSpawner.xaml.cs">
       <DependentUpon>QuickViewSpawner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StreamQuickView.xaml.cs">
+      <DependentUpon>StreamQuickView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SystemViews\CredentialsView.xaml.cs">
       <DependentUpon>CredentialsView.xaml</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\QuickViewSpawnerResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StreamQuickView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -334,6 +341,9 @@
   <ItemGroup>
     <Resource Include="Icons\greendot.png" />
     <Resource Include="Icons\reddot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\SystemQuickViews\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

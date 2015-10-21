@@ -8,18 +8,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="200">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <controls:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        </ResourceDictionary>
+        <ResourceDictionary Source="QuickViewSpawnerResources.xaml" />
     </UserControl.Resources>
     <DockPanel>
-        <Label Content="{Binding Name}"/>
-        <Label Content="{Binding CountInSystemManager}"/>
-        <!--This was supposed to show a little gizmo with information about the system, to be visible at a quick glance--> 
-        <!--<Grid>
-            <Image Source="/TweetListener2;component/Icons/greendot.png" Height="12" Width="12"/>
-            <Image Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}}" Source="/TweetListener2;component/Icons/reddot.png" Height="12" Width="12"/>
-        </Grid>-->
+        <DockPanel>
+            <Label Content="{Binding Name}"/>
+            <Label Content="{Binding CountInSystemManager}"/>
+            <ContentPresenter Content="{Binding Resource}" Grid.Row="1" />
+        </DockPanel>
+        
     </DockPanel>
     
 </UserControl>

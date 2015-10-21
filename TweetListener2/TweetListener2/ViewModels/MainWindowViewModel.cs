@@ -44,7 +44,8 @@ namespace TweetListener2.ViewModels
 
         public void AddPanel(ViewModelBase panel)
         {
-            panels.Add(panel);
+            if (!panels.Contains(panel))
+                panels.Add(panel);
         }
 
         public void RemovePanel(ViewModelBase panel)

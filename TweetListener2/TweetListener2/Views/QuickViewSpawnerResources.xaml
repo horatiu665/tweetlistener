@@ -1,6 +1,46 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:TweetListener2.Views">
-    <!-- Resources for quick views (a.k.a. buttons heh) -->
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:TweetListener2.ViewModels"
+    xmlns:views="clr-namespace:TweetListener2.Views"
+    xmlns:controls="clr-namespace:TweetListener2.Controls"
+    >   
+
+
+    <controls:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+    <!--Default value if resource does not have some fancy preview-->
     
+    <!-- Resources for quick views (a.k.a. buttons heh) -->
+    <DataTemplate DataType="{x:Type vm:StreamViewModel}">
+        <views:StreamQuickView></views:StreamQuickView>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:RestViewModel}">
+        <!--<views:RestQuickView></views:RestQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CredentialsViewModel}">
+        <!--<views:CredentialsQuickView></views:CredentialsQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DatabaseViewModel}">
+        <!--<views:DatabaseQuickView></views:DatabaseQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:LogViewModel}">
+        <!--<views:LogQuickView></views:LogQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:KeywordDatabaseViewModel}">
+        <!--<views:KeywordDatabaseQuickView></views:KeywordDatabaseQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TweetDatabaseViewModel}">
+        <!--<views:TweetDatabaseQuickView></views:TweetDatabaseQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:QueryExpansionViewModel}">
+        <!--<views:QueryExpansionQuickView></views:QueryExpansionQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:PorterStemmerViewModel}">
+        <!--<views:PorterStemmerQuickView></views:PorterStemmerQuickView>-->
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:MailHelperViewModel}">
+        <!--<views:MailHelperQuickView></views:MailHelperQuickView>-->
+    </DataTemplate>
+
 </ResourceDictionary>
