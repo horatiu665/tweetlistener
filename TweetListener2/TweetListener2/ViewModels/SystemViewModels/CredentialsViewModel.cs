@@ -159,13 +159,13 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return credIndex;
+                return credentials.CurrentCredentialsIndex;
             }
             set
             {
                 credIndex = value;
                 credentials.SetCredentials(credIndex);
-                // update properties for credential view...
+                // update properties for credential view... access key and all
             }
         }
 
@@ -179,10 +179,6 @@ namespace TweetListener2.ViewModels
         {
             Credentials.SetCredentials(index);
         }
-
-        public void SetCredentials(List<string> credentials)
-        {
-            Credentials.TwitterCredentialsInit(credentials);
-        }
+        
     }
 }

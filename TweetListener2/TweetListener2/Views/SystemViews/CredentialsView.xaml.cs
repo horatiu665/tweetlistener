@@ -51,7 +51,8 @@ namespace TweetListener2.Views
 
         private void setCredentialsButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.SetCredentialsButton();
+            var c = ViewModel.Credentials;
+            //ViewModel.SetCredentialsButton();
         }
     }
 }

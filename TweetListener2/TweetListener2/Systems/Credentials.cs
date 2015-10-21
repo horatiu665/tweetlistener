@@ -12,7 +12,7 @@ namespace TweetListener2.Systems
 {
     public class Credentials
     {
-        
+
         /// <summary>
         /// Which log to use for debug?
         /// </summary>
@@ -39,7 +39,7 @@ namespace TweetListener2.Systems
         /// <summary>
         /// hardcoded default credentials that can be set using the interface
         /// </summary>
-        private List<List<string>> defaults = new List<List<string>>() {
+        private static List<List<string>> defaults = new List<List<string>>() {
 			// Testing3473487384
 			new List<string>() {"2504893657-b30BlFnSdCKo42LFIyWKbywseTq2PyG0StdpKp6", "JDCAI46G4qDWHPYLjfhuM9iDll53wgRwXZKhcMkw84dwi", "s3QKQous2rgkpglkSTRHQz9dw", "t9cZGT3Rcheh8742LVZHaIc5uvLsSXSGvqUb3NIGr9WMt097IH"                    },
 			// Testing2348276347
@@ -50,7 +50,7 @@ namespace TweetListener2.Systems
         /// <summary>
         /// The available credentials for the application
         /// </summary>
-        public List<List<string>> Defaults
+        public static List<List<string>> Defaults
         {
             get
             {
@@ -151,18 +151,33 @@ namespace TweetListener2.Systems
         public void SetCredentials(int index)
         {
             TwitterCredentialsInit(GetDefaults(index));
+            currentCredentialsIndex = index % Defaults.Count;
         }
+
+        /// <summary>
+        /// maintains index of current credentials, out of defaults, and provides it for the view
+        /// </summary>
+        int currentCredentialsIndex = -1;
+        public int CurrentCredentialsIndex
+        {
+            get
+            {
+                return currentCredentialsIndex;
+            }
+        }
+
 
         /// <summary>
         /// set twitter credentials. Can use list of strings (custom new credentials), or default credentials.
         /// </summary>
-        public void TwitterCredentialsInit(List<string> creds = null)
+        private void TwitterCredentialsInit(List<string> creds = null)
         {
             // if creds == null, init was called for reset (from file or hardcoded).
             if (creds == null) {
 
                 // default creds
                 credentials = Defaults[0];
+                currentCredentialsIndex = 0;
 
                 if (!File.Exists("config.ini")) {
 
@@ -187,7 +202,7 @@ namespace TweetListener2.Systems
                 }
 
             } else {
-                // set credentials to creds
+                // set credentials to creds (was called using GetDefaults(i)) - BEWARE OF making this function public and calling it without setting the proper currentCredentialsIndex
                 if (creds[0] != null && creds[1] != null && creds[2] != null && creds[3] != null) {
                     credentials = new List<string>(creds);
                 }
