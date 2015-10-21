@@ -37,6 +37,7 @@ namespace TweetListener2.Systems
         private ObservableCollection<QueryExpansionViewModel> queryExpansions = new ObservableCollection<QueryExpansionViewModel>();
         private ObservableCollection<PorterStemmerViewModel> porterStemmers = new ObservableCollection<PorterStemmerViewModel>();
         private ObservableCollection<MailHelperViewModel> mailHelpers = new ObservableCollection<MailHelperViewModel>();
+        private ObservableCollection<OldMainWindowViewModel> oldMainWindows = new ObservableCollection<OldMainWindowViewModel>();
 
         public ObservableCollection<StreamViewModel> StreamViewModels
         {
@@ -168,7 +169,20 @@ namespace TweetListener2.Systems
             }
         }
 
-        private int StreamCount, RestCount, CredentialsCount, DatabaseCount, LogCount, KeywordDatabaseCount, TweetDatabaseCount, QueryExpansionCount, PorterStemmerCount, MailHelperCount;
+        public ObservableCollection<OldMainWindowViewModel> OldMainWindowViewModels
+        {
+            get
+            {
+                return oldMainWindows;
+            }
+            set
+            {
+                oldMainWindows = value;
+            }
+        }
+
+        private int StreamCount, RestCount, CredentialsCount, DatabaseCount, LogCount, KeywordDatabaseCount, 
+            TweetDatabaseCount, QueryExpansionCount, PorterStemmerCount, MailHelperCount, OldMainWindowCount;
 
         public void Add<T>(T system)
         {
@@ -237,6 +251,12 @@ namespace TweetListener2.Systems
                 AddedSystem(this, new AddedSystemEventArgs(sysRef));
             }
 
+            if (system is OldMainWindowViewModel) {
+                var sysRef = system as OldMainWindowViewModel;
+                OldMainWindowViewModels.Add(sysRef);
+                (system as ViewModelBase).CountInSystemManager = OldMainWindowCount++;
+                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+            }
         }
 
         private void AddedSystem(object sender, AddedSystemEventArgs args)

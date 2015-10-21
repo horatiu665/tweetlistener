@@ -30,5 +30,6 @@ namespace TweetListener2.Views
         {
             MainWindowViewModel.instance.RemovePanel((ViewModelBase)DataContext);
         }
+        
     }
 }

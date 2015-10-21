@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\App.xaml
-17-2019789933
+18-4581704
 
-54-156792471
+57-843107728
 91-189728354
-MainWindow.xaml;Views\AllResourcesView.xaml;Views\QuickViewSpawner.xaml;Views\QuickViewSpawnerResources.xaml;Views\StreamQuickView.xaml;Views\SystemViews\CredentialsView.xaml;Views\SystemViews\DatabaseView.xaml;Views\SystemViews\KeywordDatabaseView.xaml;Views\SystemViews\LogView.xaml;Views\SystemViews\MailHelperView.xaml;Views\SystemViews\PorterStemmerView.xaml;Views\SystemViews\QueryExpansionView.xaml;Views\SystemViews\RestView.xaml;Views\SystemViews\StreamView.xaml;Views\SystemViews\TweetDatabaseView.xaml;Views\ViewSpawner.xaml;Views\ViewSpawnerResources.xaml;
+MainWindow.xaml;Views\AllResourcesView.xaml;Views\OldMainWindow.xaml;Views\QuickViewSpawner.xaml;Views\QuickViewSpawnerResources.xaml;Views\StreamQuickView.xaml;Views\SystemViews\CredentialsView.xaml;Views\SystemViews\DatabaseView.xaml;Views\SystemViews\KeywordDatabaseView.xaml;Views\SystemViews\LogView.xaml;Views\SystemViews\MailHelperView.xaml;Views\SystemViews\PorterStemmerView.xaml;Views\SystemViews\QueryExpansionView.xaml;Views\SystemViews\RestView.xaml;Views\SystemViews\StreamView.xaml;Views\SystemViews\TweetDatabaseView.xaml;Views\ViewSpawner.xaml;Views\ViewSpawnerResources.xaml;
 
 False
 

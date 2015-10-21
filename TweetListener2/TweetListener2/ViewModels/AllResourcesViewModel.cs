@@ -141,6 +141,33 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        internal void CreateOldTweetListenerBatch_Click(object sender, RoutedEventArgs e, string batchText)
+        {
+            List<List<string>> batches = new List<List<string>>();
+            foreach (var s in batchText.Split('\n', '\r')) {
+                if (s != "") {
+                    var str = s.Replace("^", "");
+                    str = str.Trim();
+                    if (str.Substring(0, Math.Min(5, str.Length)) == "start") {
+                        batches.Add(new List<string>());
+                    }
+
+                    batches.Last().Add(str);
+                }
+            }
+
+            // now we basically have a batch file reader based on the old batch file format = still same retardo method but at least within same application = 1000x improvement
+
+            foreach (List<string> batchList in batches) {
+                SystemManager.instance.Add(new OldMainWindowViewModel(batchList));
+            }
+        }
+
+        internal void AddOldTweetListener_Click(object sender, RoutedEventArgs e)
+        {
+            SystemManager.instance.Add(new OldMainWindowViewModel());
+        }
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -152,7 +179,7 @@ namespace TweetListener2.ViewModels
         private void SystemManager_OnAddedSystem(object sender, AddedSystemEventArgs e)
         {
             resourceList.Add(new ResourceListItem(e.system));
-            
+
         }
 
         public void AddNewStream_Click()

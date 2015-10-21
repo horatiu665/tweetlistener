@@ -43,4 +43,8 @@
         <views:QuickViewSpawner/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:OldMainWindowViewModel}">
+        <views:OldMainWindow/>
+    </DataTemplate>
+
 </ResourceDictionary>

@@ -493,8 +493,6 @@ namespace WPFTwitter.Windows
 			//logSettingsLayout.ToggleAutoHide();
 		}
 
-		private bool queryExpanding = false;
-
 		private void restQueryButton_Click(object sender, RoutedEventArgs e)
 		{
 			App.Current.Dispatcher.InvokeAsync((Action)(() => {

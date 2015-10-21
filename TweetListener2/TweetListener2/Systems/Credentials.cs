@@ -151,7 +151,7 @@ namespace TweetListener2.Systems
         public void SetCredentials(int index)
         {
             TwitterCredentialsInit(GetDefaults(index));
-            currentCredentialsIndex = index % Defaults.Count;
+            CurrentCredentialsIndex = index % Defaults.Count;
         }
 
         /// <summary>
@@ -163,6 +163,10 @@ namespace TweetListener2.Systems
             get
             {
                 return currentCredentialsIndex;
+            }
+            private set
+            {
+                currentCredentialsIndex = value;
             }
         }
 
@@ -177,7 +181,7 @@ namespace TweetListener2.Systems
 
                 // default creds
                 credentials = Defaults[0];
-                currentCredentialsIndex = 0;
+                CurrentCredentialsIndex = 0;
 
                 if (!File.Exists("config.ini")) {
 

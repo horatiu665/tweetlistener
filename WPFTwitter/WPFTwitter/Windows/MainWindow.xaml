@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:extendedWpf="http://schemas.xceed.com/wpf/xaml/toolkit"
-        xmlns:Controls="clr-namespace:WPFTwitter"
         Title="Tweet Listener" DataContext="{Binding RelativeSource={RelativeSource Self}}" Height="700" Width="1366" KeyDown="Window_KeyDown">
     <DockPanel>
         <!-- This could be a menu bar -->

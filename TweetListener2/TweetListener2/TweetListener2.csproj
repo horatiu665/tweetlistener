@@ -165,6 +165,7 @@
     <Compile Include="Systems\LanguageModel.cs" />
     <Compile Include="Systems\Log.cs" />
     <Compile Include="Systems\MailHelper.cs" />
+    <Compile Include="Systems\MailHelperBase.cs" />
     <Compile Include="Systems\PorterStemmer.cs" />
     <Compile Include="Systems\QueryExpansion.cs" />
     <Compile Include="Systems\Rest.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Systems\TweetDatabase.cs" />
     <Compile Include="ViewModels\AllResourcesViewModel.cs" />
     <Compile Include="ViewModels\AllResourcesViewModel\ResourceListItem.cs" />
+    <Compile Include="ViewModels\OldMainWindowViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\CredentialsViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\DatabaseViewModel.cs" />
     <Compile Include="ViewModels\SystemViewModels\KeywordDatabaseViewModel.cs" />
@@ -189,6 +191,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AllResourcesView.xaml.cs">
       <DependentUpon>AllResourcesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OldMainWindow.xaml.cs">
+      <DependentUpon>OldMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuickViewSpawner.xaml.cs">
       <DependentUpon>QuickViewSpawner.xaml</DependentUpon>
@@ -242,6 +247,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AllResourcesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OldMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

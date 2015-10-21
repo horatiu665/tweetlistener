@@ -42,5 +42,8 @@
     <DataTemplate DataType="{x:Type vm:MailHelperViewModel}">
         <!--<views:MailHelperQuickView></views:MailHelperQuickView>-->
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:OldMainWindowViewModel}">
+        <!--<views:MailHelperQuickView></views:MailHelperQuickView>-->
+    </DataTemplate>
 
 </ResourceDictionary>

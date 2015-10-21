@@ -102,5 +102,16 @@ namespace TweetListener2.Views
         {
             ViewModel.SortResourceList_Click(sender, e);
         }
+
+        private void AddOldTweetListener_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.AddOldTweetListener_Click(sender, e);
+        }
+
+        private void CreateOldTweetListenerBatch_Click(object sender, RoutedEventArgs e)
+        {
+            var batchText = batchTextBox.Text;
+            ViewModel.CreateOldTweetListenerBatch_Click(sender, e, batchText);
+        }
     }
 }

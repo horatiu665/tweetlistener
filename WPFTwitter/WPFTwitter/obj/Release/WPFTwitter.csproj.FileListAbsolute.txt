@@ -43,7 +43,6 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitt
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\Windows\MainWindow.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\App.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\WPFTwitter_MarkupCompile.cache
-C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\WPFTwitter_MarkupCompile.lref
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\Windows\MainWindow.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\WPFTwitter.g.resources
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\WPFTwitter\WPFTwitter\obj\Release\WPFTwitter.Properties.Resources.resources

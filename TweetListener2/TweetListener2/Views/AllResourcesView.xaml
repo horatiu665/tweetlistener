@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <controls:ExtScrollViewer DockPanel.Dock="Top">
         <DockPanel>
-        <Button Content="Sort Resource List" DockPanel.Dock="Top" Click="SortResourceList_Click"/>
+            <Button Content="Sort Resource List" DockPanel.Dock="Top" Click="SortResourceList_Click"/>
             <!-- Instead of binding to StreamViewModels or other System ViewModels, 
             rather bind to a list of custom classes which simply specify which 
             systems exist, and provide functionality to spawn views in the MainWindow to control them.
@@ -33,26 +33,34 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        
-        <Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>
-        <Expander DockPanel.Dock="Top">
-            <controls:ExtScrollViewer>
-                <StackPanel>
-                    <Label Content="Create Individual Resources"/>
-                    <Button Content="Add new Stream" Height="30" Click="AddNewStream_Click"/>
-                    <!--<Button Content="Add new Rest" Height="30" Click="AddNewRest_Click"/>-->
-                    <!--<Button Content="Add new Credentials" Height="30" Click="AddNewCredentials_Click"/>-->
-                    <!--<Button Content="Add new Database" Height="30" Click="AddNewDatabase_Click"/>-->
-                    <Button Content="Add new Log" Height="30" Click="AddNewLog_Click"/>
-                    <!--<Button Content="Add new KeywordDatabase" Height="30" Click="AddNewKeywordDatabase_Click"/>-->
-                    <!--<Button Content="Add new TweetDatabase" Height="30" Click="AddNewTweetDatabase_Click"/>-->
-                    <!--<Button Content="Add new QueryExpansion" Height="30" Click="AddNewQueryExpansion_Click"/>-->
-                    <!--<Button Content="Add new PorterStemmer" Height="30" Click="AddNewPorterStemmer_Click"/>-->
-                    <!--<Button Content="Add new MailHelper" Height="30" Click="AddNewMailHelper_Click"/>-->
-                </StackPanel>
+
+            <Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>
+
+            <Button Content="Create old TweetListener" Height="30" DockPanel.Dock="Top" Click="AddOldTweetListener_Click"/>
+
+            <Button Content="Create old TweetListener Batch" Height="30" DockPanel.Dock="Top" Click="CreateOldTweetListenerBatch_Click"/>
+            <controls:ExtScrollViewer MaxHeight="600" DockPanel.Dock="Top">
+                <TextBox x:Name="batchTextBox" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" MaxWidth="295" />
             </controls:ExtScrollViewer>
-        </Expander>
-    </DockPanel>
+
+            <Expander DockPanel.Dock="Top">
+                <controls:ExtScrollViewer>
+                    <StackPanel>
+                        <Label Content="Create Individual Resources"/>
+                        <Button Content="Add new Stream" Height="30" Click="AddNewStream_Click"/>
+                        <!--<Button Content="Add new Rest" Height="30" Click="AddNewRest_Click"/>-->
+                        <!--<Button Content="Add new Credentials" Height="30" Click="AddNewCredentials_Click"/>-->
+                        <!--<Button Content="Add new Database" Height="30" Click="AddNewDatabase_Click"/>-->
+                        <Button Content="Add new Log" Height="30" Click="AddNewLog_Click"/>
+                        <!--<Button Content="Add new KeywordDatabase" Height="30" Click="AddNewKeywordDatabase_Click"/>-->
+                        <!--<Button Content="Add new TweetDatabase" Height="30" Click="AddNewTweetDatabase_Click"/>-->
+                        <!--<Button Content="Add new QueryExpansion" Height="30" Click="AddNewQueryExpansion_Click"/>-->
+                        <!--<Button Content="Add new PorterStemmer" Height="30" Click="AddNewPorterStemmer_Click"/>-->
+                        <!--<Button Content="Add new MailHelper" Height="30" Click="AddNewMailHelper_Click"/>-->
+                    </StackPanel>
+                </controls:ExtScrollViewer>
+            </Expander>
+        </DockPanel>
     </controls:ExtScrollViewer>
 
 </UserControl>
