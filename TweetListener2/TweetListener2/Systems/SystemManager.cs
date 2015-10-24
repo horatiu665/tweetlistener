@@ -194,78 +194,163 @@ namespace TweetListener2.Systems
                 var sysRef = system as StreamViewModel;
                 StreamViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = StreamCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is RestViewModel) {
                 var sysRef = system as RestViewModel;
                 RestViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = RestCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is CredentialsViewModel) {
                 var sysRef = system as CredentialsViewModel;
                 CredentialsViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = CredentialsCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is DatabaseViewModel) {
                 var sysRef = system as DatabaseViewModel;
                 DatabaseViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = DatabaseCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is LogViewModel) {
                 var sysRef = system as LogViewModel;
                 LogViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = LogCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is KeywordDatabaseViewModel) {
                 var sysRef = system as KeywordDatabaseViewModel;
                 KeywordDatabaseViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = KeywordDatabaseCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is TweetDatabaseViewModel) {
                 var sysRef = system as TweetDatabaseViewModel;
                 TweetDatabaseViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = TweetDatabaseCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is QueryExpansionViewModel) {
                 var sysRef = system as QueryExpansionViewModel;
                 QueryExpansionViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = QueryExpansionCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is PorterStemmerViewModel) {
                 var sysRef = system as PorterStemmerViewModel;
                 PorterStemmerViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = PorterStemmerCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
             if (system is MailHelperViewModel) {
                 var sysRef = system as MailHelperViewModel;
                 MailHelperViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = MailHelperCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
 
             if (system is OldMainWindowViewModel) {
                 var sysRef = system as OldMainWindowViewModel;
                 OldMainWindowViewModels.Add(sysRef);
                 (system as ViewModelBase).CountInSystemManager = OldMainWindowCount++;
-                AddedSystem(this, new AddedSystemEventArgs(sysRef));
+                AddedSystem(this, new SystemEventArgs(sysRef));
             }
         }
 
-        private void AddedSystem(object sender, AddedSystemEventArgs args)
+        private void AddedSystem(object sender, SystemEventArgs args)
         {
             if (OnAddedSystem != null) {
                 OnAddedSystem(sender, args);
             }
         }
 
-        public event EventHandler<AddedSystemEventArgs> OnAddedSystem;
+        public event EventHandler<SystemEventArgs> OnAddedSystem;
+
+        public void Remove<T>(T system)
+        {
+            if (system == null) return;
+
+            Console.WriteLine("[SystemManager] Removing system " + system);
+
+            if (system is StreamViewModel) {
+                var sysRef = system as StreamViewModel;
+                StreamViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = StreamCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is RestViewModel) {
+                var sysRef = system as RestViewModel;
+                RestViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = RestCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is CredentialsViewModel) {
+                var sysRef = system as CredentialsViewModel;
+                CredentialsViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = CredentialsCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is DatabaseViewModel) {
+                var sysRef = system as DatabaseViewModel;
+                DatabaseViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = DatabaseCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is LogViewModel) {
+                var sysRef = system as LogViewModel;
+                LogViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = LogCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is KeywordDatabaseViewModel) {
+                var sysRef = system as KeywordDatabaseViewModel;
+                KeywordDatabaseViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = KeywordDatabaseCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is TweetDatabaseViewModel) {
+                var sysRef = system as TweetDatabaseViewModel;
+                TweetDatabaseViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = TweetDatabaseCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is QueryExpansionViewModel) {
+                var sysRef = system as QueryExpansionViewModel;
+                QueryExpansionViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = QueryExpansionCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is PorterStemmerViewModel) {
+                var sysRef = system as PorterStemmerViewModel;
+                PorterStemmerViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = PorterStemmerCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+            if (system is MailHelperViewModel) {
+                var sysRef = system as MailHelperViewModel;
+                MailHelperViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = MailHelperCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+
+            if (system is OldMainWindowViewModel) {
+                var sysRef = system as OldMainWindowViewModel;
+                OldMainWindowViewModels.Remove(sysRef);
+                (system as ViewModelBase).CountInSystemManager = OldMainWindowCount--;
+                RemovedSystem(this, new SystemEventArgs(sysRef));
+            }
+        }
+
+        private void RemovedSystem(object sender, SystemEventArgs args)
+        {
+            if (OnRemovedSystem != null) {
+                OnRemovedSystem(sender, args);
+            }
+        }
+
+        public event EventHandler<SystemEventArgs> OnRemovedSystem;
+
     }
 }

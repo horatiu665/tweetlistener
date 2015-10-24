@@ -1,0 +1,6 @@
+24-10-2015 14:53:14: New log started
+24-10-2015 14:53:14: Counters off
+24-10-2015 14:53:29: Stream attempting to start at time 24-10-2015 14:53:29
+24-10-2015 14:53:29: OnStreamStarted event is called
+24-10-2015 14:53:29: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:53:29
+24-10-2015 14:53:36: Searching for Halo 5 Guardians OR #Halo5 OR #masterchief

@@ -1,0 +1,13 @@
+24-10-2015 14:53:13: New log started
+24-10-2015 14:53:13: Counters off
+24-10-2015 14:53:14: Stream attempting to start at time 24-10-2015 14:53:14
+24-10-2015 14:53:14: OnStreamStarted event is called
+24-10-2015 14:53:14: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:53:14
+24-10-2015 14:53:33: Searching for #dbzeb OR #extremebutoden OR #DragonBallZExtremeButoden
+24-10-2015 15:00:31: New log started
+24-10-2015 15:00:31: Counters off
+24-10-2015 15:00:31: Stream attempting to start at time 24-10-2015 15:00:31
+24-10-2015 15:00:31: OnStreamStarted event is called
+24-10-2015 15:00:31: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 15:00:31
+24-10-2015 15:00:31: Searching for #dbzeb OR #extremebutoden OR #DragonBallZExtremeButoden
+24-10-2015 15:00:43: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 429

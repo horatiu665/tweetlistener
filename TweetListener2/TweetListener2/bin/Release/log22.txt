@@ -1,0 +1,19 @@
+24-10-2015 15:04:52: New log started
+24-10-2015 15:04:52: Counters off
+24-10-2015 15:04:52: Stream attempting to start at time 24-10-2015 15:04:52
+24-10-2015 15:04:52: OnStreamStarted event is called
+24-10-2015 15:04:52: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 15:04:52
+24-10-2015 15:04:52: Searching for #Starcraft2 OR Legacy of the Void OR #legacyofthevoid OR #Legacy #Void
+24-10-2015 15:04:53: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 1
+24-10-2015 16:17:23: New log started
+24-10-2015 16:17:23: Counters off
+24-10-2015 16:17:25: Stream attempting to start at time 24-10-2015 16:17:25
+24-10-2015 16:17:25: OnStreamStarted event is called
+24-10-2015 16:17:25: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:17:25
+24-10-2015 16:17:53: Searching for #Starcraft2 OR Legacy of the Void OR #legacyofthevoid OR #Legacy #Void
+24-10-2015 16:18:02: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 1
+24-10-2015 16:52:55: New log started
+24-10-2015 16:52:55: Counters off
+24-10-2015 16:52:57: Stream attempting to start at time 24-10-2015 16:52:57
+24-10-2015 16:52:57: OnStreamStarted event is called
+24-10-2015 16:52:57: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:52:57

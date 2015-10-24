@@ -1,0 +1,28 @@
+24-10-2015 14:53:14: New log started
+24-10-2015 14:53:14: Counters off
+24-10-2015 14:53:14: Stream attempting to start at time 24-10-2015 14:53:14
+24-10-2015 14:53:14: OnStreamStarted event is called
+24-10-2015 14:53:14: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:53:14
+24-10-2015 14:56:11: Searching for life is strange polarized OR #LifeisStrange #Polarized OR #LISFinale
+24-10-2015 14:58:24: Stream disconnected.
+24-10-2015 14:58:24: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (401) Unauthorized.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (401) Unauthorized.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+24-10-2015 14:58:24: Stream attempting to start at time 24-10-2015 14:58:24
+24-10-2015 14:58:24: OnStreamStarted event is called
+24-10-2015 14:58:24: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:58:24

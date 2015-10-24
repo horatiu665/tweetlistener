@@ -1,0 +1,26 @@
+24-10-2015 14:53:15: New log started
+24-10-2015 14:53:15: Counters off
+24-10-2015 14:53:18: Stream attempting to start at time 24-10-2015 14:53:18
+24-10-2015 14:53:18: OnStreamStarted event is called
+24-10-2015 14:53:18: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:53:18
+24-10-2015 14:58:21: Searching for #Starcraft2 OR Legacy of the Void OR #legacyofthevoid OR #Legacy #Void
+24-10-2015 14:58:25: Stream disconnected.
+24-10-2015 14:58:25: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (401) Unauthorized.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (401) Unauthorized.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+24-10-2015 14:59:07: Stream attempting to start at time 24-10-2015 14:59:07

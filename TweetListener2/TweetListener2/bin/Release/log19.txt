@@ -1,0 +1,19 @@
+24-10-2015 15:04:52: New log started
+24-10-2015 15:04:52: Counters off
+24-10-2015 15:04:52: Stream attempting to start at time 24-10-2015 15:04:52
+24-10-2015 15:04:52: OnStreamStarted event is called
+24-10-2015 15:04:52: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 15:04:52
+24-10-2015 15:04:52: Searching for tony hawk 5 OR tonyhawk OR tony hawk OR #THPS5
+24-10-2015 15:04:56: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 100
+24-10-2015 16:17:23: New log started
+24-10-2015 16:17:23: Counters off
+24-10-2015 16:17:28: Stream attempting to start at time 24-10-2015 16:17:28
+24-10-2015 16:17:28: OnStreamStarted event is called
+24-10-2015 16:17:28: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:17:28
+24-10-2015 16:17:59: Searching for tony hawk 5 OR tonyhawk OR tony hawk OR #THPS5
+24-10-2015 16:18:50: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 1590
+24-10-2015 16:52:55: New log started
+24-10-2015 16:52:55: Counters off
+24-10-2015 16:52:59: Stream attempting to start at time 24-10-2015 16:52:59
+24-10-2015 16:52:59: OnStreamStarted event is called
+24-10-2015 16:53:00: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:53:00

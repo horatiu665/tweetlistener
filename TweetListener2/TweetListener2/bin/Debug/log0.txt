@@ -1,0 +1,32 @@
+24-10-2015 14:53:13: New log started
+24-10-2015 14:53:13: Counters off
+24-10-2015 14:53:14: Stream attempting to start at time 24-10-2015 14:53:14
+24-10-2015 14:53:14: OnStreamStarted event is called
+24-10-2015 14:53:14: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:53:14
+24-10-2015 14:53:14: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+24-10-2015 14:56:38: Stream disconnected.
+24-10-2015 14:56:38: Stream disconnected.
+24-10-2015 14:56:45: Stream disconnected.
+24-10-2015 14:56:46: Stream disconnected.
+24-10-2015 14:56:46: Stream disconnected.
+24-10-2015 14:56:46: Stream disconnected.
+24-10-2015 14:56:50: Stream disconnected.
+24-10-2015 14:56:50: Stream disconnected.
+24-10-2015 14:56:54: Stream disconnected.
+24-10-2015 14:56:54: Stream disconnected.
+24-10-2015 14:56:56: Stream disconnected.
+24-10-2015 14:56:56: Stream disconnected.
+24-10-2015 14:57:03: Stream disconnected.
+24-10-2015 14:57:03: Stream disconnected.
+24-10-2015 14:57:30: Separate thread waiting to start stream after it stops
+24-10-2015 14:57:32: Stream disconnected.
+24-10-2015 14:57:32: Stream disconnected.
+24-10-2015 14:57:35: Stream disconnected.
+24-10-2015 14:57:35: Stream disconnected.
+24-10-2015 14:59:38: New log started
+24-10-2015 14:59:38: Counters off
+24-10-2015 14:59:38: Stream attempting to start at time 24-10-2015 14:59:38
+24-10-2015 14:59:38: OnStreamStarted event is called
+24-10-2015 14:59:38: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:59:38
+24-10-2015 14:59:39: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
+24-10-2015 15:00:47: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 2840

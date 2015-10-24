@@ -1,0 +1,5 @@
+24-10-2015 14:53:14: New log started
+24-10-2015 14:53:14: Counters off
+24-10-2015 14:53:21: Stream attempting to start at time 24-10-2015 14:53:21
+24-10-2015 14:53:21: OnStreamStarted event is called
+24-10-2015 14:53:21: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:53:21

@@ -156,7 +156,7 @@ namespace TweetListener2.ViewModels
                 }
             }
 
-            // now we basically have a batch file reader based on the old batch file format = still same retardo method but at least within same application = 1000x improvement
+            // now we basically have a batch file reader based on the old batch file format = still same retardo method but at least within same application = improvement
 
             foreach (List<string> batchList in batches) {
                 SystemManager.instance.Add(new OldMainWindowViewModel(batchList));
@@ -176,7 +176,7 @@ namespace TweetListener2.ViewModels
             SystemManager.instance.OnAddedSystem += SystemManager_OnAddedSystem;
         }
 
-        private void SystemManager_OnAddedSystem(object sender, AddedSystemEventArgs e)
+        private void SystemManager_OnAddedSystem(object sender, SystemEventArgs e)
         {
             resourceList.Add(new ResourceListItem(e.system));
 
@@ -228,6 +228,10 @@ namespace TweetListener2.ViewModels
         /// </summary>
         public void AddNewTweetListener_Click()
         {
+
+            Console.WriteLine("Not supported yet");
+            return;
+
             SystemManager sysMan = SystemManager.instance;
 
             var log = new LogViewModel();

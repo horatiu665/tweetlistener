@@ -77,6 +77,9 @@ namespace TweetListener2.Systems
 
         public int maxTweetsPerQuery = 10;
 
+        System.Diagnostics.PerformanceCounter performanceCounter;
+        private float performanceThresholdForStoppingRestGathering = 50f;
+
         public Rest(Database dbs, Log log, TweetDatabase tdb)
         {
             Database = dbs;
@@ -90,6 +93,13 @@ namespace TweetListener2.Systems
             // tweetinvi handles rate limit tracking, and we only query tweetinvi instead of handling rate limits manually.
             RateLimit.RateLimitTrackerOption = Tweetinvi.Core.RateLimitTrackerOptions.TrackOnly;
 
+            // performance counter, when tweet gathering shit hits the fan, throttled artificially until performance drops below a certain threshold
+
+            performanceCounter = new System.Diagnostics.PerformanceCounter();
+            performanceCounter.CategoryName = "Processor";
+            performanceCounter.CounterName = "% Processor Time";
+            performanceCounter.InstanceName = "_Total";
+            // use performanceCounter.NextValue() for a float between 0 and 100 meaning what load the CPU is currently under
         }
 
         private bool forceStop = false;
@@ -171,7 +181,8 @@ namespace TweetListener2.Systems
                         ////////////////////////////////////////  RATE LIMITS  //////////////////////////////////////////////// 
 
                         // check rate limits in case we are wrong and they are not actually zero
-                        var rateLimitsObj = GetRateLimits_Search();
+                        Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit rateLimitsObj = null;// = GetRateLimits_Search();
+                        
                         rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
                         rateLimitReset = rateLimitsObj == null ? DateTime.Now : rateLimitsObj.ResetDateTime;
 
@@ -198,6 +209,21 @@ namespace TweetListener2.Systems
                                 gotResults = false;
                                 if (rateLimitCounter > 0) {
 
+                                    // wait some ms at a time until the performance drops below the threshold, and then start getting tweets
+                                    float cpuPerformance = 0;
+                                    do {
+                                        cpuPerformance = performanceCounter.NextValue();
+                                        Console.WriteLine("Rest Gathering: CPU performance: " + cpuPerformance + ". "
+                                            + (cpuPerformance > performanceThresholdForStoppingRestGathering 
+                                            ? " waiting for it to cool down below 50 to continue" 
+                                            : " all is well, gathering tweets now"));
+                                        if (cpuPerformance > performanceThresholdForStoppingRestGathering) {
+                                            Thread.Sleep((int)cpuPerformance*2);
+                                        }
+                                    } while (cpuPerformance > performanceThresholdForStoppingRestGathering);
+
+
+                                    // this part might take a long while to execute, and thereby crashing / hanging the program.
                                     results = SearchTweets(sp, out twitterException);
 
                                     gotResults = twitterException == null;

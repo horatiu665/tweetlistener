@@ -1,0 +1,20 @@
+24-10-2015 15:04:52: New log started
+24-10-2015 15:04:52: Counters off
+24-10-2015 15:04:52: Stream attempting to start at time 24-10-2015 15:04:52
+24-10-2015 15:04:52: OnStreamStarted event is called
+24-10-2015 15:04:52: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 15:04:52
+24-10-2015 15:04:52: Searching for #swordcoastlegends OR #swordcoast OR @swordcoast
+24-10-2015 15:05:36: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 2202
+24-10-2015 16:17:23: New log started
+24-10-2015 16:17:23: Counters off
+24-10-2015 16:17:23: Stream attempting to start at time 24-10-2015 16:17:23
+24-10-2015 16:17:23: OnStreamStarted event is called
+24-10-2015 16:17:23: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:17:23
+24-10-2015 16:17:52: Searching for #swordcoastlegends OR #swordcoast OR @swordcoast
+24-10-2015 16:18:02: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+24-10-2015 16:52:55: New log started
+24-10-2015 16:52:55: Counters off
+24-10-2015 16:52:55: Stream attempting to start at time 24-10-2015 16:52:55
+24-10-2015 16:52:55: OnStreamStarted event is called
+24-10-2015 16:52:55: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:52:55
+24-10-2015 16:54:34: Searching for #swordcoastlegends OR #swordcoast OR @swordcoast

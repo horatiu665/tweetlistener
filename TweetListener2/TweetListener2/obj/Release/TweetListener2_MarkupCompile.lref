@@ -1,6 +1,21 @@
 ﻿
 
 FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\MainWindow.xaml;;
-FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\LogView.xaml;;
-FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\StreamView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\AllResourcesView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\OldMainWindow.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\QuickViewSpawner.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\QuickViewSpawnerResources.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\StreamQuickView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\CredentialsView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\DatabaseView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\KeywordDatabaseView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\LogView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\MailHelperView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\PorterStemmerView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\QueryExpansionView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\RestView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\StreamView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\SystemViews\TweetDatabaseView.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\ViewSpawner.xaml;;
+FC:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Views\ViewSpawnerResources.xaml;;
 

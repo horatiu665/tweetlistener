@@ -1,0 +1,20 @@
+24-10-2015 15:04:52: New log started
+24-10-2015 15:04:52: Counters off
+24-10-2015 15:04:52: Stream attempting to start at time 24-10-2015 15:04:52
+24-10-2015 15:04:52: OnStreamStarted event is called
+24-10-2015 15:04:52: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 15:04:52
+24-10-2015 15:04:52: Searching for #anno2205 OR anno 2205
+24-10-2015 15:05:21: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 1368
+24-10-2015 16:17:23: New log started
+24-10-2015 16:17:23: Counters off
+24-10-2015 16:17:34: Stream attempting to start at time 24-10-2015 16:17:34
+24-10-2015 16:17:34: OnStreamStarted event is called
+24-10-2015 16:17:34: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:17:34
+24-10-2015 16:18:01: Searching for #anno2205 OR anno 2205
+24-10-2015 16:18:47: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 1596
+24-10-2015 16:52:55: New log started
+24-10-2015 16:52:55: Counters off
+24-10-2015 16:53:05: Stream attempting to start at time 24-10-2015 16:53:05
+24-10-2015 16:53:05: OnStreamStarted event is called
+24-10-2015 16:53:05: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 16:53:05
+24-10-2015 16:53:11: Searching for #anno2205 OR anno 2205

@@ -170,7 +170,7 @@
     <Compile Include="Systems\QueryExpansion.cs" />
     <Compile Include="Systems\Rest.cs" />
     <Compile Include="Systems\Stream.cs" />
-    <Compile Include="Systems\SystemManager\AddedSystemEventArgs.cs" />
+    <Compile Include="Systems\SystemManager\SystemEventArgs.cs" />
     <Compile Include="Systems\TweetData.cs" />
     <Compile Include="Systems\TweetDatabase.cs" />
     <Compile Include="ViewModels\AllResourcesViewModel.cs" />

@@ -142,36 +142,6 @@ namespace TweetListener2.Views
         /// </summary>
         float fromFile_percentDone = 0f;
 
-
-        /*
-        ScrollToLast
-        OnlyEnglish
-        OnlyWithHashtags
-        FromFileLoader
-        TextFileDatabasePath
-        DatabaseTableName
-        ConnectionString
-        SaveToDatabase
-        MaxTweetDatabaseSendRetries
-        SaveToTextFileProperty
-        SaveToRamProperty
-        CountersOn
-        OutputDatabaseMessages
-        LogEveryJson
-        NaiveExpansionPercentage
-        NaiveExpansionGenerations
-        EfronMu
-        RankNHashtags
-        ExpandOnlyOnCooccurring
-        ApplyFeedback
-        LogModels
-        ExpansionProgressLabel
-        ContinuousUpdate
-        KeywordList
-        CurrentCredentialsIndex
-        ScrollToLast
-        */
-
         public OldMainWindow()
         {
             this.Loaded += OldMainWindow_Loaded;
@@ -185,7 +155,7 @@ namespace TweetListener2.Views
             InitializeBindings();
             
         }
-
+        
         /// <summary>
         /// cannot be called from constructor because viewModel is not ready (but it is ready after View constructor finishes, tested using a little button printing DataContext in ViewSpawner)
         /// </summary>
@@ -218,55 +188,20 @@ namespace TweetListener2.Views
 
             expansionPanel.DataContext = vm.QueryExpansion;
 
-            vm.AutoExpansionTimer.Elapsed += (s, a) => {
-                vm.Log.Output("AutoExpansionTimer elapsed");
-                AutoExpand();
-            };
-            // every 10 minutes expand.
-            //autoExpansionTimer.Interval = 10*60*1000;
-
-
-
             // tweet view binding
             tweetView.DataContext = vm.TweetDatabase.Tweets;
             tweetViewContinuousUpdate.DataContext = vm;
             tweetViewOnlyEnglish.DataContext = vm.TweetDatabase;
             tweetViewOnlyWithHashtags.DataContext = vm.TweetDatabase;
 
-            // saving tweets from Streaming and Rest into TweetDatabase
-            vm.Stream.stream.MatchingTweetReceived += (s, a) => {
-                Task.Factory.StartNew(() => {
-                    vm.TweetDatabase.AddTweet(new TweetData(a.Tweet, TweetData.Sources.Stream, 0, 1));
-                    vm.UpdateTweetsNextUpdate = true;
-
-                });
-                vm.TweetsLastSecond++;
-            };
-            vm.Stream.sampleStream.TweetReceived += (s, a) => {
-                Task.Factory.StartNew(() => {
-                    vm.TweetDatabase.AddTweet(new TweetData(a.Tweet, TweetData.Sources.Stream, 0, 1));
-                    vm.UpdateTweetsNextUpdate = true;
-
-                });
-                vm.TweetsLastSecond++;
-            };
-
-            vm.Rest.TweetFound += (t) => {
-                Task.Factory.StartNew(() => {
-                    vm.TweetDatabase.AddTweet(new TweetData(t, TweetData.Sources.Rest, 0, 1));
-                    vm.UpdateTweetsNextUpdate = true;
-
-                });
-                vm.TweetsLastSecond++;
-            };
-
+            // tweet view update (instead of every new tweet, every second, to maybe save performance)
             vm.TweetViewUpdateTimer.Interval = 1000;
             vm.TweetViewUpdateTimer.Elapsed += (s, a) => {
                 UpdateTweetView();
             };
             vm.TweetViewUpdateTimer.Start();
 
-
+            // update tweets per second display every second instead of every tweet or whatever.
             vm.TweetsPerSecondTimer.Interval = 1000;
             vm.TweetsPerSecondTimer.Elapsed += (s, a) => {
                 vm.TweetsPerSecond = 0.8f * vm.TweetsPerSecond + 0.2f * vm.TweetsLastSecond;
@@ -276,9 +211,7 @@ namespace TweetListener2.Views
             vm.TweetsPerSecondTimer.Start();
             tweetsPerSecondLabel.DataContext = vm;
 
-
-
-            // when credentials change
+            // when credentials change -> update text view for text boxes in creds panel (not good, should be databinding instead, oh well)
             vm.Credentials.CredentialsChange += (creds) => {
                 Access_Token.Text = creds[0];
                 Access_Token_Secret.Text = creds[1];
@@ -287,16 +220,9 @@ namespace TweetListener2.Views
 
             };
 
-
-            // database output messages (not active if !databaseSaver.outputDatabaseMessages)
-            vm.DatabaseSaver.Message += (s) => {
-                vm.Log.Output(s);
-            };
-
             fromFileLoaderLabel.DataContext = this;
 
         }
-
 
         /// <summary>
         /// happens every sometimes, updates tweetView with the latest tweets (if so chosen)
@@ -354,7 +280,6 @@ namespace TweetListener2.Views
             //streamingToolboxLayout.ToggleAutoHide();
             //logSettingsLayout.ToggleAutoHide();
         }
-
 
         private void restQueryButton_Click(object sender, RoutedEventArgs e)
         {
@@ -421,7 +346,6 @@ namespace TweetListener2.Views
 
         }
 
-
         private void restExhaustiveQueryButton_Click(object sender, RoutedEventArgs e)
         {
             if (!vm.Rest.IsGathering) {
@@ -447,7 +371,6 @@ namespace TweetListener2.Views
             vm.Rest.StoppedGatheringCycle += ResetRestGatheringButton;
         }
 
-
         private void restKeywordsQueryButton_Click(object sender, RoutedEventArgs e)
         {
             // get keywords from keywordsList and use REST to do exhaustive query on them.
@@ -472,7 +395,6 @@ namespace TweetListener2.Views
             vm.Rest.StoppedGatheringCycle += ResetRestGatheringButton;
         }
 
-
         public void ResetRestGatheringButton(int tweetCount)
         {
             App.Current.Dispatcher.Invoke(() => {
@@ -481,8 +403,6 @@ namespace TweetListener2.Views
 
             });
         }
-
-
 
         private void SetTweetViewColumnHeaders()
         {
@@ -498,8 +418,6 @@ namespace TweetListener2.Views
 
         }
 
-
-
         private void SetKeywordListColumnHeaders()
         {
             // set column headers text to give info about stuff
@@ -514,8 +432,6 @@ namespace TweetListener2.Views
             // set up events for column headers for restExpansionView if they are not set up yet
 
         }
-
-
 
         private void restRateLimitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -575,7 +491,6 @@ namespace TweetListener2.Views
             }
         }
 
-
         private void keywordListView_Headers_MouseUp(object sender, MouseButtonEventArgs e)
         {
             // order by kData
@@ -629,8 +544,6 @@ namespace TweetListener2.Views
             }));
 
         }
-
-
 
         private void tweetView_Headers_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -689,8 +602,6 @@ namespace TweetListener2.Views
                 tweetView.UpdateLayout();
             }));
         }
-
-
 
         private void tweetView_Item_DeleteButton(object sender, RoutedEventArgs e)
         {
@@ -764,8 +675,6 @@ namespace TweetListener2.Views
                 return FindParent<T>(parent);
         }
 
-
-
         private void tweetView_ResetSelection(object sender, RoutedEventArgs e)
         {
             var message = "";
@@ -807,6 +716,7 @@ namespace TweetListener2.Views
                     }
                     keywordListView.ItemsSource = vm.KeywordDatabase.KeywordList;
                 });
+                tweetView_ResetSelection(sender, e);
             }
         }
 
@@ -836,7 +746,6 @@ namespace TweetListener2.Views
             }
         }
 
-
         private void keywordAddButtonClick(object sender, RoutedEventArgs e)
         {
             var newKeyword = keywordAddTextbox.Text;
@@ -860,7 +769,6 @@ namespace TweetListener2.Views
             }
         }
 
-
         private void keywordsView_UseAll(object sender, RoutedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => {
@@ -873,6 +781,7 @@ namespace TweetListener2.Views
                 keywordListView.UpdateLayout();
             });
         }
+
         private void keywordsView_UseNone(object sender, RoutedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => {
@@ -907,39 +816,6 @@ namespace TweetListener2.Views
             });
         }
 
-
-        public void AutoExpand()
-        {
-            if (vm.Stream.StreamRunning) {
-                vm.Log.Output("Attempting to expand the query automatically");
-                Task.Factory.StartNew(() => {
-                    // before Efron, more tags must be gathered. preferably a full transitive closure
-                    var newKeys = vm.QueryExpansion.ExpandNaive(vm.KeywordDatabase.KeywordList.ToList(), vm.TweetDatabase.GetAllTweets());
-                    if (newKeys != null && newKeys.Count > 0) {
-                        App.Current.Dispatcher.Invoke(() => {
-                            // set use to false (we might not want them in the stream query)
-                            newKeys.ForEach(kd => kd.UseKeyword = false);
-                            // add the new keywords
-                            vm.KeywordDatabase.KeywordList.AddRange(newKeys);
-
-                            // clear language models, every time.
-                            vm.KeywordDatabase.KeywordList.ClearLanguageModels();
-
-                            // now we can expand.
-                            var efronExpanded = vm.QueryExpansion.ExpandEfron(vm.KeywordDatabase.KeywordList, vm.TweetDatabase.GetAllTweets());
-
-                            // we must generate the query from the query model.
-                            vm.KeywordDatabase.KeywordList.Where(kd => efronExpanded.Any(kkk => kkk.Keyword == kd.Keyword)).ToList().ForEach(kd => kd.UseKeyword = true);
-
-                            // after expansion, restart stream to apply the new settings.
-                            vm.Log.Output("Attempting to restart the stream automatically");
-                            restartStreamButton_Click(null, null);
-                        });
-                    }
-                });
-            }
-        }
-
         private void expansion_ExpandEfron(object sender, RoutedEventArgs e)
         {
             if (!vm.QueryExpansion.Expanding) {
@@ -961,7 +837,6 @@ namespace TweetListener2.Views
             vm.CurrentCredentialDefaults++;
             vm.Credentials.SetCredentials(vm.CurrentCredentialDefaults);
         }
-
 
         private void tweetView_LoadFromFile(object sender, RoutedEventArgs e)
         {
@@ -1036,7 +911,6 @@ namespace TweetListener2.Views
 
         }
 
-
         private void keywordsView_Update(object sender, RoutedEventArgs e)
         {
             // counts all keywords
@@ -1045,7 +919,6 @@ namespace TweetListener2.Views
             // update list view
             keywordListView.UpdateLayout();
         }
-
 
         private void tweetView_Item_FollowLink(object sender, RoutedEventArgs e)
         {
@@ -1062,7 +935,6 @@ namespace TweetListener2.Views
                 }
             }
         }
-
 
         private void tweetView_KeepTweets(object sender, RoutedEventArgs e)
         {
@@ -1128,7 +1000,6 @@ namespace TweetListener2.Views
             }
         }
 
-
         private void tweetView_DeleteSpamTweets(object sender, RoutedEventArgs e)
         {
             App.Current.Dispatcher.Invoke(() => {
@@ -1162,7 +1033,5 @@ namespace TweetListener2.Views
             vm.Log.Output("Log force reset no longer supported");
         }
 
-
     }
-
 }

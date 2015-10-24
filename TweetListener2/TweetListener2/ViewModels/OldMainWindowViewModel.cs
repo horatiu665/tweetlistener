@@ -107,6 +107,44 @@ namespace TweetListener2.ViewModels
             QueryExpansion = new QueryExpansion(Log);
             PorterStemmer = new PorterStemmer();
 
+            AutoExpansionTimer.Elapsed += (s, a) => {
+                Log.Output("AutoExpansionTimer elapsed");
+                AutoExpand();
+            };
+            // every 10 minutes expand.
+            //autoExpansionTimer.Interval = 10*60*1000;
+
+            // saving tweets from Streaming and Rest into TweetDatabase
+            Stream.stream.MatchingTweetReceived += (s, a) => {
+                Task.Factory.StartNew(() => {
+                    TweetDatabase.AddTweet(new TweetData(a.Tweet, TweetData.Sources.Stream, 0, 1));
+                    UpdateTweetsNextUpdate = true;
+
+                });
+                TweetsLastSecond++;
+            };
+            Stream.sampleStream.TweetReceived += (s, a) => {
+                Task.Factory.StartNew(() => {
+                    TweetDatabase.AddTweet(new TweetData(a.Tweet, TweetData.Sources.Stream, 0, 1));
+                    UpdateTweetsNextUpdate = true;
+
+                });
+                TweetsLastSecond++;
+            };
+
+            Rest.TweetFound += (t) => {
+                Task.Factory.StartNew(() => {
+                    TweetDatabase.AddTweet(new TweetData(t, TweetData.Sources.Rest, 0, 1));
+                    UpdateTweetsNextUpdate = true;
+
+                });
+                TweetsLastSecond++;
+            };
+
+            // database output messages (not active if !databaseSaver.outputDatabaseMessages)
+            DatabaseSaver.Message += (s) => {
+                Log.Output(s);
+            };
 
 
             #region initializations using command line
@@ -675,6 +713,49 @@ namespace TweetListener2.ViewModels
         {
             if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+        public void AutoExpand()
+        {
+            if (Stream.StreamRunning) {
+                Log.Output("Attempting to expand the query automatically");
+                Task.Factory.StartNew(() => {
+                    // before Efron, more tags must be gathered. preferably a full transitive closure
+                    var newKeys = QueryExpansion.ExpandNaive(KeywordDatabase.KeywordList.ToList(), TweetDatabase.GetAllTweets());
+                    if (newKeys != null && newKeys.Count > 0) {
+                        App.Current.Dispatcher.Invoke(() => {
+                            // set use to false (we might not want them in the stream query)
+                            newKeys.ForEach(kd => kd.UseKeyword = false);
+                            // add the new keywords
+                            KeywordDatabase.KeywordList.AddRange(newKeys);
+
+                            // clear language models, every time.
+                            KeywordDatabase.KeywordList.ClearLanguageModels();
+
+                            // now we can expand.
+                            var efronExpanded = QueryExpansion.ExpandEfron(KeywordDatabase.KeywordList, TweetDatabase.GetAllTweets());
+
+                            // we must generate the query from the query model.
+                            KeywordDatabase.KeywordList.Where(kd => efronExpanded.Any(kkk => kkk.Keyword == kd.Keyword)).ToList().ForEach(kd => kd.UseKeyword = true);
+
+                            // after expansion, restart stream to apply the new settings.
+                            Log.Output("Attempting to restart the stream automatically");
+                            Stream.Stop();
+                            // wait until stream has stopped && streamRunning is false
+                            Task.Factory.StartNew(() => {
+                                Log.Output("Separate thread waiting to start stream after it stops");
+                                while (Stream.StreamRunning) {
+                                    // wait
+                                    ;
+                                }
+                                Stream.Start();
+                            });
+
+                        });
+                    }
+                });
             }
         }
 
