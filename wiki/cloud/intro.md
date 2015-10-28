@@ -1,4 +1,4 @@
-# Cloud idea
+# Cloud test
 
 In order to cover more ground and gather larger amounts of data than is currently possible, a cloud solution is sought.
 
