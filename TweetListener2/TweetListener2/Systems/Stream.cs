@@ -455,11 +455,25 @@ namespace TweetListener2.Systems
 
         public void Stop()
         {
-            if (StreamRunning) {
+            if (StreamRunning && !intentionalStop) {
                 stream.StopStream();
                 sampleStream.StopStream();
                 intentionalStop = true;
             }
+        }
+
+        public void Restart()
+        {
+            Stop();
+            // wait until stream has stopped && streamRunning is false
+            Task.Factory.StartNew(() => {
+                Log.Output("Separate thread waiting to start stream after it stops");
+                while (StreamRunning) {
+                    // wait
+                    ;
+                }
+                Start();
+            });
         }
 
         #region events

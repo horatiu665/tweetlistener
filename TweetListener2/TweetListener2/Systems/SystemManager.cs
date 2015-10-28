@@ -257,6 +257,8 @@ namespace TweetListener2.Systems
                 (system as ViewModelBase).CountInSystemManager = OldMainWindowCount++;
                 AddedSystem(this, new SystemEventArgs(sysRef));
             }
+
+            Console.WriteLine("Added a system to the SystemManager LOL");
         }
 
         private void AddedSystem(object sender, SystemEventArgs args)
@@ -341,6 +343,7 @@ namespace TweetListener2.Systems
                 (system as ViewModelBase).CountInSystemManager = OldMainWindowCount--;
                 RemovedSystem(this, new SystemEventArgs(sysRef));
             }
+            Console.WriteLine("Removed a system from the SystemManager LOL");
         }
 
         private void RemovedSystem(object sender, SystemEventArgs args)

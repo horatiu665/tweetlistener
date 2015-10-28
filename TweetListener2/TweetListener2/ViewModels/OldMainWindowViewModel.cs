@@ -107,6 +107,9 @@ namespace TweetListener2.ViewModels
             QueryExpansion = new QueryExpansion(Log);
             PorterStemmer = new PorterStemmer();
 
+            TweetViewUpdateTimer.Interval = 1000;
+            TweetViewUpdateTimer.Start();
+
             AutoExpansionTimer.Elapsed += (s, a) => {
                 Log.Output("AutoExpansionTimer elapsed");
                 AutoExpand();

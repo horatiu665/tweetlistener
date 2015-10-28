@@ -153,9 +153,9 @@ namespace TweetListener2.Views
             var x = viewModel;
             InitializeComponent();
             InitializeBindings();
-            
+
         }
-        
+
         /// <summary>
         /// cannot be called from constructor because viewModel is not ready (but it is ready after View constructor finishes, tested using a little button printing DataContext in ViewSpawner)
         /// </summary>
@@ -165,7 +165,6 @@ namespace TweetListener2.Views
             // log binding
             logPane.DataContext = vm.Log;
             logView.DataContext = vm.LogMessageList;
-            vm.Log.LogOutput += vm.Log_LogOutput;
             checkBox_logCounters.DataContext = vm.Stream;
             checkBox_streamJsonSpammer.DataContext = vm.Stream;
             checkBox_databaseMessages.DataContext = vm.DatabaseSaver;
@@ -179,6 +178,9 @@ namespace TweetListener2.Views
             startStreamButton.DataContext = vm.Stream;
             database_connectionString.DataContext = vm.DatabaseSaver;
 
+            vm.Log.LogOutput -= vm.Log_LogOutput;
+            vm.Log.LogOutput += vm.Log_LogOutput;
+            
             // rest log binding
             restView.DataContext = vm.RestMessageList;
 
@@ -195,31 +197,19 @@ namespace TweetListener2.Views
             tweetViewOnlyWithHashtags.DataContext = vm.TweetDatabase;
 
             // tweet view update (instead of every new tweet, every second, to maybe save performance)
-            vm.TweetViewUpdateTimer.Interval = 1000;
-            vm.TweetViewUpdateTimer.Elapsed += (s, a) => {
-                UpdateTweetView();
-            };
-            vm.TweetViewUpdateTimer.Start();
-
-            // update tweets per second display every second instead of every tweet or whatever.
-            vm.TweetsPerSecondTimer.Interval = 1000;
-            vm.TweetsPerSecondTimer.Elapsed += (s, a) => {
-                vm.TweetsPerSecond = 0.8f * vm.TweetsPerSecond + 0.2f * vm.TweetsLastSecond;
-                vm.TweetsLastSecond = 0;
-                vm.OnPropertyChanged("TweetsPerSecond");
-            };
-            vm.TweetsPerSecondTimer.Start();
-            tweetsPerSecondLabel.DataContext = vm;
-
-            // when credentials change -> update text view for text boxes in creds panel (not good, should be databinding instead, oh well)
-            vm.Credentials.CredentialsChange += (creds) => {
-                Access_Token.Text = creds[0];
-                Access_Token_Secret.Text = creds[1];
-                Consumer_Key.Text = creds[2];
-                Consumer_Secret.Text = creds[3];
-
-            };
-
+            vm.TweetViewUpdateTimer.Elapsed -= UpdateTweetView;
+            vm.TweetViewUpdateTimer.Elapsed += UpdateTweetView;
+            
+            //// update tweets per second display every second instead of every tweet or whatever.
+            //vm.TweetsPerSecondTimer.Interval = 1000;
+            //vm.TweetsPerSecondTimer.Elapsed += (s, a) => {
+            //    vm.TweetsPerSecond = 0.8f * vm.TweetsPerSecond + 0.2f * vm.TweetsLastSecond;
+            //    vm.TweetsLastSecond = 0;
+            //    vm.OnPropertyChanged("TweetsPerSecond");
+            //};
+            //vm.TweetsPerSecondTimer.Start();
+            //tweetsPerSecondLabel.DataContext = vm;
+            
             fromFileLoaderLabel.DataContext = this;
 
         }
@@ -227,7 +217,7 @@ namespace TweetListener2.Views
         /// <summary>
         /// happens every sometimes, updates tweetView with the latest tweets (if so chosen)
         /// </summary>
-        public void UpdateTweetView()
+        public void UpdateTweetView(object sender, object args)
         {
             if (vm.UpdateTweetsNextUpdate) {
                 vm.UpdateTweetsNextUpdate = false;
@@ -248,17 +238,7 @@ namespace TweetListener2.Views
 
         private void restartStreamButton_Click(object sender, RoutedEventArgs e)
         {
-            stopStreamButton_Click(sender, e);
-
-            // wait until stream has stopped && streamRunning is false
-            Task.Factory.StartNew(() => {
-                vm.Log.Output("Separate thread waiting to start stream after it stops");
-                while (vm.Stream.StreamRunning) {
-                    // wait
-                    ;
-                }
-                startStreamButton_Click(sender, e);
-            });
+            vm.Stream.Restart();
         }
 
         private void stopStreamButton_Click(object sender, RoutedEventArgs e)
