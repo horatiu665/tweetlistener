@@ -20,6 +20,4 @@ Check out the following links to explore the wiki.
 
 [Summer test](tests/summer.md)
 
-## Cloud
-
-[Introduction to the cloud idea](cloud/intro.md)
+[Cloud test](cloud/intro.md)

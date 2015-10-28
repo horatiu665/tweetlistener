@@ -1,8 +1,10 @@
-# Cloud idea
+# Cloud test
 
 In order to cover more ground and gather larger amounts of data than is currently possible, a cloud solution is sought.
 
-[A log of the setup and startup instructions is available here](setuplog.md)
+[The first test is described here](setuplog.md)
+
+[The second test is described here](test2.md)
 
 ## AWS
 
