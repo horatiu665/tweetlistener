@@ -20,3 +20,5 @@ I will use a program called Process Monitor (procmon.exe) which allows supervisi
 Looking a bit closer at the tweets gathered for Harvest Moon, it seems that the hashtag #harvestmoon is used in the context of the actual harvest moon, a natural phenomenon (big red moon in the sky), and not so much about the game.
 
 As mentioned earlier, no errors were found in any of the logs of the application, so it was running as smooth as possible. However, it is still not clear if it wasted resources/discarded any tweets, but this will be more clear after the experiment with Procmon.exe
+
+Taking a closer look at the Star Wars data, it turns out that the 6000 tweets found created on the 01-11-2015 were not all that the program could/should find. Another cycle was run from 30.10 to 31.10 and there were 12000 more tweets found (out of which 6000 english). This means that there is something wrong with the REST gathering, which somehow escaped me so far - probably the process exits before it gets all the tweets, due to either errors that are not reported, or reaching the Rate Limits and not waiting and trying again when they expire. An update to the software is underway.
