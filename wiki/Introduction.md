@@ -21,3 +21,5 @@ Check out the following links to explore the wiki.
 [Summer test](tests/summer.md)
 
 [Cloud test](cloud/intro.md)
+
+[Winter test](tests/winter.md)
