@@ -1,4 +1,4 @@
-5 dec games Log
+November - December Test Log
 ====
 
 Gathering was started on 02-11-2015 13:10:52 for five games with release dates as follows:
@@ -13,9 +13,9 @@ The gathering process started with a REST cycle gathering data from as far in th
 
 I added a column in each table that records the timestamp when the tweet was saved - previously I was only saving the date of the creation of the tweet. The save date allows me to figure out more about the rate of tweet saving - and if there are any suspicious crashes and whatnot.
 
-I checked the tweets gathered in the last days, and it seemed suspicious that only 1 or 2 tweets were saved on 02-11 for Roller coaster tycoon and Harvest Moon - which made me try to perform a REST cycle for the last 2 days, and for each game around 15 more tweets were found and added to the database - no duplicates. The same tweets could not be found in the text backup, so the problem was not the database connection, but either the Twitter Stream, or the application stalling and somehow aborting saving the tweets (which seems unlikely - instead it is more likely it would give errors which it has not done). This means that the stream had some problems gathering all the data, or that the data never came through the stream - needs more investigation. 
+I checked the tweets gathered in the last days, and it seemed suspicious that only 1 or 2 tweets were saved on 02-11 for Roller coaster tycoon and Harvest Moon - which made me try to perform a REST cycle for the last 2 days, and for each game around 15 tweets were found and added to the database - no duplicates. The same tweets could not be found in the text backup, so the problem was not the database connection, but either the Twitter Stream, or the application stalling and somehow aborting saving the tweets (which seems unlikely because there is no such mechanism in the application, except the ones which throw errors - but it has given no errors). This means that the stream had some problems gathering all the data, or that the data never came through the stream - needs more investigation. 
 
-I will use a program called Process Monitor (procmon.exe) which allows supervision of the various performance data for each application - to monitor the TweetListener for the next period, and see if there are any errors which are not reported, or memory problems, etc.. 
+I will use a program called Process Monitor (procmon.exe) which allows supervision of the various performance data for each application - to monitor the TweetListener for the next period, and see if there are any errors which are not reported, or memory problems, etc., and try to correlate those with the data being gathered next.
 
 Looking a bit closer at the tweets gathered for Harvest Moon, it seems that the hashtag #harvestmoon is used in the context of the actual harvest moon, a natural phenomenon (big red moon in the sky), and not so much about the game.
 
