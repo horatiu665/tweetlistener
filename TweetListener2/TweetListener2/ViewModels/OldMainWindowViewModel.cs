@@ -72,6 +72,7 @@ namespace TweetListener2.ViewModels
             // based on http://sa.ndeep.me/post/103/how-to-create-smart-wpf-command-line-arguments
             //string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray();
 
+            // get all command line arguments into the args[] array
             string[] args = batchArgs.SelectMany(bArg => {
                 if (bArg.Contains(" ")) {
                     return new List<string>() {
@@ -83,6 +84,7 @@ namespace TweetListener2.ViewModels
                 }
             }).ToArray();
 
+            // clean up the args[] array
             for (int i = 0; i < args.Length; i += 2) {
                 string arg = args[i].Replace("/", "");
                 var argValue = args[i + 1];
@@ -91,7 +93,8 @@ namespace TweetListener2.ViewModels
                 commandLineArgs.Add(arg, argValue);
             }
 
-            // now we can initialize shit from the command line, and we can run batch scripts that open multiple instances of the application with different settings.
+            // now we can initialize from the command line, 
+            // and we can run batch scripts that open multiple instances of the application with different settings.
             // only thing is to set up those initializations.
             // a list of initializations can be found at the end of this method.
 
@@ -149,7 +152,6 @@ namespace TweetListener2.ViewModels
                 Log.Output(s);
             };
 
-
             #region initializations using command line
             if (commandLineArgs.ContainsKey("phpPostPath")) {
                 DatabaseSaver.localPhpJsonLink = commandLineArgs["phpPostPath"];
@@ -203,6 +205,15 @@ namespace TweetListener2.ViewModels
                     EmailSpammerPositive = true;
                 }
             }
+            if (commandLineArgs.ContainsKey("restLastDay")) {
+                TimeSpan restLastDayTimeSpan;
+                if (TimeSpan.TryParse(commandLineArgs["restLastDay"], out restLastDayTimeSpan)) {
+                    RestLastDaySchedule = restLastDayTimeSpan;
+                    RestLastDay = true;
+                } else {
+                    RestLastDay = false;
+                }
+            }
             if (commandLineArgs.ContainsKey("onlyEnglish")) {
                 TweetDatabase.OnlyEnglish =
                     commandLineArgs["onlyEnglish"] != "0";
@@ -215,7 +226,6 @@ namespace TweetListener2.ViewModels
                 int credentialsIndex;
                 if (int.TryParse(commandLineArgs["credentials"], out credentialsIndex)) {
                     CurrentCredentialDefaults = credentialsIndex;
-                    Credentials.SetCredentials(CurrentCredentialDefaults);
                 }
             }
             if (commandLineArgs.ContainsKey("keywords")) {
@@ -254,7 +264,8 @@ namespace TweetListener2.ViewModels
 				 /logEveryJson 0 ^
 				 /emailDisco 06:00:00 ^
 				 /emailConnected 23:59:59 ^
-				 /onlyEnglish 1 ^
+				 /restLastDay 07:30:00 ^ 
+                 /onlyEnglish 1 ^
 				 /onlyWithHashtags 0 ^
 				 /credentials 7 ^
 				 /keywords "#callofduty,#cod,#ps4,#pc,#xbox" ^
@@ -274,6 +285,7 @@ namespace TweetListener2.ViewModels
 				if (commandLineArgs.ContainsKey("logEveryJson")) {
 				if (commandLineArgs.ContainsKey("emailDisco")) {
 				if (commandLineArgs.ContainsKey("emailConnected")) {
+                if (commandLineArgs.ContainsKey("restLastDay")) {
 				if (commandLineArgs.ContainsKey("onlyEnglish")) {
 				if (commandLineArgs.ContainsKey("onlyWithHashtags")) {
 				if (commandLineArgs.ContainsKey("credentials")) {
@@ -284,7 +296,53 @@ namespace TweetListener2.ViewModels
 			*/
             #endregion
 
+            RestLastDayTimerSetup();
+
         }
+
+        void RestLastDayTimerSetup()
+        {
+            if (restLastDayTimer != null) {
+                restLastDayTimer.Stop();
+                restLastDayTimer.Close();
+            }
+
+            if (RestLastDay) {
+                restLastDayTimer = new Timer();
+
+                // set timer interval to the hour being displayed on the GUI
+                var now = DateTime.Now;
+
+                // beginning of today plus GUI time, minus current time = difference.
+                var timeSpanToNextRest = now.Subtract(new TimeSpan(now.Hour, now.Minute, now.Second)).Add(RestLastDaySchedule).Subtract(now);
+
+                // if date before now, add 24 hours to make it happen tomorrow.
+                if (timeSpanToNextRest.CompareTo(TimeSpan.Zero) <= 0)
+                    timeSpanToNextRest = timeSpanToNextRest.Add(new TimeSpan(24, 0, 0));
+
+                // make it happen
+                restLastDayTimer.Interval = timeSpanToNextRest.TotalMilliseconds;
+
+                restLastDayTimer.Elapsed -= RestLastDayTimer_Elapsed;
+                restLastDayTimer.Elapsed += RestLastDayTimer_Elapsed;
+
+                restLastDayTimer.Start();
+            }
+
+        }
+
+        private void RestLastDayTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            // set timer interval to 24 hours, every time it happens. 
+            // therefore initial run will be X amount of time, every subsequent run will be 24 hours.
+            restLastDayTimer.Interval = TimeSpan.FromHours(24).TotalMilliseconds;
+
+            // perform REST exhaustive gathering for the past 2 days
+            rest.TweetsGatheringCycle(DateTime.Now.Subtract(TimeSpan.FromDays(2)), DateTime.Now, KeywordDatabase.GetUsableKeywords());
+
+        }
+
+
 
         #region old main window shitty code copy-paste
 
@@ -513,12 +571,22 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return currentCredentialDefaults;
+                return credentials.CurrentCredentialsIndex;
             }
 
             set
             {
-                currentCredentialDefaults = value;
+                credentials.SetCredentials(value);
+                
+                OnPropertyChanged(this, new PropertyChangedEventArgs("CurrentCredentialDefaults"));
+            }
+        }
+
+        public int CredentialsMaxNumber
+        {
+            get
+            {
+                return credentials.Count-1;
             }
         }
 
@@ -625,9 +693,7 @@ namespace TweetListener2.ViewModels
                 //    logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count - 1));
             }));
         }
-
-        int currentCredentialDefaults = 0;
-
+        
         bool fromFile_isLoading = false;
 
         /// <summary>
@@ -659,6 +725,48 @@ namespace TweetListener2.ViewModels
             set
             {
                 fromFile_Loaded = value;
+            }
+        }
+
+        /// <summary>
+        /// 0 to 1, percentage of tweets from file added to tweet list.
+        /// </summary>
+        float fromFile_percentDone = 0f;
+
+        public float FromFile_percentDone
+        {
+            get
+            {
+                return fromFile_percentDone;
+            }
+
+            set
+            {
+                fromFile_percentDone = value;
+            }
+        }
+
+        public string FromFileLoader
+        {
+            get
+            {
+                return FromFile_isLoading
+                            ? FromFile_Loaded
+                                ? "Working... percent done: "
+                                    + FromFile_percentDone.ToString("F3")
+                                : "Reading lines... percent done: "
+                                    + FromFile_percentDone.ToString("F3")
+                            : "Idle"
+                                ;
+
+            }
+        }
+
+        public string TweetsPerSecondString
+        {
+            get
+            {
+                return TweetsPerSecond.ToString("F2") + " tps; " + (TweetsPerSecond * 60).ToString("F0") + " tpm; " + (TweetsPerSecond * 3600).ToString("F0") + " tph";
             }
         }
 
@@ -710,18 +818,11 @@ namespace TweetListener2.ViewModels
 
         int startedTimer, stoppedTimer;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null) {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
 
         public void AutoExpand()
         {
+            Log.Output("AutoExpand not implemented. Too risky!");
+            return;
             if (Stream.StreamRunning) {
                 Log.Output("Attempting to expand the query automatically");
                 Task.Factory.StartNew(() => {
@@ -765,7 +866,47 @@ namespace TweetListener2.ViewModels
 
         #endregion old main window shitty code copy-paste
 
+        internal void ResendToDatabase(object sender, RoutedEventArgs e)
+        {
+            tweetDatabase.ResendAllToDatabase();
 
+        }
+
+        /// <summary>
+        /// if true, every day at X hours it will run an exhaustive REST gathering thing for last 2 days.
+        /// </summary>
+        private bool restLastDay = true;
+        public bool RestLastDay
+        {
+            get
+            {
+                return restLastDay;
+            }
+
+            set
+            {
+                restLastDay = value;
+                if (restLastDay) {
+                    RestLastDayTimerSetup();
+                }
+            }
+        }
+
+        private TimeSpan restLastDaySchedule = new TimeSpan(7, 30, 0);
+        public TimeSpan RestLastDaySchedule
+        {
+            get
+            {
+                return restLastDaySchedule;
+            }
+
+            set
+            {
+                restLastDaySchedule = value;
+            }
+        }
+
+        private Timer restLastDayTimer;
     }
 
 

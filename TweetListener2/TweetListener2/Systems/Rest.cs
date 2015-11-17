@@ -134,11 +134,12 @@ namespace TweetListener2.Systems
         public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
         {
             isGathering = true;
+
             Log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
 
-            int tweetsGatheredTotal = 0;
+            Task.Factory.StartNew(async () => {
+                int tweetsGatheredTotal = 0;
 
-            Task.Factory.StartNew(() => {
                 try {
                     // split query into multiple shorter ones, within Twitter limits.
                     var queries = SplitIntoSmallQueries(keywordList);
@@ -181,16 +182,22 @@ namespace TweetListener2.Systems
                         ////////////////////////////////////////  RATE LIMITS  //////////////////////////////////////////////// 
 
                         // check rate limits in case we are wrong and they are not actually zero
-                        Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit rateLimitsObj = null;// = GetRateLimits_Search();
-                        
-                        rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
-                        rateLimitReset = rateLimitsObj == null ? DateTime.Now : rateLimitsObj.ResetDateTime;
+                        //Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit rateLimitsObj = null;// = GetRateLimits_Search();
 
-                        // wait for rate limits before starting loop
-                        if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
-                            Log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
-                            Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
-                        }
+                        //rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
+                        //rateLimitReset = rateLimitsObj == null ? DateTime.Now : rateLimitsObj.ResetDateTime;
+
+                        //// wait for rate limits before starting loop
+                        //if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
+                        //    Log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
+                        //    //Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
+                        //    await Task.Delay(rateLimitReset.Subtract(DateTime.Now));
+                        //}
+
+                        //////// Rate limits are checked in the following loop. We can initialize them to zero to be sure they will be checked.
+                        Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit rateLimitsObj = null;
+                        rateLimitCounter = 0;
+                        rateLimitReset = DateTime.Now.Add(new TimeSpan(0, 15, 0));
 
                         if (forceStop) {
                             StoppedGatheringCycle(tweetsGatheredTotal);
@@ -213,12 +220,15 @@ namespace TweetListener2.Systems
                                     float cpuPerformance = 0;
                                     do {
                                         cpuPerformance = performanceCounter.NextValue();
-                                        Console.WriteLine("Rest Gathering: CPU performance: " + cpuPerformance + ". "
-                                            + (cpuPerformance > performanceThresholdForStoppingRestGathering 
-                                            ? " waiting for it to cool down below 50 to continue" 
+                                        var cpuPerfMessage =
+                                            ("Rest Gathering: CPU performance: " + cpuPerformance + ". "
+                                            + (cpuPerformance > performanceThresholdForStoppingRestGathering
+                                            ? " waiting for it to cool down below 50 to continue"
                                             : " all is well, gathering tweets now"));
                                         if (cpuPerformance > performanceThresholdForStoppingRestGathering) {
-                                            Thread.Sleep((int)cpuPerformance*2);
+                                            log.Output(cpuPerfMessage);
+                                            //Thread.Sleep((int)cpuPerformance*2);
+                                            await Task.Delay((int)cpuPerformance * 2);
                                         }
                                     } while (cpuPerformance > performanceThresholdForStoppingRestGathering);
 
@@ -253,7 +263,8 @@ namespace TweetListener2.Systems
                                             tweetsGatheredTotal++;
 
                                             // freeze thread so that UI can update. very ugly solution based on http://stackoverflow.com/questions/4522583/how-to-do-the-processing-and-keep-gui-refreshed-using-databinding#_=_
-                                            //Thread.Sleep(1);
+                                            ////Thread.Sleep(1);
+                                            // don't even do it with await Task.Delay(1) please
                                         }
 
                                         // subtract 1 so that we cannot get the same tweets again
@@ -262,20 +273,21 @@ namespace TweetListener2.Systems
 
                                 }
 
-                                if (rateLimitCounter <= 0 || twitterException != null) {
+                                // check rate limits if rateLimitCounter <= 0, or if we got an exception when searching for tweets, or if we got a null result when searching
+                                if (rateLimitCounter <= 0 || twitterException != null || results == null) {
                                     #region rate limits
                                     // check rate limits in case we are wrong and they are not actually zero
-                                    rateLimitsObj = GetRateLimits_Search();
-                                    // wait with checking until rateLimitsResetDate happens
-                                    // TODO
+                                    //rateLimitsObj = GetRateLimits_Search();
+                                    rateLimitsObj = await GetRateLimits_SearchAsync();
 
                                     rateLimitCounter = (rateLimitsObj == null) ? 0 : rateLimitsObj.Remaining;
-                                    rateLimitReset = rateLimitsObj == null ? DateTime.Now : rateLimitsObj.ResetDateTime;
+                                    rateLimitReset = rateLimitsObj == null ? DateTime.Now.Add(new TimeSpan(0, 15, 0)) : rateLimitsObj.ResetDateTime;
 
                                     // wait for rate limits before continuing loop
                                     if (rateLimitReset.CompareTo(DateTime.Now) > 0 && rateLimitCounter <= 0) {
                                         Log.Output("Waiting for REST limits, only " + rateLimitReset.Subtract(DateTime.Now).ToString() + " until " + rateLimitReset);
-                                        Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
+                                        //Thread.Sleep(rateLimitReset.Subtract(DateTime.Now));
+                                        await Task.Delay(rateLimitReset.Subtract(DateTime.Now));
                                     }
 
                                     if (forceStop) {
@@ -290,7 +302,7 @@ namespace TweetListener2.Systems
                                 //		or we cannot get tweets due to rate limits
                                 //		or we cannot get tweets due to errors (in which case we should try again)
 
-                            } while ((results != null && results.Count > 0) || !gotResults);
+                            } while ((results != null && results.Count > 0) || !gotResults || results == null);
                         }
                     }
                 }
@@ -453,6 +465,14 @@ namespace TweetListener2.Systems
 
         #region rate limits
 
+        public async Task<Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit> GetRateLimits_SearchAsync()
+        {
+            if (Auth.ApplicationCredentials != null) {
+                return (await RateLimitAsync.GetCurrentCredentialsRateLimits()).SearchTweetsLimit;
+            }
+            return null;
+        }
+
         /// <summary>
         /// returns complete rate limits for application, or null when credentials are not set.
         /// </summary>
@@ -462,7 +482,7 @@ namespace TweetListener2.Systems
             // perform if application is authenticated
             if (Auth.ApplicationCredentials != null) {
                 Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits rateLimits =
-                RateLimit.GetCurrentCredentialsRateLimits(true);
+                    RateLimit.GetCurrentCredentialsRateLimits(true);
 
                 return rateLimits;
             } else {

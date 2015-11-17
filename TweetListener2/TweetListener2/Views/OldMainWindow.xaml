@@ -7,7 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TweetListener2.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1366"
+             d:DesignHeight="700" d:DesignWidth="1366" Background="White"
              MaxWidth="1366">
     <Grid>
         <DockPanel>
@@ -72,22 +72,6 @@
                                 <ad:LayoutAnchorable Title="Tweets">
                                     <DockPanel>
                                         <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10" >
-                                            <CheckBox x:Name="tweetViewOnlyEnglish" Content="Only English" IsChecked="{Binding OnlyEnglish, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
-                                                <CheckBox.ToolTip>
-                                                    Only save tweets in English, or undefined (since they can often be in english).
-                                                </CheckBox.ToolTip>
-                                            </CheckBox>
-                                            <CheckBox x:Name="tweetViewOnlyWithHashtags" Content="Only with Hashtags" IsChecked="{Binding OnlyWithHashtags, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
-                                                <CheckBox.ToolTip>
-                                                    Only save tweets containing at least one hashtag.
-                                                </CheckBox.ToolTip>
-                                            </CheckBox>
-                                            <CheckBox x:Name="tweetViewContinuousUpdate" Content="Continuous update" IsChecked="{Binding ContinuousTweetViewUpdate, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
-                                                <CheckBox.ToolTip>
-                                                    Update tweetView every second with the list of tweets. Slows down the process but displays tweets. 
-                                                Not recommended with more than 10000 tweets because it can get REALLY slow.
-                                                </CheckBox.ToolTip>
-                                            </CheckBox>
                                             <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection">
                                                 <Button.ToolTip>
                                                     Reset keyword selection, show all tweets. 
@@ -105,8 +89,30 @@
                                                 Can be slow but progress is shown here. Process can be interrupted when clicked again.
                                                 </Button.ToolTip>
                                             </Button>
+                                            <Button Content="Resend to database" Margin="10 0" Click="tweetView_resendToDatabase" HorizontalAlignment="Left">
+                                                <Button.ToolTip>
+                                                    Sends the saved tweets to the database again. Useful when loading tweets from a backup file and posting them back to the DB
+                                                </Button.ToolTip>
+                                            </Button>
                                             <Label x:Name="fromFileLoaderLabel" Content="{Binding Path=FromFileLoader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecond, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecondString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <CheckBox x:Name="tweetViewOnlyEnglish" Content="Only English" IsChecked="{Binding OnlyEnglish, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
+                                                <CheckBox.ToolTip>
+                                                    Only save tweets in English, or undefined (since they can often be in english).
+                                                </CheckBox.ToolTip>
+                                            </CheckBox>
+                                            <CheckBox x:Name="tweetViewOnlyWithHashtags" Content="Only with Hashtags" IsChecked="{Binding OnlyWithHashtags, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
+                                                <CheckBox.ToolTip>
+                                                    Only save tweets containing at least one hashtag.
+                                                </CheckBox.ToolTip>
+                                            </CheckBox>
+                                            <CheckBox x:Name="tweetViewContinuousUpdate" Content="Continuous update" IsChecked="{Binding ContinuousTweetViewUpdate, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
+                                                <CheckBox.ToolTip>
+                                                    Update tweetView every second with the list of tweets. Slows down the process but displays tweets. 
+                                                Not recommended with more than 10000 tweets because it can get REALLY slow.
+                                                </CheckBox.ToolTip>
+                                            </CheckBox>
+
                                         </DockPanel>
                                         <DockPanel DockPanel.Dock="Top" >
                                             <Button Content="Keep First Tweets" Click="tweetView_KeepTweets">
@@ -325,6 +331,14 @@
                                                 <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
                                                 <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
                                                 <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
+                                                <DockPanel x:Name="autoRestLastDayDockPanel" >
+                                                    <CheckBox IsChecked="{Binding Path=RestLastDay, Mode=TwoWay}" Content="Scheduled daily rest" VerticalAlignment="Center" >
+                                                        <CheckBox.ToolTip>
+                                                            Runs an exhaustive REST query every day at this time, looks for all hashtags between current day and previous 2 days.
+                                                        </CheckBox.ToolTip>
+                                                    </CheckBox>
+                                                    <extendedWpf:TimeSpanUpDown Value="{Binding Path=RestLastDaySchedule}" VerticalAlignment="Center" Margin="10 4" Maximum="23:59:59" Minimum="0:0:0" />
+                                                </DockPanel>
                                                 <DockPanel>
                                                     <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled expansion" VerticalAlignment="Center" >
                                                         <CheckBox.ToolTip>
@@ -470,6 +484,7 @@
                                             <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
                                                 <!-- date filter, tweet id filter, etc... -->
                                                 <CheckBox x:Name="rest_filter_recent" Content="Recent" IsChecked="True" ToolTip="If true, returns recent tweets (in order). If false, returns popular tweets, not necessarily recent - could be 4 years old or something"/>
+                                                
 
 
                                             </StackPanel>
@@ -628,7 +643,9 @@
                                                 <Button.Content>
                                                     <DockPanel>
                                                         <Label Content="Selected Credentials:"/>
-                                                        <Label Content="{Binding CurrentCredentialsIndex, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                        <Label Content="{Binding CurrentCredentialDefaults, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0"  Padding="0,5"/>
+                                                        <Label Content="/" Margin="0" Padding="0,5"/>
+                                                        <Label Content="{Binding CredentialsMaxNumber}" Margin="0"  Padding="0,5"/>
                                                     </DockPanel>
                                                 </Button.Content>
                                                 <Button.ToolTip>

@@ -787,6 +787,7 @@ namespace TweetListener2
         public long Id
         {
             get { return long.Parse(idStr); }
+            set { idStr = value.ToString(); }
         }
 
         private string idStr;
@@ -1010,43 +1011,7 @@ namespace TweetListener2
         {
             get { throw new NotImplementedException(); }
         }
-
-        long Tweetinvi.Core.Interfaces.Models.IUserIdentifier.Id
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        string Tweetinvi.Core.Interfaces.Models.IUserIdentifier.IdStr
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        string Tweetinvi.Core.Interfaces.Models.IUserIdentifier.ScreenName
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        
         public string ProfileImageUrl400x400
         {
             get

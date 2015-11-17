@@ -170,6 +170,14 @@ namespace TweetListener2.Systems
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return defaults.Count;
+            }
+        }
+
 
         /// <summary>
         /// set twitter credentials. Can use list of strings (custom new credentials), or default credentials.

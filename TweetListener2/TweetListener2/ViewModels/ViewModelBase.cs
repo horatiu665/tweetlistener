@@ -16,5 +16,12 @@ namespace TweetListener2.ViewModels
         public int CountInSystemManager { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (PropertyChanged != null) {
+                PropertyChanged(sender, args);
+            }
+        }
     }
 }

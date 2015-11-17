@@ -217,6 +217,67 @@ namespace TweetListener2.Systems
             }
         }
 
+        public void ResendToDatabase(ITweet tweet, int retries = 0)
+        {// save to php 
+            try {
+                if (saveMethod == SaveMethods.DirectToMysql) {
+                    // save to mysql
+                    Task.Factory.StartNew(() => {
+                        SaveToMySQL(tweet, DatabaseTableName);
+                    });
+
+                } else if (saveMethod == SaveMethods.DirectToSql) {
+                    // save to mysql
+                    Task.Factory.StartNew(() => {
+                        SaveToSQL(tweet, DatabaseTableName);
+                    });
+
+                } else if (saveMethod == SaveMethods.PhpPost) {
+                    // encode tweet to json and use SaveToPhpFullJson(string json).
+                    JObject json = EncodeTweetToJson(tweet);
+                    SaveToPhpFullJson(json.ToString());
+
+                }
+            }
+            catch (Exception e) {
+                if (e is SqlException) {
+                    if (((SqlException)e).Number == 1045) {
+                        if (Message != null) {
+                            Message("Invalid username or password");
+                        }
+                    }
+                }
+                if (e is MySqlException) {
+                    if (((MySqlException)e).Number == 1045) {
+                        if (Message != null) {
+                            Message("Invalid username or password");
+                        }
+                    }
+                }
+
+                if (Message != null) {
+                    if (outputDatabaseMessages)
+                        Message(e.ToString());
+                }
+                // retry maxTweetDatabaseSendRetries times to send tweet to database; if error, this might help.
+                if (retries < MaxTweetDatabaseSendRetries) {
+                    Task.Factory.StartNew(() => {
+                        // wait a little and then try again. wait random amount to spread calls among multiple programs
+                        var ticksToWait = DateTime.Now.AddSeconds(secondsBetweenSendRetries + random.NextDouble() * secondsBetweenSendRetries).Ticks;
+                        while (ticksToWait > DateTime.Now.Ticks) { /* do nothing */ }
+                        ResendToDatabase(tweet, retries + 1);
+
+                    });
+                } else {
+                    if (Message != null) {
+                        if (outputDatabaseMessages)
+                            Message("Failed to send after " + retries + " tries");
+                    }
+                }
+            }
+
+        }
+
         JObject EncodeTweetToJson(ITweet tweet)
         {
             // encode tweet to json and use SaveToPhpFullJson(string json).

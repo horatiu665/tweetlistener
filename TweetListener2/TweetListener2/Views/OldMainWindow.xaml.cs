@@ -113,35 +113,6 @@ namespace TweetListener2.Views
             }
         }
 
-        public string TweetsPerSecond
-        {
-            get
-            {
-                return vm.TweetsPerSecond.ToString("F2") + " tps; " + (vm.TweetsPerSecond * 60).ToString("F0") + " tpm; " + (vm.TweetsPerSecond * 3600).ToString("F0") + " tph";
-            }
-        }
-
-        public string FromFileLoader
-        {
-            get
-            {
-                return vm.FromFile_isLoading
-                            ? vm.FromFile_Loaded
-                                ? "Working... percent done: "
-                                    + fromFile_percentDone.ToString("F3")
-                                : "Reading lines... percent done: "
-                                    + fromFile_percentDone.ToString("F3")
-                            : "Idle"
-                                ;
-
-            }
-        }
-
-        /// <summary>
-        /// 0 to 1, percentage of tweets from file added to tweet list.
-        /// </summary>
-        float fromFile_percentDone = 0f;
-
         public OldMainWindow()
         {
             this.Loaded += OldMainWindow_Loaded;
@@ -153,7 +124,7 @@ namespace TweetListener2.Views
             var x = viewModel;
             InitializeComponent();
             InitializeBindings();
-
+            
         }
 
         /// <summary>
@@ -173,14 +144,18 @@ namespace TweetListener2.Views
             checkBox_saveToRam.DataContext = vm.TweetDatabase;
             checkBox_database.DataContext = vm.DatabaseSaver;
             database_textFileDbPathTextBox.DataContext = vm.DatabaseSaver;
-            setCredentialsDefault.DataContext = vm.Credentials;
+            setCredentialsDefault.DataContext = vm;
             database_tableNameTextBox.DataContext = vm.DatabaseSaver;
             startStreamButton.DataContext = vm.Stream;
             database_connectionString.DataContext = vm.DatabaseSaver;
+            fromFileLoaderLabel.DataContext = vm;
+            tweetsPerSecondLabel.DataContext = vm;
+            autoRestLastDayDockPanel.DataContext = vm;
+            setCredentialsDefault.DataContext = vm;
 
             vm.Log.LogOutput -= vm.Log_LogOutput;
             vm.Log.LogOutput += vm.Log_LogOutput;
-            
+
             // rest log binding
             restView.DataContext = vm.RestMessageList;
 
@@ -199,7 +174,7 @@ namespace TweetListener2.Views
             // tweet view update (instead of every new tweet, every second, to maybe save performance)
             vm.TweetViewUpdateTimer.Elapsed -= UpdateTweetView;
             vm.TweetViewUpdateTimer.Elapsed += UpdateTweetView;
-            
+
             //// update tweets per second display every second instead of every tweet or whatever.
             //vm.TweetsPerSecondTimer.Interval = 1000;
             //vm.TweetsPerSecondTimer.Elapsed += (s, a) => {
@@ -210,8 +185,6 @@ namespace TweetListener2.Views
             //vm.TweetsPerSecondTimer.Start();
             //tweetsPerSecondLabel.DataContext = vm;
             
-            fromFileLoaderLabel.DataContext = this;
-
         }
 
         /// <summary>
@@ -226,6 +199,7 @@ namespace TweetListener2.Views
                         tweetView.ItemsSource = vm.TweetDatabase.Tweets;
                     }
                     vm.KeywordDatabase.KeywordList.UpdateCount(vm.TweetDatabase.GetAllTweets());
+                    
                 });
             }
         }
@@ -815,7 +789,6 @@ namespace TweetListener2.Views
         private void setCredentialsDefault_Click(object sender, RoutedEventArgs e)
         {
             vm.CurrentCredentialDefaults++;
-            vm.Credentials.SetCredentials(vm.CurrentCredentialDefaults);
         }
 
         private void tweetView_LoadFromFile(object sender, RoutedEventArgs e)
@@ -829,9 +802,9 @@ namespace TweetListener2.Views
                 // start task which updates UI
                 vm.FromFile_updateUiTimer = new System.Timers.Timer(100);
                 vm.FromFile_updateUiTimer.Elapsed += (s, a) => {
-                    vm.OnPropertyChanged("FromFileLoader");
+                    vm.OnPropertyChanged(sender, new PropertyChangedEventArgs("FromFileLoader"));
                     if (vm.FromFile_Loaded) {
-                        fromFile_percentDone = vm.FromFile_tweetLoadedCount / vm.FromFile_tweetCount;
+                        vm.FromFile_percentDone = vm.FromFile_tweetLoadedCount / vm.FromFile_tweetCount;
 
                     }
 
@@ -843,7 +816,9 @@ namespace TweetListener2.Views
                 vm.FromFile_updateUiTimer.Start();
 
                 Task.Factory.StartNew(() => {
-                    var fromTxt = vm.DatabaseSaver.LoadFromTextFile(vm.DatabaseSaver.TextFileDatabasePath, ref fromFile_percentDone);
+                    float fromFilePercentDone = 0f;
+                    var fromTxt = vm.DatabaseSaver.LoadFromTextFile(vm.DatabaseSaver.TextFileDatabasePath, ref fromFilePercentDone);
+                    vm.FromFile_percentDone = fromFilePercentDone;
                     vm.Log.Output("Loaded files. Dumping them into tweetList");
                     vm.FromFile_Loaded = true;
                     vm.FromFile_tweetCount = fromTxt.Count;
@@ -1013,5 +988,9 @@ namespace TweetListener2.Views
             vm.Log.Output("Log force reset no longer supported");
         }
 
+        private void tweetView_resendToDatabase(object sender, RoutedEventArgs e)
+        {
+            vm.ResendToDatabase(sender, e);
+        }
     }
 }
