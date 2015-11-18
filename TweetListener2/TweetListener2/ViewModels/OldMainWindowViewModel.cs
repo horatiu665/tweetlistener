@@ -30,7 +30,7 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return "Old TweetListener MainWindow";
+                return "OldTweetListener";
             }
         }
 

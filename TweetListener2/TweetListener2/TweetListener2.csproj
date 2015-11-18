@@ -195,6 +195,9 @@
     <Compile Include="Views\OldMainWindow.xaml.cs">
       <DependentUpon>OldMainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OldMainWindowQuickView.xaml.cs">
+      <DependentUpon>OldMainWindowQuickView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\QuickViewSpawner.xaml.cs">
       <DependentUpon>QuickViewSpawner.xaml</DependentUpon>
     </Compile>
@@ -251,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OldMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OldMainWindowQuickView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -351,9 +358,7 @@
     <Resource Include="Icons\greendot.png" />
     <Resource Include="Icons\reddot.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\SystemQuickViews\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

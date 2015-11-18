@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -143,6 +144,11 @@ namespace TweetListener2.ViewModels
 
         internal void CreateOldTweetListenerBatch_Click(object sender, RoutedEventArgs e, string batchText)
         {
+            CreateTweetListenersFromBatch(batchText);
+        }
+
+        void CreateTweetListenersFromBatch(string batchText)
+        {
             List<List<string>> batches = new List<List<string>>();
             foreach (var s in batchText.Split('\n', '\r')) {
                 if (s != "") {
@@ -163,6 +169,18 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        void CreateTweetListenersFromFile(string path)
+        {
+            if (File.Exists(path)) {
+                StreamReader sr = new StreamReader(path);
+                string batch = "";
+                while (!sr.EndOfStream) {
+                    batch += sr.ReadLine() + "\n";
+                }
+                CreateTweetListenersFromBatch(batch);
+            }
+        }
+
         internal void AddOldTweetListener_Click(object sender, RoutedEventArgs e)
         {
             SystemManager.instance.Add(new OldMainWindowViewModel());
@@ -174,6 +192,7 @@ namespace TweetListener2.ViewModels
         public AllResourcesViewModel()
         {
             SystemManager.instance.OnAddedSystem += SystemManager_OnAddedSystem;
+            CreateTweetListenersFromFile("StartupBatch.txt");
         }
 
         private void SystemManager_OnAddedSystem(object sender, SystemEventArgs e)

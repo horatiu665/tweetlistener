@@ -43,7 +43,7 @@
         <!--<views:MailHelperQuickView></views:MailHelperQuickView>-->
     </DataTemplate>
     <DataTemplate DataType="{x:Type vm:OldMainWindowViewModel}">
-        <!--<views:MailHelperQuickView></views:MailHelperQuickView>-->
+        <!--<views:OldMainWindowQuickView/>-->
     </DataTemplate>
 
 </ResourceDictionary>

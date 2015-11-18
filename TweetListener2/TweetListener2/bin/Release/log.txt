@@ -1,9 +1,0 @@
-18-11-2015 11:21:43: New log started
-18-11-2015 11:21:43: Counters off
-18-11-2015 11:21:44: Counters on
-18-11-2015 11:22:39: Problem: Cannot start gathering cycle. Please set a *start date* and an *end date* for the query.
-18-11-2015 11:22:44: Start of Rest.TweetsGatheringCycle() from 17-11-2015 11:22:41 to 18-11-2015 11:22:42
-18-11-2015 11:22:44: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-18-11-2015 11:22:49: Start of Rest.TweetsGatheringCycle() from 17-11-2015 11:22:41 to 18-11-2015 11:22:42
-18-11-2015 11:22:49: Searching for #stuff OR #things OR #selfietennis
-18-11-2015 11:23:09: Searching for #slush15 OR #burgers OR #nigger
