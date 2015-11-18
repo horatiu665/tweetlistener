@@ -473,7 +473,7 @@
                                                 <Label Content="End Date" HorizontalContentAlignment="Right" VerticalAlignment="Center" Width="{Binding ElementName=restStartDateLabel, Path=ActualWidth}"/>
                                                 <extendedWpf:DateTimePicker x:Name="restEndDate"/>
                                             </DockPanel>
-                                            <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
+                                            <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top" Margin="0, 4">
                                                 <Button x:Name="restQueryButton" Content="Perform Query" Click="restQueryButton_Click" Margin="10, 0" ToolTip="Perform simple query, using filter specified above, and using settings from the buttons below (recent or not)"/>
                                                 <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0" ToolTip="Perform exhaustive query using filter specified above and settings from below (recent or not)"/>
                                                 <Button x:Name="restKeywordsQueryButton" Content="Perform Query From KeywordList" Click="restKeywordsQueryButton_Click" Margin="10, 0" ToolTip="Perform exhaustive query using selected keywords from the KeywordList panel, identical to the one being performed at the start of a Streaming connection"/>
@@ -483,9 +483,15 @@
                                             </StackPanel>
                                             <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">
                                                 <!-- date filter, tweet id filter, etc... -->
-                                                <CheckBox x:Name="rest_filter_recent" Content="Recent" IsChecked="True" ToolTip="If true, returns recent tweets (in order). If false, returns popular tweets, not necessarily recent - could be 4 years old or something"/>
-                                                
 
+                                                <DockPanel Margin="10, 0">
+                                                    <Label Content="Max Keywords per query"/>
+                                                    <extendedWpf:IntegerUpDown x:Name="maxKeywordsPerQueryBox" ClipValueToMinMax="True" Minimum="1" Maximum="10" Value="{Binding MaxKeywordsPerQuery, Mode=TwoWay}"/>
+                                                </DockPanel>
+                                                <CheckBox x:Name="rest_filter_recent" Content="Recent" IsChecked="True"
+                                                          ToolTip="If true, returns recent tweets (in order). If false, returns popular tweets, not necessarily recent - could be 4 years old or something"
+                                                          Margin="10, 4"
+                                                          />
 
                                             </StackPanel>
                                             <DataGrid x:Name="restView" ItemsSource="{Binding Path=., Mode=OneWay}" AutoGenerateColumns="False" DockPanel.Dock="Top">

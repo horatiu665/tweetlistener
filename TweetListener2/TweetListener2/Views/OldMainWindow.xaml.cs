@@ -152,6 +152,7 @@ namespace TweetListener2.Views
             tweetsPerSecondLabel.DataContext = vm;
             autoRestLastDayDockPanel.DataContext = vm;
             setCredentialsDefault.DataContext = vm;
+            maxKeywordsPerQueryBox.DataContext = vm.Rest;
 
             vm.Log.LogOutput -= vm.Log_LogOutput;
             vm.Log.LogOutput += vm.Log_LogOutput;

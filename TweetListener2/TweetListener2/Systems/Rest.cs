@@ -75,8 +75,6 @@ namespace TweetListener2.Systems
 
         public bool WaitingForRateLimits { get; set; }
 
-        public int maxTweetsPerQuery = 10;
-
         System.Diagnostics.PerformanceCounter performanceCounter;
         private float performanceThresholdForStoppingRestGathering = 50f;
 
@@ -115,6 +113,20 @@ namespace TweetListener2.Systems
             get { return isGathering; }
         }
 
+        private int maxKeywordsPerQuery = 5;
+
+        public int MaxKeywordsPerQuery
+        {
+            get
+            {
+                return maxKeywordsPerQuery;
+            }
+
+            set
+            {
+                maxKeywordsPerQuery = value;
+            }
+        }
 
         public event Action<int> StoppedGatheringCycle;
 
@@ -345,7 +357,7 @@ namespace TweetListener2.Systems
             // there can be an error "{error: search too complex}" - that's probably what was happening.
             int smallCount = 0;
             for (int i = 0; i < fullList.Count; i++) {
-                if (smallCount >= maxTweetsPerQuery) {
+                if (smallCount >= MaxKeywordsPerQuery) {
                     smallCount = 0;
                 }
 
