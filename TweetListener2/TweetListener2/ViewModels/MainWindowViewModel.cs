@@ -50,7 +50,8 @@ namespace TweetListener2.ViewModels
 
         public void RemovePanel(ViewModelBase panel)
         {
-            panels.Remove(panel);
+            if (!(panel is AllResourcesViewModel))
+                panels.Remove(panel);
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,105 +14,12 @@ namespace TweetListener2.ViewModels
 {
     public class AllResourcesViewModel : ViewModelBase
     {
-        #region ViewModel lists
+        // http://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop
+        // see comment under accepted answer, someone suggests using BindingList instead of ObservableCollection 
+        // because it bubbles the PropertyChanged events to update the parent collection, something that ObservableCollection does not
+        private BindingList<ResourceListItem> resourceList = new BindingList<ResourceListItem>();
 
-        /*
-        public ObservableCollection<StreamViewModel> StreamViewModels
-        {
-            get
-            {
-                return SystemManager.instance.StreamViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<RestViewModel> RestViewModels
-        {
-            get
-            {
-                return SystemManager.instance.RestViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<CredentialsViewModel> CredentialsViewModels
-        {
-            get
-            {
-                return SystemManager.instance.CredentialsViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<DatabaseViewModel> DatabaseViewModels
-        {
-            get
-            {
-                return SystemManager.instance.DatabaseViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<LogViewModel> LogViewModels
-        {
-            get
-            {
-                return SystemManager.instance.LogViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<KeywordDatabaseViewModel> KeywordDatabaseViewModels
-        {
-            get
-            {
-                return SystemManager.instance.KeywordDatabaseViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<TweetDatabaseViewModel> TweetDatabaseViewModels
-        {
-            get
-            {
-                return SystemManager.instance.TweetDatabaseViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<QueryExpansionViewModel> QueryExpansionViewModels
-        {
-            get
-            {
-                return SystemManager.instance.QueryExpansionViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<PorterStemmerViewModel> PorterStemmerViewModels
-        {
-            get
-            {
-                return SystemManager.instance.PorterStemmerViewModels;
-            }
-            
-        }
-
-        public ObservableCollection<MailHelperViewModel> MailHelperViewModels
-        {
-            get
-            {
-                return SystemManager.instance.MailHelperViewModels;
-            }
-            
-        }
-
-        //*/
-        #endregion
-
-        private ObservableCollection<ResourceListItem> resourceList = new ObservableCollection<ResourceListItem>();
-
-        public ObservableCollection<ResourceListItem> ResourceList
+        public BindingList<ResourceListItem> ResourceList
         {
             get
             {
@@ -143,6 +52,11 @@ namespace TweetListener2.ViewModels
 
         internal void CreateOldTweetListenerBatch_Click(object sender, RoutedEventArgs e, string batchText)
         {
+            CreateTweetListenersFromBatch(batchText);
+        }
+
+        void CreateTweetListenersFromBatch(string batchText)
+        {
             List<List<string>> batches = new List<List<string>>();
             foreach (var s in batchText.Split('\n', '\r')) {
                 if (s != "") {
@@ -163,6 +77,18 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        void CreateTweetListenersFromFile(string path)
+        {
+            if (File.Exists(path)) {
+                StreamReader sr = new StreamReader(path);
+                string batch = "";
+                while (!sr.EndOfStream) {
+                    batch += sr.ReadLine() + "\n";
+                }
+                CreateTweetListenersFromBatch(batch);
+            }
+        }
+
         internal void AddOldTweetListener_Click(object sender, RoutedEventArgs e)
         {
             SystemManager.instance.Add(new OldMainWindowViewModel());
@@ -174,6 +100,7 @@ namespace TweetListener2.ViewModels
         public AllResourcesViewModel()
         {
             SystemManager.instance.OnAddedSystem += SystemManager_OnAddedSystem;
+            CreateTweetListenersFromFile("StartupBatch.txt");
         }
 
         private void SystemManager_OnAddedSystem(object sender, SystemEventArgs e)

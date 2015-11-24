@@ -1,0 +1,110 @@
+start "WPFTwitter" /D "Release\" "WPFTwitter.exe" ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log1.txt" ^
+/textFileDbPath "rawJsonBackup1.txt" ^ 
+/dbTableName "1starwars" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 1 ^
+/keywords "#starwars, #battlefront" ^
+/windowTitle "Star Wars Battlefront" ^
+/startStream 0
+
+start "WPFTwitter" /D "Release\" "WPFTwitter.exe" ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log2.txt" ^
+/textFileDbPath "rawJsonBackup2.txt" ^
+/dbTableName "2justcause3" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 2 ^
+/keywords "#justcause3" ^
+/windowTitle "Just cause 3" ^
+/startStream 0
+
+start "WPFTwitter" /D "Release\" "WPFTwitter.exe" ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log3.txt" ^
+/textFileDbPath "rawJsonBackup3.txt" ^
+/dbTableName "3tomclancy" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 3 ^
+/keywords "#rainbowsix, #tomclancy, #tomclancysrainbowsixsiege" ^
+/windowTitle "tom clancy rainbow six siege" ^
+/startStream 0
+
+start "WPFTwitter" /D "Release\" "WPFTwitter.exe" ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log4.txt" ^
+/textFileDbPath "rawJsonBackup4.txt" ^
+/dbTableName "4rollercoastertycoonworld" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 4 ^
+/keywords "#rollercoastertycoon, #rctw, " ^
+/windowTitle "rollercoaster tycoon world" ^
+/startStream 0
+
+start "WPFTwitter" /D "Release\" "WPFTwitter.exe" ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log5.txt" ^
+/textFileDbPath "rawJsonBackup5.txt" ^
+/dbTableName "5harvestmoon" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 5 ^
+/keywords "#harvestmoon, #seedsofmemories" ^
+/windowTitle "harvest moon seeds of memories" ^
+/startStream 0
+

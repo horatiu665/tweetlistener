@@ -37,7 +37,7 @@ namespace TweetListener2.Systems
             // initialize mostrecenttweet with datetime.now because otherwise any query will spend 
             // a few days gathering all the known previous tweets (which might not be such a bad 
             // idea but still is a bit time and energy consuming - must test).
-            //mostRecentTweet = DateTime.Now;
+            //MostRecentTweetTime = DateTime.Now;
         }
 
         public bool OnlyEnglish { get; set; }
@@ -77,7 +77,8 @@ namespace TweetListener2.Systems
                 tweets.AddRange(newTweets);
             }
 
-            mostRecentTweet = DateTime.Now;
+            MostRecentTweetTime = tweets.Aggregate((td1, td2) => (td1.tweet.CreatedAt.CompareTo(td2.tweet.CreatedAt) > 0) ? td1 : td2).tweet.CreatedAt;
+            MostRecentTweetId = newTweets.Aggregate((td1, td2) => td1.Id > td2.Id ? td1 : td2).Id;
         }
 
         /// <summary>
@@ -151,8 +152,37 @@ namespace TweetListener2.Systems
 
         public DateTime MostRecentTweetTime
         {
-            get { return mostRecentTweet; }
+            get
+            {
+                return mostRecentTweet;
+            }
+            set
+            {
+                if (value.CompareTo(mostRecentTweet) > 0) {
+                    mostRecentTweet = value;
+                }
+            }
         }
+
+        public long MostRecentTweetId
+        {
+            get
+            {
+                return mostRecentTweetId;
+            }
+            private set
+            {
+                if (value > mostRecentTweetId) {
+                    mostRecentTweetId = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// always saves the most recent tweet id, even though the tweet is saved anyway. can be used to gather tweets since a tweet ID rather than a date (better chances of avoiding redundant tweets).
+        /// </summary>
+        private long mostRecentTweetId;
+
 
         public void AddTweet(TweetData item)
         {
@@ -199,10 +229,36 @@ namespace TweetListener2.Systems
             }
 
             // tweet added successfully. update date of last tweet.
-            mostRecentTweet = DateTime.Now;
+            MostRecentTweetTime = item.tweet.CreatedAt;
+            MostRecentTweetId = item.Id;
         }
-        
 
+        public float resendAllToDatabaseCpuThreshold = 50f;
+
+        internal void ResendAllToDatabase()
+        {
+            Task.Factory.StartNew(async () => {
+                database.Log.Output("Sending " + tweets.Count + " tweets to database...");
+                var initTime = DateTime.Now;
+
+                var r = new Random();
+                var performanceCounter = new System.Diagnostics.PerformanceCounter();
+                performanceCounter.CategoryName = "Processor";
+                performanceCounter.CounterName = "% Processor Time";
+                performanceCounter.InstanceName = "_Total";
+
+                for (int i = 0; i < tweets.Count; i++) {
+                    Database.ResendToDatabase(tweets[i].tweet);
+                    // CPU load monitor. wait if the CPU use is over the threshold
+                    var perf = performanceCounter.NextValue();
+                    if (perf > resendAllToDatabaseCpuThreshold) {
+                        await Task.Delay(20 + r.Next(80));
+                    }
+                }
+
+                database.Log.Output("Finished resending " + tweets.Count + " tweets to database after time " + DateTime.Now.Subtract(initTime).ToString());
+            });
+        }
     }
 
 }

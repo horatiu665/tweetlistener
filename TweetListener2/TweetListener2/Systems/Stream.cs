@@ -95,13 +95,6 @@ namespace TweetListener2.Systems
         public Tweetinvi.Core.Interfaces.Streaminvi.IFilteredStream stream;
         public Tweetinvi.Core.Interfaces.Streaminvi.ISampleStream sampleStream;
 
-        Action streamThread;
-
-        /// <summary>
-        /// true when exception occurred in stream thread. used by main thread to attempt reconnect if it happens.
-        /// </summary>
-        bool streamThreadException = false;
-
         /// <summary>
         /// did the stream stop previously? when?
         /// </summary>
@@ -123,8 +116,13 @@ namespace TweetListener2.Systems
 
         public bool StreamRunning
         {
-            get { return streamRunning; }
-            set { streamRunning = value; }
+            get {
+                return streamRunning;
+            }
+            set {
+                streamRunning = value;
+
+            }
         }
 
         /// <summary>
@@ -328,9 +326,6 @@ namespace TweetListener2.Systems
 
             InitCounters();
 
-            // init stream thread
-            streamThread = new Action(StartStreamTask);
-
             // create stream
             sampleStream = Tweetinvi.Stream.CreateSampleStream(); // sample stream = no filter.
             stream = Tweetinvi.Stream.CreateFilteredStream();
@@ -398,7 +393,9 @@ namespace TweetListener2.Systems
         /// <param name="stream"></param>
         private void StreamStartInsistBetter()
         {
-            Task.Factory.StartNew(streamThread);
+            if (streamTask != null) streamTask.Dispose();
+            streamTask = Task.Factory.StartNew(StartStreamTask);
+            
             //Console.WriteLine("Finished starting new Task at " + DateTime.Now.ToString());
 
         }
@@ -411,10 +408,7 @@ namespace TweetListener2.Systems
         {
             // restart while stream throws exceptions. (not when it is closed nicely)
             while (true) {
-
-                // stream thread exception is only true after there is an exception in this thread
-                streamThreadException = false;
-
+                
                 if (intentionalStop) {
                     intentionalStop = false;
                     break;
@@ -441,10 +435,7 @@ namespace TweetListener2.Systems
 
                     //TODO: when exception happens, check if stream is actually running along,
                     // if we should reset stream, or if two streams are attempting to run at the same time.
-
-                    // notify main thread that there was an exception here.
-                    streamThreadException = true;
-
+                    
                 }
 
             }
@@ -453,12 +444,13 @@ namespace TweetListener2.Systems
 
         }
 
-        public void Stop()
+        public void Stop(Action Callback = null)
         {
             if (StreamRunning && !intentionalStop) {
                 stream.StopStream();
                 sampleStream.StopStream();
                 intentionalStop = true;
+
             }
         }
 
@@ -507,6 +499,7 @@ namespace TweetListener2.Systems
             reconnectDelayMillis *= 2;
 
             Log.Output("Stream disconnected.");
+            
             if (e.DisconnectMessage != null) {
                 Log.Output("Message code: " + e.DisconnectMessage.Code);
                 if (e.DisconnectMessage.Reason != null) {
@@ -569,6 +562,7 @@ namespace TweetListener2.Systems
 
             "text"
         };
+        private Task streamTask;
 
         void EvaluateJsonChildren(JToken j)
         {

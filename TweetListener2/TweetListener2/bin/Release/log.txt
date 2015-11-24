@@ -1,0 +1,312 @@
+19-11-2015 13:49:55: New log started
+19-11-2015 13:49:55: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+19-11-2015 13:49:55: Stream attempting to start at time 19-11-2015 13:49:55
+19-11-2015 13:49:56: OnStreamStarted event is called
+19-11-2015 13:49:56: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:49:56
+19-11-2015 13:49:56: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+19-11-2015 13:49:56: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:49:56: Counters: 0 0 0 0 1 1 0 0 0 0 0 0 0 0  - StreamResumed					
+19-11-2015 13:49:58: Stream disconnected.
+19-11-2015 13:49:58: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:49:58: Counters: 0 0 0 0 1 1 1 0 0 0 0 0 0 0  - StreamStopped					
+19-11-2015 13:49:59: Stream attempting to start at time 19-11-2015 13:49:59
+19-11-2015 13:49:59: OnStreamStarted event is called
+19-11-2015 13:49:59: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:49:59
+19-11-2015 13:49:59: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:49:59: Counters: 0 0 0 0 1 2 1 0 0 0 0 0 0 0  - StreamStarted					
+19-11-2015 13:49:59: Counters: 0 0 0 0 2 2 1 0 0 0 0 0 0 0  - StreamResumed					
+19-11-2015 13:49:59: Stream disconnected.
+19-11-2015 13:49:59: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:49:59: Counters: 0 0 0 0 2 2 2 0 0 0 0 0 0 0  - StreamStopped					
+19-11-2015 13:50:00: Stream attempting to start at time 19-11-2015 13:50:00
+19-11-2015 13:50:00: OnStreamStarted event is called
+19-11-2015 13:50:00: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:00
+19-11-2015 13:50:00: Counters: 0 0 0 0 2 3 2 0 0 0 0 0 0 0  - StreamStarted					
+19-11-2015 13:50:00: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:00: Counters: 0 0 0 0 3 3 2 0 0 0 0 0 0 0  - StreamResumed					
+19-11-2015 13:50:00: Stream disconnected.
+19-11-2015 13:50:00: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:00: Counters: 0 0 0 0 3 3 3 0 0 0 0 0 0 0  - StreamStopped					
+19-11-2015 13:50:01: Stream attempting to start at time 19-11-2015 13:50:01
+19-11-2015 13:50:01: OnStreamStarted event is called
+19-11-2015 13:50:01: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:01
+19-11-2015 13:50:01: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:01: Counters: 0 0 0 0 3 4 3 0 0 0 0 0 0 0  - StreamStarted					
+19-11-2015 13:50:01: Counters: 0 0 0 0 4 4 3 0 0 0 0 0 0 0  - StreamResumed					
+19-11-2015 13:50:02: Stream disconnected.
+19-11-2015 13:50:02: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:02: Counters: 0 0 0 0 4 4 4 0 0 0 0 0 0 0  - StreamStopped					
+19-11-2015 13:50:04: Stream attempting to start at time 19-11-2015 13:50:04
+19-11-2015 13:50:04: OnStreamStarted event is called
+19-11-2015 13:50:04: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:04
+19-11-2015 13:50:04: Counters: 0 0 0 0 4 5 4 0 0 0 0 0 0 0  - StreamStarted					
+19-11-2015 13:50:04: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:04: Counters: 0 0 0 0 5 5 4 0 0 0 0 0 0 0  - StreamResumed					
+19-11-2015 13:50:04: Stream disconnected.
+19-11-2015 13:50:04: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:04: Counters: 0 0 0 0 5 5 5 0 0 0 0 0 0 0  - StreamStopped					
+19-11-2015 13:50:08: Stream attempting to start at time 19-11-2015 13:50:08
+19-11-2015 13:50:08: OnStreamStarted event is called
+19-11-2015 13:50:08: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:08
+19-11-2015 13:50:08: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:08: Counters: 0 0 0 0 5 6 5 0 0 0 0 0 0 0  - StreamStarted					
+19-11-2015 13:50:08: Counters: 0 0 0 0 6 6 5 0 0 0 0 0 0 0  - StreamResumed					
+19-11-2015 13:50:08: Stream disconnected.
+19-11-2015 13:50:08: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:08: Counters: 0 0 0 0 6 6 6 0 0 0 0 0 0 0  - StreamStopped					
+19-11-2015 13:50:10: Counters off
+19-11-2015 13:50:13: Stream disconnected.
+19-11-2015 13:50:13: Stream disconnected.
+19-11-2015 13:50:14: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:15: Stream attempting to start at time 19-11-2015 13:50:15
+19-11-2015 13:50:15: OnStreamStarted event is called
+19-11-2015 13:50:15: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:15
+19-11-2015 13:50:15: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:20: Stream disconnected.
+19-11-2015 13:50:20: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.Crea19-11-2015 13:50:35: New log started
+19-11-2015 13:50:35: Counters off
+19-11-2015 13:50:42: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+19-11-2015 13:50:42: Stream attempting to start at time 19-11-2015 13:50:42
+19-11-2015 13:50:42: OnStreamStarted event is called
+19-11-2015 13:50:42: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:42
+19-11-2015 13:50:42: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:48: Stream disconnected.
+19-11-2015 13:50:48: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:48: Stream attempting to start at time 19-11-2015 13:50:48
+19-11-2015 13:50:48: OnStreamStarted event is called
+19-11-2015 13:50:48: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:48
+19-11-2015 13:50:48: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:50:55: Stream disconnected.
+19-11-2015 13:50:55: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:50:55: Stream attempting to start at time 19-11-2015 13:50:55
+19-11-2015 13:50:55: OnStreamStarted event is called
+19-11-2015 13:50:55: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:50:55
+19-11-2015 13:50:55: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:51:01: Stream disconnected.
+19-11-2015 13:51:01: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:51:01: Stream attempting to start at time 19-11-2015 13:51:01
+19-11-2015 13:51:01: OnStreamStarted event is called
+19-11-2015 13:51:01: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:51:01
+19-11-2015 13:51:01: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:51:02: Stream disconnected.
+19-11-2015 13:51:02: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+19-11-2015 13:51:04: Stream attempting to start at time 19-11-2015 13:51:04
+19-11-2015 13:51:04: OnStreamStarted event is called
+19-11-2015 13:51:04: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 19-11-2015 13:51:04
+19-11-2015 13:51:04: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+19-11-2015 13:51:05: Stream disconnected.
+19-11-2015 13:51:05: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (420) Enhance Your Calm.
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
