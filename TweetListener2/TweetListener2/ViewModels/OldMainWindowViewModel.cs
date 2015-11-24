@@ -30,7 +30,7 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return "OldTweetListener";
+                return "OldTweetListener " + WindowTitle;
             }
         }
 
@@ -661,6 +661,7 @@ namespace TweetListener2.ViewModels
             set
             {
                 MailSpammerConnect.windowTitle = value;
+                OnPropertyChanged(this, new PropertyChangedEventArgs("Name"));
             }
         }
 

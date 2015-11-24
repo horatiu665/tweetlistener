@@ -12,7 +12,7 @@
     </UserControl.Resources>
     <DockPanel>
         <DockPanel>
-            <Label Content="{Binding Name}"/>
+            <Label Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="{Binding CountInSystemManager}"/>
             <ContentPresenter Content="{Binding Resource}" Grid.Row="1" />
         </DockPanel>
