@@ -24,9 +24,9 @@ namespace TweetListener2.ViewModels
             }
         }
 
-        public StreamViewModel(DatabaseViewModel database, LogViewModel log, RestViewModel rest, KeywordDatabaseViewModel keywordDatabase, TweetDatabaseViewModel tweetDatabase)
+        public StreamViewModel(DatabaseViewModel database, LogViewModel log, RestViewModel rest, KeywordDatabaseViewModel keywordDatabase, TweetDatabaseViewModel tweetDatabase, CredentialsViewModel credentials)
         {
-            Stream = new Stream(database.Database, log.Log, rest.Rest, keywordDatabase.KeywordDatabase, tweetDatabase.TweetDatabase);
+            Stream = new Stream(database.Database, log.Log, rest.Rest, keywordDatabase.KeywordDatabase, tweetDatabase.TweetDatabase, credentials.Credentials);
         }
 
         public bool StreamRunning
@@ -76,17 +76,7 @@ namespace TweetListener2.ViewModels
 
         internal void RestartStream()
         {
-            stream.Stop();
-            Task.Factory.StartNew(() => {
-                stream.Log.Output("Separate thread waiting to start stream after it stops");
-
-                // wait until stream stops
-                while (stream.StreamRunning) {
-                    ;
-                }
-                stream.Start();
-
-            });
+            stream.Restart();
         }
 
         internal void StopStream()

@@ -8,6 +8,7 @@ using System.Threading;
 using System.IO;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 
 namespace TweetListener2.Systems
 {
@@ -15,13 +16,14 @@ namespace TweetListener2.Systems
     /// <summary>
     /// handles twitter stream connection (and reconnection) and tweet receiving events.
     /// </summary>
-    public class Stream
+    public class Stream : INotifyPropertyChanged
     {
         private Database database;
         private Log log;
         private Rest rest;
         private KeywordDatabase keywordDatabase;
         private TweetDatabase tweetDatabase;
+        private Credentials credentials;
 
         public Database Database
         {
@@ -87,7 +89,19 @@ namespace TweetListener2.Systems
                 tweetDatabase = value;
             }
         }
-        
+
+        public Credentials Credentials
+        {
+            get
+            {
+                return credentials;
+            }
+            set
+            {
+                credentials = value;
+            }
+        }
+
 
         /// <summary>
         /// the stream used throughout the program
@@ -96,13 +110,51 @@ namespace TweetListener2.Systems
         public Tweetinvi.Core.Interfaces.Streaminvi.ISampleStream sampleStream;
 
         /// <summary>
-        /// did the stream stop previously? when?
+        /// should Stream search using REST when first started? it will use EarliestTweetDate for the SinceDate of the REST cycle - therefore it can be set to another date than my birthday, so that we don't waste a REST cycle every time we restart the stream.
         /// </summary>
-        public DateTime MostRecentTweetTime
+        private bool firstRestRecovery = true;
+        public bool FirstRestRecovery
         {
             get
             {
-                return TweetDatabase.MostRecentTweetTime;
+                return firstRestRecovery;
+            }
+
+            set
+            {
+                firstRestRecovery = value;
+            }
+        }
+
+        private DateTime earliestTweetDate = new DateTime(1993, 7, 23);
+
+        /// <summary>
+        /// sincedate for the first REST cycle, when the stream is started for the first time - this is done at startup
+        /// </summary>
+        public DateTime EarliestTweetDate
+        {
+            get
+            {
+                return earliestTweetDate;
+            }
+
+            set
+            {
+                earliestTweetDate = value;
+                OnPropertyChanged("EarliestTweetDate");
+            }
+        }
+
+        /// <summary>
+        /// did the stream stop previously? when?
+        /// </summary>
+        public DateTime RestRecoverySinceDate
+        {
+            get
+            {
+                // return the maximum date between the EarliestTweetDate and the TweetDatabase.MostRecentTweetTime - this way, we don't go further back than the largest of those dates. if earliest tweet date is not set, we set it to my birthday just because.
+                return DateTime.Compare(EarliestTweetDate, TweetDatabase.MostRecentTweetTime) < 0 ? TweetDatabase.MostRecentTweetTime : EarliestTweetDate;
+
             }
         }
 
@@ -111,17 +163,20 @@ namespace TweetListener2.Systems
         /// </summary>
         bool intentionalStop = false;
 
-        // true when stream is running.
+        /// <summary>
+        /// true when stream is running.
+        /// </summary>
         bool streamRunning = false;
-
         public bool StreamRunning
         {
-            get {
+            get
+            {
                 return streamRunning;
             }
-            set {
+            set
+            {
                 streamRunning = value;
-
+                OnPropertyChanged("StreamRunning");
             }
         }
 
@@ -314,13 +369,14 @@ namespace TweetListener2.Systems
 
         #endregion
 
-        public Stream(Database dbs, Log log, Rest rest, KeywordDatabase keywordDatabase, TweetDatabase tweetDatabase)
+        public Stream(Database dbs, Log log, Rest rest, KeywordDatabase keywordDatabase, TweetDatabase tweetDatabase, Credentials credentials)
         {
             this.Database = dbs;
             this.Log = log;
             this.Rest = rest;
             this.KeywordDatabase = keywordDatabase;
             this.TweetDatabase = tweetDatabase;
+            this.Credentials = credentials;
 
             // initialize stuff
 
@@ -364,6 +420,9 @@ namespace TweetListener2.Systems
                 return;
             }
 
+            if (streamTask != null) streamTask.Dispose();
+
+
             stream.ClearTracks();
 
             AddTracksFromKeywordDatabase();
@@ -393,9 +452,8 @@ namespace TweetListener2.Systems
         /// <param name="stream"></param>
         private void StreamStartInsistBetter()
         {
-            if (streamTask != null) streamTask.Dispose();
             streamTask = Task.Factory.StartNew(StartStreamTask);
-            
+
             //Console.WriteLine("Finished starting new Task at " + DateTime.Now.ToString());
 
         }
@@ -406,9 +464,12 @@ namespace TweetListener2.Systems
         /// </summary>
         private async void StartStreamTask()
         {
+            // this needs to be here because Auth.Credentials are actually one set for the whole application, which includes multiple threads per TweetListener. As such, there could not be more than one Stream per TweetListener2 even though each OldWindow appeared to have their own credentials.
+            Credentials.SetCurrentCredentialsForThread();
+
             // restart while stream throws exceptions. (not when it is closed nicely)
             while (true) {
-                
+
                 if (intentionalStop) {
                     intentionalStop = false;
                     break;
@@ -428,14 +489,14 @@ namespace TweetListener2.Systems
                     } else {
                         await sampleStream.StartStreamAsync(); // for sample stream
                     }
-
+                    Log.Output("StartStreamAsync() finally over!");
                 }
                 catch (Exception e) {
                     Log.Output("Exception at StartStreamTask() thread: " + e.ToString());
 
                     //TODO: when exception happens, check if stream is actually running along,
                     // if we should reset stream, or if two streams are attempting to run at the same time.
-                    
+
                 }
 
             }
@@ -444,13 +505,14 @@ namespace TweetListener2.Systems
 
         }
 
-        public void Stop(Action Callback = null)
+        public void Stop()
         {
+            Log.Output("[DEBUG] [PLS DELETE] Stopping stream!");
+            // only call if stream still running but stop has not been called before (intentionalStop is false when not stopping, but true when stop has been called)
             if (StreamRunning && !intentionalStop) {
                 stream.StopStream();
                 sampleStream.StopStream();
                 intentionalStop = true;
-
             }
         }
 
@@ -485,8 +547,13 @@ namespace TweetListener2.Systems
 
             StreamRunning = true;
 
-            // use Rest for gathering tweets since last time the stream stopped.
-            Rest.TweetsGatheringCycle(MostRecentTweetTime, DateTime.Now, KeywordDatabase.GetUsableKeywords());
+            if (FirstRestRecovery) {
+                FirstRestRecovery = false;
+                // use Rest for gathering tweets since last time the stream stopped.
+                Rest.TweetsGatheringCycle(RestRecoverySinceDate, DateTime.Now, KeywordDatabase.GetUsableKeywords());
+            } else {
+                Rest.TweetsGatheringCycle(TweetDatabase.MostRecentTweetId, keywordDatabase.GetUsableKeywords());
+            }
 
         }
 
@@ -499,7 +566,7 @@ namespace TweetListener2.Systems
             reconnectDelayMillis *= 2;
 
             Log.Output("Stream disconnected.");
-            
+
             if (e.DisconnectMessage != null) {
                 Log.Output("Message code: " + e.DisconnectMessage.Code);
                 if (e.DisconnectMessage.Reason != null) {
@@ -594,5 +661,15 @@ namespace TweetListener2.Systems
         }
 
         #endregion
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

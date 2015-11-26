@@ -176,10 +176,10 @@ namespace TweetListener2.ViewModels
             var tweetDatabase = new TweetDatabaseViewModel(database);
             sysMan.Add(tweetDatabase);
 
-            var rest = new RestViewModel(database, log, tweetDatabase);
+            var rest = new RestViewModel(database, log, tweetDatabase, credentials);
             sysMan.Add(rest);
 
-            var stream = new StreamViewModel(database, log, rest, keywordDatabase, tweetDatabase);
+            var stream = new StreamViewModel(database, log, rest, keywordDatabase, tweetDatabase, credentials);
             sysMan.Add(stream);
 
         }

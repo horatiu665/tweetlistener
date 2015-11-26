@@ -60,11 +60,15 @@ namespace TweetListener2.Systems
         public void RemoveTweet(TweetData tweet)
         {
             tweets.Remove(tweet);
+            if (tweet.Id == mostRecentTweetId) {
+                RecalculateMaxTweetIdAndDate();
+            }
         }
 
         public void RemoveAllTweets()
         {
             tweets.Clear();
+            RecalculateMaxTweetIdAndDate();
         }
 
         /// <summary>
@@ -77,8 +81,7 @@ namespace TweetListener2.Systems
                 tweets.AddRange(newTweets);
             }
 
-            MostRecentTweetTime = tweets.Aggregate((td1, td2) => (td1.tweet.CreatedAt.CompareTo(td2.tweet.CreatedAt) > 0) ? td1 : td2).tweet.CreatedAt;
-            MostRecentTweetId = newTweets.Aggregate((td1, td2) => td1.Id > td2.Id ? td1 : td2).Id;
+            RecalculateMaxTweetIdAndDate();
         }
 
         /// <summary>
@@ -91,6 +94,7 @@ namespace TweetListener2.Systems
             tweets.Clear();
             tweets.AddRange(newList);
 
+            RecalculateMaxTweetIdAndDate();
         }
 
         /// <summary>
@@ -102,6 +106,8 @@ namespace TweetListener2.Systems
             var newList = tweets.Where(td => td.Date.CompareTo(date) <= 0).ToList();
             tweets.Clear();
             tweets.AddRange(newList);
+
+            RecalculateMaxTweetIdAndDate();
         }
 
         /// <summary>
@@ -110,6 +116,8 @@ namespace TweetListener2.Systems
         public void RemoveAllRT()
         {
             tweets.RemoveAll(td => td.Tweet.IndexOf("RT") == 0);
+
+            RecalculateMaxTweetIdAndDate();
         }
 
         /// <summary>
@@ -179,9 +187,23 @@ namespace TweetListener2.Systems
         }
 
         /// <summary>
+        /// aggregates all tweets and calculates the most recent date and id. EXPENSIVE!
+        /// </summary>
+        private void RecalculateMaxTweetIdAndDate()
+        {
+            if (tweets.Count > 0) {
+                mostRecentTweet = tweets.Aggregate((td1, td2) => (td1.tweet.CreatedAt.CompareTo(td2.tweet.CreatedAt) > 0) ? td1 : td2).tweet.CreatedAt;
+                mostRecentTweetId = tweets.Aggregate((td1, td2) => td1.Id > td2.Id ? td1 : td2).Id;
+            } else {
+                mostRecentTweet = DateTime.MinValue;
+                mostRecentTweetId = long.MinValue;
+            }
+        }
+
+        /// <summary>
         /// always saves the most recent tweet id, even though the tweet is saved anyway. can be used to gather tweets since a tweet ID rather than a date (better chances of avoiding redundant tweets).
         /// </summary>
-        private long mostRecentTweetId;
+        private long mostRecentTweetId = long.MinValue;
 
 
         public void AddTweet(TweetData item)

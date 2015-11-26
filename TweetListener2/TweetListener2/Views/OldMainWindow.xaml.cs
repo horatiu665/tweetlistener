@@ -147,12 +147,15 @@ namespace TweetListener2.Views
             setCredentialsDefault.DataContext = vm;
             database_tableNameTextBox.DataContext = vm.DatabaseSaver;
             startStreamButton.DataContext = vm.Stream;
+            streamStatusLabel.DataContext = vm.Stream;
             database_connectionString.DataContext = vm.DatabaseSaver;
             fromFileLoaderLabel.DataContext = vm;
             tweetsPerSecondLabel.DataContext = vm;
             autoRestLastDayDockPanel.DataContext = vm;
             setCredentialsDefault.DataContext = vm;
             maxKeywordsPerQueryBox.DataContext = vm.Rest;
+            firstRestSinceDate_Checkbox.DataContext = vm.Stream;
+            firstRestSinceDate_DateTime.DataContext = vm.Stream;
 
             vm.Log.LogOutput -= vm.Log_LogOutput;
             vm.Log.LogOutput += vm.Log_LogOutput;
@@ -390,12 +393,16 @@ namespace TweetListener2.Views
 
         private void restRateLimitButton_Click(object sender, RoutedEventArgs e)
         {
-            App.Current.Dispatcher.Invoke((Action)(() => {
+            return;
+
+            // the code below should work but there is no time and reason to test it.
+
+            App.Current.Dispatcher.InvokeAsync( (Action)(async () => {
                 // display stuff in restInfoTextBlock.Text = "<here>"
                 vm.RestMessageList.Add(new LogMessage("Getting Rate Limit"));
 
                 // gets rate limit using Rest class.
-                var rl = vm.Rest.GetRateLimits_Search();
+                Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit rl = await vm.Rest.GetRateLimits_SearchAsync();
 
                 if (rl == null) {
                     vm.RestMessageList.Add(new LogMessage("Not authenticated or invalid credentials (GetRateLimits_Search() was null)"));
@@ -992,6 +999,11 @@ namespace TweetListener2.Views
         private void tweetView_resendToDatabase(object sender, RoutedEventArgs e)
         {
             vm.ResendToDatabase(sender, e);
+        }
+
+        private void firstRestSinceDate_nowButton_Click(object sender, RoutedEventArgs e)
+        {
+            firstRestSinceDate_DateTime.Value = DateTime.Now;
         }
     }
 }

@@ -103,8 +103,8 @@ namespace TweetListener2.ViewModels
             KeywordDatabase = new KeywordDatabase(Log);
             DatabaseSaver = new DatabaseSaver(Log);
             TweetDatabase = new TweetDatabase(DatabaseSaver);
-            Rest = new Rest(DatabaseSaver, Log, TweetDatabase);
-            Stream = new Stream(DatabaseSaver, Log, Rest, KeywordDatabase, TweetDatabase);
+            Rest = new Rest(DatabaseSaver, Log, TweetDatabase, Credentials);
+            Stream = new Stream(DatabaseSaver, Log, Rest, KeywordDatabase, TweetDatabase, Credentials);
             MailSpammerDisco = new MailHelper(Log, Stream);
             MailSpammerConnect = new MailHelperBase(Log, Stream);
             QueryExpansion = new QueryExpansion(Log);
@@ -241,6 +241,25 @@ namespace TweetListener2.ViewModels
             }
             if (commandLineArgs.ContainsKey("windowTitle")) {
                 WindowTitle = commandLineArgs["windowTitle"];
+            }
+            // first REST cycle when stream is first started - sometimes it is nice to not use up the rate limits before we can even test stuff, because we might just wanna restart the program after a little crash or whatever.
+            if (commandLineArgs.ContainsKey("firstRestSinceDate")) {
+                DateTime firstRestSinceDate = stream.EarliestTweetDate;
+
+                if (commandLineArgs["firstRestSinceDate"] == "today") {
+                    firstRestSinceDate = DateTime.Today;
+                } else if (commandLineArgs["firstRestSinceDate"] == "yesterday") {
+                    firstRestSinceDate = DateTime.Today.AddDays(-1);
+                } else if (commandLineArgs["firstRestSinceDate"].Contains("days ago")) {
+                    int daysAgo;
+                    if (int.TryParse(commandLineArgs["firstRestSinceDate"].Split(' ')[0], out daysAgo)) {
+                        firstRestSinceDate = DateTime.Today.AddDays(-daysAgo);
+                    }
+                } else if (DateTime.TryParse(commandLineArgs["firstRestSinceDate"], out firstRestSinceDate)) {
+                    // got the value out, do nothing
+                }
+
+                stream.EarliestTweetDate = firstRestSinceDate;
             }
             if (commandLineArgs.ContainsKey("startStream")) {
                 if (commandLineArgs["startStream"] != "0") {
@@ -577,7 +596,7 @@ namespace TweetListener2.ViewModels
             set
             {
                 credentials.SetCredentials(value);
-                
+
                 OnPropertyChanged(this, new PropertyChangedEventArgs("CurrentCredentialDefaults"));
             }
         }
@@ -586,7 +605,7 @@ namespace TweetListener2.ViewModels
         {
             get
             {
-                return credentials.Count-1;
+                return credentials.Count - 1;
             }
         }
 
@@ -694,7 +713,7 @@ namespace TweetListener2.ViewModels
                 //    logView.ScrollIntoView(logView.Items.GetItemAt(logView.Items.Count - 1));
             }));
         }
-        
+
         bool fromFile_isLoading = false;
 
         /// <summary>
@@ -847,16 +866,7 @@ namespace TweetListener2.ViewModels
 
                             // after expansion, restart stream to apply the new settings.
                             Log.Output("Attempting to restart the stream automatically");
-                            Stream.Stop();
-                            // wait until stream has stopped && streamRunning is false
-                            Task.Factory.StartNew(() => {
-                                Log.Output("Separate thread waiting to start stream after it stops");
-                                while (Stream.StreamRunning) {
-                                    // wait
-                                    ;
-                                }
-                                Stream.Start();
-                            });
+                            Stream.Restart();
 
                         });
                     }

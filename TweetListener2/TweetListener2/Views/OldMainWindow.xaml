@@ -331,8 +331,11 @@
                                                 <Button x:Name="startStreamButton" Content="Start Stream" Click="startStreamButton_Click"/>
                                                 <Button x:Name="restartStreamButton" Content="Restart Stream" Click="restartStreamButton_Click"/>
                                                 <Button x:Name="stopStreamButton" Content="Stop Stream" Click="stopStreamButton_Click"/>
+                                                <CheckBox x:Name="streamStatusLabel" HorizontalAlignment="Center"
+                                                          Content="Stream running" IsChecked="{Binding StreamRunning, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Margin="0 4 0 0"
+                                                          IsHitTestVisible="False" Focusable="False" IsTabStop="False"/>
                                                 <DockPanel x:Name="autoRestLastDayDockPanel" >
-                                                    <CheckBox IsChecked="{Binding Path=RestLastDay, Mode=TwoWay}" Content="Scheduled daily rest" VerticalAlignment="Center" >
+                                                    <CheckBox IsChecked="{Binding Path=RestLastDay, Mode=TwoWay}" Content="Scheduled daily REST" VerticalAlignment="Center" >
                                                         <CheckBox.ToolTip>
                                                             Runs an exhaustive REST query every day at this time, looks for all hashtags between current day and previous 2 days.
                                                         </CheckBox.ToolTip>
@@ -347,6 +350,17 @@
                                                     </CheckBox>
                                                     <extendedWpf:TimeSpanUpDown x:Name="expansionScheduleTimespan" Value="1.00:00:00" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
                                                 </DockPanel>
+
+                                                <DockPanel>
+                                                    <CheckBox x:Name="firstRestSinceDate_Checkbox" IsChecked="{Binding Path=FirstRestRecovery, Mode=TwoWay}" Content="First Rest" VerticalAlignment="Center" >
+                                                        <CheckBox.ToolTip>
+                                                            Should the stream use REST to search for its filter as it starts? If yes, how long ago should it search for?
+                                                        </CheckBox.ToolTip>
+                                                    </CheckBox>
+                                                    <Button Content="now" Width="28" VerticalAlignment="Center" DockPanel.Dock="Right" Click="firstRestSinceDate_nowButton_Click"/>
+                                                    <extendedWpf:DateTimePicker x:Name="firstRestSinceDate_DateTime" Value="{Binding EarliestTweetDate, Mode=TwoWay}" Format="ShortDate" VerticalAlignment="Center" Margin="10 4"/>
+                                                </DockPanel>
+
                                                 <DockPanel>
                                                     <CheckBox x:Name="checkBox_emailSpammer" IsChecked="{Binding Path=EmailSpammer, Mode=TwoWay}" Content="E-mail Disco" VerticalAlignment="Center" >
                                                         <CheckBox.ToolTip>
@@ -478,7 +492,8 @@
                                                 <Button x:Name="restExhaustiveQueryButton" Content="Perform Exhaustive Query" Click="restExhaustiveQueryButton_Click" Margin="10, 0" ToolTip="Perform exhaustive query using filter specified above and settings from below (recent or not)"/>
                                                 <Button x:Name="restKeywordsQueryButton" Content="Perform Query From KeywordList" Click="restKeywordsQueryButton_Click" Margin="10, 0" ToolTip="Perform exhaustive query using selected keywords from the KeywordList panel, identical to the one being performed at the start of a Streaming connection"/>
 
-                                                <Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0" ToolTip="Queries Twitter for the rate limits for the current application"/>
+                                                <!-- The rate limits button does not work because it is not getting the proper rate limits, but some other random information. must be implemented in REST class-->
+                                                <!--<Button x:Name="restRateLimitButton" Content="Get Rate Limits" Click="restRateLimitButton_Click" Margin="10, 0" ToolTip="Queries Twitter for the rate limits for the current application"/>-->
 
                                             </StackPanel>
                                             <StackPanel Background="#FFE5E5E5" DockPanel.Dock="Top">

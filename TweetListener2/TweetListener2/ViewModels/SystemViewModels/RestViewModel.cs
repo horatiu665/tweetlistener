@@ -33,10 +33,10 @@ namespace TweetListener2.ViewModels
             }
         }
 
-        public RestViewModel(DatabaseViewModel database, LogViewModel log, TweetDatabaseViewModel tweetDb)
+        public RestViewModel(DatabaseViewModel database, LogViewModel log, TweetDatabaseViewModel tweetDb, CredentialsViewModel credentials)
 		{
 			// create new model
-			rest = new Rest(database.Database, log.Log, tweetDb.TweetDatabase);
+			rest = new Rest(database.Database, log.Log, tweetDb.TweetDatabase, credentials.Credentials);
 		}
 	}
 }

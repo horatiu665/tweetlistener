@@ -20,6 +20,7 @@ namespace TweetListener2.Systems
         Database database;
         Log log;
         TweetDatabase tweetDatabase;
+        Credentials credentials;
 
         public Database Database
         {
@@ -60,6 +61,18 @@ namespace TweetListener2.Systems
             }
         }
 
+        public Credentials Credentials
+        {
+            get
+            {
+                return credentials;
+            }
+            set
+            {
+                credentials = value;
+            }
+        }
+
         public event Action<ITweet> TweetFound;
 
         /// <summary>
@@ -78,11 +91,12 @@ namespace TweetListener2.Systems
         System.Diagnostics.PerformanceCounter performanceCounter;
         private float performanceThresholdForStoppingRestGathering = 50f;
 
-        public Rest(Database dbs, Log log, TweetDatabase tdb)
+        public Rest(Database dbs, Log log, TweetDatabase tdb, Credentials creds)
         {
             Database = dbs;
-            this.Log = log;
+            Log = log;
             TweetDatabase = tdb;
+            Credentials = creds;
 
             TweetFound += OnTweetFound;
 
@@ -143,11 +157,32 @@ namespace TweetListener2.Systems
 
         }
 
+        private enum GatheringMode
+        {
+            SinceDate,
+            SinceId
+        }
+
+        public void TweetsGatheringCycle(long mostRecentTweetId, List<string> keywordList)
+        {
+            TweetsGatheringCycle(DateTime.Now, DateTime.Now, mostRecentTweetId, long.MaxValue, GatheringMode.SinceId, keywordList);
+        }
+
         public void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, List<string> keywordList)
+        {
+            TweetsGatheringCycle(sinceDate, untilDate, 0, 0, GatheringMode.SinceDate, keywordList);
+
+        }
+
+        private void TweetsGatheringCycle(DateTime sinceDate, DateTime untilDate, long sinceId, long untilId, GatheringMode mode, List<string> keywordList)
         {
             isGathering = true;
 
-            Log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
+            if (mode == GatheringMode.SinceDate) {
+                Log.Output("Start of Rest.TweetsGatheringCycle() from " + sinceDate.ToString() + " to " + untilDate.ToString());
+            } else if (mode == GatheringMode.SinceId) {
+                Log.Output("Start of Rest.TweetsGatheringCycle() between Tweet IDs " + sinceId + " and " + untilId + " (and yes, untilId " + (untilId > sinceId ? ">" : "<=") + " sinceId)");
+            }
 
             Task.Factory.StartNew(async () => {
                 int tweetsGatheredTotal = 0;
@@ -171,10 +206,6 @@ namespace TweetListener2.Systems
                                 queryString += " OR " + q[queryIndex];
                             }
                         }
-                        // gives error due to final floating " OR "
-                        //foreach (var s in q) {
-                        //	queryString += s + " OR ";
-                        //}
 
                         if (forceStop) {
                             StoppedGatheringCycle(tweetsGatheredTotal);
@@ -182,13 +213,27 @@ namespace TweetListener2.Systems
                         }
 
                         var sp = GenerateSearchParameters(queryString);
-                        sp.SearchType = SearchResultType.Recent;
-                        //sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
-                        sp.Since = sinceDate;
-                        sp.Until = untilDate;
-                        sp.MaximumNumberOfResults = 100;
-                        sp.SinceId = long.MinValue;
-                        sp.MaxId = long.MaxValue;
+
+                        if (mode == GatheringMode.SinceDate) {
+                            sp.SearchType = SearchResultType.Recent;
+                            //sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
+                            sp.Since = sinceDate;
+                            sp.Until = untilDate;
+                            sp.MaximumNumberOfResults = 100;
+                            sp.SinceId = long.MinValue;
+                            sp.MaxId = long.MaxValue;
+
+                        } else if (mode == GatheringMode.SinceId) {
+                            sp.SearchType = SearchResultType.Recent;
+                            //sp.Filters = TweetSearchFilters. .OriginalTweetsOnly;
+                            sp.Since = DateTime.MinValue;
+                            sp.Until = DateTime.MaxValue;
+                            sp.MaximumNumberOfResults = 100;
+                            sp.SinceId = sinceId;
+                            sp.MaxId = untilId;
+
+                        }
+
 
 
                         ////////////////////////////////////////  RATE LIMITS  //////////////////////////////////////////////// 
@@ -279,7 +324,7 @@ namespace TweetListener2.Systems
                                             // don't even do it with await Task.Delay(1) please
                                         }
 
-                                        // subtract 1 so that we cannot get the same tweets again
+                                        // subtract 1 so that we cannot get the same tweets again // we are going back in time hehehheh
                                         sp.MaxId = long.Parse(minId) - 1;
                                     }
 
@@ -378,7 +423,8 @@ namespace TweetListener2.Systems
         #region search
         public List<ITweet> SearchTweets(string filter)
         {
-            if (Auth.ApplicationCredentials != null) {
+            Credentials.SetCurrentCredentialsForThread();
+            if (Auth.Credentials != null) {
                 var tweets = Search_SimpleTweetSearch(filter);
                 return tweets;
             } else {
@@ -388,7 +434,8 @@ namespace TweetListener2.Systems
 
         public List<ITweet> SearchTweets(ITweetSearchParameters searchParameters, out Tweetinvi.Core.Exceptions.ITwitterException twitterException)
         {
-            if (Auth.ApplicationCredentials != null) {
+            Credentials.SetCurrentCredentialsForThread();
+            if (Auth.Credentials != null) {
                 if (false) {
                     #region shit
                     // if any param is not properly defined, define it here to default
@@ -479,55 +526,10 @@ namespace TweetListener2.Systems
 
         public async Task<Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit> GetRateLimits_SearchAsync()
         {
-            if (Auth.ApplicationCredentials != null) {
-                return (await RateLimitAsync.GetCurrentCredentialsRateLimits()).SearchTweetsLimit;
+            Credentials.SetCurrentCredentialsForThread();
+            if (Auth.Credentials != null) {
+                return (await RateLimitAsync.GetCredentialsRateLimits(Credentials.GetCurrentCredentials())).SearchTweetsLimit;
             }
-            return null;
-        }
-
-        /// <summary>
-        /// returns complete rate limits for application, or null when credentials are not set.
-        /// </summary>
-        /// <returns></returns>
-        public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits GetRateLimits_All()
-        {
-            // perform if application is authenticated
-            if (Auth.ApplicationCredentials != null) {
-                Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimits rateLimits =
-                    RateLimit.GetCurrentCredentialsRateLimits(true);
-
-                return rateLimits;
-            } else {
-                return null;
-            }
-
-        }
-
-        /// <summary>
-        /// gets rate limit of search API.
-        /// </summary>
-        /// <returns></returns>
-        public Tweetinvi.Core.Interfaces.Credentials.ITokenRateLimit GetRateLimits_Search(string query = "")
-        {
-            // manual method which does not return proper results for some reason
-            // because we are logged with an application, but this returns limits per user
-
-            // APPLICATION CREDENTIALS NOT SUPPORTED BY TWEETINVI UNTIL VERSION 0.9.9 :( we are currently at 0.9.7
-            //if (TwitterCredentials.ApplicationCredentials != null) {
-            //	var grla = GetRateLimits_All();
-            //	if (grla != null) {
-            //		return grla.ApplicationRateLimitStatusLimit;
-            //	}
-            //}
-
-            // user credentials it is then
-            if (Auth.ApplicationCredentials != null) {
-                var grla = GetRateLimits_All();
-                if (grla != null) {
-                    return grla.SearchTweetsLimit;
-                }
-            }
-
             return null;
         }
 
@@ -582,34 +584,6 @@ namespace TweetListener2.Systems
             }
         }
 
-        // complicated shit
-        private void Search_SearchWithMetadata()
-        {
-            Search.SearchTweetsWithMetadata("hello");
-        }
-
-        /// <summary>
-        /// example of search with only a few parameters
-        /// </summary>
-        private IEnumerable<ITweet> Search_FilteredSearch(string filter)
-        {
-            var searchParameter = Search.CreateTweetSearchParameter(filter);
-            //searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
-
-            var tweets = Search.SearchTweets(searchParameter);
-            return tweets;
-        }
-
-        /// <summary>
-        /// example of search where Tweetinvi handles multiple requests and returns X > 100 results
-        /// </summary>
-        private void Search_SearchAndGetMoreThan100Results()
-        {
-            var searchParameter = Search.CreateTweetSearchParameter("us");
-            searchParameter.MaximumNumberOfResults = 200;
-
-            var tweets = Search.SearchTweets(searchParameter);
-        }
         #endregion
 
         #endregion

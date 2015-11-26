@@ -178,6 +178,13 @@ namespace TweetListener2.Systems
             }
         }
 
+        public ITwitterCredentials GetCurrentCredentials()
+        {
+            return Auth.Credentials;
+        }
+
+
+
 
         /// <summary>
         /// set twitter credentials. Can use list of strings (custom new credentials), or default credentials.
@@ -220,7 +227,24 @@ namespace TweetListener2.Systems
                 }
             }
 
-            Auth.ApplicationCredentials = new TwitterCredentials(
+            // sets application credentials, however it is possible that since we are running multiple streams per application, that the credentials for the entire application are actually only one set, even though we are running multiple "applications" which are actually just multiple objects. Static is static dammit
+            SetCurrentCredentialsForThread();
+
+
+            if (CredentialsChange != null) {
+                CredentialsChange(credentials);
+            }
+
+        }
+
+        /// <summary>
+        /// Must be called by each stream as it starts, because otherwise the stupid application thinks it has the same credentials as the other parallel TweetListeners. (static be static)
+        /// relevant thread:
+        /// https://twittercommunity.com/t/sudden-increase-in-420-exceeded-connection-limit-for-user-responses-from-streaming-api/15101
+        /// </summary>
+        public void SetCurrentCredentialsForThread()
+        {
+            Auth.SetCredentials(new TwitterCredentials(
                 // "Consumer_Key"
                 credentials[2],
                 // "Consumer_Secret"
@@ -229,12 +253,7 @@ namespace TweetListener2.Systems
                 credentials[0],
                 // "Access_Token_Secret"
                 credentials[1]
-                );
-
-            if (CredentialsChange != null) {
-                CredentialsChange(credentials);
-            }
-
+                ));
         }
 
     }
