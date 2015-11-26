@@ -918,6 +918,35 @@ namespace TweetListener2.ViewModels
         }
 
         private Timer restLastDayTimer;
+
+        DateTime streamDeletedTweetsButton_LastPressDate = new DateTime(1993, 7, 23);
+        internal void streamDeletedTweetsButton(object sender, RoutedEventArgs e)
+        {
+            var s = stream.GetDeletedTweets() + " tweets deleted since you last pressed the button, on " + streamDeletedTweetsButton_LastPressDate;
+            streamDeletedTweetsButton_LastPressDate = DateTime.Now;
+            Log.Output(s);
+        }
+
+        internal void tweetView_Count(object sender, RoutedEventArgs e)
+        {
+            var s = "";
+            s += ("Counting Tweets...");
+            s += "\n" +(tweetDatabase.GetAllTweets().Count + " tweets in the RAM");
+            s += "\n" +(tweetDatabase.Tweets.Count + " tweets shown in the tweetView panel");
+            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Stream) + " stream tweets");
+            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Rest) + " rest tweets");
+            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Unknown) + " unknown tweets");
+            s += "\n" +("Top languages: ");
+            var langGroups = tweetDatabase.GetAllTweets().GroupBy(td => td.Lang).OrderByDescending(g => g.Count());
+            for (int i = 0; i < Math.Min(langGroups.Count(), 5); i++) {
+                s += "\n" +(langGroups.ElementAt(i).Key + " - " + langGroups.ElementAt(i).Count());
+            }
+            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.Date.CompareTo(DateTime.Today) >= 0) + " tweets since " + DateTime.Today);
+            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.Date.CompareTo(DateTime.Today.AddDays(-1)) >= 0 && td.Date.CompareTo(DateTime.Today) < 0) + " tweets since " + DateTime.Today.AddDays(-1) + " until " + DateTime.Today);
+            s += "\n" +("End of counting tweets");
+
+            Log.Output(s);
+        }
     }
 
 

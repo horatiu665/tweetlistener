@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
+using Tweetinvi.Core.Events.EventArguments;
 
 namespace TweetListener2.Systems
 {
@@ -123,6 +124,7 @@ namespace TweetListener2.Systems
             set
             {
                 firstRestRecovery = value;
+                OnPropertyChanged("FirstRestRecovery");
             }
         }
 
@@ -184,6 +186,10 @@ namespace TweetListener2.Systems
         /// increases every reconnect, and resets to 100 when connection is successful
         /// </summary>
         int reconnectDelayMillis = 100;
+
+        int tweetsFoundSinceStreamStarted = 0;
+        int tweetsDeletedSinceStreamStarted = 0;
+        int tweetsDeletedSinceLastLog = 0;
 
         #region counters bullshit
 
@@ -392,17 +398,32 @@ namespace TweetListener2.Systems
             stream.MatchingTweetReceived += onMatchingTweetReceived;
             stream.JsonObjectReceived += onJsonObjectReceived;
             stream.LimitReached += onLimitReached;
+            stream.TweetDeleted += onTweetDeleted;
             sampleStream.StreamStarted += onStreamStarted;
             sampleStream.StreamStopped += onStreamStopped;
             sampleStream.TweetReceived += onTweetReceived;
             sampleStream.JsonObjectReceived += onJsonObjectReceived;
             sampleStream.LimitReached += onLimitReached;
+            sampleStream.TweetDeleted += onTweetDeleted;
 
             // to see wtf is going on. also this is a list of all events possible for the stream. useful at a glance.
             if (CountersOn) {
                 SetCounterEvents();
             }
 
+        }
+
+        private void onTweetDeleted(object sender, TweetDeletedEventArgs e)
+        {
+            tweetsDeletedSinceStreamStarted++;
+            tweetsDeletedSinceLastLog++;
+        }
+
+        public int GetDeletedTweets()
+        {
+            var returnValue = tweetsDeletedSinceLastLog;
+            tweetsDeletedSinceLastLog = 0;
+            return returnValue;
         }
 
         void onLimitReached(object sender, Tweetinvi.Core.Events.EventArguments.LimitReachedEventArgs e)
@@ -507,11 +528,15 @@ namespace TweetListener2.Systems
 
         public void Stop()
         {
-            Log.Output("[DEBUG] [PLS DELETE] Stopping stream!");
             // only call if stream still running but stop has not been called before (intentionalStop is false when not stopping, but true when stop has been called)
             if (StreamRunning && !intentionalStop) {
-                stream.StopStream();
-                sampleStream.StopStream();
+                if (stream.TracksCount != 0) {
+                    //if (stream.StreamState != Tweetinvi.Core.Enum.StreamState.Stop) {
+                    stream.StopStream();
+                } else {
+                    //if (sampleStream.StreamState != Tweetinvi.Core.Enum.StreamState.Stop) {
+                    sampleStream.StopStream();
+                }
                 intentionalStop = true;
             }
         }
@@ -555,6 +580,7 @@ namespace TweetListener2.Systems
                 Rest.TweetsGatheringCycle(TweetDatabase.MostRecentTweetId, keywordDatabase.GetUsableKeywords());
             }
 
+            streamStartTime = DateTime.Now;
         }
 
         /// <summary>
@@ -564,6 +590,15 @@ namespace TweetListener2.Systems
         {
             // wait more next time, to not get banned.
             reconnectDelayMillis *= 2;
+
+            var s = "";
+            s += "Stream ran for the duration: " + DateTime.Now.Subtract(streamStartTime);
+            s += "\n" + ("Tweets found since stream last started: " + tweetsFoundSinceStreamStarted);
+            tweetsFoundSinceStreamStarted = 0;
+            s += "\n" + ("Tweets deleted since stream last started (they are still saved): " + tweetsDeletedSinceStreamStarted);
+            tweetsDeletedSinceStreamStarted = 0;
+
+            Log.Output(s);
 
             Log.Output("Stream disconnected.");
 
@@ -588,6 +623,7 @@ namespace TweetListener2.Systems
 
             //});
 
+            tweetsFoundSinceStreamStarted++;
         }
 
         private void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
@@ -598,6 +634,8 @@ namespace TweetListener2.Systems
             //	databaseSaver.SaveTweet(e.Tweet);
 
             //});
+
+            tweetsFoundSinceStreamStarted++;
 
         }
 
@@ -630,6 +668,7 @@ namespace TweetListener2.Systems
             "text"
         };
         private Task streamTask;
+        private DateTime streamStartTime;
 
         void EvaluateJsonChildren(JToken j)
         {

@@ -156,6 +156,7 @@ namespace TweetListener2.Views
             maxKeywordsPerQueryBox.DataContext = vm.Rest;
             firstRestSinceDate_Checkbox.DataContext = vm.Stream;
             firstRestSinceDate_DateTime.DataContext = vm.Stream;
+            
 
             vm.Log.LogOutput -= vm.Log_LogOutput;
             vm.Log.LogOutput += vm.Log_LogOutput;
@@ -1004,6 +1005,16 @@ namespace TweetListener2.Views
         private void firstRestSinceDate_nowButton_Click(object sender, RoutedEventArgs e)
         {
             firstRestSinceDate_DateTime.Value = DateTime.Now;
+        }
+
+        private void streamDeletedTweetsButton(object sender, RoutedEventArgs e)
+        {
+            vm.streamDeletedTweetsButton(sender, e);
+        }
+
+        private void tweetView_Count(object sender, RoutedEventArgs e)
+        {
+            vm.tweetView_Count(sender, e);
         }
     }
 }

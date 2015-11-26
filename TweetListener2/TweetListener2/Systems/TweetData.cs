@@ -112,6 +112,17 @@ namespace TweetListener2.Systems
             }
         }
 
+        public string Source
+        {
+            get
+            {
+                return source.ToString();
+            }
+        }
+
+
+
+
         private int retweetCount = 0;
         /// <summary>
         /// counts how many times the tweet was posted again with a different link 

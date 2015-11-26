@@ -115,6 +115,11 @@
 
                                         </DockPanel>
                                         <DockPanel DockPanel.Dock="Top" >
+                                            <Button Content="Count" Click="tweetView_Count">
+                                                <Button.ToolTip>
+                                                    Counts tweets and reveals various statistics about the tweets saved here.
+                                                </Button.ToolTip>
+                                            </Button>
                                             <Button Content="Keep First Tweets" Click="tweetView_KeepTweets">
                                                 <Button.ToolTip>
                                                     Deletes all tweets after the first N, specified on the right.
@@ -165,6 +170,10 @@
                                                         <GridViewColumn DisplayMemberBinding="{Binding UserId}">
                                                             <GridViewColumnHeader Content="User Id"/>
                                                         </GridViewColumn>
+                                                        <GridViewColumn DisplayMemberBinding="{Binding Source}">
+                                                            <GridViewColumnHeader Content="Source"/>
+                                                        </GridViewColumn>
+
                                                         <!-- this part could add another column in which to show a bunch of clickable links from the original tweet. -->
                                                         <!--<GridViewColumn Header="Links">
                                                         <GridViewColumn.CellTemplate>
@@ -377,6 +386,7 @@
                                                     </CheckBox>
                                                     <extendedWpf:TimeSpanUpDown x:Name="emailSpammerPositiveTimespan" Value="{Binding EmailSpammerPositiveTimeSpan, Mode=TwoWay}" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
                                                 </DockPanel>
+                                                <Button Content="How many deleted tweets?" Click="streamDeletedTweetsButton"/>
 
 
                                             </StackPanel>
