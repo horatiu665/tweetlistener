@@ -564,7 +564,7 @@
                                                 <Button x:Name="keywordsUseAllButton" Margin="0 0 10 0" Content="Use all" Click="keywordsView_UseAll"/>
                                                 <Button x:Name="keywordsUseNoneButton" Margin="0 0 10 0" Content="Use none" Click="keywordsView_UseNone"/>
                                                 <Button x:Name="keywordsResetSelectionButton" Margin="0 0 10 0" Content="Reset Selection" Click="keywordsView_ResetSelection"/>
-                                                <Button Content="Delete All" Padding="10 0" Click="keywordsView_DeleteAll"/>
+                                                <Button Content="Delete Selected" Padding="10 0" Click="keywordsView_DeleteSelected"/>
                                                 <Button Content="Clear LangModels" Padding="10 0" Click="keywordsView_ClearLangModels"/>
                                             </DockPanel>
                                             <DockPanel DockPanel.Dock="Top">
@@ -614,6 +614,7 @@
                                                                 <DataTemplate>
                                                                     <DockPanel>
                                                                         <Button Content="Delete" Click="keywordView_Item_DeleteButton"/>
+                                                                        <Button Content="Select cooccurring" Click="keywordView_Item_SelectCooccurring"/>
                                                                         <Button Content="Stem" Click="keywordView_Item_StemButton"/>
                                                                     </DockPanel>
                                                                 </DataTemplate>

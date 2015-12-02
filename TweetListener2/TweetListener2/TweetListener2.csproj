@@ -157,6 +157,7 @@
     <Compile Include="RangeObservableCollection.cs" />
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="Controls\ExtScrollViewer.cs" />
+    <Compile Include="Systems\BatchManager.cs" />
     <Compile Include="Systems\Credentials.cs" />
     <Compile Include="CustomTweetFormat.cs" />
     <Compile Include="Systems\Database.cs" />

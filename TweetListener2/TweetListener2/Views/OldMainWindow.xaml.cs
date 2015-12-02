@@ -124,7 +124,7 @@ namespace TweetListener2.Views
             var x = viewModel;
             InitializeComponent();
             InitializeBindings();
-            
+
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace TweetListener2.Views
             maxKeywordsPerQueryBox.DataContext = vm.Rest;
             firstRestSinceDate_Checkbox.DataContext = vm.Stream;
             firstRestSinceDate_DateTime.DataContext = vm.Stream;
-            
+
 
             vm.Log.LogOutput -= vm.Log_LogOutput;
             vm.Log.LogOutput += vm.Log_LogOutput;
@@ -189,7 +189,7 @@ namespace TweetListener2.Views
             //};
             //vm.TweetsPerSecondTimer.Start();
             //tweetsPerSecondLabel.DataContext = vm;
-            
+
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace TweetListener2.Views
                         tweetView.ItemsSource = vm.TweetDatabase.Tweets;
                     }
                     vm.KeywordDatabase.KeywordList.UpdateCount(vm.TweetDatabase.GetAllTweets());
-                    
+
                 });
             }
         }
@@ -398,7 +398,7 @@ namespace TweetListener2.Views
 
             // the code below should work but there is no time and reason to test it.
 
-            App.Current.Dispatcher.InvokeAsync( (Action)(async () => {
+            App.Current.Dispatcher.InvokeAsync((Action)(async () => {
                 // display stuff in restInfoTextBlock.Text = "<here>"
                 vm.RestMessageList.Add(new LogMessage("Getting Rate Limit"));
 
@@ -474,13 +474,20 @@ namespace TweetListener2.Views
                     } else {
                         vm.KeywordDatabase.KeywordList.Set(vm.KeywordDatabase.KeywordList.OrderByDescending(kd => kd.Count).ToList());
                     }
-                } else {
+                } else if (((GridViewColumnHeader)sender).Content.ToString().Contains("Expansion")) {
                     // order by exp
                     var maxExp = vm.KeywordDatabase.KeywordList.Max(kd => kd.Expansion);
                     if (vm.KeywordDatabase.KeywordList.FirstOrDefault().Expansion == maxExp) {
                         vm.KeywordDatabase.KeywordList.Set(vm.KeywordDatabase.KeywordList.OrderBy(kd => kd.Expansion).ToList());
                     } else {
                         vm.KeywordDatabase.KeywordList.Set(vm.KeywordDatabase.KeywordList.OrderByDescending(kd => kd.Expansion).ToList());
+                    }
+                } else if (((GridViewColumnHeader)sender).Content.ToString().Contains("Use")) {
+                    // order by use
+                    if (vm.KeywordDatabase.KeywordList.FirstOrDefault().UseKeyword) {
+                        vm.KeywordDatabase.KeywordList.Set(vm.KeywordDatabase.KeywordList.OrderBy(kd => kd.UseKeyword).ToList());
+                    } else {
+                        vm.KeywordDatabase.KeywordList.Set(vm.KeywordDatabase.KeywordList.OrderByDescending(kd => kd.UseKeyword).ToList());
                     }
                 }
                 keywordListView.UpdateLayout();
@@ -625,6 +632,32 @@ namespace TweetListener2.Views
             }
         }
 
+        private void keywordView_Item_SelectCooccurring(object sender, RoutedEventArgs e)
+        {
+            // get clicked row
+            var button = ((Button)sender);
+            var item = FindParent<ListViewItem>(button);
+            if (item != null) {
+                var content = (KeywordData)(item.Content);
+                vm.Log.Output("Selecting all hashtags cooccurring with " + content.Keyword + ". This might take a while, and you cannot cancel it. Proceed?");
+                var m = MessageBox.Show("Selecting all hashtags cooccurring with " + content.Keyword + ". This might take a while, and you cannot cancel it. Proceed?", "Long operation", MessageBoxButton.YesNo);
+                if (m == MessageBoxResult.Yes) {
+                    vm.Log.Output("Yes");
+                    Task.Factory.StartNew(() => {
+                        // find list of all cooccurring 
+                        var coList = vm.KeywordDatabase.KeywordList.Where(kd => vm.TweetDatabase.GetAllTweets().Any(t => t.ContainsHashtag(content.Keyword) && t.ContainsHashtag(kd.Keyword)));
+                        foreach (var co in coList) {
+                            co.UseKeyword = true;
+                        }
+                        vm.Log.Output("Done selecting");
+                    });
+                } else {
+                    vm.Log.Output("No");
+
+                }
+            }
+        }
+
         private T FindParent<T>(DependencyObject child) where T : DependencyObject
         {
             var parent = VisualTreeHelper.GetParent(child);
@@ -696,13 +729,17 @@ namespace TweetListener2.Views
             tweetView_ResetSelection(sender, e);
         }
 
-        private void keywordsView_DeleteAll(object sender, RoutedEventArgs e)
+        private void keywordsView_DeleteSelected(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to delete all keywords?", "Delete confirmation", MessageBoxButton.YesNo);
+            var result = MessageBox.Show("Are you sure you want to delete all selected keywords?", "Delete confirmation", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes) {
                 App.Current.Dispatcher.Invoke(() => {
-                    vm.KeywordDatabase.KeywordList.Clear();
+                    var itemsToRemove = vm.KeywordDatabase.KeywordList.Where(k => k.UseKeyword).ToList();
+
+                    foreach (var itemToRemove in itemsToRemove) {
+                        vm.KeywordDatabase.KeywordList.Remove(itemToRemove);
+                    }
 
                     SetKeywordListColumnHeaders();
                 });
@@ -811,7 +848,10 @@ namespace TweetListener2.Views
                 // start task which updates UI
                 vm.FromFile_updateUiTimer = new System.Timers.Timer(100);
                 vm.FromFile_updateUiTimer.Elapsed += (s, a) => {
-                    vm.OnPropertyChanged(sender, new PropertyChangedEventArgs("FromFileLoader"));
+                    App.Current.Dispatcher.Invoke(() => {
+                        vm.OnPropertyChanged(sender, new PropertyChangedEventArgs("FromFileLoader"));
+                    });
+
                     if (vm.FromFile_Loaded) {
                         vm.FromFile_percentDone = vm.FromFile_tweetLoadedCount / vm.FromFile_tweetCount;
 
@@ -970,14 +1010,6 @@ namespace TweetListener2.Views
                 vm.TweetDatabase.RemoveAllRT();
                 vm.Log.Output("Removed tweets starting with RT, now we have " + vm.TweetDatabase.GetAllTweets().Count + " tweets");
             });
-        }
-
-        private void keywordsView_DeleteSelected(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("Are you sure you want to delete selected keywords?", "Delete confirmation", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes) {
-
-            }
         }
 
         private void keywordsView_ClearLangModels(object sender, RoutedEventArgs e)

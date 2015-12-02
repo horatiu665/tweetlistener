@@ -1,144 +1,2021 @@
-26-11-2015 11:57:28: New log started
-26-11-2015 11:57:28: Counters off
-26-11-2015 11:57:40: 0 tweets deleted since you last pressed the button, on 23-07-1993 00:00:00
-26-11-2015 11:57:42: 0 tweets deleted since you last pressed the button, on 26-11-2015 11:57:40
-26-11-2015 11:57:46: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 11:57:46: Stream attempting to start at time 26-11-2015 11:57:46
-26-11-2015 11:57:47: OnStreamStarted event is called
-26-11-2015 11:57:47: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
-26-11-2015 11:57:47: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 11:58:00: 103 tweets deleted since you last pressed the button, on 26-11-2015 11:57:42
-26-11-2015 11:58:10: 59 tweets deleted since you last pressed the button, on 26-11-2015 11:58:00
-26-11-2015 11:58:25: Tweets deleted since stream last started: 224
-26-11-2015 11:58:25: Stream disconnected.
-26-11-2015 11:58:25: StartStreamAsync() finally over!
-26-11-2015 11:58:38: 62 tweets deleted since you last pressed the button, on 26-11-2015 11:58:10
-26-11-2015 11:59:00: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 11:59:01: Stream attempting to start at time 26-11-2015 11:59:01
-26-11-2015 11:59:01: OnStreamStarted event is called
-26-11-2015 11:59:01: Start of Rest.TweetsGatheringCycle() between Tweet IDs 669832563431723008 and 9223372036854775807 (and yes, untilId > sinceId)
-26-11-2015 11:59:01: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 11:59:28: Tweets deleted since stream last started: 130
-26-11-2015 11:59:28: Stream disconnected.
-26-11-2015 11:59:28: StartStreamAsync() finally over!
-26-11-2015 12:00:24: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 12:00:25: Stream attempting to start at time 26-11-2015 12:00:25
-26-11-2015 12:00:25: OnStreamStarted event is called
-26-11-2015 12:00:25: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
-26-11-2015 12:00:25: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 12:00:53: Tweets deleted since stream last started: 116
-26-11-2015 12:00:53: Stream disconnected.
-26-11-2015 12:00:53: StartStreamAsync() finally over!
-26-11-2015 12:30:19: New log started
-26-11-2015 12:30:19: Counters off
-26-11-2015 12:30:27: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 12:30:27: Stream attempting to start at time 26-11-2015 12:30:27
-26-11-2015 12:30:27: OnStreamStarted event is called
-26-11-2015 12:30:27: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
-26-11-2015 12:30:27: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 12:30:38: Tweets deleted since stream last started: 0
-26-11-2015 12:30:38: Stream disconnected.
-26-11-2015 12:30:38: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote server returned an error: (503) Server Unavailable.
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
-   --- End of inner exception stack trace ---
-   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
-   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
-   at System.Threading.Tasks.Task`1.get_Result()
-   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
----> (Inner Exception #0) System.Net.WebException: The remote server returned an error: (503) Server Unavailable.
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
-   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+02-12-2015 12:34:47: New log started
+02-12-2015 12:34:47: Counters off
+02-12-2015 12:34:55: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+02-12-2015 12:34:55: Stream attempting to start at time 02-12-2015 12:34:55
+02-12-2015 12:34:56: OnStreamStarted event is called
+02-12-2015 12:34:56: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
+02-12-2015 12:34:56: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+02-12-2015 12:47:16: New log started
+02-12-2015 12:47:16: Loading 7244 lines from file rawJsonBackup.txt
+02-12-2015 12:47:16: Loaded files. Dumping them into tweetList
+02-12-2015 12:47:16: Finished loading 7229 tweets from file
+02-12-2015 12:47:22: Counters off
+02-12-2015 12:47:26: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+02-12-2015 12:47:26: Stream attempting to start at time 02-12-2015 12:47:26
+02-12-2015 12:47:26: OnStreamStarted event is called
+02-12-2015 12:47:26: Start of Rest.TweetsGatheringCycle() from 02-12-2015 12:37:38 to 02-12-2015 12:47:26
+02-12-2015 12:47:26: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+02-12-2015 12:47:56: 517 tweets deleted since you last pressed the button, on 23-07-1993 00:00:00
+02-12-2015 12:48:07: Stream ran for the duration: 00:00:40.1698469
+Tweets found since stream last started: 2063
+Tweets deleted since stream last started (they are still saved): 610
+02-12-2015 12:48:07: Stream disconnected.
+02-12-2015 12:48:07: StartStreamAsync() finally over!
+02-12-2015 12:51:21: New log started
+02-12-2015 12:51:21: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
+02-12-2015 12:51:21: Stream attempting to start at time 02-12-2015 12:51:21
+02-12-2015 12:51:21: OnStreamStarted event is called
+02-12-2015 12:51:21: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 02-12-2015 12:51:21
+02-12-2015 12:51:21: Counters: 0 0 0 0 0 1 0 0 0 0 0 0 0 0  - StreamStarted					
+02-12-2015 12:51:21: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+02-12-2015 12:51:21: Counters: 0 0 0 0 1 1 0 0 0 0 0 0 0 0  - StreamResumed					
+02-12-2015 12:51:22: Counters: 0 1 0 0 1 1 0 0 0 0 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:22: Counters: 0 1 0 0 1 1 0 1 0 0 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:22: Counters: 0 2 0 0 1 1 0 1 0 0 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:22: Counters: 0 2 0 0 1 1 0 2 0 0 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:22: Counters: 0 3 0 0 1 1 0 2 0 0 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 3 0 0 1 1 0 2 0 1 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 4 0 0 1 1 0 2 0 1 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 4 0 0 1 1 0 3 0 1 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:23: Counters: 0 5 0 0 1 1 0 3 0 1 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 5 0 0 1 1 0 3 0 2 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 6 0 0 1 1 0 3 0 2 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 6 0 0 1 1 0 3 0 3 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 7 0 0 1 1 0 3 0 3 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 7 0 0 1 1 0 3 0 4 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 8 0 0 1 1 0 3 0 4 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 8 0 0 1 1 0 3 0 5 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 9 0 0 1 1 0 3 0 5 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 9 0 0 1 1 0 3 0 6 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 10 0 0 1 1 0 3 0 6 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 10 0 0 1 1 0 3 0 7 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 11 0 0 1 1 0 3 0 7 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 11 0 0 1 1 0 3 0 8 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 12 0 0 1 1 0 3 0 8 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 12 0 0 1 1 0 3 0 9 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 13 0 0 1 1 0 3 0 9 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 13 0 0 1 1 0 3 0 10 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 14 0 0 1 1 0 3 0 10 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 14 0 0 1 1 0 3 0 11 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 15 0 0 1 1 0 3 0 11 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 15 0 0 1 1 0 3 0 12 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 16 0 0 1 1 0 3 0 12 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 16 0 0 1 1 0 3 0 13 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 17 0 0 1 1 0 3 0 13 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 17 0 0 1 1 0 3 0 14 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 18 0 0 1 1 0 3 0 14 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 18 0 0 1 1 0 3 0 15 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 19 0 0 1 1 0 3 0 15 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 19 0 0 1 1 0 3 0 16 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 20 0 0 1 1 0 3 0 16 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 20 0 0 1 1 0 4 0 16 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:23: Counters: 0 21 0 0 1 1 0 4 0 16 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 21 0 0 1 1 0 4 0 17 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 22 0 0 1 1 0 4 0 17 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 22 0 0 1 1 0 4 0 18 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 23 0 0 1 1 0 4 0 18 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 23 0 0 1 1 0 4 0 19 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 24 0 0 1 1 0 4 0 19 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 24 0 0 1 1 0 4 0 20 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 25 0 0 1 1 0 4 0 20 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 25 0 0 1 1 0 4 0 21 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 26 0 0 1 1 0 4 0 21 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 26 0 0 1 1 0 5 0 21 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:23: Counters: 0 27 0 0 1 1 0 5 0 21 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 27 0 0 1 1 0 5 0 22 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 28 0 0 1 1 0 5 0 22 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 28 0 0 1 1 0 5 0 23 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 29 0 0 1 1 0 5 0 23 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 29 0 0 1 1 0 5 0 24 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 30 0 0 1 1 0 5 0 24 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 30 0 0 1 1 0 5 0 25 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 31 0 0 1 1 0 5 0 25 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 31 0 0 1 1 0 5 0 26 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 32 0 0 1 1 0 5 0 26 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 32 0 0 1 1 0 5 0 27 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 33 0 0 1 1 0 5 0 27 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 33 0 0 1 1 0 5 0 28 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 34 0 0 1 1 0 5 0 28 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 34 0 0 1 1 0 5 0 29 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 35 0 0 1 1 0 5 0 29 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 35 0 0 1 1 0 5 0 30 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 36 0 0 1 1 0 5 0 30 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 36 0 0 1 1 0 5 0 31 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:23: Counters: 0 37 0 0 1 1 0 5 0 31 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:23: Counters: 0 37 0 0 1 1 0 5 0 32 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 38 0 0 1 1 0 5 0 32 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 38 0 0 1 1 0 5 0 33 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 39 0 0 1 1 0 5 0 33 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 39 0 0 1 1 0 5 0 34 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 40 0 0 1 1 0 5 0 34 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 40 0 0 1 1 0 5 0 35 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 41 0 0 1 1 0 5 0 35 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 41 0 0 1 1 0 5 0 36 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 42 0 0 1 1 0 5 0 36 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 42 0 0 1 1 0 5 0 37 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 43 0 0 1 1 0 5 0 37 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 43 0 0 1 1 0 5 0 38 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 44 0 0 1 1 0 5 0 38 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 44 0 0 1 1 0 5 0 39 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 45 0 0 1 1 0 5 0 39 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 45 0 0 1 1 0 5 0 40 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 46 0 0 1 1 0 5 0 40 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 46 0 0 1 1 0 5 0 41 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 47 0 0 1 1 0 5 0 41 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 47 0 0 1 1 0 5 0 42 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 48 0 0 1 1 0 5 0 42 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 48 0 0 1 1 0 5 0 43 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 49 0 0 1 1 0 5 0 43 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 49 0 0 1 1 0 5 0 44 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 50 0 0 1 1 0 5 0 44 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 50 0 0 1 1 0 5 0 45 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 51 0 0 1 1 0 5 0 45 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 51 0 0 1 1 0 5 0 46 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 52 0 0 1 1 0 5 0 46 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 52 0 0 1 1 0 5 0 47 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 53 0 0 1 1 0 5 0 47 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 53 0 0 1 1 0 5 0 48 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 54 0 0 1 1 0 5 0 48 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 54 0 0 1 1 0 5 0 49 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 55 0 0 1 1 0 5 0 49 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 55 0 0 1 1 0 5 0 50 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 56 0 0 1 1 0 5 0 50 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 56 0 0 1 1 0 6 0 50 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 57 0 0 1 1 0 6 0 50 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 57 0 0 1 1 0 6 0 51 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 58 0 0 1 1 0 6 0 51 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 58 0 0 1 1 0 7 0 51 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 59 0 0 1 1 0 7 0 51 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 59 0 0 1 1 0 7 0 52 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 60 0 0 1 1 0 7 0 52 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 60 0 0 1 1 0 7 0 53 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 61 0 0 1 1 0 7 0 53 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 61 0 0 1 1 0 7 0 54 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 62 0 0 1 1 0 7 0 54 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 62 0 0 1 1 0 7 0 55 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 63 0 0 1 1 0 7 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 63 0 0 1 1 0 8 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 64 0 0 1 1 0 8 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 64 0 0 1 1 0 9 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 65 0 0 1 1 0 9 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 65 0 0 1 1 0 10 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 66 0 0 1 1 0 10 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 66 0 0 1 1 0 11 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 67 0 0 1 1 0 11 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 67 0 0 1 1 0 12 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 68 0 0 1 1 0 12 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 68 0 0 1 1 0 13 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 69 0 0 1 1 0 13 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 69 0 0 1 1 0 14 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 70 0 0 1 1 0 14 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 70 0 0 1 1 0 15 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 71 0 0 1 1 0 15 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 71 0 0 1 1 0 16 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 72 0 0 1 1 0 16 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 72 0 0 1 1 0 17 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 73 0 0 1 1 0 17 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 73 0 0 1 1 0 18 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 74 0 0 1 1 0 18 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 74 0 0 1 1 0 19 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 75 0 0 1 1 0 19 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 75 0 0 1 1 0 20 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 76 0 0 1 1 0 20 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 76 0 0 1 1 0 21 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 77 0 0 1 1 0 21 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 77 0 0 1 1 0 22 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 78 0 0 1 1 0 22 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 78 0 0 1 1 0 23 0 55 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 79 0 0 1 1 0 23 0 55 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 79 0 0 1 1 0 23 0 56 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 80 0 0 1 1 0 23 0 56 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 80 0 0 1 1 0 24 0 56 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:24: Counters: 0 81 0 0 1 1 0 24 0 56 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 81 0 0 1 1 0 24 0 57 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 82 0 0 1 1 0 24 0 57 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 82 0 0 1 1 0 24 0 58 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 83 0 0 1 1 0 24 0 58 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 83 0 0 1 1 0 24 0 59 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 84 0 0 1 1 0 24 0 59 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 84 0 0 1 1 0 24 0 60 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 85 0 0 1 1 0 24 0 60 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 85 0 0 1 1 0 24 0 61 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 86 0 0 1 1 0 24 0 61 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 86 0 0 1 1 0 24 0 62 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 87 0 0 1 1 0 24 0 62 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 87 0 0 1 1 0 24 0 63 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 88 0 0 1 1 0 24 0 63 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 88 0 0 1 1 0 24 0 64 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:24: Counters: 0 89 0 0 1 1 0 24 0 64 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:24: Counters: 0 89 0 0 1 1 0 25 0 64 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 90 0 0 1 1 0 25 0 64 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 90 0 0 1 1 0 25 0 65 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 91 0 0 1 1 0 25 0 65 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 91 0 0 1 1 0 25 0 66 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 92 0 0 1 1 0 25 0 66 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 92 0 0 1 1 0 25 0 67 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 93 0 0 1 1 0 25 0 67 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 93 0 0 1 1 0 25 0 68 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 94 0 0 1 1 0 25 0 68 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 94 0 0 1 1 0 25 0 69 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 95 0 0 1 1 0 25 0 69 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 95 0 0 1 1 0 26 0 69 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 96 0 0 1 1 0 26 0 69 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 96 0 0 1 1 0 26 0 70 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 97 0 0 1 1 0 26 0 70 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 97 0 0 1 1 0 26 0 71 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 98 0 0 1 1 0 26 0 71 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 98 0 0 1 1 0 26 0 72 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 99 0 0 1 1 0 26 0 72 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 99 0 0 1 1 0 26 0 73 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 100 0 0 1 1 0 26 0 73 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 100 0 0 1 1 0 26 0 74 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 101 0 0 1 1 0 26 0 74 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 101 0 0 1 1 0 26 0 75 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 102 0 0 1 1 0 26 0 75 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 102 0 0 1 1 0 26 0 76 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 103 0 0 1 1 0 26 0 76 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 103 0 0 1 1 0 27 0 76 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 104 0 0 1 1 0 27 0 76 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 104 0 0 1 1 0 27 0 77 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 105 0 0 1 1 0 27 0 77 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 105 0 0 1 1 0 27 0 78 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 106 0 0 1 1 0 27 0 78 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 106 0 0 1 1 0 27 0 79 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 107 0 0 1 1 0 27 0 79 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 107 0 0 1 1 0 27 0 80 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 108 0 0 1 1 0 27 0 80 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 108 0 0 1 1 0 27 0 81 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 109 0 0 1 1 0 27 0 81 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 109 0 0 1 1 0 27 0 82 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 110 0 0 1 1 0 27 0 82 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 110 0 0 1 1 0 27 0 83 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 111 0 0 1 1 0 27 0 83 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 111 0 0 1 1 0 27 0 84 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 112 0 0 1 1 0 27 0 84 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 112 0 0 1 1 0 27 0 85 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 113 0 0 1 1 0 27 0 85 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 113 0 0 1 1 0 27 0 86 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 114 0 0 1 1 0 27 0 86 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 114 0 0 1 1 0 27 0 87 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 115 0 0 1 1 0 27 0 87 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 115 0 0 1 1 0 27 0 88 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 116 0 0 1 1 0 27 0 88 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 116 0 0 1 1 0 27 0 89 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 117 0 0 1 1 0 27 0 89 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 117 0 0 1 1 0 27 0 90 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 118 0 0 1 1 0 27 0 90 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 118 0 0 1 1 0 27 0 91 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 119 0 0 1 1 0 27 0 91 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 119 0 0 1 1 0 27 0 92 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 120 0 0 1 1 0 27 0 92 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 120 0 0 1 1 0 27 0 93 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 121 0 0 1 1 0 27 0 93 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 121 0 0 1 1 0 27 0 94 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 122 0 0 1 1 0 27 0 94 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 122 0 0 1 1 0 27 0 95 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 123 0 0 1 1 0 27 0 95 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 123 0 0 1 1 0 27 0 96 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 124 0 0 1 1 0 27 0 96 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 124 0 0 1 1 0 27 0 97 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 125 0 0 1 1 0 27 0 97 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 125 0 0 1 1 0 28 0 97 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 126 0 0 1 1 0 28 0 97 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 126 0 0 1 1 0 28 0 98 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 127 0 0 1 1 0 28 0 98 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 127 0 0 1 1 0 28 0 99 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 128 0 0 1 1 0 28 0 99 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 128 0 0 1 1 0 28 0 100 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 129 0 0 1 1 0 28 0 100 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 129 0 0 1 1 0 28 0 101 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 130 0 0 1 1 0 28 0 101 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 130 0 0 1 1 0 28 0 102 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 131 0 0 1 1 0 28 0 102 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 131 0 0 1 1 0 29 0 102 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 132 0 0 1 1 0 29 0 102 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 132 0 0 1 1 0 29 0 103 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 133 0 0 1 1 0 29 0 103 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 133 0 0 1 1 0 30 0 103 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 134 0 0 1 1 0 30 0 103 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 134 0 0 1 1 0 30 0 104 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 135 0 0 1 1 0 30 0 104 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 135 0 0 1 1 0 31 0 104 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 136 0 0 1 1 0 31 0 104 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 136 0 0 1 1 0 32 0 104 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 137 0 0 1 1 0 32 0 104 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 137 0 0 1 1 0 33 0 104 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 138 0 0 1 1 0 33 0 104 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 138 0 0 1 1 0 34 0 104 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 139 0 0 1 1 0 34 0 104 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 139 0 0 1 1 0 34 0 105 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 140 0 0 1 1 0 34 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 140 0 0 1 1 0 35 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 141 0 0 1 1 0 35 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 141 0 0 1 1 0 36 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 142 0 0 1 1 0 36 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 142 0 0 1 1 0 37 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 143 0 0 1 1 0 37 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 143 0 0 1 1 0 38 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 144 0 0 1 1 0 38 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 144 0 0 1 1 0 39 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 145 0 0 1 1 0 39 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 145 0 0 1 1 0 40 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 146 0 0 1 1 0 40 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 146 0 0 1 1 0 41 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 147 0 0 1 1 0 41 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 147 0 0 1 1 0 42 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 148 0 0 1 1 0 42 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 148 0 0 1 1 0 43 0 105 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:25: Counters: 0 149 0 0 1 1 0 43 0 105 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 149 0 0 1 1 0 43 0 106 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 150 0 0 1 1 0 43 0 106 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 150 0 0 1 1 0 43 0 107 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 151 0 0 1 1 0 43 0 107 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 151 0 0 1 1 0 43 0 108 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 152 0 0 1 1 0 43 0 108 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 152 0 0 1 1 0 43 0 109 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 153 0 0 1 1 0 43 0 109 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 153 0 0 1 1 0 43 0 110 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 154 0 0 1 1 0 43 0 110 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:25: Counters: 0 154 0 0 1 1 0 43 0 111 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:25: Counters: 0 155 0 0 1 1 0 43 0 111 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 155 0 0 1 1 0 43 0 112 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 156 0 0 1 1 0 43 0 112 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 156 0 0 1 1 0 43 0 113 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 157 0 0 1 1 0 43 0 113 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 157 0 0 1 1 0 44 0 113 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:26: Counters: 0 158 0 0 1 1 0 44 0 113 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 158 0 0 1 1 0 44 0 114 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 159 0 0 1 1 0 44 0 114 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 159 0 0 1 1 0 44 0 115 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 160 0 0 1 1 0 44 0 115 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 160 0 0 1 1 0 44 0 116 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 161 0 0 1 1 0 44 0 116 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 161 0 0 1 1 0 44 0 117 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 162 0 0 1 1 0 44 0 117 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 162 0 0 1 1 0 44 0 118 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 163 0 0 1 1 0 44 0 118 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 163 0 0 1 1 0 44 0 119 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 164 0 0 1 1 0 44 0 119 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 164 0 0 1 1 0 44 0 120 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 165 0 0 1 1 0 44 0 120 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 165 0 0 1 1 0 44 0 121 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 166 0 0 1 1 0 44 0 121 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 166 0 0 1 1 0 44 0 122 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 167 0 0 1 1 0 44 0 122 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 167 0 0 1 1 0 44 0 123 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 168 0 0 1 1 0 44 0 123 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 168 0 0 1 1 0 44 0 124 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 169 0 0 1 1 0 44 0 124 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 169 0 0 1 1 0 44 0 125 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 170 0 0 1 1 0 44 0 125 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 170 0 0 1 1 0 44 0 126 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 171 0 0 1 1 0 44 0 126 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 171 0 0 1 1 0 44 0 127 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 172 0 0 1 1 0 44 0 127 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 172 0 0 1 1 0 44 0 128 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 173 0 0 1 1 0 44 0 128 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 173 0 0 1 1 0 44 0 129 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 174 0 0 1 1 0 44 0 129 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 174 0 0 1 1 0 44 0 130 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 175 0 0 1 1 0 44 0 130 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 175 0 0 1 1 0 44 0 131 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 176 0 0 1 1 0 44 0 131 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 176 0 0 1 1 0 44 0 132 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 177 0 0 1 1 0 44 0 132 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 177 0 0 1 1 0 44 0 133 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 178 0 0 1 1 0 44 0 133 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 178 0 0 1 1 0 44 0 134 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 179 0 0 1 1 0 44 0 134 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 179 0 0 1 1 0 44 0 135 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 180 0 0 1 1 0 44 0 135 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 180 0 0 1 1 0 44 0 136 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 181 0 0 1 1 0 44 0 136 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 181 0 0 1 1 0 44 0 137 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 182 0 0 1 1 0 44 0 137 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 182 0 0 1 1 0 44 0 138 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 183 0 0 1 1 0 44 0 138 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 183 0 0 1 1 0 44 0 139 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 184 0 0 1 1 0 44 0 139 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 184 0 0 1 1 0 44 0 140 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 185 0 0 1 1 0 44 0 140 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 185 0 0 1 1 0 44 0 141 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 186 0 0 1 1 0 44 0 141 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 186 0 0 1 1 0 44 0 142 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 187 0 0 1 1 0 44 0 142 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 187 0 0 1 1 0 44 0 143 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 188 0 0 1 1 0 44 0 143 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 188 0 0 1 1 0 44 0 144 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 189 0 0 1 1 0 44 0 144 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 189 0 0 1 1 0 44 0 145 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 190 0 0 1 1 0 44 0 145 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 190 0 0 1 1 0 44 0 146 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 191 0 0 1 1 0 44 0 146 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 191 0 0 1 1 0 44 0 147 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 192 0 0 1 1 0 44 0 147 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 192 0 0 1 1 0 44 0 148 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 193 0 0 1 1 0 44 0 148 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 193 0 0 1 1 0 44 0 149 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 194 0 0 1 1 0 44 0 149 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 194 0 0 1 1 0 44 0 150 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 195 0 0 1 1 0 44 0 150 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:26: Counters: 0 195 0 0 1 1 0 44 0 151 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:26: Counters: 0 196 0 0 1 1 0 44 0 151 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 196 0 0 1 1 0 44 0 152 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 197 0 0 1 1 0 44 0 152 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 197 0 0 1 1 0 44 0 153 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 198 0 0 1 1 0 44 0 153 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 198 0 0 1 1 0 44 0 154 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 199 0 0 1 1 0 44 0 154 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 199 0 0 1 1 0 44 0 155 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 200 0 0 1 1 0 44 0 155 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 200 0 0 1 1 0 44 0 156 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 201 0 0 1 1 0 44 0 156 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 201 0 0 1 1 0 44 0 157 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 202 0 0 1 1 0 44 0 157 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 202 0 0 1 1 0 44 0 158 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 203 0 0 1 1 0 44 0 158 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 203 0 0 1 1 0 45 0 158 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 204 0 0 1 1 0 45 0 158 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 204 0 0 1 1 0 46 0 158 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 205 0 0 1 1 0 46 0 158 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 205 0 0 1 1 0 46 0 159 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 206 0 0 1 1 0 46 0 159 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 206 0 0 1 1 0 46 0 160 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 207 0 0 1 1 0 46 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 207 0 0 1 1 0 47 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 208 0 0 1 1 0 47 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 208 0 0 1 1 0 48 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 209 0 0 1 1 0 48 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 209 0 0 1 1 0 49 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 210 0 0 1 1 0 49 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 210 0 0 1 1 0 50 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 211 0 0 1 1 0 50 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 211 0 0 1 1 0 51 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 212 0 0 1 1 0 51 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 212 0 0 1 1 0 52 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 213 0 0 1 1 0 52 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 213 0 0 1 1 0 53 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 214 0 0 1 1 0 53 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 214 0 0 1 1 0 54 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 215 0 0 1 1 0 54 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 215 0 0 1 1 0 55 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 216 0 0 1 1 0 55 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 216 0 0 1 1 0 56 0 160 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 217 0 0 1 1 0 56 0 160 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 217 0 0 1 1 0 56 0 161 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 218 0 0 1 1 0 56 0 161 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 218 0 0 1 1 0 56 0 162 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 219 0 0 1 1 0 56 0 162 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 219 0 0 1 1 0 56 0 163 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 220 0 0 1 1 0 56 0 163 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 220 0 0 1 1 0 57 0 163 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 221 0 0 1 1 0 57 0 163 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 221 0 0 1 1 0 57 0 164 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 222 0 0 1 1 0 57 0 164 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 222 0 0 1 1 0 57 0 165 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 223 0 0 1 1 0 57 0 165 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 223 0 0 1 1 0 57 0 166 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 224 0 0 1 1 0 57 0 166 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 224 0 0 1 1 0 58 0 166 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 225 0 0 1 1 0 58 0 166 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 225 0 0 1 1 0 58 0 167 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 226 0 0 1 1 0 58 0 167 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 226 0 0 1 1 0 58 0 168 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 227 0 0 1 1 0 58 0 168 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 227 0 0 1 1 0 58 0 169 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 228 0 0 1 1 0 58 0 169 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 228 0 0 1 1 0 58 0 170 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 229 0 0 1 1 0 58 0 170 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 229 0 0 1 1 0 58 0 171 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 230 0 0 1 1 0 58 0 171 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 230 0 0 1 1 0 58 0 172 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 231 0 0 1 1 0 58 0 172 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 231 0 0 1 1 0 58 0 173 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 232 0 0 1 1 0 58 0 173 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 232 0 0 1 1 0 58 0 174 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 233 0 0 1 1 0 58 0 174 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 233 0 0 1 1 0 58 0 175 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 234 0 0 1 1 0 58 0 175 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 234 0 0 1 1 0 58 0 176 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 235 0 0 1 1 0 58 0 176 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 235 0 0 1 1 0 58 0 177 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 236 0 0 1 1 0 58 0 177 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 236 0 0 1 1 0 58 0 178 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 237 0 0 1 1 0 58 0 178 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 237 0 0 1 1 0 58 0 179 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 238 0 0 1 1 0 58 0 179 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 238 0 0 1 1 0 58 0 180 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 239 0 0 1 1 0 58 0 180 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 239 0 0 1 1 0 58 0 181 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 240 0 0 1 1 0 58 0 181 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 240 0 0 1 1 0 58 0 182 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 241 0 0 1 1 0 58 0 182 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 241 0 0 1 1 0 58 0 183 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 242 0 0 1 1 0 58 0 183 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 242 0 0 1 1 0 58 0 184 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 243 0 0 1 1 0 58 0 184 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 243 0 0 1 1 0 58 0 185 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 244 0 0 1 1 0 58 0 185 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 244 0 0 1 1 0 58 0 186 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 245 0 0 1 1 0 58 0 186 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 245 0 0 1 1 0 58 0 187 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 246 0 0 1 1 0 58 0 187 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 246 0 0 1 1 0 59 0 187 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:27: Counters: 0 247 0 0 1 1 0 59 0 187 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 247 0 0 1 1 0 59 0 188 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 248 0 0 1 1 0 59 0 188 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 248 0 0 1 1 0 59 0 189 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 249 0 0 1 1 0 59 0 189 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 249 0 0 1 1 0 59 0 190 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 250 0 0 1 1 0 59 0 190 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 250 0 0 1 1 0 59 0 191 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 251 0 0 1 1 0 59 0 191 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 251 0 0 1 1 0 59 0 192 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 252 0 0 1 1 0 59 0 192 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 252 0 0 1 1 0 59 0 193 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 253 0 0 1 1 0 59 0 193 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 253 0 0 1 1 0 59 0 194 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:27: Counters: 0 254 0 0 1 1 0 59 0 194 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:27: Counters: 0 254 0 0 1 1 0 59 0 195 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 255 0 0 1 1 0 59 0 195 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 255 0 0 1 1 0 59 0 196 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 256 0 0 1 1 0 59 0 196 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 256 0 0 1 1 0 60 0 196 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 257 0 0 1 1 0 60 0 196 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 257 0 0 1 1 0 60 0 197 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 258 0 0 1 1 0 60 0 197 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 258 0 0 1 1 0 60 0 198 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 259 0 0 1 1 0 60 0 198 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 259 0 0 1 1 0 60 0 199 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 260 0 0 1 1 0 60 0 199 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 260 0 0 1 1 0 60 0 200 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 261 0 0 1 1 0 60 0 200 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 261 0 0 1 1 0 60 0 201 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 262 0 0 1 1 0 60 0 201 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 262 0 0 1 1 0 60 0 202 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 263 0 0 1 1 0 60 0 202 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 263 0 0 1 1 0 60 0 203 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 264 0 0 1 1 0 60 0 203 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 264 0 0 1 1 0 60 0 204 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 265 0 0 1 1 0 60 0 204 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 265 0 0 1 1 0 60 0 205 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 266 0 0 1 1 0 60 0 205 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 266 0 0 1 1 0 60 0 206 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 267 0 0 1 1 0 60 0 206 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 267 0 0 1 1 0 60 0 207 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 268 0 0 1 1 0 60 0 207 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 268 0 0 1 1 0 60 0 208 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 269 0 0 1 1 0 60 0 208 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 269 0 0 1 1 0 61 0 208 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 270 0 0 1 1 0 61 0 208 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 270 0 0 1 1 0 62 0 208 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 271 0 0 1 1 0 62 0 208 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 271 0 0 1 1 0 63 0 208 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 272 0 0 1 1 0 63 0 208 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 272 0 0 1 1 0 63 0 209 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 273 0 0 1 1 0 63 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 273 0 0 1 1 0 64 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 274 0 0 1 1 0 64 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 274 0 0 1 1 0 65 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 275 0 0 1 1 0 65 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 275 0 0 1 1 0 66 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 276 0 0 1 1 0 66 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 276 0 0 1 1 0 67 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 277 0 0 1 1 0 67 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 277 0 0 1 1 0 68 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 278 0 0 1 1 0 68 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 278 0 0 1 1 0 69 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 279 0 0 1 1 0 69 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 279 0 0 1 1 0 70 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 280 0 0 1 1 0 70 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 280 0 0 1 1 0 71 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 281 0 0 1 1 0 71 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 281 0 0 1 1 0 72 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 282 0 0 1 1 0 72 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 282 0 0 1 1 0 73 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 283 0 0 1 1 0 73 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 283 0 0 1 1 0 74 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 284 0 0 1 1 0 74 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 284 0 0 1 1 0 75 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 285 0 0 1 1 0 75 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 285 0 0 1 1 0 76 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 286 0 0 1 1 0 76 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 286 0 0 1 1 0 77 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 287 0 0 1 1 0 77 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 287 0 0 1 1 0 78 0 209 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 288 0 0 1 1 0 78 0 209 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 288 0 0 1 1 0 78 0 210 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 289 0 0 1 1 0 78 0 210 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 289 0 0 1 1 0 79 0 210 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 290 0 0 1 1 0 79 0 210 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 290 0 0 1 1 0 79 0 211 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 291 0 0 1 1 0 79 0 211 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 291 0 0 1 1 0 79 0 212 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 292 0 0 1 1 0 79 0 212 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 292 0 0 1 1 0 79 0 213 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 293 0 0 1 1 0 79 0 213 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 293 0 0 1 1 0 79 0 214 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 294 0 0 1 1 0 79 0 214 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 294 0 0 1 1 0 79 0 215 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 295 0 0 1 1 0 79 0 215 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 295 0 0 1 1 0 79 0 216 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 296 0 0 1 1 0 79 0 216 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 296 0 0 1 1 0 79 0 217 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 297 0 0 1 1 0 79 0 217 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 297 0 0 1 1 0 79 0 218 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 298 0 0 1 1 0 79 0 218 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 298 0 0 1 1 0 79 0 219 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 299 0 0 1 1 0 79 0 219 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 299 0 0 1 1 0 79 0 220 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 300 0 0 1 1 0 79 0 220 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 300 0 0 1 1 0 79 0 221 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 301 0 0 1 1 0 79 0 221 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 301 0 0 1 1 0 80 0 221 0 0 0 0  - TweetDeleted					
+02-12-2015 12:51:28: Counters: 0 302 0 0 1 1 0 80 0 221 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 302 0 0 1 1 0 80 0 222 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 303 0 0 1 1 0 80 0 222 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 303 0 0 1 1 0 80 0 223 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 304 0 0 1 1 0 80 0 223 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 304 0 0 1 1 0 80 0 224 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 305 0 0 1 1 0 80 0 224 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 305 0 0 1 1 0 80 0 225 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 306 0 0 1 1 0 80 0 225 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 306 0 0 1 1 0 80 0 226 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 307 0 0 1 1 0 80 0 226 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 307 0 0 1 1 0 80 0 227 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 308 0 0 1 1 0 80 0 227 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 308 0 0 1 1 0 80 0 228 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 309 0 0 1 1 0 80 0 228 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 309 0 0 1 1 0 80 0 229 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 310 0 0 1 1 0 80 0 229 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 310 0 0 1 1 0 80 0 230 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 311 0 0 1 1 0 80 0 230 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 311 0 0 1 1 0 80 0 231 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 312 0 0 1 1 0 80 0 231 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 312 0 0 1 1 0 80 0 232 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 313 0 0 1 1 0 80 0 232 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 313 0 0 1 1 0 80 0 233 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 314 0 0 1 1 0 80 0 233 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 314 0 0 1 1 0 80 0 234 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 315 0 0 1 1 0 80 0 234 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 315 0 0 1 1 0 80 0 235 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 316 0 0 1 1 0 80 0 235 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 316 0 0 1 1 0 80 0 236 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 317 0 0 1 1 0 80 0 236 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 317 0 0 1 1 0 80 0 237 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 318 0 0 1 1 0 80 0 237 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 318 0 0 1 1 0 80 0 238 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 319 0 0 1 1 0 80 0 238 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 319 0 0 1 1 0 80 0 239 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 320 0 0 1 1 0 80 0 239 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 320 0 0 1 1 0 80 0 240 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 321 0 0 1 1 0 80 0 240 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 321 0 0 1 1 0 80 0 241 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 322 0 0 1 1 0 80 0 241 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 322 0 0 1 1 0 80 0 242 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 323 0 0 1 1 0 80 0 242 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 323 0 0 1 1 0 80 0 243 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 324 0 0 1 1 0 80 0 243 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 324 0 0 1 1 0 80 0 244 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 325 0 0 1 1 0 80 0 244 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 325 0 0 1 1 0 80 0 245 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters: 0 326 0 0 1 1 0 80 0 245 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:51:28: Counters: 0 326 0 0 1 1 0 80 0 246 0 0 0 0  - TweetReceived					
+02-12-2015 12:51:28: Counters off
+02-12-2015 12:51:28: Counters: 0 327 0 0 1 1 0 80 0 246 0 0 0 0  - JsonObjectReceived			
+02-12-2015 12:53:50: New log started
+02-12-2015 12:53:50: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:53:50: Loaded files. Dumping them into tweetList
+02-12-2015 12:53:50: Finished loading 10556 tweets from file
+02-12-2015 12:53:52: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:53:52: Loaded files. Dumping them into tweetList
+02-12-2015 12:53:52: Finished loading 10556 tweets from file
+02-12-2015 12:53:53: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:53:53: Loaded files. Dumping them into tweetList
+02-12-2015 12:53:53: Finished loading 10556 tweets from file
+02-12-2015 12:53:56: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:53:57: Loaded files. Dumping them into tweetList
+02-12-2015 12:53:57: Finished loading 10556 tweets from file
+02-12-2015 12:53:57: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:53:58: Loaded files. Dumping them into tweetList
+02-12-2015 12:53:58: Finished loading 10556 tweets from file
+02-12-2015 12:54:04: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:54:05: Loaded files. Dumping them into tweetList
+02-12-2015 12:54:05: Finished loading 10556 tweets from file
+02-12-2015 12:54:34: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 12:54:34: Loaded files. Dumping them into tweetList
+02-12-2015 12:54:34: Finished loading 10556 tweets from file
+02-12-2015 12:55:35: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 12:55:35: 223 unique keywords after expansion
+02-12-2015 12:56:11: List of ranked hashtags in descending order of their -KLD for the query:
+QueremosACopa,#mtvstars,#mama2015,#2015mama,#mamaredcarpet,#fns歌謡祭,#aldublovegoeson,#bts,#pushawardskathniels,#got7,#rtした人全員フォローする,#ikon,#방탄소년단,#wonderfullygoingonmsg2,#mtvstarof2015,#psymuli,#トレクル,#exo,#مغرد_بذكر_الله,#chennaifloods,#follow,#win,#जयहर,#سكس,#vonvon_jp,#unionpay,#bigbang,#videomtv2015,#拡散希望,#chennairainshelp,#runのダンスて死にかけた系army,#インクの模様性格診断,#twice,#android,#otwolmeettheboss,#rt,#usafricabf,#jingleballdallas,#엑소,#eurekamag,#西島隆弘,#androidgames,#gameinsight,#lgv10,#えどがわイケメン,#anakjalananeps79dan80,#lecosechenonho,#staracarabia,#마크,#mark,#job,#chanyeol,#新国立競技場ライブ除外案反対,#sehun,#run,#kitecutsthroats,#tuitutil,#nowplaying,#نيك,#beyou,#deai,#chennairains,#terroristsympathiser,#mamaonmyx,#syria,#백현,#jobs,#trecru,#相互フォロー,#ikonbestnewmaleartist,#fashion,#kissjingleball,#repost,#news,#اليوم_الوطني44,#quran,#結婚,#followmejp,#相互希望,#ikonforbestnewmaleartist,#nissy,#٢_ديسمبر_١٩٧١,#followme,#fujitv,#婚活,#baekhyun,#bot,#giveaway,#dontbombsyria,#business,#زد_رصيدك19,#agqr,#ag_5stars,#mama,#biafra,#forex,#nowonlyyou,#mamaredcarpert,#suho,#明日めざましテレビにjumpでるよ,#suga,#슈가,#runのダンスで死んだ系army,#projecttaro,#bestnewmaleartist,#taetiseo,#cop21,#uaapseason78,#سوريا,#لحس,#free,#11thweekonthetopmsg2,#edm,#الجيش_السهلاوي,#souhailabenlachhab,#디오,#eleni,#competition,#pushawar,#pushawardslizquen,#buenmiercoles,#exid,#fitness,#sport,#sanfrecce,#刀剣乱舞,#とうらぶ,#本当に止める,#rap,#seventeen,#taeyeon,#famapickuplines,#fama50,#رتويت,#mufc,#العراق,#computer,#deals,#artist,#art,#지민,#jimin,#periscope,#갓세븐,#태형,#bap,#수호,#fastforward,#اطردوا_السوريين_من_السعوديه,#欲しい人rt,#instagram,#20151202,#معلمه_تعض_تلميذه,#sunset,#cat,#男女,#christmas,#starwars,#be生,#白猫,#乃木坂46,#lunch,#ldhfamさんと繋がりたい,#مضاربه_كورنيش_الدمام,#影山飛雄の誕生日までに1222rt目指す,#影山飛雄生誕祭2015,#haber,#جوري_الخالدي,#الإمارات,#visit,#besttalkradio,#スマホ,#новости,#game,#ماكو_سهيله_ماكو_ستاراك,#kwi,#do,#경수,#الشرقية,#sex,#kenzamorsli,#bl松さんお腐松さんクラスタさんと繋がりたい,#quote,#داعش,#jarvillelamalgrange,#世界の衝撃ストーリー,#antiracism,#セフレ出会い,#2015,#عاجل,#أخبار_الخلافة,#山下智久,#山下智久sgsb大鑑賞会,#new,#sextipsin5words,#ひまわりの約束,#秦基博,#porn,#últimahora,#ハイキュークラスタさんと繋がりたい,#恋愛,#exid1stwin,#hotpink1stwin,#followback,#ff,#틴탑,#التجارة,#تقارير_الولايات,#fav,#tcot,#戦争法案反対,#gouste,#nature,#love2015mama,#humor,#出会い,#無料,#出会い系,#招待,#hadith,#lineマンガ,#tpms,#feust,#snsd,
+-0.40256909 #2015mama
+-0.40305774 #mtvstars
+-0.40714691 #mama2015
+-0.42168412 #mamaredcarpet
+-0.42377038 #bts
+-0.42564511 #got7
+-0.42867602 #ikon
+-0.42878424 #unionpay
+-0.43176801 #exo
+-0.43269511 #lgv10
+-0.43340040 #beyou
+-0.43425414 #엑소
+-0.43454759 #방탄소년단
+-0.43498151 #videomtv2015
+-0.43516293 #twice
+-0.43553008 #run
+-0.43569885 #mtvstarof2015
+-0.43572065 #마크
+-0.43572065 #mark
+-0.43597219 #fns歌謡祭
+-0.43633684 #bestnewmaleartist
+-0.43634214 #chanyeol
+-0.43654720 #seventeen
+-0.43677554 #aldublovegoeson
+-0.43698588 #mamaonmyx
 
-26-11-2015 12:30:38: StartStreamAsync() finally over!
-26-11-2015 12:30:38: Stream attempting to start at time 26-11-2015 12:30:38
-26-11-2015 12:30:38: OnStreamStarted event is called
-26-11-2015 12:30:38: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
-26-11-2015 12:30:38: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 12:31:01: Tweets deleted since stream last started: 224
-26-11-2015 12:31:01: Stream disconnected.
-26-11-2015 12:31:01: StartStreamAsync() finally over!
-26-11-2015 12:31:08: Counting Tweets...
-26-11-2015 12:31:08: 1010 tweets in the RAM
-26-11-2015 12:31:08: 1010 tweets shown in the tweetView panel
-26-11-2015 12:31:08: 1010 stream tweets
-26-11-2015 12:31:08: 0 rest tweets
-26-11-2015 12:31:08: 0 unknown tweets
-26-11-2015 12:31:08: Top languages: 
-26-11-2015 12:31:08: English - 243
-26-11-2015 12:31:08: Japanese - 373
-26-11-2015 12:31:09: UN_NotReferenced - 53
-26-11-2015 12:31:09: Indian - 35
-26-11-2015 12:31:09: Korean - 37
-26-11-2015 12:31:09: 918 tweets since 26-11-2015 00:00:00
-26-11-2015 12:31:09: 32 tweets since 25-11-2015 00:00:00 until 26-11-2015 00:00:00
-26-11-2015 12:31:09: End of counting tweets
-26-11-2015 12:57:52: New log started
-26-11-2015 12:57:52: Counters off
-26-11-2015 12:57:55: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 12:57:56: Stream attempting to start at time 26-11-2015 12:57:56
-26-11-2015 12:57:56: OnStreamStarted event is called
-26-11-2015 12:57:56: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
-26-11-2015 12:57:56: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 12:58:17: Stream disconnected.
-26-11-2015 12:58:17: StartStreamAsync() finally over!
-26-11-2015 12:59:02: New log started
-26-11-2015 12:59:02: Counters off
-26-11-2015 12:59:40: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 12:59:40: Stream attempting to start at time 26-11-2015 12:59:40
-26-11-2015 12:59:40: OnStreamStarted event is called
-26-11-2015 12:59:40: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 26-11-2015 12:59:40
-26-11-2015 12:59:40: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 13:00:24: 
-Tweets found since stream last started: 2239
-Tweets deleted since stream last started (they are still saved): 671
-26-11-2015 13:00:24: Stream disconnected.
-26-11-2015 13:00:24: StartStreamAsync() finally over!
-26-11-2015 13:02:48: New log started
-26-11-2015 13:02:48: Counters off
-26-11-2015 13:02:53: There are no keywords in the list. Attempting to start sample stream (1% of all Tweets ever)
-26-11-2015 13:02:53: Stream attempting to start at time 26-11-2015 13:02:53
-26-11-2015 13:02:54: OnStreamStarted event is called
-26-11-2015 13:02:54: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 26-11-2015 13:02:54
-26-11-2015 13:02:54: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
-26-11-2015 13:03:05: Stream ran for the duration: 00:00:11.2557248
-Tweets found since stream last started: 523
-Tweets deleted since stream last started (they are still saved): 186
-26-11-2015 13:03:05: Stream disconnected.
-26-11-2015 13:03:05: StartStreamAsync() finally over!
-26-11-2015 13:03:46: 
-Counting Tweets...
-511 tweets in the RAM
-511 tweets shown in the tweetView panel
-511 stream tweets
-0 rest tweets
-0 unknown tweets
-Top languages: 
-Spanish - 37
-Portuguese - 27
-Turkish - 8
-German - 2
-English - 95
-456 tweets since 26-11-2015 00:00:00
-13 tweets since 25-11-2015 00:00:00 until 26-11-2015 00:00:00
-Counting Tweets...
-511 tweets in the RAM
-511 tweets shown in the tweetView panel
-511 stream tweets
-0 rest tweets
-0 unknown tweets
-Top languages: 
-Spanish - 37
-Portuguese - 27
-Turkish - 8
-German - 2
-English - 95
-456 tweets since 26-11-2015 00:00:00
-13 tweets since 25-11-2015 00:00:00 until 26-11-2015 00:00:00
-End of counting tweets
+02-12-2015 12:56:48: List of ranked hashtags in descending order of their -KLD for the query:
+#mama2015,
+-1.27581776 #mama2015
+-1.84934619 #mamaredcarpet
+-1.85579552 #bts
+-1.87132443 #bigbang
+-1.88848705 #got7
+-1.88890024 #mamaonmyx
+-1.89389193 #twice
+-1.89566454 #2015mama
+-1.89700718 #방탄소년단
+-1.90171932 #chanyeol
+-1.90230054 #ikon
+-1.90437402 #mamaredcarpert
+-1.90596577 #run
+-1.90978586 #kwi
+-1.91118786 #지민
+-1.91118786 #jimin
+-1.91440610 #exo
+-1.91788917 #엑소
+-1.91797809 #taetiseo
+-1.91818835 #seventeen
+-1.91821913 #mama
+-1.92055343 #taeyeon
+-1.92103420 #2015
+-1.92488703 #unionpay
+-1.92588883 #lgv10
+
+02-12-2015 12:57:04: List of ranked hashtags in descending order of their -KLD for the query:
+#mama2015,
+-1.27581776 #mama2015
+-1.84934619 #mamaredcarpet
+-1.85579552 #bts
+-1.87132443 #bigbang
+-1.88848705 #got7
+-1.88890024 #mamaonmyx
+-1.89389193 #twice
+-1.89566454 #2015mama
+-1.89700718 #방탄소년단
+-1.90171932 #chanyeol
+-1.90230054 #ikon
+-1.90437402 #mamaredcarpert
+-1.90596577 #run
+-1.90978586 #kwi
+-1.91118786 #지민
+-1.91118786 #jimin
+-1.91440610 #exo
+-1.91788917 #엑소
+-1.91797809 #taetiseo
+-1.91818835 #seventeen
+-1.91821913 #mama
+-1.92055343 #taeyeon
+-1.92103420 #2015
+-1.92488703 #unionpay
+-1.92588883 #lgv10
+
+02-12-2015 12:57:18: List of ranked hashtags in descending order of their -KLD for the query:
+#mama2015,
+-1.27581776 #mama2015
+-1.84934619 #mamaredcarpet
+-1.85579552 #bts
+-1.87132443 #bigbang
+-1.88848705 #got7
+-1.88890024 #mamaonmyx
+-1.89389193 #twice
+-1.89566454 #2015mama
+-1.89700718 #방탄소년단
+-1.90171932 #chanyeol
+-1.90230054 #ikon
+-1.90437402 #mamaredcarpert
+-1.90596577 #run
+-1.90978586 #kwi
+-1.91118786 #지민
+-1.91118786 #jimin
+-1.91440610 #exo
+-1.91788917 #엑소
+-1.91797809 #taetiseo
+-1.91818835 #seventeen
+-1.91821913 #mama
+-1.92055343 #taeyeon
+-1.92103420 #2015
+-1.92488703 #unionpay
+-1.92588883 #lgv10
+
+02-12-2015 12:57:50: List of ranked hashtags in descending order of their -KLD for the query:
+#mama2015,
+-0.70137042 #mama2015
+-1.72748755 #mamaredcarpet
+-1.74076567 #bts
+-1.76086094 #bigbang
+-1.80786237 #mamaonmyx
+-1.82535930 #got7
+-1.82541083 #twice
+-1.84905635 #chanyeol
+-1.85983035 #mamaredcarpert
+-1.86002265 #방탄소년단
+-1.86034166 #ikon
+-1.86089509 #run
+-1.86894601 #kwi
+-1.88333132 #지민
+-1.88333132 #jimin
+-1.89574248 #taetiseo
+-1.89734801 #seventeen
+-1.89812299 #mama
+-1.89839985 #exo
+-1.90449101 #2015mama
+-1.90524561 #2015
+-1.90549556 #엑소
+-1.90590743 #taeyeon
+-1.92649962 #beyou
+-1.92755248 #lgv10
+-1.92891020 QueremosACopa
+-1.92973471 #20151202
+-1.93018080 #unionpay
+-1.93068485 #태형
+-1.93076849 #love2015mama
+-1.93083000 #sehun
+-1.93235260 #معلمه_تعض_تلميذه
+-1.93235260 #be生
+-1.93235260 #白猫
+-1.93235260 #مضاربه_كورنيش_الدمام
+-1.93235260 #visit
+-1.93235260 #últimahora
+-1.93235260 #تقارير_الولايات
+-1.93235260 #lineマンガ
+-1.93235260 #feust
+-1.93406868 #uaapseason78
+-1.93406868 #11thweekonthetopmsg2
+-1.93406868 #eleni
+-1.93406868 #mufc
+-1.93406868 #periscope
+-1.93406868 #fastforward
+-1.93406868 #اطردوا_السوريين_من_السعوديه
+-1.93406868 #starwars
+-1.93406868 #besttalkradio
+-1.93406868 #スマホ
+-1.93406868 #bl松さんお腐松さんクラスタさんと繋がりたい
+-1.93406868 #quote
+-1.93406868 #世界の衝撃ストーリー
+-1.93406868 #sextipsin5words
+-1.93406868 #التجارة
+-1.93406868 #hadith
+-1.93406868 #tpms
+-1.93458779 #ikonforbestnewmaleartist
+-1.93578133 #trecru
+-1.93578133 #bot
+-1.93578133 #nowonlyyou
+-1.93578133 #明日めざましテレビにjumpでるよ
+-1.93578133 #projecttaro
+-1.93578133 #buenmiercoles
+-1.93578133 #bap
+-1.93578133 #欲しい人rt
+-1.93578133 #cat
+-1.93578133 #sex
+-1.93578133 #jarvillelamalgrange
+-1.93578133 #セフレ出会い
+-1.93578133 #山下智久
+-1.93578133 #山下智久sgsb大鑑賞会
+-1.93578133 #gouste
+-1.93578133 #humor
+-1.93709736 #snsd
+-1.93710650 #ikonbestnewmaleartist
+-1.93723620 #bestnewmaleartist
+-1.93749058 #tuitutil
+-1.93749058 #kissjingleball
+-1.93749058 #cop21
+-1.93749058 #sport
+-1.93749058 #sanfrecce
+-1.93749058 #christmas
+-1.93749058 #новости
+-1.93749058 #kenzamorsli
+-1.93749058 #porn
+-1.93919642 #えどがわイケメン
+-1.93919642 #anakjalananeps79dan80
+-1.93919642 #kitecutsthroats
+-1.93919642 #repost
+-1.93919642 #dontbombsyria
+-1.93919642 #زد_رصيدك19
+-1.93919642 #runのダンスで死んだ系army
+-1.93919642 #刀剣乱舞
+-1.93919642 #とうらぶ
+-1.93919642 #رتويت
+-1.93919642 #수호
+-1.93919642 #男女
+-1.93919642 #lunch
+-1.93919642 #game
+
+02-12-2015 12:58:53: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 12:58:53: 223 unique keywords after expansion
+02-12-2015 12:58:56: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 12:58:56: 200 unique keywords after expansion
+02-12-2015 12:59:32: Naive expansion percentage set to 100
+02-12-2015 12:59:33: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 12:59:33: 11 unique keywords after expansion
+02-12-2015 12:59:50: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 12:59:50: 73 unique keywords after expansion
+02-12-2015 12:59:59: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:00:00: 35 unique keywords after expansion
+02-12-2015 13:00:11: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:00:11: 6 unique keywords after expansion
+02-12-2015 13:00:14: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:00:15: 1 unique keywords after expansion
+02-12-2015 13:00:16: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:00:17: 0 unique keywords after expansion
+02-12-2015 13:00:18: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:00:18: 0 unique keywords after expansion
+02-12-2015 13:00:46: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-0.77540385 #mama
+-2.37538442 #yugyeom
+-2.39950437 #girlsgirlsgirls
+-2.49325244 #유겸
+-2.60969402 #comeback
+-2.68082092 #run
+-2.77084310 #도겸
+-2.84759317 #세븐틴
+-3.02879692 #got7
+-3.14285588 #bts
+-3.34738624 #방탄소년단
+-4.14725849 #원우
+-4.17972252 #mpd
+-4.17972252 #엠피디
+-4.25311224 #니가하면
+-4.25668357 #the8
+-4.25668357 #hoshi
+-4.28478431 #jungkook
+-4.28478431 #정국
+-4.28478431 #석진
+-4.28478431 #jin
+-4.28478431 #mamaのrunで死んだarmyはrt
+-4.28783350 #mama2015
+-4.32482288 #태형
+-4.32734394 #제이홉
+-4.32734394 #홉이
+-4.34339498 #gmm25
+-4.35018888 #seventeen
+-4.35149085 #jhope
+-4.35644453 #bigbangmama2015
+-4.35644453 #koreanupdates
+-4.35644453 #once
+-4.35644453 #bestmusicvideo
+-4.35644453 #thekoxx
+-4.38323952 #jimin
+-4.38323952 #지민
+-4.40531965 #셔누
+-4.40531965 #shownu
+-4.40531965 #bestmv
+-4.40531965 #hyuna
+-4.40531965 #2015mama_exo
+-4.40531965 #madeintheam
+-4.40531965 #weloveyouniall
+-4.40531965 #weloveyouliam
+-4.41555968 #kwi
+-4.41596785 #mamaredcarpert
+-4.44345596 #태연
+-4.44345596 #소녀시대
+-4.44345596 #junior
+-4.44345596 #주니어
+-4.44977144 #最優秀女性新人賞
+-4.44977144 #twiceforbestnewfemaleartist
+-4.44977144 #mino
+-4.44977144 #저스트비
+-4.44977144 #윤기
+-4.44977144 #thankuikonic
+-4.44977144 #ikonic
+-4.44977144 #ความผัวนี้
+-4.45790672 #고백송
+-4.48427796 #vip
+-4.48427796 #сонямыстобой
+-4.48427796 #мама2015
+-4.48427796 #bi
+-4.48427796 #ikonwardrobe
+-4.48427796 #한빈
+-4.48427796 #parkboyoung
+-4.48427796 #leekwangsoo
+-4.48427796 #ziont
+-4.49233107 #hanbin
+-4.49233107 #151202
+-4.49233107 #세훈
+-4.49233107 #시우민
+-4.49233107 #xiumin
+-4.52349866 #taetiseo
+-4.52349866 #насосдолуныиобратно
+-4.52349866 #빅뱅
+-4.52349866 #2015
+-4.53315308 #shinee
+-4.53315308 #チャニョル
+-4.53315308 #tiffany
+-4.53315308 #taenyfamily
+-4.53315308 #girlsgeneration
+-4.53315308 #kissjingleball
+-4.54563558 #suga
+-4.54563558 #슈가
+-4.56123901 #baebae
+-4.56326723 #갓세븐
+-4.57237378 #티파니
+-4.57237378 #서현
+-4.57237378 #ikonbestnewmaleartist
+-4.57910359 #마크
+-4.57910359 #mark
+-4.59760663 #bestnewfemaleartist
+-4.61011413 #20151202
+-4.61011413 #찬열
+-4.61011413 #ikonforbestnewmaleartist
+-4.63269797 #아이콘
+-4.63269797 #monstax_mh
+-4.63269797 #몬스타엑스
+-4.63269797 #민혁
+
+02-12-2015 13:01:31: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-2.91277235 #mama
+-3.52228744 #got7
+-3.60802032 #bts
+-3.62137761 #yugyeom
+-3.62813047 #유겸
+-3.67242225 #girlsgirlsgirls
+-3.69012069 #run
+-3.70150390 #방탄소년단
+-3.75896730 #세븐틴
+-3.79173040 #도겸
+-3.79753632 #comeback
+-3.93709506 #mama2015
+-4.18229695 #2015mama
+-4.19702499 #마크
+-4.19702499 #mark
+-4.21283495 #원우
+-4.26444655 #seventeen
+-4.27051233 #jhope
+-4.27246738 #jimin
+-4.27246738 #지민
+-4.27365723 #mamaredcarpert
+-4.27635710 #mpd
+-4.27635710 #엠피디
+-4.27803869 #suga
+-4.27803869 #슈가
+-4.27821801 #태형
+-4.28030969 #the8
+-4.28030969 #hoshi
+-4.29190574 #jungkook
+-4.29190574 #정국
+-4.29190574 #석진
+-4.29190574 #jin
+-4.29190574 #mamaのrunで死んだarmyはrt
+-4.29321296 #beyou
+-4.29388176 #니가하면
+-4.29389181 #제이홉
+-4.29389181 #홉이
+-4.29628594 #gmm25
+-4.29891093 #lgv10
+-4.30379265 #고백송
+-4.30969242 #갓세븐
+-4.31117795 #bigbangmama2015
+-4.31117795 #koreanupdates
+-4.31117795 #once
+-4.31117795 #bestmusicvideo
+-4.31117795 #thekoxx
+-4.31244528 #kwi
+-4.31400151 #셔누
+-4.31400151 #shownu
+-4.31400151 #bestmv
+-4.31400151 #hyuna
+-4.31400151 #2015mama_exo
+-4.31400151 #madeintheam
+-4.31400151 #weloveyouniall
+-4.31400151 #weloveyouliam
+-4.31515410 #태연
+-4.31515410 #소녀시대
+-4.31515410 #junior
+-4.31515410 #주니어
+-4.31599160 #最優秀女性新人賞
+-4.31599160 #twiceforbestnewfemaleartist
+-4.31599160 #mino
+-4.31599160 #저스트비
+-4.31599160 #윤기
+-4.31599160 #thankuikonic
+-4.31599160 #ikonic
+-4.31599160 #ความผัวนี้
+-4.31713626 #vip
+-4.31713626 #сонямыстобой
+-4.31713626 #мама2015
+-4.31713626 #bi
+-4.31713626 #ikonwardrobe
+-4.31713626 #한빈
+-4.31713626 #parkboyoung
+-4.31713626 #leekwangsoo
+-4.31713626 #ziont
+-4.31797766 #hanbin
+-4.31797766 #151202
+-4.31797766 #세훈
+-4.31797766 #시우민
+-4.31797766 #xiumin
+-4.31911452 #taetiseo
+-4.31911452 #насосдолуныиобратно
+-4.31911452 #빅뱅
+-4.31911452 #2015
+-4.31995983 #shinee
+-4.31995983 #チャニョル
+-4.31995983 #tiffany
+-4.31995983 #taenyfamily
+-4.31995983 #girlsgeneration
+-4.31995983 #kissjingleball
+-4.32108884 #baebae
+-4.32193808 #티파니
+-4.32193808 #서현
+-4.32193808 #ikonbestnewmaleartist
+-4.32305930 #bestnewfemaleartist
+-4.32391241 #20151202
+-4.32391241 #찬열
+-4.32391241 #ikonforbestnewmaleartist
+-4.32502587 #아이콘
+
+02-12-2015 13:01:47: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-3.65906235 #mama
+-3.94002513 #got7
+-3.99697182 #bts
+-4.01784629 #yugyeom
+-4.01955898 #유겸
+-4.03926599 #방탄소년단
+-4.04841373 #girlsgirlsgirls
+-4.04956187 #run
+-4.07203605 #세븐틴
+-4.09669592 #도겸
+-4.10889839 #comeback
+-4.11745545 #mama2015
+-4.21739894 #2015mama
+-4.25865922 #마크
+-4.25865922 #mark
+-4.26785531 #원우
+-4.29588070 #seventeen
+-4.29707120 #jhope
+-4.29716125 #suga
+-4.29716125 #슈가
+-4.29756838 #jimin
+-4.29756838 #지민
+-4.29785235 #mamaredcarpert
+-4.29938159 #태형
+-4.30032311 #mpd
+-4.30032311 #엠피디
+-4.30132016 #the8
+-4.30132016 #hoshi
+-4.30274824 #beyou
+-4.30422859 #lgv10
+-4.30462351 #jungkook
+-4.30462351 #정국
+-4.30462351 #석진
+-4.30462351 #jin
+-4.30462351 #mamaのrunで死んだarmyはrt
+-4.30512268 #제이홉
+-4.30512268 #홉이
+-4.30538187 #니가하면
+-4.30595117 #gmm25
+-4.30787632 #고백송
+-4.30936992 #갓세븐
+-4.31029182 #bigbangmama2015
+-4.31029182 #koreanupdates
+-4.31029182 #once
+-4.31029182 #bestmusicvideo
+-4.31029182 #thekoxx
+-4.31058082 #kwi
+-4.31100899 #셔누
+-4.31100899 #shownu
+-4.31100899 #bestmv
+-4.31100899 #hyuna
+-4.31100899 #2015mama_exo
+-4.31100899 #madeintheam
+-4.31100899 #weloveyouniall
+-4.31100899 #weloveyouliam
+-4.31107035 #unionpay
+-4.31129037 #태연
+-4.31129037 #소녀시대
+-4.31129037 #junior
+-4.31129037 #주니어
+-4.31150838 #最優秀女性新人賞
+-4.31150838 #twiceforbestnewfemaleartist
+-4.31150838 #mino
+-4.31150838 #저스트비
+-4.31150838 #윤기
+-4.31150838 #thankuikonic
+-4.31150838 #ikonic
+-4.31150838 #ความผัวนี้
+-4.31178921 #vip
+-4.31178921 #сонямыстобой
+-4.31178921 #мама2015
+-4.31178921 #bi
+-4.31178921 #ikonwardrobe
+-4.31178921 #한빈
+-4.31178921 #parkboyoung
+-4.31178921 #leekwangsoo
+-4.31178921 #ziont
+-4.31200755 #hanbin
+-4.31200755 #151202
+-4.31200755 #세훈
+-4.31200755 #시우민
+-4.31200755 #xiumin
+-4.31228784 #taetiseo
+-4.31228784 #насосдолуныиобратно
+-4.31228784 #빅뱅
+-4.31228784 #2015
+-4.31250639 #shinee
+-4.31250639 #チャニョル
+-4.31250639 #tiffany
+-4.31250639 #taenyfamily
+-4.31250639 #girlsgeneration
+-4.31250639 #kissjingleball
+-4.31278626 #baebae
+-4.31300502 #티파니
+-4.31300502 #서현
+-4.31300502 #ikonbestnewmaleartist
+-4.31328433 #bestnewfemaleartist
+-4.31350344 #20151202
+-4.31350344 #찬열
+-4.31350344 #ikonforbestnewmaleartist
+
+02-12-2015 13:05:51: Language model for: #mama
+0.00305844 #mama
+0.00505790 #방탄소년단
+0.00747288 #bts
+0.00183793 #run
+0.00076461 #comeback
+0.00613123 #got7
+0.00103294 #yugyeom
+0.00103294 #유겸
+0.00076461 #girlsgirlsgirls
+0.04638086 #mama2015
+0.00103294 #세븐틴
+0.00076461 #도겸
+0.03246803 #2015mama
+0.01341654 #mamaredcarpet
+0.00241498 #bigbang
+0.00080499 #seventeen
+0.00107332 #mamaredcarpert
+0.00160999 #마크
+0.00160999 #mark
+0.00053666 #jhope
+0.00080499 #jimin
+0.00080499 #지민
+0.00241498 #unionpay
+0.00160999 #lgv10
+0.00134165 #beyou
+0.00214665 #twice
+0.00456162 #ikon
+0.00134165 #mamaonmyx
+0.00026833 #mpd
+0.00026833 #엠피디
+0.00026833 #the8
+0.00026833 #hoshi
+0.00107332 #suga
+0.00107332 #슈가
+0.00295164 #exo
+0.00053666 #gmm25
+0.00160999 #chanyeol
+0.00080499 #태형
+0.00053666 #kwi
+0.00026833 #제이홉
+0.00026833 #홉이
+0.00026833 #jungkook
+0.00026833 #정국
+0.00026833 #석진
+0.00026833 #jin
+0.00026833 #mamaのrunで死んだarmyはrt
+0.00026833 #니가하면
+0.00080499 #갓세븐
+0.00026833 #고백송
+0.00026833 #bigbangmama2015
+0.00080499 #taetiseo
+0.00080499 #taeyeon
+0.00026833 #태연
+0.00026833 #소녀시대
+0.00026833 #koreanupdates
+0.00026833 #once
+0.00053666 #baebae
+0.00026833 #vip
+0.00053666 #насосдолуныиобратно
+0.00026833 #сонямыстобой
+0.00026833 #мама2015
+0.00375663 #mtvstarof2015
+0.00026833 #bestmusicvideo
+0.00187832 #엑소
+0.00053666 #빅뱅
+0.00026833 #thekoxx
+0.00053666 #bestnewfemaleartist
+0.00026833 #junior
+0.00026833 #주니어
+0.00026833 #bi
+0.00026833 #ikonwardrobe
+0.00053666 #아이콘
+0.00026833 #한빈
+0.00026833 #parkboyoung
+0.00026833 #leekwangsoo
+0.00053666 #2015
+0.00026833 #ziont
+0.00026833 #monstax_mh
+0.00026833 #몬스타엑스
+0.00026833 #민혁
+0.00026833 #minhyuk
+0.00026833 #moodmaker
+0.00026833 #monsta_x
+0.00026833 #사랑사랑
+0.00026833 #원우
+0.00080499 #bestnewmaleartist
+0.00053666 #love2015mama
+0.00134165 #sehun
+0.06627772 #mtvstars
+0.00053666 #20151202
+0.00053666 #snsd
+0.00053666 #찬열
+0.00214665 #videomtv2015
+0.00134165 #백현
+0.00107332 #baekhyun
+0.00026833 #티파니
+0.00026833 #서현
+0.00107332 #ikonforbestnewmaleartist
+0.00053666 #shinee
+0.00026833 #チャニョル
+0.00026833 #hanbin
+0.00107332 #ikonbestnewmaleartist
+0.00026833 #最優秀女性新人賞
+0.00026833 #twiceforbestnewfemaleartist
+0.00026833 #mino
+0.00026833 #저스트비
+0.00026833 #윤기
+0.00026833 #thankuikonic
+0.00026833 #ikonic
+0.00026833 #셔누
+0.00026833 #shownu
+0.00026833 #bestmv
+0.00026833 #hyuna
+0.00026833 #151202
+0.00026833 #세훈
+0.00026833 #ความผัวนี้
+0.00026833 #2015mama_exo
+0.00026833 #tiffany
+0.00026833 #taenyfamily
+0.00026833 #girlsgeneration
+0.00026833 #시우민
+0.00026833 #xiumin
+0.00026833 #madeintheam
+0.00187832 #jingleballdallas
+0.00026833 #weloveyouniall
+0.00026833 #weloveyouliam
+0.00107332 #kissjingleball
+
+02-12-2015 13:06:33: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-3.65906235 #mama
+-3.94002513 #got7
+-3.99697182 #bts
+-4.01784629 #yugyeom
+-4.01955898 #유겸
+-4.03926599 #방탄소년단
+-4.04841373 #girlsgirlsgirls
+-4.04956187 #run
+-4.07203605 #세븐틴
+-4.09669592 #도겸
+-4.10889839 #comeback
+-4.11745545 #mama2015
+-4.21739894 #2015mama
+-4.25865922 #마크
+-4.25865922 #mark
+-4.26785531 #원우
+-4.29588070 #seventeen
+-4.29707120 #jhope
+-4.29716125 #suga
+-4.29716125 #슈가
+-4.29756838 #jimin
+-4.29756838 #지민
+-4.29785235 #mamaredcarpert
+-4.29938159 #태형
+-4.30032311 #mpd
+-4.30032311 #엠피디
+-4.30132016 #the8
+-4.30132016 #hoshi
+-4.30274824 #beyou
+-4.30422859 #lgv10
+-4.30462351 #jungkook
+-4.30462351 #정국
+-4.30462351 #석진
+-4.30462351 #jin
+-4.30462351 #mamaのrunで死んだarmyはrt
+-4.30512268 #제이홉
+-4.30512268 #홉이
+-4.30538187 #니가하면
+-4.30595117 #gmm25
+-4.30787632 #고백송
+-4.30936992 #갓세븐
+-4.31029182 #bigbangmama2015
+-4.31029182 #koreanupdates
+-4.31029182 #once
+-4.31029182 #bestmusicvideo
+-4.31029182 #thekoxx
+-4.31058082 #kwi
+-4.31100899 #셔누
+-4.31100899 #shownu
+-4.31100899 #bestmv
+-4.31100899 #hyuna
+-4.31100899 #2015mama_exo
+-4.31100899 #madeintheam
+-4.31100899 #weloveyouniall
+-4.31100899 #weloveyouliam
+-4.31107035 #unionpay
+-4.31129037 #태연
+-4.31129037 #소녀시대
+-4.31129037 #junior
+-4.31129037 #주니어
+-4.31150838 #最優秀女性新人賞
+-4.31150838 #twiceforbestnewfemaleartist
+-4.31150838 #mino
+-4.31150838 #저스트비
+-4.31150838 #윤기
+-4.31150838 #thankuikonic
+-4.31150838 #ikonic
+-4.31150838 #ความผัวนี้
+-4.31178921 #vip
+-4.31178921 #сонямыстобой
+-4.31178921 #мама2015
+-4.31178921 #bi
+-4.31178921 #ikonwardrobe
+-4.31178921 #한빈
+-4.31178921 #parkboyoung
+-4.31178921 #leekwangsoo
+-4.31178921 #ziont
+-4.31200755 #hanbin
+-4.31200755 #151202
+-4.31200755 #세훈
+-4.31200755 #시우민
+-4.31200755 #xiumin
+-4.31228784 #taetiseo
+-4.31228784 #насосдолуныиобратно
+-4.31228784 #빅뱅
+-4.31228784 #2015
+-4.31250639 #shinee
+-4.31250639 #チャニョル
+-4.31250639 #tiffany
+-4.31250639 #taenyfamily
+-4.31250639 #girlsgeneration
+-4.31250639 #kissjingleball
+-4.31278626 #baebae
+-4.31300502 #티파니
+-4.31300502 #서현
+-4.31300502 #ikonbestnewmaleartist
+-4.31328433 #bestnewfemaleartist
+-4.31350344 #20151202
+-4.31350344 #찬열
+-4.31350344 #ikonforbestnewmaleartist
+
+02-12-2015 13:06:34: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-3.65906235 #mama
+-3.94002513 #got7
+-3.99697182 #bts
+-4.01784629 #yugyeom
+-4.01955898 #유겸
+-4.03926599 #방탄소년단
+-4.04841373 #girlsgirlsgirls
+-4.04956187 #run
+-4.07203605 #세븐틴
+-4.09669592 #도겸
+-4.10889839 #comeback
+-4.11745545 #mama2015
+-4.21739894 #2015mama
+-4.25865922 #마크
+-4.25865922 #mark
+-4.26785531 #원우
+-4.29588070 #seventeen
+-4.29707120 #jhope
+-4.29716125 #suga
+-4.29716125 #슈가
+-4.29756838 #jimin
+-4.29756838 #지민
+-4.29785235 #mamaredcarpert
+-4.29938159 #태형
+-4.30032311 #mpd
+-4.30032311 #엠피디
+-4.30132016 #the8
+-4.30132016 #hoshi
+-4.30274824 #beyou
+-4.30422859 #lgv10
+-4.30462351 #jungkook
+-4.30462351 #정국
+-4.30462351 #석진
+-4.30462351 #jin
+-4.30462351 #mamaのrunで死んだarmyはrt
+-4.30512268 #제이홉
+-4.30512268 #홉이
+-4.30538187 #니가하면
+-4.30595117 #gmm25
+-4.30787632 #고백송
+-4.30936992 #갓세븐
+-4.31029182 #bigbangmama2015
+-4.31029182 #koreanupdates
+-4.31029182 #once
+-4.31029182 #bestmusicvideo
+-4.31029182 #thekoxx
+-4.31058082 #kwi
+-4.31100899 #셔누
+-4.31100899 #shownu
+-4.31100899 #bestmv
+-4.31100899 #hyuna
+-4.31100899 #2015mama_exo
+-4.31100899 #madeintheam
+-4.31100899 #weloveyouniall
+-4.31100899 #weloveyouliam
+-4.31107035 #unionpay
+-4.31129037 #태연
+-4.31129037 #소녀시대
+-4.31129037 #junior
+-4.31129037 #주니어
+-4.31150838 #最優秀女性新人賞
+-4.31150838 #twiceforbestnewfemaleartist
+-4.31150838 #mino
+-4.31150838 #저스트비
+-4.31150838 #윤기
+-4.31150838 #thankuikonic
+-4.31150838 #ikonic
+-4.31150838 #ความผัวนี้
+-4.31178921 #vip
+-4.31178921 #сонямыстобой
+-4.31178921 #мама2015
+-4.31178921 #bi
+-4.31178921 #ikonwardrobe
+-4.31178921 #한빈
+-4.31178921 #parkboyoung
+-4.31178921 #leekwangsoo
+-4.31178921 #ziont
+-4.31200755 #hanbin
+-4.31200755 #151202
+-4.31200755 #세훈
+-4.31200755 #시우민
+-4.31200755 #xiumin
+-4.31228784 #taetiseo
+-4.31228784 #насосдолуныиобратно
+-4.31228784 #빅뱅
+-4.31228784 #2015
+-4.31250639 #shinee
+-4.31250639 #チャニョル
+-4.31250639 #tiffany
+-4.31250639 #taenyfamily
+-4.31250639 #girlsgeneration
+-4.31250639 #kissjingleball
+-4.31278626 #baebae
+-4.31300502 #티파니
+-4.31300502 #서현
+-4.31300502 #ikonbestnewmaleartist
+-4.31328433 #bestnewfemaleartist
+-4.31350344 #20151202
+-4.31350344 #찬열
+-4.31350344 #ikonforbestnewmaleartist
+
+02-12-2015 13:06:35: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-3.65906235 #mama
+-3.94002513 #got7
+-3.99697182 #bts
+-4.01784629 #yugyeom
+-4.01955898 #유겸
+-4.03926599 #방탄소년단
+-4.04841373 #girlsgirlsgirls
+-4.04956187 #run
+-4.07203605 #세븐틴
+-4.09669592 #도겸
+-4.10889839 #comeback
+-4.11745545 #mama2015
+-4.21739894 #2015mama
+-4.25865922 #마크
+-4.25865922 #mark
+-4.26785531 #원우
+-4.29588070 #seventeen
+-4.29707120 #jhope
+-4.29716125 #suga
+-4.29716125 #슈가
+-4.29756838 #jimin
+-4.29756838 #지민
+-4.29785235 #mamaredcarpert
+-4.29938159 #태형
+-4.30032311 #mpd
+-4.30032311 #엠피디
+-4.30132016 #the8
+-4.30132016 #hoshi
+-4.30274824 #beyou
+-4.30422859 #lgv10
+-4.30462351 #jungkook
+-4.30462351 #정국
+-4.30462351 #석진
+-4.30462351 #jin
+-4.30462351 #mamaのrunで死んだarmyはrt
+-4.30512268 #제이홉
+-4.30512268 #홉이
+-4.30538187 #니가하면
+-4.30595117 #gmm25
+-4.30787632 #고백송
+-4.30936992 #갓세븐
+-4.31029182 #bigbangmama2015
+-4.31029182 #koreanupdates
+-4.31029182 #once
+-4.31029182 #bestmusicvideo
+-4.31029182 #thekoxx
+-4.31058082 #kwi
+-4.31100899 #셔누
+-4.31100899 #shownu
+-4.31100899 #bestmv
+-4.31100899 #hyuna
+-4.31100899 #2015mama_exo
+-4.31100899 #madeintheam
+-4.31100899 #weloveyouniall
+-4.31100899 #weloveyouliam
+-4.31107035 #unionpay
+-4.31129037 #태연
+-4.31129037 #소녀시대
+-4.31129037 #junior
+-4.31129037 #주니어
+-4.31150838 #最優秀女性新人賞
+-4.31150838 #twiceforbestnewfemaleartist
+-4.31150838 #mino
+-4.31150838 #저스트비
+-4.31150838 #윤기
+-4.31150838 #thankuikonic
+-4.31150838 #ikonic
+-4.31150838 #ความผัวนี้
+-4.31178921 #vip
+-4.31178921 #сонямыстобой
+-4.31178921 #мама2015
+-4.31178921 #bi
+-4.31178921 #ikonwardrobe
+-4.31178921 #한빈
+-4.31178921 #parkboyoung
+-4.31178921 #leekwangsoo
+-4.31178921 #ziont
+-4.31200755 #hanbin
+-4.31200755 #151202
+-4.31200755 #세훈
+-4.31200755 #시우민
+-4.31200755 #xiumin
+-4.31228784 #taetiseo
+-4.31228784 #насосдолуныиобратно
+-4.31228784 #빅뱅
+-4.31228784 #2015
+-4.31250639 #shinee
+-4.31250639 #チャニョル
+-4.31250639 #tiffany
+-4.31250639 #taenyfamily
+-4.31250639 #girlsgeneration
+-4.31250639 #kissjingleball
+-4.31278626 #baebae
+-4.31300502 #티파니
+-4.31300502 #서현
+-4.31300502 #ikonbestnewmaleartist
+-4.31328433 #bestnewfemaleartist
+-4.31350344 #20151202
+-4.31350344 #찬열
+-4.31350344 #ikonforbestnewmaleartist
+
+02-12-2015 13:06:38: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,
+-3.65906235 #mama
+-3.94002513 #got7
+-3.99697182 #bts
+-4.01784629 #yugyeom
+-4.01955898 #유겸
+-4.03926599 #방탄소년단
+-4.04841373 #girlsgirlsgirls
+-4.04956187 #run
+-4.07203605 #세븐틴
+-4.09669592 #도겸
+-4.10889839 #comeback
+-4.11745545 #mama2015
+-4.21739894 #2015mama
+-4.25865922 #마크
+-4.25865922 #mark
+-4.26785531 #원우
+-4.29588070 #seventeen
+-4.29707120 #jhope
+-4.29716125 #suga
+-4.29716125 #슈가
+-4.29756838 #jimin
+-4.29756838 #지민
+-4.29785235 #mamaredcarpert
+-4.29938159 #태형
+-4.30032311 #mpd
+-4.30032311 #엠피디
+-4.30132016 #the8
+-4.30132016 #hoshi
+-4.30274824 #beyou
+-4.30422859 #lgv10
+-4.30462351 #jungkook
+-4.30462351 #정국
+-4.30462351 #석진
+-4.30462351 #jin
+-4.30462351 #mamaのrunで死んだarmyはrt
+-4.30512268 #제이홉
+-4.30512268 #홉이
+-4.30538187 #니가하면
+-4.30595117 #gmm25
+-4.30787632 #고백송
+-4.30936992 #갓세븐
+-4.31029182 #bigbangmama2015
+-4.31029182 #koreanupdates
+-4.31029182 #once
+-4.31029182 #bestmusicvideo
+-4.31029182 #thekoxx
+-4.31058082 #kwi
+-4.31100899 #셔누
+-4.31100899 #shownu
+-4.31100899 #bestmv
+-4.31100899 #hyuna
+-4.31100899 #2015mama_exo
+-4.31100899 #madeintheam
+-4.31100899 #weloveyouniall
+-4.31100899 #weloveyouliam
+-4.31107035 #unionpay
+-4.31129037 #태연
+-4.31129037 #소녀시대
+-4.31129037 #junior
+-4.31129037 #주니어
+-4.31150838 #最優秀女性新人賞
+-4.31150838 #twiceforbestnewfemaleartist
+-4.31150838 #mino
+-4.31150838 #저스트비
+-4.31150838 #윤기
+-4.31150838 #thankuikonic
+-4.31150838 #ikonic
+-4.31150838 #ความผัวนี้
+-4.31178921 #vip
+-4.31178921 #сонямыстобой
+-4.31178921 #мама2015
+-4.31178921 #bi
+-4.31178921 #ikonwardrobe
+-4.31178921 #한빈
+-4.31178921 #parkboyoung
+-4.31178921 #leekwangsoo
+-4.31178921 #ziont
+-4.31200755 #hanbin
+-4.31200755 #151202
+-4.31200755 #세훈
+-4.31200755 #시우민
+-4.31200755 #xiumin
+-4.31228784 #taetiseo
+-4.31228784 #насосдолуныиобратно
+-4.31228784 #빅뱅
+-4.31228784 #2015
+-4.31250639 #shinee
+-4.31250639 #チャニョル
+-4.31250639 #tiffany
+-4.31250639 #taenyfamily
+-4.31250639 #girlsgeneration
+-4.31250639 #kissjingleball
+-4.31278626 #baebae
+-4.31300502 #티파니
+-4.31300502 #서현
+-4.31300502 #ikonbestnewmaleartist
+-4.31328433 #bestnewfemaleartist
+-4.31350344 #20151202
+-4.31350344 #찬열
+-4.31350344 #ikonforbestnewmaleartist
+
+02-12-2015 13:06:45: List of ranked hashtags in descending order of their -KLD for the query:
+#mama,#hahaha,
+-3.65906235 #mama
+-3.94002513 #got7
+-3.99697182 #bts
+-4.01784629 #yugyeom
+-4.01955898 #유겸
+-4.03926599 #방탄소년단
+-4.04841373 #girlsgirlsgirls
+-4.04956187 #run
+-4.07203605 #세븐틴
+-4.09669592 #도겸
+-4.10889839 #comeback
+-4.11745545 #mama2015
+-4.21739894 #2015mama
+-4.25865922 #마크
+-4.25865922 #mark
+-4.26785531 #원우
+-4.29588070 #seventeen
+-4.29707120 #jhope
+-4.29716125 #suga
+-4.29716125 #슈가
+-4.29756838 #jimin
+-4.29756838 #지민
+-4.29785235 #mamaredcarpert
+-4.29938159 #태형
+-4.30032311 #mpd
+-4.30032311 #엠피디
+-4.30132016 #the8
+-4.30132016 #hoshi
+-4.30274824 #beyou
+-4.30422859 #lgv10
+-4.30462351 #jungkook
+-4.30462351 #정국
+-4.30462351 #석진
+-4.30462351 #jin
+-4.30462351 #mamaのrunで死んだarmyはrt
+-4.30512268 #제이홉
+-4.30512268 #홉이
+-4.30538187 #니가하면
+-4.30595117 #gmm25
+-4.30787632 #고백송
+-4.30936992 #갓세븐
+-4.31000953 #hahaha
+-4.31029182 #bigbangmama2015
+-4.31029182 #koreanupdates
+-4.31029182 #once
+-4.31029182 #bestmusicvideo
+-4.31029182 #thekoxx
+-4.31058082 #kwi
+-4.31100899 #셔누
+-4.31100899 #shownu
+-4.31100899 #bestmv
+-4.31100899 #hyuna
+-4.31100899 #2015mama_exo
+-4.31100899 #madeintheam
+-4.31100899 #weloveyouniall
+-4.31100899 #weloveyouliam
+-4.31107035 #unionpay
+-4.31129037 #태연
+-4.31129037 #소녀시대
+-4.31129037 #junior
+-4.31129037 #주니어
+-4.31150838 #最優秀女性新人賞
+-4.31150838 #twiceforbestnewfemaleartist
+-4.31150838 #mino
+-4.31150838 #저스트비
+-4.31150838 #윤기
+-4.31150838 #thankuikonic
+-4.31150838 #ikonic
+-4.31150838 #ความผัวนี้
+-4.31178921 #vip
+-4.31178921 #сонямыстобой
+-4.31178921 #мама2015
+-4.31178921 #bi
+-4.31178921 #ikonwardrobe
+-4.31178921 #한빈
+-4.31178921 #parkboyoung
+-4.31178921 #leekwangsoo
+-4.31178921 #ziont
+-4.31200755 #hanbin
+-4.31200755 #151202
+-4.31200755 #세훈
+-4.31200755 #시우민
+-4.31200755 #xiumin
+-4.31228784 #taetiseo
+-4.31228784 #насосдолуныиобратно
+-4.31228784 #빅뱅
+-4.31228784 #2015
+-4.31250639 #shinee
+-4.31250639 #チャニョル
+-4.31250639 #tiffany
+-4.31250639 #taenyfamily
+-4.31250639 #girlsgeneration
+-4.31250639 #kissjingleball
+-4.31278626 #baebae
+-4.31300502 #티파니
+-4.31300502 #서현
+-4.31300502 #ikonbestnewmaleartist
+-4.31328433 #bestnewfemaleartist
+-4.31350344 #20151202
+-4.31350344 #찬열
+
+02-12-2015 13:10:05: New log started
+02-12-2015 13:10:05: Counters off
+02-12-2015 13:10:18: Loading 184956 lines from file star wars tweets.txt
+02-12-2015 13:10:24: Loaded files. Dumping them into tweetList
+02-12-2015 13:10:24: Finished loading 184809 tweets from file
+02-12-2015 13:11:25: Naive expansion percentage set to 1
+02-12-2015 13:11:26: Expansion: NAIVE
+ expanding query on 184809 tweets
+02-12-2015 13:11:26: 214 unique keywords after expansion
+02-12-2015 13:12:01: Expansion: NAIVE
+ expanding query on 184809 tweets
+02-12-2015 13:12:52: 212 unique keywords after expansion
+02-12-2015 13:15:02: List of ranked hashtags in descending order of their -KLD for the query:
+#chewy,
+-0.68610789 #chewy
+-0.84390838 #free
+-0.85790367 #lol
+-0.87510951 #tech
+-0.91279414 #tbt
+-0.99250563 #funny
+-1.16552302 #chewbacca
+-1.52087575 #r2d2
+-1.61287621 #geek
+-2.68082630 #wookie
+-2.79333216 #omg
+-2.86227479 #theforceawakens
+-2.95021042 #tiefighter
+-2.95579192 #cute
+-2.95988156 #fb
+-2.96749073 #contest
+-2.97968366 #ifunny
+-2.98406960 #c3po
+-2.99039076 #starwarsnerd
+-2.99343520 #wookiee
+-3.01026198 #comedy
+-3.01813167 #movies
+-3.02151477 #pics
+-3.02325435 #excited
+-3.02696799 #puppy
+
+02-12-2015 13:20:42: List of ranked hashtags in descending order of their -KLD for the query:
+#chewy,
+-0.23100280 #chewy
+-0.52226285 #free
+-0.58385247 #lol
+-0.60317012 #tech
+-0.64731350 #tbt
+-0.81956689 #funny
+-1.06012193 #chewbacca
+-1.46977488 #r2d2
+-1.58773147 #geek
+-2.62632637 #wookie
+-2.85179783 #omg
+-2.86276774 #theforceawakens
+-2.98690090 #starwarsnerd
+-3.06571458 #contest
+-3.08279000 #geeky
+-3.08783464 #excited
+-3.10672427 #fb
+-3.10885987 #tiefighter
+-3.11317956 #starwars
+-3.11343003 #ifunny
+-3.12911060 #wookiee
+-3.13267714 #cute
+-3.16113264 #puppy
+-3.16596196 #droids
+-3.16664886 #cookies
+
+02-12-2015 13:32:03: New log started
+02-12-2015 13:32:03: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 13:32:03: Loaded files. Dumping them into tweetList
+02-12-2015 13:32:03: Finished loading 10556 tweets from file
+02-12-2015 13:32:16: Naive expansion percentage set to 100
+02-12-2015 13:32:16: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:32:16: 2221 unique keywords after expansion
+02-12-2015 13:38:05: New log started
+02-12-2015 13:38:05: Loading 184956 lines from file star wars tweets.txt
+02-12-2015 13:38:11: Loaded files. Dumping them into tweetList
+02-12-2015 13:38:11: Finished loading 184809 tweets from file
+02-12-2015 13:38:25: Naive expansion percentage set to 100
+02-12-2015 13:38:25: Expansion: NAIVE
+ expanding query on 184809 tweets
+02-12-2015 13:38:26: 21409 unique keywords after expansion
+02-12-2015 13:43:21: New log started
+02-12-2015 13:43:21: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 13:43:21: Loaded files. Dumping them into tweetList
+02-12-2015 13:43:21: Finished loading 10556 tweets from file
+02-12-2015 13:43:24: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:43:24: 223 unique keywords after expansion
+02-12-2015 13:45:45: New log started
+02-12-2015 13:45:45: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 13:45:45: Loaded files. Dumping them into tweetList
+02-12-2015 13:45:45: Finished loading 10556 tweets from file
+02-12-2015 13:45:47: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:45:47: 223 unique keywords after expansion
+02-12-2015 13:51:09: New log started
+02-12-2015 13:51:09: Loading 10572 lines from file rawJsonBackup.txt
+02-12-2015 13:51:09: Loaded files. Dumping them into tweetList
+02-12-2015 13:51:09: Finished loading 10556 tweets from file
+02-12-2015 13:51:11: Expansion: NAIVE
+ expanding query on 10556 tweets
+02-12-2015 13:51:11: 223 unique keywords after expansion
+02-12-2015 13:51:58: Loading 184956 lines from file star wars tweets.txt
+02-12-2015 13:52:04: Loaded files. Dumping them into tweetList
+02-12-2015 13:52:04: Finished loading 184809 tweets from file
+02-12-2015 13:52:05: Naive expansion percentage set to 1
+02-12-2015 13:52:06: Expansion: NAIVE
+ expanding query on 184809 tweets
+02-12-2015 13:52:06: 215 unique keywords after expansion
+02-12-2015 13:55:06: Expansion: NAIVE
+ expanding query on 184809 tweets
+02-12-2015 13:55:06: 213 unique keywords after expansion

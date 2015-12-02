@@ -146,6 +146,16 @@ namespace TweetListener2.ViewModels
                 });
                 TweetsLastSecond++;
             };
+            TweetsPerSecondTimer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
+            TweetsPerSecondTimer.Elapsed += (s, a) => {
+                TweetsPerSecond = TweetsLastSecond;
+                TweetsLastSecond = 0;
+                App.Current.Dispatcher.Invoke(() => {
+                    OnPropertyChanged(this, new PropertyChangedEventArgs("TweetsPerSecondString"));
+
+                });
+            };
+            TweetsPerSecondTimer.Start();
 
             // database output messages (not active if !databaseSaver.outputDatabaseMessages)
             DatabaseSaver.Message += (s) => {
@@ -641,6 +651,15 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        public string TweetsPerSecondString
+        {
+            get
+            {
+                return TweetsPerSecond.ToString("F2") + " tps; " + (TweetsPerSecond * 60).ToString("F0") + " tpm; " + (TweetsPerSecond * 3600).ToString("F0") + " tph";
+            }
+        }
+
+
         private bool continuousTweetViewUpdate = false;
         public bool ContinuousTweetViewUpdate
         {
@@ -779,14 +798,6 @@ namespace TweetListener2.ViewModels
                             : "Idle"
                                 ;
 
-            }
-        }
-
-        public string TweetsPerSecondString
-        {
-            get
-            {
-                return TweetsPerSecond.ToString("F2") + " tps; " + (TweetsPerSecond * 60).ToString("F0") + " tpm; " + (TweetsPerSecond * 3600).ToString("F0") + " tph";
             }
         }
 
@@ -931,19 +942,19 @@ namespace TweetListener2.ViewModels
         {
             var s = "";
             s += ("Counting Tweets...");
-            s += "\n" +(tweetDatabase.GetAllTweets().Count + " tweets in the RAM");
-            s += "\n" +(tweetDatabase.Tweets.Count + " tweets shown in the tweetView panel");
-            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Stream) + " stream tweets");
-            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Rest) + " rest tweets");
-            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Unknown) + " unknown tweets");
-            s += "\n" +("Top languages: ");
+            s += "\n" + (tweetDatabase.GetAllTweets().Count + " tweets in the RAM");
+            s += "\n" + (tweetDatabase.Tweets.Count + " tweets shown in the tweetView panel");
+            s += "\n" + (tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Stream) + " stream tweets");
+            s += "\n" + (tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Rest) + " rest tweets");
+            s += "\n" + (tweetDatabase.GetAllTweets().Count(td => td.source == TweetData.Sources.Unknown) + " unknown tweets");
+            s += "\n" + ("Top languages: ");
             var langGroups = tweetDatabase.GetAllTweets().GroupBy(td => td.Lang).OrderByDescending(g => g.Count());
             for (int i = 0; i < Math.Min(langGroups.Count(), 5); i++) {
-                s += "\n" +(langGroups.ElementAt(i).Key + " - " + langGroups.ElementAt(i).Count());
+                s += "\n" + (langGroups.ElementAt(i).Key + " - " + langGroups.ElementAt(i).Count());
             }
-            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.Date.CompareTo(DateTime.Today) >= 0) + " tweets since " + DateTime.Today);
-            s += "\n" +(tweetDatabase.GetAllTweets().Count(td => td.Date.CompareTo(DateTime.Today.AddDays(-1)) >= 0 && td.Date.CompareTo(DateTime.Today) < 0) + " tweets since " + DateTime.Today.AddDays(-1) + " until " + DateTime.Today);
-            s += "\n" +("End of counting tweets");
+            s += "\n" + (tweetDatabase.GetAllTweets().Count(td => td.Date.CompareTo(DateTime.Today) >= 0) + " tweets since " + DateTime.Today);
+            s += "\n" + (tweetDatabase.GetAllTweets().Count(td => td.Date.CompareTo(DateTime.Today.AddDays(-1)) >= 0 && td.Date.CompareTo(DateTime.Today) < 0) + " tweets since " + DateTime.Today.AddDays(-1) + " until " + DateTime.Today);
+            s += "\n" + ("End of counting tweets");
 
             Log.Output(s);
         }
