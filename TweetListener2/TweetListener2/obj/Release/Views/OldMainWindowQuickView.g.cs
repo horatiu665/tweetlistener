@@ -29,7 +29,6 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
-using TweetListener2.ViewModels;
 using TweetListener2.Views;
 
 

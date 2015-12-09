@@ -761,6 +761,109 @@ namespace TweetListener2.Systems
             return newList;
         }
 
+        public List<TweetData> LoadFromDatabase()
+        {
+            List<TweetData> tweetsFromDatabase = new List<TweetData>();
+
+            try {
+                MySqlConnection connection = new MySqlConnection(ConnectionString);
+                if (Message != null) {
+                    if (outputDatabaseMessages)
+                        Message("Opening " + ConnectionString);
+                }
+                connection.Open();
+                if (Message != null) {
+                    if (outputDatabaseMessages)
+                        Message("Connection to " + ConnectionString + " opened successfully");
+                }
+
+                string query = "";
+
+                // the actual query
+                query = " SELECT * FROM ";
+                query += " " + DatabaseTableName + " ";
+
+
+                if (Message != null) {
+                    if (outputDatabaseMessages)
+                        Message("Creating command for " + ConnectionString);
+                }
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.CommandType = System.Data.CommandType.Text;
+
+                // timeout in seconds
+                command.CommandTimeout = 60;
+
+                if (Message != null) {
+                    if (outputDatabaseMessages)
+                        Message("Executing reader for " + ConnectionString);
+                }
+
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read()) {
+                    if (reader["tweet_id_str"] != null) {
+                        // MySQL sent us a huge list of tweets.
+                        // Now we read them one by one, and save them to the RAM like we are crazy
+
+                        /*
+                        tweet_id_str
+                        tweet
+                        created_at
+                        user_id_str
+                        user_name
+                        in_reply_to_status_id_str
+                        in_reply_to_user_id_str
+                        lang
+                        retweet_count
+                        */
+
+                        int langInt;
+                        Tweetinvi.Core.Enum.Language lang;
+                        if (int.TryParse(reader["lang"].ToString(), out langInt)) {
+                            lang = (Tweetinvi.Core.Enum.Language)langInt;
+                        } else {
+                            lang = Tweetinvi.Core.Enum.Language.Undefined;
+                        }
+
+                        var newTweet = new CustomTweetFormat(
+                            (DateTime)reader["created_at"],
+                            reader["tweet_id_str"].ToString(),
+                            reader["in_reply_to_status_id_str"].ToString(),
+                            reader["in_reply_to_user_id_str"].ToString(),
+                            lang,
+                            (int)(reader["retweet_count"]),
+                            reader["user_name"].ToString(),
+                            reader["user_id_str"].ToString(),
+                            reader["tweet"].ToString()
+                            );
+
+                        tweetsFromDatabase.Add(new TweetData(newTweet, TweetData.Sources.Unknown, 0, 0));
+                    }
+                    
+                }
+
+                connection.Close();
+
+            }
+            catch (MySqlException e) {
+
+                if (e.Number == 1045) {
+                    if (Message != null) {
+                        Message("Invalid username or password");
+                    }
+                } else {
+                    if (Message != null) {
+                        Message(e.ToString());
+
+                    }
+                }
+                throw new Exception("Database MySqlException. Pls retry");
+            }
+
+            return tweetsFromDatabase;
+        }
 
     }
 }

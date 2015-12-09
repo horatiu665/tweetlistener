@@ -438,6 +438,7 @@ namespace TweetListener2.Systems
         public void Start()
         {
             if (StreamRunning) {
+                Log.Output("Stream already running. Not gonna start it again!");
                 return;
             }
 
@@ -512,6 +513,15 @@ namespace TweetListener2.Systems
                     }
                     Log.Output("StartStreamAsync() finally over!");
                 }
+                catch (TaskCanceledException e) {
+                    var message = "Task cancelled ";
+                    message += (StreamRunning ? "but stream still running" : "and stream is not running");
+                    Log.Output(message);
+
+                    // do nothing because task was cancelled. and stop restarting the stream so many damn times
+                    return;
+
+                }
                 catch (Exception e) {
                     Log.Output("Exception at StartStreamTask() thread: " + e.ToString());
 
@@ -541,15 +551,23 @@ namespace TweetListener2.Systems
             }
         }
 
+        Task restartTask = null;
+
         public void Restart()
         {
             Stop();
-            // wait until stream has stopped && streamRunning is false
-            Task.Factory.StartNew(() => {
+            if (restartTask != null) {
+                restartTask.Dispose();
+                restartTask = null;
+            }
+            restartTask = Task.Factory.StartNew(async () => {
+                // wait until stream has stopped && streamRunning is false
                 Log.Output("Separate thread waiting to start stream after it stops");
+                
                 while (StreamRunning) {
-                    // wait
-                    ;
+                    // wait in intervals of 
+                    await Task.Delay(reconnectDelayMillis);
+                
                 }
                 Start();
             });

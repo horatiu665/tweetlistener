@@ -384,10 +384,6 @@ namespace TweetListener2.Views
             var cols = restExpansionListViewGrid.Columns;
             cols[0].Header = "Keywords (" + vm.KeywordDatabase.KeywordList.Count + ")";
             cols[1].Header = "Count";
-            cols[2].Header = "Expansion ";
-            for (int i = 0; i <= 2; i++) {
-                cols[2].Header += vm.KeywordDatabase.KeywordList.Where(kd => kd.Expansion == i).Count().ToString() + " ";
-            }
             // set up events for column headers for restExpansionView if they are not set up yet
 
         }
@@ -821,8 +817,7 @@ namespace TweetListener2.Views
             if (!vm.QueryExpansion.Expanding) {
                 Task.Factory.StartNew(() => {
                     vm.QueryExpansion.ExpandEfron(vm.KeywordDatabase.KeywordList, vm.TweetDatabase.GetAllTweets());
-
-                    vm.QueryExpansion.Expanding = false;
+                    
                 });
             } else {
                 var m = MessageBox.Show("Expansion running. Cancel current expansion?", "wait what?", MessageBoxButton.YesNo);
@@ -964,7 +959,7 @@ namespace TweetListener2.Views
                 App.Current.Dispatcher.Invoke(() => {
                     var content = (KeywordData)(item.Content);
                     if (!content.HasLanguageModel) {
-                        content.LanguageModel = new LanguageModel(content, vm.KeywordDatabase.KeywordList, vm.TweetDatabase.GetAllTweets(), null, LanguageModel.SmoothingMethods.BayesianDirichlet, vm.QueryExpansion.EfronMu);
+                        content.LanguageModel = new LanguageModel(content, vm.KeywordDatabase.KeywordList, vm.TweetDatabase.GetAllTweets(), null, LanguageModel.SmoothingMethods.BayesianDirichlet, false, vm.QueryExpansion.EfronMu);
                     } else {
                         vm.Log.Output("Keyword " + content.Keyword + " already has a calculated language model");
                         vm.Log.Output(content.LanguageModel.ToString());
@@ -1047,6 +1042,24 @@ namespace TweetListener2.Views
         private void tweetView_Count(object sender, RoutedEventArgs e)
         {
             vm.tweetView_Count(sender, e);
+        }
+
+        private void expansionPanel_OneButtonExpand_Click(object sender, RoutedEventArgs e)
+        {
+            vm.expansionPanel_OneButtonExpand_Click(sender, e);
+        }
+
+        private void tweetView_loadFromDatabase(object sender, RoutedEventArgs e)
+        {
+            vm.tweetView_loadFromDatabase(sender, e);
+        }
+
+        private void openFolder(object sender, RoutedEventArgs e)
+        {
+            var pathToApp = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+            pathToApp = pathToApp.Substring(0, pathToApp.LastIndexOf(@"/"));
+            System.Diagnostics.Process.Start(pathToApp);
+            vm.Log.Output("opening " + pathToApp);
         }
     }
 }

@@ -71,7 +71,7 @@
                             <ad:LayoutAnchorablePane DockHeight="3*" DockWidth="2*">
                                 <ad:LayoutAnchorable Title="Tweets">
                                     <DockPanel>
-                                        <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10" >
+                                        <DockPanel DockPanel.Dock="Top" Margin="0 0 0 4" >
                                             <Button Content="Reset Selection" Width="100" Click="tweetView_ResetSelection">
                                                 <Button.ToolTip>
                                                     Reset keyword selection, show all tweets. 
@@ -89,13 +89,18 @@
                                                 Can be slow but progress is shown here. Process can be interrupted when clicked again.
                                                 </Button.ToolTip>
                                             </Button>
+                                            <Button Content="Load from database" Margin="10 0" Click="tweetView_loadFromDatabase" HorizontalAlignment="Left">
+                                                <Button.ToolTip>
+                                                    Queries the database and retrieves all tweets saved in the table with name DB table name (see Log Settings panel)
+                                                </Button.ToolTip>
+                                            </Button>
                                             <Button Content="Resend to database" Margin="10 0" Click="tweetView_resendToDatabase" HorizontalAlignment="Left">
                                                 <Button.ToolTip>
                                                     Sends the saved tweets to the database again. Useful when loading tweets from a backup file and posting them back to the DB
                                                 </Button.ToolTip>
                                             </Button>
-                                            <Label x:Name="fromFileLoaderLabel" Content="{Binding Path=FromFileLoader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecondString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </DockPanel>
+                                        <DockPanel DockPanel.Dock="Top"  Margin="4 0 0 4" >
                                             <CheckBox x:Name="tweetViewOnlyEnglish" Content="Only English" IsChecked="{Binding OnlyEnglish, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 10 0">
                                                 <CheckBox.ToolTip>
                                                     Only save tweets in English, or undefined (since they can often be in english).
@@ -112,9 +117,11 @@
                                                 Not recommended with more than 10000 tweets because it can get REALLY slow.
                                                 </CheckBox.ToolTip>
                                             </CheckBox>
+                                            <Label x:Name="fromFileLoaderLabel" Content="{Binding Path=FromFileLoader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Label x:Name="tweetsPerSecondLabel" Content="{Binding Path=TweetsPerSecondString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                         </DockPanel>
-                                        <DockPanel DockPanel.Dock="Top" >
+                                        <DockPanel DockPanel.Dock="Top" Margin="0 0 0 4"  >
                                             <Button Content="Count" Click="tweetView_Count">
                                                 <Button.ToolTip>
                                                     Counts tweets and reveals various statistics about the tweets saved here.
@@ -221,30 +228,31 @@
                                 <ad:LayoutAnchorablePane DockHeight="*">
                                     <ad:LayoutAnchorable x:Name="logSettingsLayout"  Title="Log Settings" CanClose="False" CanHide="False" AutoHideWidth="300">
                                         <StackPanel Margin="10,0" x:Name="logSettingsStackPanel">
-                                            <DockPanel>
+                                            <!-- Removed archaic features: Connection type (localhost only option), Data destination (php post, mysql, sql) - only mysql was used lately and seems like the most legit option -->
+                                            <!--<DockPanel>
                                                 <Label Content="Connection" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
                                                 <ComboBox x:Name="databaseConnectionComboBox" SelectedIndex="0" VerticalAlignment="Center">
                                                     <ComboBoxItem Content="Localhost"/>
                                                 </ComboBox>
-                                            </DockPanel>
+                                            </DockPanel>-->
 
-                                            <DockPanel>
+                                            <!--<DockPanel>
                                                 <Label Content="Data destination" HorizontalContentAlignment="Right" VerticalAlignment="Center" />
                                                 <ComboBox x:Name="databaseDestinationComboBox" SelectedIndex="{Binding DatabaseDestinationComboBoxIndex}" VerticalAlignment="Center">
                                                     <ComboBoxItem Content="PHP POST"/>
                                                     <ComboBoxItem Content="Direct to MySQL"/>
                                                     <ComboBoxItem Content="Direct to SQL"/>
                                                 </ComboBox>
-                                            </DockPanel>
+                                            </DockPanel>-->
 
-                                            <DockPanel>
+                                            <!--<DockPanel>
                                                 <Label Content="PHP POST path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
                                                     <Label.ToolTip>
                                                         Sends database messages to this address. If not found, logs errors and slows down program.
                                                     </Label.ToolTip>
                                                 </Label>
                                                 <TextBox Name="databasePhpPath" VerticalAlignment="Center" Text="http://localhost/tweetlistener/php/saveJson.php" TextChanged="databasePhpPath_TextChanged"  />
-                                            </DockPanel>
+                                            </DockPanel>-->
 
                                             <DockPanel>
                                                 <Label Content="Log path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
@@ -254,9 +262,11 @@
                                                 </Label>
                                                 <TextBox Name="logPathTextBox" VerticalAlignment="Center" Text="log.txt" />
                                             </DockPanel>
-                                            <Button Content="Force reset Log" Click="log_forceResetButton"></Button>
+
+                                            <!--<Button Content="Force reset Log" Click="log_forceResetButton"></Button>-->
+
                                             <DockPanel>
-                                                <Label Content="Text file DB path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                <Label Content="Backup .txt path" HorizontalContentAlignment="Right" VerticalAlignment="Center">
                                                     <Label.ToolTip>
                                                         Saves/loads tweets in a file, as a backup/alternative to the database.
                                                     </Label.ToolTip>
@@ -323,6 +333,7 @@
                                                 </Label>
                                                 <TextBox VerticalAlignment="Center" Text="{Binding WindowTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                             </DockPanel>
+                                            <Button Content="Open folder" Click="openFolder"/>
 
                                         </StackPanel>
                                     </ad:LayoutAnchorable>
@@ -405,68 +416,77 @@
                                             <!-- this is the content you are looking for -->
                                             <DockPanel x:Name="expansionPanel">
                                                 <StackPanel>
-                                                    <DockPanel Margin="10,0">
-                                                        <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center">
-                                                            <Label.ToolTip>
-                                                                Percentage of top ranked (based on occurrences) total amount
-                                                        of distinct hashtags to extract from current tweet list.
-                                                            </Label.ToolTip>
-                                                        </Label>
-                                                        <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                                    </DockPanel>
-                                                    <DockPanel Margin="10,0">
-                                                        <Label Content="Naive expansion cooccurring generations" HorizontalContentAlignment="Right" VerticalAlignment="Center">
-                                                            <Label.ToolTip>
-                                                                At 0, naive expansion finds the top % of hashtags.
-                                                
-                                                    At >1, naive expansion gets the top % co-occurring hashtags 
-                                                        with the "Used" ones, and then the top % for the co-occurring
-                                                        with the entire returned set, down to the N-th generation.
-                                                            </Label.ToolTip>
-                                                        </Label>
-                                                        <TextBox Name="expansionGenerations" Text="{Binding Path=NaiveExpansionGenerations, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                                    </DockPanel>
-                                                    <Button Content="Expand keywords using Naive (count tweets, top percent)" Click="expansion_ExpandNaive"/>
-                                                    <DockPanel Margin="10,0">
-                                                        <Label Content="Efron smoothing constant" HorizontalContentAlignment="Right" VerticalAlignment="Center">
-                                                            <Label.ToolTip>
-                                                                Determines how much smoothing to apply to language models.
-                                                        Default: 2000 based on Efron's paper, 0 means no smoothing, 
-                                                        usually less than 2000 required for smaller tweet populations.
-                                                            </Label.ToolTip>
-                                                        </Label>
-                                                        <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                                    </DockPanel>
-                                                    <DockPanel Margin="10,0">
-                                                        <Label Content="Efron Rank top N tags" HorizontalContentAlignment="Right" VerticalAlignment="Center">
-                                                            <Label.ToolTip>
-                                                                How many top-ranked hashtags to keep after ranking using KL divergence?
-                                                        Amount could be high for human readability, but should be low
-                                                        when blindly expanding query. Efron's default: 25.
-                                                            </Label.ToolTip>
-                                                        </Label>
-                                                        <TextBox Text="{Binding Path=RankNHashtags, Mode=TwoWay}"  VerticalAlignment="Center"/>
-                                                    </DockPanel>
-                                                    <DockPanel>
-                                                        <CheckBox IsChecked="{Binding ExpandOnlyOnCooccurring, Mode=TwoWay}" Content="Expand Only On Cooccurring" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                                                            <CheckBox.ToolTip>
-                                                                Calculates language models a bit faster, but cannot reuse them for multiple calculations.
-                                                            </CheckBox.ToolTip>
-                                                        </CheckBox>
-                                                        <CheckBox IsChecked="{Binding ApplyFeedback, Mode=TwoWay}" Content="Apply Feedback" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 5">
-                                                            <CheckBox.ToolTip>
-                                                                Apply feedback to query model calculation? Not tested much, use at own risk.
-                                                            </CheckBox.ToolTip>
-                                                        </CheckBox>
-                                                        <CheckBox IsChecked="{Binding LogModels, Mode=TwoWay}" Content="Log models" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                                                            <CheckBox.ToolTip>
-                                                                Log query model, language models, and feedback? 
-                                                    Can be much slower when language models are already calculated.
-                                                            </CheckBox.ToolTip>
-                                                        </CheckBox>
-                                                    </DockPanel>
-                                                    <Button Content="Expand keywords using Efron (language model + smoothing)" Click="expansion_ExpandEfron"/>
+                                                    <Button Click="expansionPanel_OneButtonExpand_Click">
+                                                        Expand That Query!
+                                                    </Button>
                                                     <Label Content="{Binding Path=ExpansionProgressLabel}" HorizontalAlignment="Center" />
+                                                    <Expander Header="Expert controls">
+                                                        <StackPanel>
+                                                            <DockPanel Margin="10,0">
+                                                                <Label Content="Naive expansion percentage" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                                    <Label.ToolTip>
+                                                                        Percentage of top ranked (based on occurrences) total amount
+                                                            of distinct hashtags to extract from current tweet list.
+                                                                    </Label.ToolTip>
+                                                                </Label>
+                                                                <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                            </DockPanel>
+                                                            <DockPanel Margin="10,0">
+                                                                <Label Content="Naive expansion cooccurring generations" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                                    <Label.ToolTip>
+                                                                        At 0, naive expansion finds the top % of hashtags.
+                                                
+                                                        At >1, naive expansion gets the top % co-occurring hashtags 
+                                                            with the "Used" ones, and then the top % for the co-occurring
+                                                            with the entire returned set, down to the N-th generation.
+                                                                    </Label.ToolTip>
+                                                                </Label>
+                                                                <TextBox Name="expansionGenerations" Text="{Binding Path=NaiveExpansionGenerations, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                            </DockPanel>
+                                                            <Button Content="Expand keywords using Naive (count tweets, top percent)" Click="expansion_ExpandNaive"/>
+                                                            <DockPanel Margin="10,0">
+                                                                <Label Content="Efron smoothing constant" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                                    <Label.ToolTip>
+                                                                        Determines how much smoothing to apply to language models.
+                                                            Default: 2000 based on Efron's paper, 0 means no smoothing, 
+                                                            usually less than 2000 required for smaller tweet populations.
+                                                                    </Label.ToolTip>
+                                                                </Label>
+                                                                <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                            </DockPanel>
+                                                            <DockPanel Margin="10,0">
+                                                                <Label Content="Efron Rank top N tags" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                                    <Label.ToolTip>
+                                                                        How many top-ranked hashtags to keep after ranking using KL divergence?
+                                                            Amount could be high for human readability, but should be low
+                                                            when blindly expanding query. Efron's default: 25.
+                                                                    </Label.ToolTip>
+                                                                </Label>
+                                                                <TextBox Text="{Binding Path=RankNHashtags, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                            </DockPanel>
+                                                            <DockPanel>
+                                                                <CheckBox IsChecked="{Binding ExpandOnlyOnCooccurring, Mode=TwoWay}" Content="Expand Only On Cooccurring" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                                                    <CheckBox.ToolTip>
+                                                                        WARNING!
+                                                                        Calculates language models a bit faster, but cannot reuse them for multiple calculations.
+                                                                        Also assumes that the keywords' order does not change in the keyword list, in order to optimize performance and memory usage at the cost of usability
+                                                                    </CheckBox.ToolTip>
+                                                                </CheckBox>
+                                                                <CheckBox IsChecked="{Binding ApplyFeedback, Mode=TwoWay}" Content="Apply Feedback" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 5">
+                                                                    <CheckBox.ToolTip>
+                                                                        Apply feedback to query model calculation? Not tested much, use at own risk.
+                                                                    </CheckBox.ToolTip>
+                                                                </CheckBox>
+                                                                <CheckBox IsChecked="{Binding LogModels, Mode=TwoWay}" Content="Log models" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                                                    <CheckBox.ToolTip>
+                                                                        Log query model, language models, and feedback? 
+                                                        Can be much slower when language models are already calculated.
+                                                                    </CheckBox.ToolTip>
+                                                                </CheckBox>
+                                                            </DockPanel>
+                                                            <Button Content="Expand keywords using Efron (language model + smoothing)" Click="expansion_ExpandEfron"/>
+                                                        </StackPanel>
+                                                    </Expander>
                                                 </StackPanel>
                                             </DockPanel>
                                             <!-- this was the content you were looking for -->
@@ -596,9 +616,9 @@
                                                         <GridViewColumn DisplayMemberBinding="{Binding Count}">
                                                             <GridViewColumnHeader Content="Count"/>
                                                         </GridViewColumn>
-                                                        <GridViewColumn DisplayMemberBinding="{Binding Expansion}">
+                                                        <!--<GridViewColumn DisplayMemberBinding="{Binding Expansion}">
                                                             <GridViewColumnHeader Content="Expansion"/>
-                                                        </GridViewColumn>
+                                                        </GridViewColumn>-->
                                                         <GridViewColumn>
                                                             <GridViewColumnHeader Content="Use"/>
                                                             <GridViewColumn.CellTemplate>

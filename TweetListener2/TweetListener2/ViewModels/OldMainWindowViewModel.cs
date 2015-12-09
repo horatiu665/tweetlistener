@@ -958,6 +958,41 @@ namespace TweetListener2.ViewModels
 
             Log.Output(s);
         }
+
+        public void expansionPanel_OneButtonExpand_Click(object sender, RoutedEventArgs e)
+        {
+            var m = MessageBox.Show("Are you sure you want to expand using Expand That Query™? \n" +
+                "Before you confirm, consider the following:\n" +
+                "1. Expansion will happen over the hashtags that are \"USE\"d (tick the Use checkbox)\n" +
+                "2. Expansion might take forever!!! Use at your own risk", "WARNING", MessageBoxButton.YesNo);
+            if (m == MessageBoxResult.Yes) {
+                Log.Output("Thank you for using Expand That Query™. Please check progress of expansion in the Expansion panel, and wait patiently for a list of proposals in the Log panel.");
+                Task.Factory.StartNew(() => {
+                    try {
+                        var expandedProposals = QueryExpansion.ExpandThatQuery(KeywordDatabase, TweetDatabase);
+                    }
+                    catch (Exception eheheh) {
+                        Log.Output("Exception when expanding: " + eheheh.ToString());
+                    }
+                });
+            }
+        }
+
+        public void tweetView_loadFromDatabase(object sender, RoutedEventArgs e)
+        {
+            Task.Factory.StartNew(() => {
+
+                if (TweetDatabase.SaveToRamProperty) {
+                    Log.Output("Grabbing tweets from DB");
+                    var tweetsFromDB = DatabaseSaver.LoadFromDatabase();
+                    Log.Output("Success! Adding the " + tweetsFromDB.Count + " tweets to the RAM");
+                    TweetDatabase.AddTweets(tweetsFromDB);
+                    Log.Output("Added " + tweetsFromDB.Count + " tweets from Database to the RAM");
+                } else {
+                    Log.Output("Did not load anything becase SaveToRAM is off. Try turning it on first from the Log Settings panel");
+                }
+            });
+        }
     }
 
 

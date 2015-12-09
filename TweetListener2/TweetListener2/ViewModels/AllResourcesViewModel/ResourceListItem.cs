@@ -48,9 +48,8 @@ namespace TweetListener2.ViewModels
 
         private void Resource_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            //if (PropertyChanged != null) {
+            if (e.PropertyName == "Name" || e.PropertyName == "CountInSystemManager")
                 PropertyChanged(sender, e);
-            //}
         }
     }
 }

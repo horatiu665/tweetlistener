@@ -133,7 +133,7 @@ namespace TweetListener2.Systems
                     if (onlyShowKeywords.Count > 0) {
                         var showList = tweets.Where(td => {
                             foreach (var k in onlyShowKeywords) {
-                                if (td.Tweet.ToLower().Contains(k.ToLower()))
+                                if (td.ContainsHashtag(k))
                                     return true;
                             }
                             return false;
