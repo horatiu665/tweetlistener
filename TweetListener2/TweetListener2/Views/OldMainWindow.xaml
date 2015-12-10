@@ -362,14 +362,6 @@
                                                     </CheckBox>
                                                     <extendedWpf:TimeSpanUpDown Value="{Binding Path=RestLastDaySchedule}" VerticalAlignment="Center" Margin="10 4" Maximum="23:59:59" Minimum="0:0:0" />
                                                 </DockPanel>
-                                                <DockPanel>
-                                                    <CheckBox x:Name="autoQueryExpansionCheckbox" Content="Scheduled expansion" VerticalAlignment="Center" >
-                                                        <CheckBox.ToolTip>
-                                                            Not recommended, VERY experimental. Expands query every period of time, and restarts stream with new keywords selected. Can easily blow up program.
-                                                        </CheckBox.ToolTip>
-                                                    </CheckBox>
-                                                    <extendedWpf:TimeSpanUpDown x:Name="expansionScheduleTimespan" Value="1.00:00:00" VerticalAlignment="Center" Margin="10 4" Maximum="31.0:0:0" Minimum="0:0:1" />
-                                                </DockPanel>
 
                                                 <DockPanel>
                                                     <CheckBox x:Name="firstRestSinceDate_Checkbox" IsChecked="{Binding Path=FirstRestRecovery, Mode=TwoWay}" Content="First Rest" VerticalAlignment="Center" >
@@ -416,10 +408,19 @@
                                             <!-- this is the content you are looking for -->
                                             <DockPanel x:Name="expansionPanel">
                                                 <StackPanel>
-                                                    <Button Click="expansionPanel_OneButtonExpand_Click">
-                                                        Expand That Query!
-                                                    </Button>
+                                                    <Button Click="expansionPanel_OneButtonExpand_Click" Content="{Binding ExpandThatQueryButtonLabel, UpdateSourceTrigger=PropertyChanged}"/>
+
                                                     <Label Content="{Binding Path=ExpansionProgressLabel}" HorizontalAlignment="Center" />
+                                                    
+                                                    <DockPanel Margin="10,0">
+                                                        <Label Content="Minimum Count" HorizontalContentAlignment="Right" VerticalAlignment="Center">
+                                                            <Label.ToolTip>
+                                                                Ignore keywords that appear less times than Minimum Count (Larger Minimum Count provides better expansion suggestions).
+                                                            </Label.ToolTip>
+                                                        </Label>
+                                                        <TextBox Text="{Binding Path=ExpansionMinCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"/>
+                                                    </DockPanel>
+
                                                     <Expander Header="Expert controls">
                                                         <StackPanel>
                                                             <DockPanel Margin="10,0">
@@ -429,7 +430,7 @@
                                                             of distinct hashtags to extract from current tweet list.
                                                                     </Label.ToolTip>
                                                                 </Label>
-                                                                <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                                <TextBox Name="expansionNaivePercentage" Text="{Binding Path=NaiveExpansionPercentage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"/>
                                                             </DockPanel>
                                                             <DockPanel Margin="10,0">
                                                                 <Label Content="Naive expansion cooccurring generations" HorizontalContentAlignment="Right" VerticalAlignment="Center">
@@ -441,7 +442,7 @@
                                                             with the entire returned set, down to the N-th generation.
                                                                     </Label.ToolTip>
                                                                 </Label>
-                                                                <TextBox Name="expansionGenerations" Text="{Binding Path=NaiveExpansionGenerations, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                                <TextBox Name="expansionGenerations" Text="{Binding Path=NaiveExpansionGenerations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"/>
                                                             </DockPanel>
                                                             <Button Content="Expand keywords using Naive (count tweets, top percent)" Click="expansion_ExpandNaive"/>
                                                             <DockPanel Margin="10,0">
@@ -452,7 +453,7 @@
                                                             usually less than 2000 required for smaller tweet populations.
                                                                     </Label.ToolTip>
                                                                 </Label>
-                                                                <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                                <TextBox Text="{Binding Path=EfronMu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"/>
                                                             </DockPanel>
                                                             <DockPanel Margin="10,0">
                                                                 <Label Content="Efron Rank top N tags" HorizontalContentAlignment="Right" VerticalAlignment="Center">
@@ -462,22 +463,22 @@
                                                             when blindly expanding query. Efron's default: 25.
                                                                     </Label.ToolTip>
                                                                 </Label>
-                                                                <TextBox Text="{Binding Path=RankNHashtags, Mode=TwoWay}"  VerticalAlignment="Center"/>
+                                                                <TextBox Text="{Binding Path=RankNHashtags, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"/>
                                                             </DockPanel>
                                                             <DockPanel>
-                                                                <CheckBox IsChecked="{Binding ExpandOnlyOnCooccurring, Mode=TwoWay}" Content="Expand Only On Cooccurring" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                                                <CheckBox IsChecked="{Binding ExpandOnlyOnCooccurring, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Expand Only On Cooccurring" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
                                                                     <CheckBox.ToolTip>
                                                                         WARNING!
                                                                         Calculates language models a bit faster, but cannot reuse them for multiple calculations.
                                                                         Also assumes that the keywords' order does not change in the keyword list, in order to optimize performance and memory usage at the cost of usability
                                                                     </CheckBox.ToolTip>
                                                                 </CheckBox>
-                                                                <CheckBox IsChecked="{Binding ApplyFeedback, Mode=TwoWay}" Content="Apply Feedback" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 5">
+                                                                <CheckBox IsChecked="{Binding ApplyFeedback, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Apply Feedback" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 5">
                                                                     <CheckBox.ToolTip>
                                                                         Apply feedback to query model calculation? Not tested much, use at own risk.
                                                                     </CheckBox.ToolTip>
                                                                 </CheckBox>
-                                                                <CheckBox IsChecked="{Binding LogModels, Mode=TwoWay}" Content="Log models" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                                                                <CheckBox IsChecked="{Binding LogModels, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Log models" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
                                                                     <CheckBox.ToolTip>
                                                                         Log query model, language models, and feedback? 
                                                         Can be much slower when language models are already calculated.

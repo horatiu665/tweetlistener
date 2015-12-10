@@ -91,7 +91,7 @@ namespace TweetListener2.Systems
             get
             {
                 return Expanding
-                        ? "Expanding... estimated time left: " + TimeSpan.FromSeconds(OperationsLeft * smoothTime)
+                        ? "Expanding. ETA: " + TimeSpan.FromSeconds(OperationsLeft * smoothTime)
                         : "Idle";
             }
         }
@@ -152,6 +152,10 @@ namespace TweetListener2.Systems
         /// <returns>new list of expanded keywords, none of which belong to the provided keyword list</returns>
         public List<KeywordData> ExpandNaive(List<KeywordData> keywords, List<TweetData> tweetPopulation)
         {
+            if (expanding) {
+                return null;
+            }
+
             Log.Output("Expansion: NAIVE\n expanding query on " + tweetPopulation.Count + " tweets");
 
             Expanding = true;
@@ -177,6 +181,7 @@ namespace TweetListener2.Systems
                     if (forceStop) {
                         forceStop = false;
                         expanding = false;
+                        Log.Output("Expansion successfully cancelled");
                         return null;
                     }
                     OperationsLeft--;
@@ -223,6 +228,7 @@ namespace TweetListener2.Systems
                     if (forceStop) {
                         forceStop = false;
                         expanding = false;
+                        Log.Output("Expansion successfully cancelled");
                         return null;
                     }
                     OperationsLeft--;
@@ -268,6 +274,7 @@ namespace TweetListener2.Systems
                         if (forceStop) {
                             forceStop = false;
                             expanding = false;
+                            Log.Output("Expansion successfully cancelled");
                             return null;
                         }
                         OperationsLeft--;
@@ -321,12 +328,17 @@ namespace TweetListener2.Systems
         /// <param name="keywords"></param>
         /// <param name="tweetPopulation"></param>
         /// <returns></returns>
-        public KeywordDatabase.KeywordListClass ExpandEfron(KeywordDatabase.KeywordListClass keywords, List<TweetData> tweetPopulation)
+        async public Task<KeywordDatabase.KeywordListClass> ExpandEfron(KeywordDatabase.KeywordListClass keywords, List<TweetData> tweetPopulation)
         {
+            if (expanding) {
+                return null;
+            }
+
+            expanding = true;
+
 
             KeywordDatabase.KeywordListClass newList = new KeywordDatabase.KeywordListClass();
 
-            expanding = true;
             if (LogModels)
                 Log.Output("Expansion: EFRON\n expanding query on " + tweetPopulation.Count + " tweets");
 
@@ -347,13 +359,14 @@ namespace TweetListener2.Systems
             if (forceStop) {
                 forceStop = false;
                 expanding = false;
+                Log.Output("Expansion successfully cancelled");
                 return newList; ;
             }
 
             // create query model
             List<TweetData> tweetsReturnedByQueryModel;
             QueryModel queryModel = new QueryModel(query, keywords, tweetPopulation, out tweetsReturnedByQueryModel, ExpandOnlyOnCooccurring);
-            
+
             // count words in tweet collection
             var keywordCountsC = new Dictionary<string, int>();
             foreach (var t in tweetPopulation) {
@@ -368,8 +381,21 @@ namespace TweetListener2.Systems
             }
 
             // make language model inside each keyword
+            // do this over multiple threads
+
+
             OperationsLeft = keywords.Count;
             DateTime initTime;
+            // do X keywords at a time, since it is a purely parallel operation. X should be equal to amount of processors, so all can be used equally instead of looking like this https://pbs.twimg.com/tweet_video/CTAdsJEUsAAaC6R.mp4
+            // method: start X tasks and process keywords one by one in each, splitting the big list into multiple smaller lists. Wait until all tasks finish.
+
+            var xKeywordsAtATime = Environment.ProcessorCount;
+            for (int i = 0; i < xKeywordsAtATime; i++) {
+                //??? dunno if this works
+                // create task that takes from a pool of keywords, removes element taken from keywords, creates language model, and repeats until no more in pool. 
+                // this way the pool will be consumed faster than if only one process is consuming it
+            }
+
             foreach (var keyword in keywords) {
                 initTime = DateTime.Now;
                 // optimize if we use cooccurring (less computation, less memory)
@@ -385,6 +411,7 @@ namespace TweetListener2.Systems
                 if (forceStop) {
                     forceStop = false;
                     expanding = false;
+                    Log.Output("Expansion successfully cancelled");
                     return newList; ;
                 }
                 TimeForLastOperation = DateTime.Now.Subtract(initTime).TotalSeconds;
@@ -418,6 +445,7 @@ namespace TweetListener2.Systems
             if (forceStop) {
                 forceStop = false;
                 expanding = false;
+                Log.Output("Expansion successfully cancelled");
                 return newList; ;
             }
 
@@ -444,6 +472,7 @@ namespace TweetListener2.Systems
                 if (forceStop) {
                     forceStop = false;
                     expanding = false;
+                    Log.Output("Expansion successfully cancelled");
                     return newList; ;
                 }
 
@@ -473,10 +502,10 @@ namespace TweetListener2.Systems
 
 
             if (true) {
-                var s = "List of ranked hashtags in descending order of their -KLD for the query:\n"
+                var s = "List of ranked hashtags in descending order of their -KLD for the query (and their counts):\n"
                     + queryModel.query + "\n";
                 foreach (var r in rankedTags) {
-                    s += r.LanguageModel.KldResult.ToString("F8") + " " + r.Keyword + "\n";
+                    s += r.LanguageModel.KldResult.ToString("F8") + " " + r.Keyword + " (" + r.Count + ")" + "\n";
                 }
                 Log.Output(s);
             }
@@ -490,6 +519,14 @@ namespace TweetListener2.Systems
             return newList;
         }
 
+        async private Task<LanguageModel> NewLanguageModelAsync(KeywordData word_i, KeywordDatabase.KeywordListClass vocabulary, List<TweetData> tweetCollection,
+             Dictionary<string, int> keywordCountsC, LanguageModel.SmoothingMethods smoothingMethod, bool assumeOrder, float smoothingMu = 2000f)
+
+        {
+            return new LanguageModel(word_i, vocabulary, tweetCollection, keywordCountsC, smoothingMethod, assumeOrder, smoothingMu);
+
+        }
+
 
         private bool forceStop = false;
 
@@ -501,14 +538,76 @@ namespace TweetListener2.Systems
             forceStop = true;
         }
 
+        string expandThatQueryButtonLabel = "Expand That Query";
+        public string ExpandThatQueryButtonLabel
+        {
+            get
+            {
+                return expandThatQueryButtonLabel;
+            }
+            set
+            {
+                expandThatQueryButtonLabel = value;
+            }
+        }
+
+        int expansionMinCount = 10;
+        public int ExpansionMinCount
+        {
+            get
+            {
+                return expansionMinCount;
+            }
+            set
+            {
+                expansionMinCount = value;
+            }
+        }
+
         /// <summary>
         /// Expands in a clever way: selects cooccurring hashtags, expands using Efron with optimal (heuristic) settings, and returns a list of proposed expansion keywords.
         /// </summary>
-        public KeywordDatabase.KeywordListClass ExpandThatQuery(KeywordDatabase keywordDatabase, TweetDatabase tweetDatabase)
+        async public Task<KeywordDatabase.KeywordListClass> ExpandThatQuery(KeywordDatabase keywordDatabase, TweetDatabase tweetDatabase)
         {
+            if (Expanding) {
+                return null;
+
+            }
+
+            ExpandThatQueryButtonLabel = "Expansion ongoing. Cancel?";
+
+            if (forceStop) {
+                forceStop = false;
+                expanding = false;
+                Log.Output("Expansion successfully cancelled");
+                ExpandThatQueryButtonLabel = "Expand That Query";
+                return null;
+            }
 
             // Steps for a clever query expansion (described in comments)
             var originalQuery = keywordDatabase.KeywordList.Where(kd => kd.UseKeyword);
+            var tweetsToExpandOn = tweetDatabase.GetAllTweets().ToList();
+
+            // 0. Make sure there is data in the TweetDatabase. If there is none, grab it from the database.
+            if (tweetsToExpandOn.Count <= 100) {
+                tweetsToExpandOn.AddRange(tweetDatabase.Database.LoadFromDatabase());
+            }
+
+            if (forceStop) {
+                forceStop = false;
+                expanding = false;
+                Log.Output("Expansion successfully cancelled");
+                ExpandThatQueryButtonLabel = "Expand That Query";
+                return null;
+            }
+
+            // 0.1. remove duplicate tweets from tweet list
+            TweetDatabase.RemoveDuplicates(ref tweetsToExpandOn);
+
+
+            // 0.2 Important bullshit filter: remove all keywords that appear in 5 tweets or less. they can only clutter the results. If they are indeed emerging trends, they will appear many times later and we will catch them eventually.
+            keywordDatabase.KeywordList.UpdateCount(tweetsToExpandOn);
+
 
             // 1. Do not delete or add any hashtags to the KeywordList because it will mess up the WPF data binding stuff. Instead, use internal memory for these operations and do not update actual lists at all.
             KeywordDatabase.KeywordListClass keywordListToExpand = new KeywordDatabase.KeywordListClass();
@@ -517,10 +616,25 @@ namespace TweetListener2.Systems
             // 2. naive expand 100% of all 1st generation cooccurring hashtags of the current query
             NaiveExpansionPercentage = 100;
             NaiveExpansionGenerations = 1;
-            var newKeywords = ExpandNaive(originalQuery.ToList(), tweetDatabase.GetAllTweets().ToList());
+            expanding = false;
+            var newKeywords = ExpandNaive(originalQuery.ToList(), tweetsToExpandOn.ToList());
+
+            if (forceStop || newKeywords == null) {
+                forceStop = false;
+                expanding = false;
+                Log.Output("Expansion cancelled");
+                ExpandThatQueryButtonLabel = "Expand That Query";
+                return null;
+            }
             /// still expanding even though it might seem like we are done
             expanding = true;
+
+            // 0.2.(cont) remove keywords appearing less or equal than expansionMinCount times.
+            var keywordsRemoved = newKeywords.RemoveAll(kd => kd.Count < expansionMinCount);
+            Log.Output(keywordsRemoved + " keywords ignored because they appear less than " + expansionMinCount + " times in tweets");
+
             keywordListToExpand.AddRange(newKeywords);
+
 
             // 3. reset selection to the initial hashtags (set USE to false for all new hashtags)
             foreach (var k in keywordListToExpand) {
@@ -535,7 +649,7 @@ namespace TweetListener2.Systems
 
             // 5. set EfronMU based on expansion population (based on curve or some function)
             // 5.1 count how many tweets contain any of the hashtags in the query
-            var tweetCount = tweetDatabase.GetAllTweets().Count(t => {
+            var tweetCount = tweetsToExpandOn.Count(t => {
                 foreach (var k in originalQuery) {
                     if (t.ContainsHashtag(k.Keyword)) {
                         return true;
@@ -545,17 +659,17 @@ namespace TweetListener2.Systems
             });
             // 5.2 based on tweetCount, set efronMu to an appropriate smoothing value based on heuristics
             if (tweetCount < 1000) {
-                EfronMu = 50;
+                EfronMu = 33;
             } else if (tweetCount < 5000) {
-                EfronMu = 100;
+                EfronMu = 75;
             } else if (tweetCount < 20000) {
-                EfronMu = 200;
+                EfronMu = 170;
             } else if (tweetCount < 50000) {
-                EfronMu = 500;
+                EfronMu = 350;
             } else if (tweetCount < 100000) {
-                EfronMu = 1000;
+                EfronMu = 700;
             } else {
-                EfronMu = 2000;
+                EfronMu = 1400;
             }
 
             // 6. set suggestion count to default 25 (or maybe just show all suggestions with a max of 100 or something)
@@ -568,7 +682,10 @@ namespace TweetListener2.Systems
             ExpandOnlyOnCooccurring = true;
 
             // 8. Finally expand.
-            var efronExpanded = ExpandEfron(keywordListToExpand, tweetDatabase.GetAllTweets());
+            expanding = false;
+            var efronExpanded = await ExpandEfron(keywordListToExpand, tweetsToExpandOn);
+
+            ExpandThatQueryButtonLabel = "Expand That Query";
 
             // 9. Now we have the list of hashtags, we should probably provide a nice interface for them to be added. Let's instead return them as a list.
             return efronExpanded;

@@ -112,11 +112,7 @@ namespace TweetListener2.ViewModels
 
             TweetViewUpdateTimer.Interval = 1000;
             TweetViewUpdateTimer.Start();
-
-            AutoExpansionTimer.Elapsed += (s, a) => {
-                Log.Output("AutoExpansionTimer elapsed");
-                AutoExpand();
-            };
+            
             // every 10 minutes expand.
             //autoExpansionTimer.Interval = 10*60*1000;
 
@@ -530,19 +526,7 @@ namespace TweetListener2.ViewModels
                 mailSpammerConnect = value;
             }
         }
-
-        public Timer AutoExpansionTimer
-        {
-            get
-            {
-                return autoExpansionTimer;
-            }
-
-            set
-            {
-                autoExpansionTimer = value;
-            }
-        }
+        
 
         public bool UpdateTweetsNextUpdate
         {
@@ -849,43 +833,7 @@ namespace TweetListener2.ViewModels
 
         int startedTimer, stoppedTimer;
 
-
-        public void AutoExpand()
-        {
-            Log.Output("AutoExpand not implemented. Too risky!");
-            return;
-            if (Stream.StreamRunning) {
-                Log.Output("Attempting to expand the query automatically");
-                Task.Factory.StartNew(() => {
-                    // before Efron, more tags must be gathered. preferably a full transitive closure
-                    var newKeys = QueryExpansion.ExpandNaive(KeywordDatabase.KeywordList.ToList(), TweetDatabase.GetAllTweets());
-                    if (newKeys != null && newKeys.Count > 0) {
-                        App.Current.Dispatcher.Invoke(() => {
-                            // set use to false (we might not want them in the stream query)
-                            newKeys.ForEach(kd => kd.UseKeyword = false);
-                            // add the new keywords
-                            KeywordDatabase.KeywordList.AddRange(newKeys);
-
-                            // clear language models, every time.
-                            KeywordDatabase.KeywordList.ClearLanguageModels();
-
-                            // now we can expand.
-                            var efronExpanded = QueryExpansion.ExpandEfron(KeywordDatabase.KeywordList, TweetDatabase.GetAllTweets());
-
-                            // we must generate the query from the query model.
-                            KeywordDatabase.KeywordList.Where(kd => efronExpanded.Any(kkk => kkk.Keyword == kd.Keyword)).ToList().ForEach(kd => kd.UseKeyword = true);
-
-                            // after expansion, restart stream to apply the new settings.
-                            Log.Output("Attempting to restart the stream automatically");
-                            Stream.Restart();
-
-                        });
-                    }
-                });
-            }
-        }
-
-
+        
         #endregion old main window shitty code copy-paste
 
         internal void ResendToDatabase(object sender, RoutedEventArgs e)
@@ -961,20 +909,28 @@ namespace TweetListener2.ViewModels
 
         public void expansionPanel_OneButtonExpand_Click(object sender, RoutedEventArgs e)
         {
-            var m = MessageBox.Show("Are you sure you want to expand using Expand That Query™? \n" +
-                "Before you confirm, consider the following:\n" +
-                "1. Expansion will happen over the hashtags that are \"USE\"d (tick the Use checkbox)\n" +
-                "2. Expansion might take forever!!! Use at your own risk", "WARNING", MessageBoxButton.YesNo);
-            if (m == MessageBoxResult.Yes) {
-                Log.Output("Thank you for using Expand That Query™. Please check progress of expansion in the Expansion panel, and wait patiently for a list of proposals in the Log panel.");
-                Task.Factory.StartNew(() => {
-                    try {
-                        var expandedProposals = QueryExpansion.ExpandThatQuery(KeywordDatabase, TweetDatabase);
-                    }
-                    catch (Exception eheheh) {
-                        Log.Output("Exception when expanding: " + eheheh.ToString());
-                    }
-                });
+            if (QueryExpansion.Expanding) {
+                var m = MessageBox.Show("Cancel current expansion?", "Query Expansion in progress", MessageBoxButton.OKCancel);
+                if (m == MessageBoxResult.OK) {
+                    QueryExpansion.Stop();
+                    Log.Output("Cancelling expansion...");
+                }
+            } else {
+                var m = MessageBox.Show("Are you sure you want to expand using Expand That Query™? \n" +
+                    "Before you confirm, consider the following:\n" +
+                    "1. Expansion will happen over the hashtags that are \"USE\"d (tick the Use checkbox)\n" +
+                    "2. Expansion might take forever!!! Use at your own risk", "WARNING", MessageBoxButton.YesNo);
+                if (m == MessageBoxResult.Yes) {
+                    Log.Output("Thank you for using Expand That Query™. Please check progress of expansion in the Expansion panel, and wait patiently for a list of proposals in the Log panel.");
+                    Task.Factory.StartNew(async () => {
+                        try {
+                            var expandedProposals = await QueryExpansion.ExpandThatQuery(KeywordDatabase, TweetDatabase);
+                        }
+                        catch (Exception eheheh) {
+                            Log.Output("Exception when expanding: " + eheheh.ToString());
+                        }
+                    });
+                }
             }
         }
 

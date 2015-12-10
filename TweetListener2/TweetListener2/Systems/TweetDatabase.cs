@@ -281,6 +281,12 @@ namespace TweetListener2.Systems
                 database.Log.Output("Finished resending " + tweets.Count + " tweets to database after time " + DateTime.Now.Subtract(initTime).ToString());
             });
         }
+
+        public static void RemoveDuplicates(ref List<TweetData> tweetListToRemoveFrom)
+        {
+            // keeps one of each tweet with same tweet id
+            tweetListToRemoveFrom = tweetListToRemoveFrom.GroupBy(td => td.Id).Select(group => group.First()).ToList();
+        }
     }
 
 }
