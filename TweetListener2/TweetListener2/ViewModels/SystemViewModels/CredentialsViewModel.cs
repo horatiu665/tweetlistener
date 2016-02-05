@@ -169,7 +169,7 @@ namespace TweetListener2.ViewModels
             }
         }
 
-        public void ReadCredentialsFromFile(string path = "config.ini")
+        public void ReadCredentialsFromFile(string path = "credentials.ini")
         {
             Credentials.ReadCredentialsDefaults(path);
 

@@ -90,7 +90,7 @@ namespace TweetListener2.Systems
         }
 
         /// <summary>
-        /// Gets List of List<string>[4] of credentials, from json data in "config.ini". 
+        /// Gets List of List<string>[4] of credentials, from json data in "credentials.ini". 
         /// Returns null if file not found or gives error.
         /// </summary>
         /// <param name="path"></param>
@@ -198,7 +198,7 @@ namespace TweetListener2.Systems
                 credentials = Defaults[0];
                 CurrentCredentialsIndex = 0;
 
-                if (!File.Exists("config.ini")) {
+                if (!File.Exists("credentials.ini")) {
 
                     var jarray = new JArray();
                     foreach (var def in Defaults) {
@@ -215,7 +215,7 @@ namespace TweetListener2.Systems
                         jarray.Add(jsonWrite);
 
                     }
-                    StreamWriter sw = new StreamWriter("config.ini");
+                    StreamWriter sw = new StreamWriter("credentials.ini");
                     sw.Write(jarray.ToString());
                     sw.Close();
                 }
