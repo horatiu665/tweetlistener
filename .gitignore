@@ -1,1 +1,3 @@
 credentials.ini
+log*.txt
+rawJsonBackup*.txt
