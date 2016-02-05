@@ -363,6 +363,16 @@
                                                     <extendedWpf:TimeSpanUpDown Value="{Binding Path=RestLastDaySchedule}" VerticalAlignment="Center" Margin="10 4" Maximum="23:59:59" Minimum="0:0:0" />
                                                 </DockPanel>
 
+                                                <DockPanel x:Name="autoExpansionSchedulePanel" >
+                                                    <!--<CheckBox IsChecked="{Binding Path=AutoExpansion, Mode=TwoWay}" Content="Scheduled expansion" VerticalAlignment="Center" >
+                                                        <CheckBox.ToolTip>
+                                                            Runs the Expand This Query algorithm every X amount of time, and e-mails the results.
+                                                        </CheckBox.ToolTip>
+                                                    </CheckBox>
+                                                    <extendedWpf:TimeSpanUpDown Value="{Binding Path=AutoExpansionSchedule}" VerticalAlignment="Center" Margin="10 4" Minimum="1:0:0" />-->
+
+                                                </DockPanel>
+
                                                 <DockPanel>
                                                     <CheckBox x:Name="firstRestSinceDate_Checkbox" IsChecked="{Binding Path=FirstRestRecovery, Mode=TwoWay}" Content="First Rest" VerticalAlignment="Center" >
                                                         <CheckBox.ToolTip>

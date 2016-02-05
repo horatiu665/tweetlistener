@@ -1,0 +1,252 @@
+05-02-2016 11:19:52: New log started
+05-02-2016 11:19:52: Counters off
+05-02-2016 11:19:53: Stream attempting to start at time 05-02-2016 11:19:53
+05-02-2016 11:20:14: OnStreamStarted event is called
+05-02-2016 11:20:14: Start of Rest.TweetsGatheringCycle() from 29-01-2016 00:00:00 to 05-02-2016 11:20:14
+05-02-2016 11:21:28: Searching for #dayofthetentacleremastered OR #dayofthetentacle
+05-02-2016 11:21:35: Rest Gathering: CPU performance: 64.02184.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:35: Rest Gathering: CPU performance: 88.33347.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:36: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:36: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:36: Rest Gathering: CPU performance: 77.65685.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:37: Rest Gathering: CPU performance: 82.00237.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:37: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:38: Rest Gathering: CPU performance: 91.58731.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:38: Rest Gathering: CPU performance: 86.70971.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:38: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:39: Rest Gathering: CPU performance: 87.21271.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:39: Rest Gathering: CPU performance: 92.01041.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:39: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:40: Rest Gathering: CPU performance: 89.01557.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:40: Rest Gathering: CPU performance: 89.4738.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:40: Rest Gathering: CPU performance: 87.9631.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:40: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:41: Rest Gathering: CPU performance: 86.29044.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:41: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:41: Rest Gathering: CPU performance: 82.50019.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:41: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:41: Rest Gathering: CPU performance: 81.9622.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:42: Rest Gathering: CPU performance: 87.57318.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:42: Rest Gathering: CPU performance: 82.96391.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:43: Rest Gathering: CPU performance: 87.5179.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:43: Rest Gathering: CPU performance: 85.56218.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:43: Rest Gathering: CPU performance: 90.70598.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:44: Rest Gathering: CPU performance: 92.91709.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:44: Rest Gathering: CPU performance: 86.43402.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:45: Rest Gathering: CPU performance: 77.37527.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:45: Rest Gathering: CPU performance: 98.07692.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:45: Rest Gathering: CPU performance: 71.0529.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:46: Rest Gathering: CPU performance: 92.01395.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:46: Rest Gathering: CPU performance: 83.59405.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:47: Rest Gathering: CPU performance: 73.64151.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:47: Rest Gathering: CPU performance: 77.93691.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:48: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:48: Rest Gathering: CPU performance: 70.8589.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:48: Rest Gathering: CPU performance: 89.11671.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:49: Rest Gathering: CPU performance: 80.11627.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:49: Rest Gathering: CPU performance: 88.51918.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:49: Rest Gathering: CPU performance: 88.15101.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:50: Rest Gathering: CPU performance: 94.44448.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:50: Rest Gathering: CPU performance: 83.69582.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:50: Rest Gathering: CPU performance: 88.81587.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 90.0001.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 84.86855.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 92.74866.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:52: Rest Gathering: CPU performance: 90.89184.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:52: Rest Gathering: CPU performance: 92.61504.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:53: Rest Gathering: CPU performance: 83.63005.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:53: Rest Gathering: CPU performance: 84.5808.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:54: Rest Gathering: CPU performance: 79.0135.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:54: Rest Gathering: CPU performance: 90.78575.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:54: Rest Gathering: CPU performance: 89.12346.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:55: Rest Gathering: CPU performance: 89.12243.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:55: Rest Gathering: CPU performance: 82.67064.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:56: Rest Gathering: CPU performance: 72.65645.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:56: Rest Gathering: CPU performance: 78.07472.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:56: Rest Gathering: CPU performance: 90.79394.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:57: Rest Gathering: CPU performance: 76.71603.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:57: Rest Gathering: CPU performance: 73.69397.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:57: Rest Gathering: CPU performance: 79.34874.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:58: Rest Gathering: CPU performance: 84.08447.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:58: Rest Gathering: CPU performance: 78.90179.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 77.64261.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 79.18134.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 85.61871.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 89.95428.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:00: Rest Gathering: CPU performance: 71.38372.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:00: Rest Gathering: CPU performance: 92.18758.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:00: Rest Gathering: CPU performance: 90.97228.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:02: Rest Gathering: CPU performance: 81.05824.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:02: Rest Gathering: CPU performance: 77.94904.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:03: Rest Gathering: CPU performance: 79.19926.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:03: Rest Gathering: CPU performance: 94.54482.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:04: Rest Gathering: CPU performance: 89.70411.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:04: Rest Gathering: CPU performance: 82.67682.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:04: Rest Gathering: CPU performance: 92.08901.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:05: Rest Gathering: CPU performance: 79.76208.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:05: Rest Gathering: CPU performance: 85.11915.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:06: Rest Gathering: CPU performance: 89.50011.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:06: Rest Gathering: CPU performance: 85.22742.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:06: Rest Gathering: CPU performance: 85.62514.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 87.12409.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 87.73492.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 82.17587.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 90.06055.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:08: Rest Gathering: CPU performance: 87.30032.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:08: Rest Gathering: CPU performance: 85.15136.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:08: Rest Gathering: CPU performance: 77.53943.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:09: Rest Gathering: CPU performance: 89.43327.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:09: Rest Gathering: CPU performance: 77.14326.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:10: Rest Gathering: CPU performance: 92.12667.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:10: Rest Gathering: CPU performance: 85.57703.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:10: Rest Gathering: CPU performance: 91.74776.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:11: Rest Gathering: CPU performance: 76.56276.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:11: Rest Gathering: CPU performance: 78.67664.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:11: Rest Gathering: CPU performance: 86.80568.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:12: Rest Gathering: CPU performance: 83.88678.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:12: Rest Gathering: CPU performance: 80.12111.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:13: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 11

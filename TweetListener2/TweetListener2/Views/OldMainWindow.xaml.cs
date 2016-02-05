@@ -152,6 +152,7 @@ namespace TweetListener2.Views
             fromFileLoaderLabel.DataContext = vm;
             tweetsPerSecondLabel.DataContext = vm;
             autoRestLastDayDockPanel.DataContext = vm;
+            autoExpansionSchedulePanel.DataContext = vm;
             setCredentialsDefault.DataContext = vm;
             maxKeywordsPerQueryBox.DataContext = vm.Rest;
             firstRestSinceDate_Checkbox.DataContext = vm.Stream;

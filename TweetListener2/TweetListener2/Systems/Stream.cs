@@ -185,7 +185,7 @@ namespace TweetListener2.Systems
         /// <summary>
         /// increases every reconnect, and resets to 100 when connection is successful
         /// </summary>
-        int reconnectDelayMillis = 100;
+        int reconnectDelayMillis = 1000;
 
         int tweetsFoundSinceStreamStarted = 0;
         int tweetsDeletedSinceStreamStarted = 0;
@@ -634,7 +634,7 @@ namespace TweetListener2.Systems
 
         private void onTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.TweetReceivedEventArgs e)
         {
-            reconnectDelayMillis = 100;
+            reconnectDelayMillis = 1000;
             // do this in a separate thread to not kill the stream just because database has errors
             //Task.Factory.StartNew(() => {
             //	databaseSaver.SaveTweet(e.Tweet);
@@ -646,7 +646,7 @@ namespace TweetListener2.Systems
 
         private void onMatchingTweetReceived(object sender, Tweetinvi.Core.Events.EventArguments.MatchedTweetReceivedEventArgs e)
         {
-            reconnectDelayMillis = 100;
+            reconnectDelayMillis = 1000;
             // do this in a separate thread to not kill the stream just because database has errors
             //Task.Factory.StartNew(() => {
             //	databaseSaver.SaveTweet(e.Tweet);

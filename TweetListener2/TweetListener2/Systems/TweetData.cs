@@ -49,7 +49,7 @@ namespace TweetListener2.Systems
         public bool ContainsHashtag(string tag)
         {
             if (tweet.Hashtags.Count == 0) return false;
-            var withoutHash = tag.IndexOf("#") == 0 ? tag.Substring(1) : tag;
+            var withoutHash = (tag.IndexOf("#") == 0 ? tag.Substring(1) : tag).ToLower();
             return tweet.Hashtags.Select(he => he.Text.ToLower()).Contains(withoutHash);
         }
 

@@ -44,7 +44,7 @@ namespace TweetListener2.Systems
             }
         }
 
-        private int _count = 1;
+        private int _count = 0;
 
         public int Count
         {

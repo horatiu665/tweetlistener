@@ -112,7 +112,7 @@ namespace TweetListener2.ViewModels
 
             TweetViewUpdateTimer.Interval = 1000;
             TweetViewUpdateTimer.Start();
-            
+
             // every 10 minutes expand.
             //autoExpansionTimer.Interval = 10*60*1000;
 
@@ -322,7 +322,7 @@ namespace TweetListener2.ViewModels
             #endregion
 
             RestLastDayTimerSetup();
-
+            AutoExpansionTimerSetup();
         }
 
         void RestLastDayTimerSetup()
@@ -526,7 +526,7 @@ namespace TweetListener2.ViewModels
                 mailSpammerConnect = value;
             }
         }
-        
+
 
         public bool UpdateTweetsNextUpdate
         {
@@ -615,9 +615,6 @@ namespace TweetListener2.ViewModels
         {
             get { return _restMessageList; }
         }
-
-
-        private System.Timers.Timer autoExpansionTimer = new System.Timers.Timer();
 
         private int tweetsLastSecond = 0;
         private float tweetsPerSecond = 0f;
@@ -833,7 +830,7 @@ namespace TweetListener2.ViewModels
 
         int startedTimer, stoppedTimer;
 
-        
+
         #endregion old main window shitty code copy-paste
 
         internal void ResendToDatabase(object sender, RoutedEventArgs e)
@@ -877,6 +874,83 @@ namespace TweetListener2.ViewModels
         }
 
         private Timer restLastDayTimer;
+
+        /// <summary>
+        /// If true, expands automatically every X timespan, and sends the results on e-mail when finished.
+        /// </summary>
+        private bool autoExpansion = false;
+
+        public bool AutoExpansion
+        {
+            get
+            {
+                return autoExpansion;
+            }
+
+            set
+            {
+                autoExpansion = value;
+                if (value) {
+                    AutoExpansionTimerSetup();
+                }
+            }
+        }
+
+
+        private TimeSpan autoExpansionSchedule = new TimeSpan(72, 0, 0);
+        public TimeSpan AutoExpansionSchedule
+        {
+            get
+            {
+                return autoExpansionSchedule;
+            }
+
+            set
+            {
+                autoExpansionSchedule = value;
+            }
+        }
+
+        private Timer autoExpansionTimer;
+
+        private void AutoExpansionTimerSetup()
+        {
+            // only expand when the expansion would not take too many resources. don't know how to test for that...
+
+            if (autoExpansionTimer != null) {
+                autoExpansionTimer.Stop();
+                autoExpansionTimer.Close();
+            }
+
+            if (AutoExpansion) {
+                autoExpansionTimer = new Timer();
+
+                // set timer interval to the hour being displayed on the GUI
+                var now = DateTime.Now;
+
+                // beginning of today plus GUI time, minus current time = difference.
+                var timeSpanToNextRest = now.Subtract(new TimeSpan(now.Hour, now.Minute, now.Second)).Add(AutoExpansionSchedule).Subtract(now);
+
+                // if date before now, add 24 hours to make it happen tomorrow.
+                if (timeSpanToNextRest.CompareTo(TimeSpan.Zero) <= 0)
+                    timeSpanToNextRest = timeSpanToNextRest.Add(new TimeSpan(24, 0, 0));
+
+                // make it happen
+                autoExpansionTimer.Interval = timeSpanToNextRest.TotalMilliseconds;
+
+                autoExpansionTimer.Elapsed -= AutoExpansionTimer_Elapsed;
+                autoExpansionTimer.Elapsed += AutoExpansionTimer_Elapsed;
+
+
+                autoExpansionTimer.Start();
+            }
+
+        }
+
+        private void AutoExpansionTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //QueryExpansion.ExpandThatQuery(KeywordDatabase, TweetDatabase);
+        }
 
         DateTime streamDeletedTweetsButton_LastPressDate = new DateTime(1993, 7, 23);
         internal void streamDeletedTweetsButton(object sender, RoutedEventArgs e)

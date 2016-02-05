@@ -1,0 +1,149 @@
+05-02-2016 11:19:52: New log started
+05-02-2016 11:19:52: Counters off
+05-02-2016 11:19:58: Stream attempting to start at time 05-02-2016 11:19:58
+05-02-2016 11:19:58: OnStreamStarted event is called
+05-02-2016 11:19:58: Start of Rest.TweetsGatheringCycle() from 29-01-2016 00:00:00 to 05-02-2016 11:19:58
+05-02-2016 11:21:21: Searching for #staroceanintegrityandfaithlessness OR #integrityandfaithlessness
+05-02-2016 11:21:38: Rest Gathering: CPU performance: 87.26727.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:38: Rest Gathering: CPU performance: 82.66707.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:38: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:39: Rest Gathering: CPU performance: 91.00399.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:39: Rest Gathering: CPU performance: 91.98698.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:39: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:39: Rest Gathering: CPU performance: 80.16257.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:40: Rest Gathering: CPU performance: 93.49173.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:40: Rest Gathering: CPU performance: 90.4763.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:40: MySql.Data.MySqlClient.MySqlException (0x80004005): Authentication to host 'localhost' for user 'root' using method 'mysql_native_password' failed with message: Access denied for user 'root'@'localhost' (using password: YES) ---> MySql.Data.MySqlClient.MySqlException (0x80004005): Access denied for user 'root'@'localhost' (using password: YES)
+   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.Authenticate(Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Authenticate(String authMethod, Boolean reset)
+   at MySql.Data.MySqlClient.NativeDriver.Open()
+   at MySql.Data.MySqlClient.Driver.Open()
+   at MySql.Data.MySqlClient.Driver.Create(MySqlConnectionStringBuilder settings)
+   at MySql.Data.MySqlClient.MySqlPool.CreateNewPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.GetPooledConnection()
+   at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
+   at MySql.Data.MySqlClient.MySqlPool.GetConnection()
+   at MySql.Data.MySqlClient.MySqlConnection.Open()
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 11:21:40: Rest Gathering: CPU performance: 88.33346.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:41: Rest Gathering: CPU performance: 83.08838.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:41: Rest Gathering: CPU performance: 88.2354.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:41: Rest Gathering: CPU performance: 83.20792.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:42: Rest Gathering: CPU performance: 85.51107.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:42: Rest Gathering: CPU performance: 82.77871.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:42: Rest Gathering: CPU performance: 81.91075.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:43: Rest Gathering: CPU performance: 88.18824.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:43: Rest Gathering: CPU performance: 87.85105.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:44: Rest Gathering: CPU performance: 93.13844.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:44: Rest Gathering: CPU performance: 86.44618.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:45: Rest Gathering: CPU performance: 77.49931.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:45: Rest Gathering: CPU performance: 88.39293.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:45: Rest Gathering: CPU performance: 78.01744.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:46: Rest Gathering: CPU performance: 92.59267.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:46: Rest Gathering: CPU performance: 86.18444.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:46: Rest Gathering: CPU performance: 67.98623.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:47: Rest Gathering: CPU performance: 82.32988.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:47: Rest Gathering: CPU performance: 80.63157.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:48: Rest Gathering: CPU performance: 70.14288.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:48: Rest Gathering: CPU performance: 97.31416.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:49: Rest Gathering: CPU performance: 76.92971.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:49: Rest Gathering: CPU performance: 93.70406.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:49: Rest Gathering: CPU performance: 82.73972.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:50: Rest Gathering: CPU performance: 94.25259.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:50: Rest Gathering: CPU performance: 80.26344.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:50: Rest Gathering: CPU performance: 87.50002.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 93.05563.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 90.78966.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 88.97058.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:51: Rest Gathering: CPU performance: 90.96088.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:52: Rest Gathering: CPU performance: 92.85279.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:52: Rest Gathering: CPU performance: 89.67142.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:53: Rest Gathering: CPU performance: 83.65921.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:53: Rest Gathering: CPU performance: 84.5808.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:54: Rest Gathering: CPU performance: 80.15176.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:54: Rest Gathering: CPU performance: 88.68555.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:55: Rest Gathering: CPU performance: 89.28198.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:55: Rest Gathering: CPU performance: 83.59392.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:56: Rest Gathering: CPU performance: 74.26492.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:56: Rest Gathering: CPU performance: 78.68755.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:56: Rest Gathering: CPU performance: 93.6665.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:57: Rest Gathering: CPU performance: 68.88528.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:57: Rest Gathering: CPU performance: 75.75663.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:58: Rest Gathering: CPU performance: 86.93391.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:58: Rest Gathering: CPU performance: 77.41163.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:58: Rest Gathering: CPU performance: 83.32687.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 75.26903.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 79.89614.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 85.20337.  waiting for it to cool down below 50 to continue
+05-02-2016 11:21:59: Rest Gathering: CPU performance: 89.9911.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:00: Rest Gathering: CPU performance: 72.38654.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:00: Rest Gathering: CPU performance: 90.38471.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:00: Rest Gathering: CPU performance: 88.06831.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:02: Rest Gathering: CPU performance: 81.72759.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:02: Rest Gathering: CPU performance: 81.95869.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:03: Rest Gathering: CPU performance: 80.79413.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:04: Rest Gathering: CPU performance: 93.7793.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:04: Rest Gathering: CPU performance: 81.57314.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:04: Rest Gathering: CPU performance: 93.96454.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:05: Rest Gathering: CPU performance: 79.86128.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:05: Rest Gathering: CPU performance: 80.83342.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:05: Rest Gathering: CPU performance: 83.33357.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:06: Rest Gathering: CPU performance: 94.27087.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:06: Rest Gathering: CPU performance: 86.93196.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:06: Rest Gathering: CPU performance: 84.16752.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 86.82365.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 83.58344.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:07: Rest Gathering: CPU performance: 88.59372.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:08: Rest Gathering: CPU performance: 88.83038.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:08: Rest Gathering: CPU performance: 85.98405.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:08: Rest Gathering: CPU performance: 76.30835.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:09: Rest Gathering: CPU performance: 92.798.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:09: Rest Gathering: CPU performance: 77.14329.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:09: Rest Gathering: CPU performance: 90.67375.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:10: Rest Gathering: CPU performance: 85.32621.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:10: Rest Gathering: CPU performance: 95.83338.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:10: Rest Gathering: CPU performance: 90.4035.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:11: Rest Gathering: CPU performance: 74.43209.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:11: Rest Gathering: CPU performance: 80.92121.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:11: Rest Gathering: CPU performance: 86.02955.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:12: Rest Gathering: CPU performance: 84.8747.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:12: Rest Gathering: CPU performance: 80.41722.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:12: Rest Gathering: CPU performance: 66.41195.  waiting for it to cool down below 50 to continue
+05-02-2016 11:22:13: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 4
