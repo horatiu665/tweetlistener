@@ -212,6 +212,11 @@ namespace TweetListener2.Systems
                 }
             }
 
+            // save count, for updates in e-mail.
+            if (retries == 0) {
+                tweetsSavedSinceStart++;
+            }
+
             if (SaveToTextFileProperty) {
                 SaveToTextFile(tweet);
             }
@@ -865,5 +870,13 @@ namespace TweetListener2.Systems
             return tweetsFromDatabase;
         }
 
+        private int tweetsSavedSinceStart = 0;
+        public int TweetsSavedSinceStart
+        {
+            get
+            {
+                return tweetsSavedSinceStart;
+            }
+        }
     }
 }

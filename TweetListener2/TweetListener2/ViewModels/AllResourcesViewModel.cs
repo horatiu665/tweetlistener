@@ -108,9 +108,27 @@ namespace TweetListener2.ViewModels
 
             // send mails
             emailUptime = new MailHelperUptime();
-            UptimeMails = "horatiu665@yahoo.com, amot@di.ku.dk";
+            UptimeMails = "horatiu665@yahoo.com";
+            UptimeMails += ",amot@di.ku.dk";
             emailUptime.destinations = UptimeMails.Split(",".ToCharArray()).ToList();
-            
+            emailUptime.message += "\n";
+            emailUptime.message += "\n";
+            var s = "";
+
+            s += "Tweets gathered for each game, since the gathering started: ";
+            foreach (var GG in SystemManager.instance.OldMainWindowViewModels) {
+                s += "\n" + GG.WindowTitle + " - " + GG.DatabaseSaver.TweetsSavedSinceStart + " tweets";
+                if (GG.DatabaseSaver.TweetsSavedSinceStart == 0) {
+                    s += " - maybe nobody tweeted about this?";
+                }
+                var keywords = GG.KeywordDatabase.GetUsableKeywords();
+                s += "\n\t" + "Keywords: ";
+                for (int i = 0; i < keywords.Count; i++) {
+                    s += keywords[i] + (i < keywords.Count - 1 ? ", " : "");
+                }
+            }
+
+            emailUptime.message += s;
         }
 
         private void SystemManager_OnAddedSystem(object sender, SystemEventArgs e)

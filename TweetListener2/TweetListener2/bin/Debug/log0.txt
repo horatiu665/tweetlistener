@@ -30,3 +30,6 @@
 24-10-2015 14:59:38: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:59:38
 24-10-2015 14:59:39: Searching for #YoshiWoollyWorld OR #YoshisWoollyWorld OR #yoshiwoolyworld OR #yoshiswoolyworld OR #woollyworld OR #woolyworld
 24-10-2015 15:00:47: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 2840
+05-02-2016 15:43:42: New log started
+05-02-2016 15:43:42: Counters off
+05-02-2016 15:43:42: Saved keyword list to Keywords/0farcryprimal_keywords.txt

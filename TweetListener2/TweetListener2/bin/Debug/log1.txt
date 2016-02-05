@@ -11,3 +11,6 @@
 24-10-2015 15:00:31: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 15:00:31
 24-10-2015 15:00:31: Searching for #dbzeb OR #extremebutoden OR #DragonBallZExtremeButoden
 24-10-2015 15:00:43: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 429
+05-02-2016 15:43:42: New log started
+05-02-2016 15:43:42: Counters off
+05-02-2016 15:43:42: Saved keyword list to Keywords/1heavyrain_keywords.txt

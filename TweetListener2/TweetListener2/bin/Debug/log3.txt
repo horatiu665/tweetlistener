@@ -26,3 +26,6 @@
 24-10-2015 14:58:24: Stream attempting to start at time 24-10-2015 14:58:24
 24-10-2015 14:58:24: OnStreamStarted event is called
 24-10-2015 14:58:24: Start of Rest.TweetsGatheringCycle() from 23-07-1993 00:00:00 to 24-10-2015 14:58:24
+05-02-2016 15:43:42: New log started
+05-02-2016 15:43:42: Counters off
+05-02-2016 15:43:42: Saved keyword list to Keywords/3thelegendofzeldatwilightprincesshd_keywords.txt

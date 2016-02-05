@@ -1,0 +1,676 @@
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log0.txt" ^
+/textFileDbPath "rawJsonBackup0.txt" ^ 
+/dbTableName "0farcryprimal" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 0 ^
+/keywords "#farcryprimal, #farcry" ^
+/windowTitle "0farcryprimal" ^
+/restLastDay 07:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log1.txt" ^
+/textFileDbPath "rawJsonBackup1.txt" ^ 
+/dbTableName "1heavyrain" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 1 ^
+/keywords "#heavyrain" ^
+/windowTitle "1heavyrain" ^
+/restLastDay 07:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log2.txt" ^
+/textFileDbPath "rawJsonBackup2.txt" ^ 
+/dbTableName "2thewitchandthehundredknightrevivaledition" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 2 ^
+/keywords "#thewitchandthehundredknight,#majotohyakkihei" ^
+/windowTitle "2thewitchandthehundredknightrevivaledition" ^
+/restLastDay 08:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log3.txt" ^
+/textFileDbPath "rawJsonBackup3.txt" ^ 
+/dbTableName "3thelegendofzeldatwilightprincesshd" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 3 ^
+/keywords "#legendofzeldatwilightprincess, #legendofzelda, #twilightprincess, #twilightprincessHD" ^
+/windowTitle "3thelegendofzeldatwilightprincesshd" ^
+/restLastDay 08:15:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log4.txt" ^
+/textFileDbPath "rawJsonBackup4.txt" ^ 
+/dbTableName "4tomclancysthedivision" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 4 ^
+/keywords "#tomclancysthedivision, #thedivision" ^
+/windowTitle "4tomclancysthedivision" ^
+/restLastDay 08:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log5.txt" ^
+/textFileDbPath "rawJsonBackup5.txt" ^ 
+/dbTableName "5hitmanepisode1intro" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 5 ^
+/keywords "#hitmanepisode1intro, #hitmanepisode1, #hitmanepisodeone" ^
+/windowTitle "5hitmanepisode1intro" ^
+/restLastDay 08:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log6.txt" ^
+/textFileDbPath "rawJsonBackup6.txt" ^ 
+/dbTableName "6easportsufc2" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 6 ^
+/keywords "#easportsufc2, #ufc2,#ultimatefightingchampionship2" ^
+/windowTitle "6easportsufc2" ^
+/restLastDay 09:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log7.txt" ^
+/textFileDbPath "rawJsonBackup7.txt" ^ 
+/dbTableName "7necropolis" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 7 ^
+/keywords "#necropolis,#harebrainedschemes" ^
+/windowTitle "7necropolis" ^
+/restLastDay 09:15:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log8.txt" ^
+/textFileDbPath "rawJsonBackup8.txt" ^ 
+/dbTableName "8mariosonicattherio2016olympicgames" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 8 ^
+/keywords "#marioandsonicrio2016olympicgames, #marioandsonic, #marioolympicgames" ^
+/windowTitle "8mariosonicattherio2016olympicgames" ^
+/restLastDay 09:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log9.txt" ^
+/textFileDbPath "rawJsonBackup9.txt" ^ 
+/dbTableName "9pokkntournament" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 9 ^
+/keywords "#pokkentournament, #pokken" ^
+/windowTitle "9pokkntournament" ^
+/restLastDay 09:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log10.txt" ^
+/textFileDbPath "rawJsonBackup10.txt" ^ 
+/dbTableName "10rpublique" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 10 ^
+/keywords "#republique" ^
+/windowTitle "10rpublique" ^
+/restLastDay 10:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log11.txt" ^
+/textFileDbPath "rawJsonBackup11.txt" ^ 
+/dbTableName "11strangerofswordcity" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 11 ^
+/keywords "#strangerofswordcity, #swordcity" ^
+/windowTitle "11strangerofswordcity" ^
+/restLastDay 10:15:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log12.txt" ^
+/textFileDbPath "rawJsonBackup12.txt" ^ 
+/dbTableName "12deadoralivextreme3" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 12 ^
+/keywords "#deadoralivextreme3, #deadoraliveextreme, #deadoralive" ^
+/windowTitle "12deadoralivextreme3" ^
+/restLastDay 10:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log13.txt" ^
+/textFileDbPath "rawJsonBackup13.txt" ^ 
+/dbTableName "13killerinstinctseason3" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 13 ^
+/keywords "#killerinstinctseason3, #killerinstinct, #killerinstinct3" ^
+/windowTitle "13killerinstinctseason3" ^
+/restLastDay 10:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log14.txt" ^
+/textFileDbPath "rawJsonBackup14.txt" ^ 
+/dbTableName "14slain" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 14 ^
+/keywords "#slain!, #slain" ^
+/windowTitle "14slain" ^
+/restLastDay 11:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log15.txt" ^
+/textFileDbPath "rawJsonBackup15.txt" ^ 
+/dbTableName "15hyrulewarriorslegends" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 15 ^
+/keywords "#hyrulewarriorslegends, #hyrulewarriors, #hyrulelegends" ^
+/windowTitle "15hyrulewarriorslegends" ^
+/restLastDay 11:15:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log16.txt" ^
+/textFileDbPath "rawJsonBackup16.txt" ^ 
+/dbTableName "16adrift" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 16 ^
+/keywords "#adrift,#adr1ft" ^
+/windowTitle "16adrift" ^
+/restLastDay 11:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log17.txt" ^
+/textFileDbPath "rawJsonBackup17.txt" ^ 
+/dbTableName "17chronos" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 17 ^
+/keywords "#chronos" ^
+/windowTitle "17chronos" ^
+/restLastDay 11:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log18.txt" ^
+/textFileDbPath "rawJsonBackup18.txt" ^ 
+/dbTableName "18edgeofnowhere" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 18 ^
+/keywords "#edgeofnowhere" ^
+/windowTitle "18edgeofnowhere" ^
+/restLastDay 12:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log19.txt" ^
+/textFileDbPath "rawJsonBackup19.txt" ^ 
+/dbTableName "19evevalkyrie" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 19 ^
+/keywords "#evevalkyrie" ^
+/windowTitle "19evevalkyrie" ^
+/restLastDay 12:15:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log20.txt" ^
+/textFileDbPath "rawJsonBackup20.txt" ^ 
+/dbTableName "20mlb16theshow" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 20 ^
+/keywords "#mlb16theshow, #mlb16show" ^
+/windowTitle "20mlb16theshow" ^
+/restLastDay 12:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log21.txt" ^
+/textFileDbPath "rawJsonBackup21.txt" ^ 
+/dbTableName "21nightsofazure" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 21 ^
+/keywords "#nightsofazure" ^
+/windowTitle "21nightsofazure" ^
+/restLastDay 12:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log22.txt" ^
+/textFileDbPath "rawJsonBackup22.txt" ^ 
+/dbTableName "22staroceanintegrityandfaithlessness" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 22 ^
+/keywords "#staroceanintegrityandfaithlessness, #integrityandfaithlessness" ^
+/windowTitle "22staroceanintegrityandfaithlessness" ^
+/restLastDay 13:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log23.txt" ^
+/textFileDbPath "rawJsonBackup23.txt" ^ 
+/dbTableName "23battlefleetgothicarmada" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 23 ^
+/keywords "#battlefleetgothicarmada, #battlefleetarmada, #battlefleetgothic" ^
+/windowTitle "23battlefleetgothicarmada" ^
+/restLastDay 13:15:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log24.txt" ^
+/textFileDbPath "rawJsonBackup24.txt" ^ 
+/dbTableName "24crossingsouls" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 24 ^
+/keywords "#crossingsouls" ^
+/windowTitle "24crossingsouls" ^
+/restLastDay 13:30:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log25.txt" ^
+/textFileDbPath "rawJsonBackup25.txt" ^ 
+/dbTableName "25starsbeyondreach" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 25 ^
+/keywords "#starsbeyondreach,#arcengames" ^
+/windowTitle "25starsbeyondreach" ^
+/restLastDay 13:45:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+start ^
+/phpPostPath "http://localhost/hhh/tweetlistenerweb/php/saveJson.php" ^
+/logPath "log26.txt" ^
+/textFileDbPath "rawJsonBackup26.txt" ^ 
+/dbTableName "26dayofthetentacleremastered" ^
+/dbDestination "mysql" ^
+/dbConnectionStr "server=localhost;userid=root;password=1234;database=twitter" ^
+/saveToDatabase 1 ^
+/saveToTextFile 1 ^
+/saveToRam 0 ^
+/outputEventCounters 0 ^
+/outputDatabaseMessages 0 ^
+/logEveryJson 0 ^
+/emailDisco 06:00:00 ^
+/emailConnected 23:59:59 ^
+/onlyEnglish 1 ^
+/onlyWithHashtags 0 ^
+/credentials 26 ^
+/keywords "#dayofthetentacleremastered, #dayofthetentacle" ^
+/windowTitle "26dayofthetentacleremastered" ^
+/restLastDay 14:00:00 ^
+/firstRestSinceDate 7 days ago ^
+/startStream 0
+
+
+0farcryprimal
+1heavyrain
+2thewitchandthehundredknightrevivaledition
+3thelegendofzeldatwilightprincesshd
+4tomclancysthedivision
+5hitmanepisode1intro
+6easportsufc2
+7necropolis
+8mariosonicattherio2016olympicgames
+9pokkntournament
+10rpublique
+11strangerofswordcity
+12deadoralivextreme3
+13killerinstinctseason3
+14slain
+15hyrulewarriorslegends
+16adrift
+17chronos
+18edgeofnowhere
+19evevalkyrie
+20mlb16theshow
+21nightsofazure
+22staroceanintegrityandfaithlessness
+23battlefleetgothicarmada
+24crossingsouls
+25starsbeyondreach
+26dayofthetentacleremastered

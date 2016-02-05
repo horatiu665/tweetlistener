@@ -1,0 +1,4 @@
+#legendofzeldatwilightprincess,1
+#legendofzelda,1
+#twilightprincess,1
+#twilightprincessHD,1

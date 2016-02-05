@@ -26,8 +26,8 @@ namespace TweetListener2.Systems
         {
             this.destinations.AddRange(destinations);
 
-            var tomorrowAt7am = DateTime.Now;
-            tomorrowAt7am = tomorrowAt7am.AddSeconds(60 - tomorrowAt7am.Second).AddMinutes(60 - tomorrowAt7am.Minute).AddHours(24 - tomorrowAt7am.Hour + 7);
+            var tomorrowAt7am = DateTime.Now.AddSeconds(60 - DateTime.Now.Second).AddMinutes(60 - DateTime.Now.Minute).AddHours(24 - DateTime.Now.Hour + 7);
+            //var tomorrowAt7am = DateTime.Now.AddSeconds(5);
 
             emailTimer.Interval = tomorrowAt7am.Subtract(DateTime.Now).TotalMilliseconds;
 

@@ -1,0 +1,2 @@
+#farcryprimal,1
+#farcry,1
