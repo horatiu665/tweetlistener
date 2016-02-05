@@ -33,10 +33,10 @@ namespace TweetListener2.ViewModels
             }
         }
 
-        public KeywordDatabaseViewModel(LogViewModel log)
+        public KeywordDatabaseViewModel(LogViewModel log, DatabaseViewModel db)
 		{
 			// create new model
-			KeywordDatabase = new KeywordDatabase(log.Log);
+			KeywordDatabase = new KeywordDatabase(log.Log, db.Database);
 		}
 
     }

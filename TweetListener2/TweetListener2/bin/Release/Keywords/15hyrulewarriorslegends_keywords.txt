@@ -1,0 +1,3 @@
+#hyrulewarriorslegends,1
+#hyrulewarriors,1
+#hyrulelegends,1

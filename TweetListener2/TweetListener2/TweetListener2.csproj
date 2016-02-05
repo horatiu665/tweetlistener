@@ -165,6 +165,7 @@
     <Compile Include="Systems\KeywordDatabase.cs" />
     <Compile Include="Systems\LanguageModel.cs" />
     <Compile Include="Systems\Log.cs" />
+    <Compile Include="Systems\MailHelperUptime.cs" />
     <Compile Include="Systems\MailHelper.cs" />
     <Compile Include="Systems\MailHelperBase.cs" />
     <Compile Include="Systems\PorterStemmer.cs" />

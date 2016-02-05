@@ -100,8 +100,8 @@ namespace TweetListener2.ViewModels
 
             Log = new Log();
             Credentials = new Credentials(Log);
-            KeywordDatabase = new KeywordDatabase(Log);
             DatabaseSaver = new DatabaseSaver(Log);
+            KeywordDatabase = new KeywordDatabase(Log, DatabaseSaver);
             TweetDatabase = new TweetDatabase(DatabaseSaver);
             Rest = new Rest(DatabaseSaver, Log, TweetDatabase, Credentials);
             Stream = new Stream(DatabaseSaver, Log, Rest, KeywordDatabase, TweetDatabase, Credentials);
@@ -323,6 +323,9 @@ namespace TweetListener2.ViewModels
 
             RestLastDayTimerSetup();
             AutoExpansionTimerSetup();
+
+            KeywordDatabase.LoadFromTextFile();
+            KeywordDatabase.SaveToTextFile();
         }
 
         void RestLastDayTimerSetup()

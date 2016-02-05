@@ -3101,4 +3101,10 @@ ySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
    at MySql.Data.MySqlClient.MySqlPool.TryToGetDriver()
    at MySql.Data.MySqlClient.MySqlPool.GetConnection()
    at MySql.Data.MySqlClient.MySqlConnection.Open()
-   at TweetListener2.Systems.Database.SaveToMySQL(ITweet 
+   at TweetListener2.Systems.Database.SaveToMySQL(ITweet 05-02-2016 13:40:27: New log started
+05-02-2016 13:40:27: Counters off
+05-02-2016 13:40:27: KeywordDatabase.LoadFromTextFile(): File at Keywords/9pokkntournament_keywords.txt does not exist, no keywords were loaded
+05-02-2016 13:40:27: Saved keyword list to Keywords/9pokkntournament_keywords.txt
+05-02-2016 13:49:55: New log started
+05-02-2016 13:49:55: Counters off
+05-02-2016 13:49:55: Saved keyword list to Keywords/9pokkntournament_keywords.txt

@@ -147,3 +147,10 @@
 05-02-2016 11:22:12: Rest Gathering: CPU performance: 80.41722.  waiting for it to cool down below 50 to continue
 05-02-2016 11:22:12: Rest Gathering: CPU performance: 66.41195.  waiting for it to cool down below 50 to continue
 05-02-2016 11:22:13: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 4
+05-02-2016 13:40:28: New log started
+05-02-2016 13:40:28: Counters off
+05-02-2016 13:40:28: KeywordDatabase.LoadFromTextFile(): File at Keywords/22staroceanintegrityandfaithlessness_keywords.txt does not exist, no keywords were loaded
+05-02-2016 13:40:28: Saved keyword list to Keywords/22staroceanintegrityandfaithlessness_keywords.txt
+05-02-2016 13:49:55: New log started
+05-02-2016 13:49:55: Counters off
+05-02-2016 13:49:55: Saved keyword list to Keywords/22staroceanintegrityandfaithlessness_keywords.txt

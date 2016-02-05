@@ -3646,4 +3646,10 @@ ySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
    at MySql.Data.MySqlClient.MySqlStream.ReadPacket()
    at MySql.Data.MySqlClient.NativeDriver.ReadPacket()
    at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.ReadPacket()
-   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)
+   at MySql.Data.MySqlClient.Authentication.MySqlAuthenticationPlugin.AuthenticationFailed(Exception ex)05-02-2016 13:40:27: New log started
+05-02-2016 13:40:27: Counters off
+05-02-2016 13:40:27: KeywordDatabase.LoadFromTextFile(): File at Keywords/10rpublique_keywords.txt does not exist, no keywords were loaded
+05-02-2016 13:40:27: Saved keyword list to Keywords/10rpublique_keywords.txt
+05-02-2016 13:49:55: New log started
+05-02-2016 13:49:55: Counters off
+05-02-2016 13:49:55: Saved keyword list to Keywords/10rpublique_keywords.txt

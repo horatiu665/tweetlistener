@@ -758,6 +758,7 @@ namespace TweetListener2.Views
 
                 App.Current.Dispatcher.Invoke(() => {
                     vm.KeywordDatabase.KeywordList.Add(newKeywordData);
+                    vm.KeywordDatabase.SaveToTextFile();
 
                     SetKeywordListColumnHeaders();
 
@@ -818,7 +819,7 @@ namespace TweetListener2.Views
             if (!vm.QueryExpansion.Expanding) {
                 Task.Factory.StartNew(() => {
                     vm.QueryExpansion.ExpandEfron(vm.KeywordDatabase.KeywordList, vm.TweetDatabase.GetAllTweets());
-                    
+
                 });
             } else {
                 var m = MessageBox.Show("Expansion running. Cancel current expansion?", "wait what?", MessageBoxButton.YesNo);

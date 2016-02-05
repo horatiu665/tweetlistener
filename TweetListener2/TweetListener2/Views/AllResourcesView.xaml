@@ -36,6 +36,15 @@
 
             <!--<Button Content="Create new TweetListener" Height="30" DockPanel.Dock="Top" Click="AddNewTweetListener_Click"/>-->
 
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Uptime Mails">
+                    <Label.ToolTip>
+                        A mail will be sent to these addresses at 7am every day, to inform about the progress of data gathering and of the uptime of the machine.
+                    </Label.ToolTip>
+                </Label>
+                <TextBox Text="{Binding UptimeMails}"></TextBox>
+            </DockPanel>
+            
             <Button Content="Create fresh old TweetListener" Height="30" DockPanel.Dock="Top" Click="AddOldTweetListener_Click"/>
 
             <Button Content="Create old TweetListeners from Batch" Height="30" DockPanel.Dock="Top" Click="CreateOldTweetListenerBatch_Click"/>

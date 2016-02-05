@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace TweetListener2.Systems
     public class KeywordDatabase
     {
         Log log;
+        Database database;
 
         public bool ContinuousUpdate { get; set; }
 
@@ -18,9 +20,10 @@ namespace TweetListener2.Systems
             return keywordList.Where(kd => kd.UseKeyword).Select(kd => kd.Keyword).ToList();
         }
 
-        public KeywordDatabase(Log log)
+        public KeywordDatabase(Log log, Database database)
         {
             this.Log = log;
+            this.Database = database;
 
             //keywordList.CollectionChanged += (s, a) => {
             //	if (keywordList != null) {
@@ -57,6 +60,56 @@ namespace TweetListener2.Systems
             set
             {
                 log = value;
+            }
+        }
+
+        public Database Database
+        {
+            get
+            {
+                return database;
+            }
+
+            set
+            {
+                database = value;
+            }
+        }
+
+        public void SaveToTextFile()
+        {
+            var path = "Keywords/" + database.DatabaseTableName + "_keywords.txt";
+            Directory.CreateDirectory("Keywords");
+
+            StreamWriter sw = new StreamWriter(path, false);
+            for (int i = 0; i < keywordList.Count; i++) {
+                var s = keywordList[i].Keyword + "," + (keywordList[i].UseKeyword ? "1" : "0");
+
+                sw.WriteLine(s);
+            }
+            sw.Close();
+
+            Log.Output("Saved keyword list to " + path);
+
+        }
+
+        public void LoadFromTextFile()
+        {
+            var path = "Keywords/" + database.DatabaseTableName + "_keywords.txt";
+            if (File.Exists(path)) {
+                StreamReader sr = new StreamReader(path);
+                string s;
+                while (!sr.EndOfStream) {
+                    s = sr.ReadLine();
+                    var sData = s.Split(",".ToCharArray());
+                    if (!KeywordList.Any(kd => kd.Keyword == sData[0])) {
+                        keywordList.Add(new KeywordData(sData[0], 0));
+                        keywordList.Last().UseKeyword = (sData[1] == "1");
+                    }
+                }
+                sr.Close();
+            } else {
+                Log.Output("KeywordDatabase.LoadFromTextFile(): File at " + path + " does not exist, no keywords were loaded");
             }
         }
 
@@ -102,6 +155,7 @@ namespace TweetListener2.Systems
                     k.LanguageModel = null;
                 }
             }
+            
         }
 
 

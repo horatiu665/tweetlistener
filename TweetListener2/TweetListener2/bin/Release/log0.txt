@@ -47,3 +47,12 @@
    at MySql.Data.MySqlClient.MySqlPool.GetConnection()
    at MySql.Data.MySqlClient.MySqlConnection.Open()
    at TweetListener2.Systems.Database.SaveToMySQL(ITweet tweet, String tableName) in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Database.cs:line 419
+05-02-2016 13:40:27: New log started
+05-02-2016 13:40:27: Counters off
+05-02-2016 13:40:27: KeywordDatabase.LoadFromTextFile(): File at Keywords/0farcryprimal_keywords.txt does not exist, no keywords were loaded
+05-02-2016 13:40:27: Saved keyword list to Keywords/0farcryprimal_keywords.txt
+05-02-2016 13:49:54: New log started
+05-02-2016 13:49:55: Counters off
+05-02-2016 13:49:55: Saved keyword list to Keywords/0farcryprimal_keywords.txt
+05-02-2016 13:50:10: Saved keyword list to Keywords/0farcryprimal_keywords.txt
+05-02-2016 13:50:20: Saved keyword list to Keywords/0farcryprimal_keywords.txt

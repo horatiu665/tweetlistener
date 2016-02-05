@@ -13,3 +13,10 @@
    at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
    at TweetListener2.Systems.Rest.<>c__DisplayClass44_0.<<TweetsGatheringCycle>b__0>d.MoveNext() in C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\Systems\Rest.cs:line 338
 05-02-2016 11:21:32: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+05-02-2016 13:40:28: New log started
+05-02-2016 13:40:28: Counters off
+05-02-2016 13:40:28: KeywordDatabase.LoadFromTextFile(): File at Keywords/25starsbeyondreach_keywords.txt does not exist, no keywords were loaded
+05-02-2016 13:40:28: Saved keyword list to Keywords/25starsbeyondreach_keywords.txt
+05-02-2016 13:49:55: New log started
+05-02-2016 13:49:55: Counters off
+05-02-2016 13:49:55: Saved keyword list to Keywords/25starsbeyondreach_keywords.txt

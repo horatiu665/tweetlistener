@@ -41,6 +41,8 @@ namespace TweetListener2.ViewModels
             }
         }
 
+        private MailHelperUptime emailUptime;
+
         internal void SortResourceList_Click(object sender, RoutedEventArgs e)
         {
             var sortedList = new List<ResourceListItem>(resourceList.OrderBy(rli => rli.Name));
@@ -94,6 +96,8 @@ namespace TweetListener2.ViewModels
             SystemManager.instance.Add(new OldMainWindowViewModel());
         }
 
+        public string UptimeMails { get; set; }
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -101,6 +105,12 @@ namespace TweetListener2.ViewModels
         {
             SystemManager.instance.OnAddedSystem += SystemManager_OnAddedSystem;
             CreateTweetListenersFromFile("StartupBatch.txt");
+
+            // send mails
+            emailUptime = new MailHelperUptime();
+            UptimeMails = "horatiu665@yahoo.com, amot@di.ku.dk";
+            emailUptime.destinations = UptimeMails.Split(",".ToCharArray()).ToList();
+            
         }
 
         private void SystemManager_OnAddedSystem(object sender, SystemEventArgs e)
@@ -167,11 +177,11 @@ namespace TweetListener2.ViewModels
             var credentials = new CredentialsViewModel(log);
             sysMan.Add(credentials);
 
-            var keywordDatabase = new KeywordDatabaseViewModel(log);
-            sysMan.Add(keywordDatabase);
-
             var database = new DatabaseViewModel(log);
             sysMan.Add(database);
+
+            var keywordDatabase = new KeywordDatabaseViewModel(log, database);
+            sysMan.Add(keywordDatabase);
 
             var tweetDatabase = new TweetDatabaseViewModel(database);
             sysMan.Add(tweetDatabase);
