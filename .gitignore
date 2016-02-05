@@ -1,3 +1,5 @@
 credentials.ini
-*log*.txt
-*rawJsonBackup*.txt
+TweetListener2/TweetListener2/bin/Release/log*.txt
+TweetListener2/TweetListener2/bin/Release/rawJsonBackup*.txt
+TweetListener2/TweetListener2/bin/Debug/log*.txt
+TweetListener2/TweetListener2/bin/Debug/rawJsonBackup*.txt
