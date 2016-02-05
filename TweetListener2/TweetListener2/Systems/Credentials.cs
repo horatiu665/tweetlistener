@@ -95,11 +95,11 @@ namespace TweetListener2.Systems
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public void ReadCredentialsDefaults(string path = "config.ini")
+        public void ReadCredentialsDefaults(string path = "credentials.ini")
         {
-            if (File.Exists("config.ini")) {
+            if (File.Exists(path)) {
                 try {
-                    var jsonRead = JArray.Parse(File.ReadAllText("config.ini"));
+                    var jsonRead = JArray.Parse(File.ReadAllText(path));
                     // jsonRead should contain an array of credential objects
                     #region // format for credentials
                     /*
