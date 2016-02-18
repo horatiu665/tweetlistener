@@ -113,3 +113,4 @@ C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetLis
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\OldMainWindow.baml
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\OldMainWindowQuickView.g.cs
 C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\Views\OldMainWindowQuickView.baml
+C:\Users\horatiu665\Documents\Visual Studio 2012\Projects\tweetlistener\TweetListener2\TweetListener2\obj\Debug\TweetListener2.csprojResolveAssemblyReference.cache

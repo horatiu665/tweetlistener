@@ -6,3 +6,9 @@
 05-02-2016 15:43:43: New log started
 05-02-2016 15:43:43: Counters off
 05-02-2016 15:43:43: Saved keyword list to Keywords/23battlefleetgothicarmada_keywords.txt
+18-02-2016 11:46:41: New log started
+18-02-2016 11:46:41: Counters off
+18-02-2016 11:46:41: Saved keyword list to Keywords/23battlefleetgothicarmada_keywords.txt
+18-02-2016 11:48:17: New log started
+18-02-2016 11:48:17: Counters off
+18-02-2016 11:48:17: Saved keyword list to Keywords/23battlefleetgothicarmada_keywords.txt

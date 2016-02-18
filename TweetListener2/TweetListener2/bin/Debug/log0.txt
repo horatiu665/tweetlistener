@@ -33,3 +33,111 @@
 05-02-2016 15:43:42: New log started
 05-02-2016 15:43:42: Counters off
 05-02-2016 15:43:42: Saved keyword list to Keywords/0farcryprimal_keywords.txt
+18-02-2016 11:48:16: New log started
+18-02-2016 11:48:16: Counters off
+18-02-2016 11:48:16: Saved keyword list to Keywords/0farcryprimal_keywords.txt
+18-02-2016 11:48:24: Counters on
+18-02-2016 11:48:29: Counters off
+18-02-2016 11:48:29: Counters on
+18-02-2016 11:48:30: Counters off
+18-02-2016 11:48:44: Stream attempting to start at time 18-02-2016 11:48:44
+18-02-2016 11:48:45: OnStreamStarted event is called
+18-02-2016 11:48:45: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
+18-02-2016 11:48:45: Searching for #farcryprimal OR #farcry
+18-02-2016 11:48:47: StartStreamAsync() finally over!
+18-02-2016 11:48:48: End of Rest.TweetsGatheringCycle(), by natural causes. Tweets found: 0
+18-02-2016 11:49:13: Stream attempting to start at time 18-02-2016 11:49:13
+18-02-2016 11:49:13: OnStreamStarted event is called
+18-02-2016 11:49:13: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
+18-02-2016 11:49:13: Searching for #farcryprimal OR #farcry
+18-02-2016 11:49:13: Stream ran for the duration: 00:00:00.0781086
+Tweets found since stream last started: 0
+Tweets deleted since stream last started (they are still saved): 0
+18-02-2016 11:49:13: Waiting for REST limits, only 00:15:00 until 18-02-2016 12:04:13
+18-02-2016 11:49:13: Stream disconnected.
+18-02-2016 11:49:13: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+18-02-2016 11:49:13: StartStreamAsync() finally over!
+18-02-2016 11:49:17: Stream attempting to start at time 18-02-2016 11:49:17
+18-02-2016 11:49:17: OnStreamStarted event is called
+18-02-2016 11:49:17: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
+18-02-2016 11:49:17: Searching for #farcryprimal OR #farcry
+18-02-2016 11:49:18: Stream ran for the duration: 00:00:00.0624996
+Tweets found since stream last started: 0
+Tweets deleted since stream last started (they are still saved): 0
+18-02-2016 11:49:18: Waiting for REST limits, only 00:15:00 until 18-02-2016 12:04:18
+18-02-2016 11:49:18: Stream disconnected.
+18-02-2016 11:49:18: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+18-02-2016 11:49:18: StartStreamAsync() finally over!
+18-02-2016 11:49:21: Stream ran for the duration: 00:00:03.3260341
+Tweets found since stream last started: 0
+Tweets deleted since stream last started (they are still saved): 0
+18-02-2016 11:49:21: Stream disconnected.
+18-02-2016 11:49:21: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Tweetinvi.Streams.StreamTask.CreateStreamReaderFromWebRequest(WebRequest webRequest)
+---> (Inner Exception #0) System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()<---
+
+18-02-2016 11:49:26: Stream attempting to start at time 18-02-2016 11:49:26
+18-02-2016 11:49:26: OnStreamStarted event is called
+18-02-2016 11:49:26: Start of Rest.TweetsGatheringCycle() between Tweet IDs -9223372036854775808 and 9223372036854775807 (and yes, untilId > sinceId)
+18-02-2016 11:49:26: Searching for #farcryprimal OR #farcry
+18-02-2016 11:49:26: Stream ran for the duration: 00:00:00.0468754
+Tweets found since stream last started: 0
+Tweets deleted since stream last started (they are still saved): 0
+18-02-2016 11:49:26: Stream disconnected.
+18-02-2016 11:49:26: Waiting for REST limits, only 00:15:00 until 18-02-2016 12:04:26
+18-02-2016 11:49:26: Exception: System.AggregateException: One or more errors occurred. ---> System.Net.WebException: The remote name could not be resolved: 'stream.twitter.com'
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccess(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at Microsoft.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Tweetinvi.WebLogic.WebHelper.<GetResponseStreamAsync>d__8.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional

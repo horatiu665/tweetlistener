@@ -46,7 +46,7 @@
                                                 <DataGridTemplateColumn Header="Time">
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <TextBlock Text="{Binding Time}"  TextWrapping="Wrap"/>
+                                                            <TextBlock Text="{Binding Time, Mode=OneWay}"  TextWrapping="Wrap"/>
                                                         </DataTemplate>
                                                     </DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
@@ -54,7 +54,7 @@
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
                                                             <ScrollViewer MaxHeight="300" >
-                                                                <TextBlock Text="{Binding Message}"  TextWrapping="Wrap" />
+                                                                <TextBox Text="{Binding Message, Mode=OneWay}" TextWrapping="Wrap" IsReadOnly="True" />
                                                             </ScrollViewer>
                                                         </DataTemplate>
                                                     </DataGridTemplateColumn.CellTemplate>

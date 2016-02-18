@@ -528,7 +528,13 @@ namespace TweetListener2.Systems
         {
             Credentials.SetCurrentCredentialsForThread();
             if (Auth.Credentials != null) {
-                return (await RateLimitAsync.GetCredentialsRateLimits(Credentials.GetCurrentCredentials())).SearchTweetsLimit;
+                var curCreds = Credentials.GetCurrentCredentials();
+                if (curCreds != null) {
+                    var credsRL = await RateLimitAsync.GetCredentialsRateLimits(curCreds);
+                    if (credsRL != null) {
+                        return credsRL.SearchTweetsLimit;
+                    }
+                }
             }
             return null;
         }

@@ -29,3 +29,6 @@
 05-02-2016 15:43:42: New log started
 05-02-2016 15:43:42: Counters off
 05-02-2016 15:43:42: Saved keyword list to Keywords/3thelegendofzeldatwilightprincesshd_keywords.txt
+18-02-2016 11:48:16: New log started
+18-02-2016 11:48:16: Counters off
+18-02-2016 11:48:16: Saved keyword list to Keywords/3thelegendofzeldatwilightprincesshd_keywords.txt
