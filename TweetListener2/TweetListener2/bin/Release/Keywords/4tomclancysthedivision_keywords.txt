@@ -1,2 +1,5 @@
 #tomclancysthedivision,1
 #thedivision,1
+#twitchthedivision,1
+#thedivisionplayon,1
+#thedivisiongameplay,1

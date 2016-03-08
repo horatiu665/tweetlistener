@@ -1,2 +1,5 @@
 #farcryprimal,1
 #farcry,1
+#farcryprimal2016,1
+#fcprimal,1
+#sgfarcry,1

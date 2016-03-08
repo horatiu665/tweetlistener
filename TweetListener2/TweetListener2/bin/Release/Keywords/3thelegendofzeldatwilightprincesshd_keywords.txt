@@ -2,3 +2,6 @@
 #legendofzelda,1
 #twilightprincess,1
 #twilightprincessHD,1
+#zeldagames,1
+#zeldanintendo,1
+#zelda,1

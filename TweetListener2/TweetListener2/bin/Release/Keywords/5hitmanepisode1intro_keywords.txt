@@ -1,3 +1,5 @@
 #hitmanepisode1intro,1
 #hitmanepisode1,1
 #hitmanepisodeone,1
+#hitman,1
+#hitman2016,1

@@ -1,3 +1,4 @@
 #easportsufc2,1
 #ufc2,1
 #ultimatefightingchampionship2,1
+#ufc2beta,1
