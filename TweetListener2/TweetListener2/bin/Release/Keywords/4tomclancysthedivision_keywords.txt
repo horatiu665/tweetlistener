@@ -3,3 +3,6 @@
 #twitchthedivision,1
 #thedivisionplayon,1
 #thedivisiongameplay,1
+#tomclancysdivision,1
+#division,1
+#divisiongame,1

@@ -3,3 +3,4 @@
 #hitmanepisodeone,1
 #hitman,1
 #hitman2016,1
+#hitmanbeta,1

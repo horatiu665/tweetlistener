@@ -2,3 +2,4 @@
 #ufc2,1
 #ultimatefightingchampionship2,1
 #ufc2beta,1
+#eaufc2,1

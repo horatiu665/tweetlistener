@@ -3,3 +3,5 @@
 #farcryprimal2016,1
 #fcprimal,1
 #sgfarcry,1
+#farcrygame,1
+#farcryps4,1

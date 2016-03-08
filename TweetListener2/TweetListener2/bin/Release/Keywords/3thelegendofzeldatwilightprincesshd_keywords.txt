@@ -5,3 +5,5 @@
 #zeldagames,1
 #zeldanintendo,1
 #zelda,1
+#zeldatwilightprincess,0
+#tphd,1
