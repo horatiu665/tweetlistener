@@ -5,5 +5,8 @@
 #zeldagames,1
 #zeldanintendo,1
 #zelda,1
-#zeldatwilightprincess,0
+#zeldatwilightprincess,1
 #tphd,1
+#thelegendofzeldatwilightprincesshd,1
+#legendofzeldacosplayer,1
+#zeldacosplay,1

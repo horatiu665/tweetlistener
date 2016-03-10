@@ -4,3 +4,5 @@
 #hitman,1
 #hitman2016,1
 #hitmanbeta,1
+#hitmanabsolution,1
+#hitmangame,1
