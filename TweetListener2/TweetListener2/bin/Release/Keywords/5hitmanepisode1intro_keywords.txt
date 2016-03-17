@@ -6,3 +6,4 @@
 #hitmanbeta,1
 #hitmanabsolution,1
 #hitmangame,1
+#hitmanps4,1

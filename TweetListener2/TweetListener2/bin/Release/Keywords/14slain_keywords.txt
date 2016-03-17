@@ -1,2 +1,3 @@
 #slain!,1
 #slain,1
+#slaingame,1
