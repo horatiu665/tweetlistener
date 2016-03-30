@@ -1,2 +1,3 @@
 #pokkentournament,1
 #pokken,1
+#pokkéntournament,1

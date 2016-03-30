@@ -3,3 +3,5 @@
 #ultimatefightingchampionship2,1
 #ufc2beta,1
 #eaufc2,1
+#eaufc,1
+#easportsufc ,1
