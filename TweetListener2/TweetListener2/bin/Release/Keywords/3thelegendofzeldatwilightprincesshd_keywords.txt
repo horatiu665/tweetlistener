@@ -11,3 +11,5 @@
 #legendofzeldacosplayer,1
 #zeldacosplay,1
 #legendofzeldaocarinaoftime,1
+#theleyendofzelda,1
+#legendofzeldacosplay,1
